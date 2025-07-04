@@ -1,8 +1,10 @@
 import type { Preview } from '@storybook/react'
-import '@govbr-ds/core/dist/core.css'
+import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core-tokens.min.css'
+
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 
-const theme = createTheme() // 🔥 MUI theme default
+const theme = createTheme()
 
 const preview: Preview = {
   parameters: {
