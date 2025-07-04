@@ -40,3 +40,5 @@ Desktop.ini
 
 # Others
 *.tgz
+
+*storybook.log
