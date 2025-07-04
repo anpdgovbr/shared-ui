@@ -47,10 +47,10 @@ npm link
 ### 2️⃣ Importe no seu projeto React / Next.js
 
 ```tsx
-import { GovBRAvatar } from "anpd-shared-ui";
+import { GovBRAvatar } from 'anpd-shared-ui'
 
 export function Example() {
-  return <GovBRAvatar />;
+  return <GovBRAvatar />
 }
 ```
 

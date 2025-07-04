@@ -10,18 +10,18 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/
-      }
-    }
+        date: /Date$/,
+      },
+    },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Story />
       </ThemeProvider>
-    )
-  ]
+    ),
+  ],
 }
 
 export default preview

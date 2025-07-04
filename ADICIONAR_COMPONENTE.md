@@ -43,15 +43,8 @@ export interface MyButtonProps extends SharedUIComponentProps {
 - Sempre mantenha o `strictGovBr` controlando classes/styles padrão do govbr-ds.
 
 ```tsx
-export const MyButton: React.FC<MyButtonProps> = ({
-  label,
-  strictGovBr = false
-}) => {
-  return (
-    <button className={strictGovBr ? 'br-button' : 'br-button custom'}>
-      {label}
-    </button>
-  )
+export const MyButton: React.FC<MyButtonProps> = ({ label, strictGovBr = false }) => {
+  return <button className={strictGovBr ? 'br-button' : 'br-button custom'}>{label}</button>
 }
 ```
 
@@ -77,16 +70,16 @@ import { MyButton } from '@/components/MyButton/MyButton'
 
 const meta: Meta<typeof MyButton> = {
   title: 'Components/MyButton',
-  component: MyButton
+  component: MyButton,
 }
 export default meta
 
 export const Default: StoryObj<typeof MyButton> = {
-  args: { label: 'Clique aqui', strictGovBr: false }
+  args: { label: 'Clique aqui', strictGovBr: false },
 }
 
 export const StrictGovBr: StoryObj<typeof MyButton> = {
-  args: { label: 'Clique aqui', strictGovBr: true }
+  args: { label: 'Clique aqui', strictGovBr: true },
 }
 ```
 

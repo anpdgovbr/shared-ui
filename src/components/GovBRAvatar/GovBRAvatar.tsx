@@ -8,7 +8,7 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
   avatarSize = 40,
   textMaxWidth = 300,
   className = '',
-  strictGovBr = false
+  strictGovBr = false,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -48,7 +48,7 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
               style={{
                 width: strictGovBr ? '40px' : `${avatarSize}px`,
                 height: strictGovBr ? '40px' : `${avatarSize}px`,
-                borderRadius: '50%'
+                borderRadius: '50%',
               }}
             />
           </span>
@@ -66,11 +66,10 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             maxWidth: strictGovBr ? '300px' : `${textMaxWidth}px`,
-            marginLeft: '8px'
+            marginLeft: '8px',
           }}
         >
-          Olá,{' '}
-          <span style={{ fontWeight: 600 }}>{user?.name || 'Usuário'}</span>
+          Olá, <span style={{ fontWeight: 600 }}>{user?.name || 'Usuário'}</span>
         </span>
         <span style={{ marginLeft: '4px' }}>{menuOpen ? '▲' : '▼'}</span>
       </button>
@@ -84,10 +83,10 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
           top: '100%',
           zIndex: 1000,
           width: '240px',
-          marginTop: '0px'
+          marginTop: '0px',
         }}
       >
-        {menuItems.map((item) => (
+        {menuItems.map(item => (
           <button
             key={item.label}
             className="br-item"
@@ -96,7 +95,7 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
             style={{
               width: '100%',
               textAlign: 'left',
-              justifyContent: 'flex-start'
+              justifyContent: 'flex-start',
             }}
           >
             {item.label}
