@@ -4,6 +4,9 @@ import { GovBRAvatar } from './GovBRAvatar.js'
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'Components/GovBRAvatar',
   component: GovBRAvatar,
+  parameters: {
+    layout: 'centered',
+  },
 }
 export default meta
 
@@ -23,12 +26,12 @@ export const StrictGovBr: Story = {
 
 export const Customizable: Story = {
   args: {
-    user: { name: 'Luciano', image: 'https://placekitten.com/80/80' },
+    user: { name: 'Luciano', image: 'https://www.gravatar.com/avatar/?d=identicon&s=80' },
     menuItems: [
       { label: 'Perfil', href: '/perfil' },
       { label: 'Logout', href: '/logout' },
     ],
-    avatarSize: 60,
+    avatarSize: 40,
     textMaxWidth: 150,
     className: 'custom-shadow',
     onNavigate: href => console.log('Goto', href),
