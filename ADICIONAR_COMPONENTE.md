@@ -1,6 +1,6 @@
-# Checklist para criação de novos componentes no projeto `anpd-shared-ui`
+# Checklist para criação de novos componentes no projeto `@anpdgovbr/shared-ui`
 
-Este documento serve como guia passo a passo para os estagiários adicionarem **novos componentes** à biblioteca `anpd-shared-ui`.
+Este documento serve como guia passo a passo para os estagiários adicionarem **novos componentes** à biblioteca `@anpdgovbr/shared-ui`.
 
 ---
 

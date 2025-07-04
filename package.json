@@ -1,17 +1,17 @@
 {
-  "name": "anpd-shared-ui",
+  "name": "shared-ui",
   "version": "1.0.0",
   "description": "Biblioteca de componentes React com MUI v7 e padrão govbr-ds para ANPD",
   "author": "Luciano Édipo",
   "license": "ISC",
   "type": "module",
-  "main": "./dist/anpd-shared-ui.cjs.js",
-  "module": "./dist/anpd-shared-ui.es.js",
+  "main": "./dist/shared-ui.cjs.js",
+  "module": "./dist/shared-ui.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/anpd-shared-ui.es.js",
-      "require": "./dist/anpd-shared-ui.cjs.js"
+      "import": "./dist/shared-ui.es.js",
+      "require": "./dist/shared-ui.cjs.js"
     }
   },
   "files": [

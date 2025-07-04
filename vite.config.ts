@@ -9,7 +9,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'AnpdSharedUI',
       formats: ['es', 'cjs'],
-      fileName: format => `anpd-shared-ui.${format}.js`,
+      fileName: format => `shared-ui.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom', '@mui/material', '@mui/icons-material'],

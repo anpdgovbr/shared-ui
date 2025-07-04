@@ -1,5 +1,5 @@
 /**
- * Props comuns a todos os componentes do anpd-shared-ui
+ * Props comuns a todos os componentes do a@anpdgovbr/shared-ui
  * permitindo forçar estritamente o govbr-ds.
  */
 export interface SharedUIComponentProps {
