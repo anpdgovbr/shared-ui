@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRAvatar } from './GovBRAvatar.js'
 
 const meta: Meta<typeof GovBRAvatar> = {
-  title: 'Components/GovBRAvatar',
+  title: 'GovBR/Avatar',
   component: GovBRAvatar,
   parameters: {
     layout: 'centered',

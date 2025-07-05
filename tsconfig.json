@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@stories/*": ["src/stories/*"]
     },
