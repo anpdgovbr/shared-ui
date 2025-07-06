@@ -7,6 +7,7 @@ export interface SharedUIComponentProps {
    * Caso true, aplica estilos estritamente compatíveis
    * com o Design System do govbr-ds, bloqueando
    * customizações adicionais do componente.
+   * @default false
    */
   strictGovBr?: boolean
 }

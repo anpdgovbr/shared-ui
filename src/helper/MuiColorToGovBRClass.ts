@@ -23,6 +23,7 @@ import { ButtonProps } from '@mui/material'
  * // Mapeando a cor 'primary' do MUI para a classe 'primary'
  *
  * const govbrClass = mapMuiColorToGovbrClass('primary'); // retorna 'primary'
+ *
  */
 export function mapMuiColorToGovbrClass(color?: ButtonProps['color']): string {
   switch (color) {
