@@ -1,17 +1,13 @@
 import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js';
 import React from 'react';
 
-// Define a estrutura de cada item individual do Breadcrumb
 export interface BreadcrumbItem {
   label: string;
   href?: string;
 }
 
-// Define as props do componente principal
 export interface GovBRBreadcrumbProps extends SharedUIComponentProps {
-  /** Lista de itens que compõem o caminho de navegação. */
   items: BreadcrumbItem[];
-  /** Função chamada quando o usuário clica em um item navegável. */
   onNavigate: (href: string) => void;
 }
 export const GovBRBreadcrumb: React.FC<GovBRBreadcrumbProps> = ({ items, onNavigate }) => {
