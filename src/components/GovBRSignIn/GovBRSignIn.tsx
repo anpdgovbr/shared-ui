@@ -1,45 +1,72 @@
-import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
 import React from 'react'
+import type { ButtonHTMLAttributes } from 'react'
+import classNames from 'classnames'
+import type { GovBRSize } from '../../types/GovBRTypes.js'
+import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
 
-export interface GovBRSignInProps extends SharedUIComponentProps {
-  /** Define o tipo de conteúdo e estilo do botão de sign-in. */
+export interface GovBRSignInProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    SharedUIComponentProps {
+  /**
+   * Define o tipo de conteúdo e estilo do botão.
+   * - `internal`: Ícone de usuário e texto "Entrar". Padrão.
+   * - `external-text`: "Entrar com gov.br".
+   * - `external-image`: "Entrar com" e a imagem do gov.br.
+   * @default 'internal'
+   */
   variant?: 'internal' | 'external-text' | 'external-image'
-  /** Define a ênfase visual do botão. */
+
+  /**
+   * Define a ênfase visual do botão.
+   * @default 'secondary'
+   */
   emphasis?: 'primary' | 'secondary'
-  /** Define a densidade (tamanho) do botão. */
-  density?: 'small' | 'medium' | 'large'
-  /** Transforma o botão em um ícone circular. */
-  isCircle?: boolean
-  /** Faz o botão ocupar toda a largura disponível. */
-  isBlock?: boolean
-  /** Adapta o botão para uso em fundos escuros. */
-  isInverted?: boolean
-  /** Função a ser executada quando o botão é clicado. */
-  onClick?: () => void
-  /** Rótulo acessível, obrigatório para botões circulares (icônicos). */
-  ariaLabel?: string
+
+  /**
+   * Define a densidade (tamanho) do botão.
+   */
+  density?: GovBRSize
+
+  /**
+   * Transforma o botão em um ícone circular.
+   * @default false
+   */
+  circle?: boolean
+
+  /**
+   * Faz o botão ocupar toda a largura disponível.
+   * @default false
+   */
+  block?: boolean
+
+  /**
+   * Adapta o botão para uso em fundos escuros.
+   * @default false
+   */
+  inverted?: boolean
 }
 
 export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
   variant = 'internal',
   emphasis,
   density,
-  isCircle = false,
-  isBlock = false,
-  isInverted = false,
-  onClick,
-  ariaLabel,
+  circle = false,
+  block = false,
+  inverted = false,
+  className,
+  ...props
 }) => {
-  const classNames = [
+  const componentClass = classNames(
     'br-sign-in',
-    emphasis, // 'primary' ou 'secondary'
-    density, // 'small', 'medium', 'large'
-    isCircle ? 'circle' : '',
-    isBlock ? 'block' : '',
-    isInverted ? 'inverted' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
+    emphasis,
+    density,
+    {
+      circle,
+      block,
+      inverted,
+    },
+    className
+  )
 
   const renderContent = () => {
     switch (variant) {
@@ -64,19 +91,14 @@ export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
         return (
           <>
             <i className="fas fa-user" aria-hidden="true"></i>
-            {!isCircle && 'Entrar'}
+            {!circle && 'Entrar'}
           </>
         )
     }
   }
 
   return (
-    <button
-      type="button"
-      className={classNames}
-      onClick={onClick}
-      aria-label={isCircle ? ariaLabel : undefined}
-    >
+    <button type="button" className={componentClass} {...props}>
       {renderContent()}
     </button>
   )

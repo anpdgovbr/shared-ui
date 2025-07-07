@@ -1,13 +1,14 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
 import { GovBRBreadcrumb } from './GovBRBreadcrumb.js'
+import Stack from '@mui/material/Stack'
 
 const meta: Meta<typeof GovBRBreadcrumb> = {
-  title: 'GOVBR/Breadcrumb',
+  title: 'GovBR/Breadcrumb',
   component: GovBRBreadcrumb,
   tags: ['autodocs'],
   args: {
-    // Ação padrão para a prop onNavigate, para logar no painel Actions
     onNavigate: fn(),
   },
 }
@@ -15,18 +16,34 @@ export default meta
 
 type Story = StoryObj<typeof GovBRBreadcrumb>
 
+const defaultItems = [
+  { label: 'Página Inicial', href: '/' },
+  { label: 'Nível 1', href: '/nivel-1' },
+  { label: 'Página Atual' },
+]
+
+const shortItems = [{ label: 'Página Inicial', href: '/' }, { label: 'Página Atual' }]
+
 export const Default: Story = {
+  name: 'Caminho Completo',
   args: {
-    items: [
-      { label: 'Página Inicial', href: '/' },
-      { label: 'Página Anterior', href: '/anterior' },
-      { label: 'Página Atual' },
-    ],
+    items: defaultItems,
   },
 }
 
 export const ShortPath: Story = {
+  name: 'Caminho Curto',
   args: {
-    items: [{ label: 'Página Inicial', href: '/' }, { label: 'Página Atual' }],
+    items: shortItems,
   },
+}
+
+export const AllPaths: Story = {
+  name: 'Visão Geral',
+  render: args => (
+    <Stack spacing={4}>
+      <GovBRBreadcrumb {...args} items={defaultItems} />
+      <GovBRBreadcrumb {...args} items={shortItems} />
+    </Stack>
+  ),
 }
