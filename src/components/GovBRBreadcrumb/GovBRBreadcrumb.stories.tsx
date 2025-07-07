@@ -3,7 +3,7 @@ import { fn } from 'storybook/test'
 import { GovBRBreadcrumb } from './GovBRBreadcrumb.js'
 
 const meta: Meta<typeof GovBRBreadcrumb> = {
-  title: 'GOVBR/GovBRBreadcrumb',
+  title: 'GOVBR/Breadcrumb',
   component: GovBRBreadcrumb,
   tags: ['autodocs'],
   args: {

@@ -6,18 +6,18 @@ import SearchIcon from '@mui/icons-material/Search'
 import Stack from '@mui/material/Stack'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import FormGovBRInput from './FormGovBRInput.client.js'
+import GovBRFormInput from './GovBRFormInput.client.js'
 
 export default {
-  title: 'GovBR/FormGovBRInput',
-  component: FormGovBRInput,
+  title: 'GovBR/FormInput',
+  component: GovBRFormInput,
 }
 
 export const Default = () => {
   const { control } = useForm()
 
   return (
-    <FormGovBRInput
+    <GovBRFormInput
       name="nome"
       control={control}
       label="Nome completo"
@@ -31,7 +31,7 @@ export const InlineAndHighlight = () => {
   const { control } = useForm()
 
   return (
-    <FormGovBRInput
+    <GovBRFormInput
       name="nome"
       control={control}
       label="Nome inline destacado"
@@ -63,7 +63,7 @@ export const WithValidation = () => {
       })}
     >
       <Stack spacing={3}>
-        <FormGovBRInput
+        <GovBRFormInput
           name="email"
           control={control}
           label="E-mail"
@@ -91,7 +91,7 @@ export const WithRHFOnly = () => {
       })}
     >
       <Stack spacing={3}>
-        <FormGovBRInput
+        <GovBRFormInput
           name="nome"
           control={control}
           label="Nome"
@@ -99,7 +99,7 @@ export const WithRHFOnly = () => {
           rules={{ required: 'Nome é obrigatório' }}
           startIcon={<PersonIcon />}
         />
-        <FormGovBRInput
+        <GovBRFormInput
           name="email"
           control={control}
           label="E-mail"

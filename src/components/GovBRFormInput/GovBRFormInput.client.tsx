@@ -27,7 +27,7 @@ import type { GovBRInputProps } from '../GovBRInput/GovBRInput.js'
 type WithoutRequired<T> = Omit<T, 'required'>
 
 /**
- * Propriedades para o componente FormGovBRInput.
+ * Propriedades para o componente GovBRFormInput.
  *
  * @template TFieldValues Tipo dos valores dos campos do formulário.
  * @template TName Nome do campo controlado pelo formulário.
@@ -38,7 +38,7 @@ type WithoutRequired<T> = Omit<T, 'required'>
  * de validação do campo de entrada.
  *
  */
-interface FormGovBRInputProps<
+interface GovBRFormInputProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > extends WithoutRequired<GovBRInputProps> {
@@ -54,7 +54,7 @@ interface FormGovBRInputProps<
    * @example
    * ```tsx
    * const { control } = useForm();
-   * <FormGovBRInput
+   * <GovBRFormInput
    *   name="campo"
    *  control={control}
    *  />
@@ -70,7 +70,7 @@ interface FormGovBRInputProps<
    * -form, permitindo que o campo seja validado conforme as regras definidas.
    * @example
    * ```tsx
-   * <FormGovBRInput
+   * <GovBRFormInput
    *  name="campo"
    * control={control}
    * rules={{ required: 'Campo obrigatório' }}
@@ -89,12 +89,12 @@ interface FormGovBRInputProps<
    * utiliza essa string como mensagem de erro personalizada.
    * @example
    * ```tsx
-   * <FormGovBRInput
+   * <GovBRFormInput
    *  name="campo"
    * control={control}
    * required={true} // Usando mensagem padrão
    * />
-   * <FormGovBRInput
+   * <GovBRFormInput
    * name="campo"
    * control={control}
    * required="Este campo é obrigatório" // Usando mensagem personalizada
@@ -113,10 +113,10 @@ interface FormGovBRInputProps<
  * @template TFieldValues Tipo dos valores dos campos do formulário.
  * @template TName Nome do campo controlado pelo formulário.
  *
- * @param props Propriedades do componente FormGovBRInput.
+ * @param props Propriedades do componente GovBRFormInput.
  * @returns Elemento React para campo de formulário integrado ao react-hook-form.
  */
-export function FormGovBRInput<
+export function GovBRFormInput<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >({
@@ -126,7 +126,7 @@ export function FormGovBRInput<
   required,
   label,
   ...govbrInputProps
-}: Readonly<FormGovBRInputProps<TFieldValues, TName>>) {
+}: Readonly<GovBRFormInputProps<TFieldValues, TName>>) {
   /**
    * Aplica regras de validação ao campo, incluindo a obrigatoriedade se necessário.
    * Se `required` for uma string, usa como mensagem personalizada; se for booleano,
@@ -165,7 +165,7 @@ export function FormGovBRInput<
    * @returns Elemento React que representa o campo de entrada integrado ao react-hook-form.
    * @example
    * ```tsx
-   * <FormGovBRInput
+   * <GovBRFormInput
    * name="campo"
    * control={control}
    * rules={{ required: 'Campo obrigatório' }}
@@ -208,6 +208,6 @@ export function FormGovBRInput<
 }
 
 /**
- * Exportação padrão do componente FormGovBRInput.
+ * Exportação padrão do componente GovBRFormInput.
  */
-export default FormGovBRInput
+export default GovBRFormInput
