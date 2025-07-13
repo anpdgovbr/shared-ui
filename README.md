@@ -1,97 +1,169 @@
-# 📦 @anpdgovbr/shared-ui
+# 📦 shared-ui
 
-> Biblioteca de componentes React, desenvolvida para a ANPD, baseada em MUI v7 e alinhada ao padrão govbr-ds.
-
----
-
-## 🚀 Sobre o projeto
-
-O `@anpdgovbr/shared-ui` é uma biblioteca modular e escalável de componentes UI, construída para padronizar e acelerar o desenvolvimento de aplicações front-end da Autoridade Nacional de Proteção de Dados (ANPD).
-
-✔ Baseada em **React 19+**  
-✔ Usando **MUI v7** para garantir consistência visual e acessibilidade  
-✔ Inspirada nos princípios do **Design System do Governo Federal (govbr-ds)**  
-✔ Totalmente **Tipada em TypeScript**  
-✔ Testada com **Vitest** + **Playwright**  
-✔ Documentada e exibida via **Storybook**
+> Biblioteca de componentes React com MUI v7 e padrão govbr-ds para a ANPD.
 
 ---
 
-## 🏗 Estrutura atual de componentes
+## 🚀 Sobre o Projeto
+
+O `shared-ui` é uma biblioteca de componentes de interface de usuário (UI) modular e escalável, construída para padronizar e acelerar o desenvolvimento de aplicações front-end na Autoridade Nacional de Proteção de Dados (ANPD).
+
+### ✨ Principais Características
+
+*   **Baseado em React 19+**: Utiliza os recursos mais recentes do React.
+*   **MUI v7**: Construído sobre o Material-UI para garantir consistência visual e acessibilidade.
+*   **Padrão GovBR-DS**: Inspirado nos princípios do Design System do Governo Federal.
+*   **TypeScript**: Totalmente tipado para um desenvolvimento mais seguro e robusto.
+*   **Testado**: Cobertura de testes com Vitest e Playwright.
+*   **Documentado com Storybook**: Componentes visualizáveis e documentados interativamente.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+*   **React**
+*   **Material-UI (MUI)**
+*   **TypeScript**
+*   **Storybook**
+*   **Vite**
+*   **Vitest**
+*   **ESLint**
+*   **Prettier**
+*   **React Hook Form**
+
+---
+
+## 🏁 Começando
+
+Siga estas instruções para configurar o ambiente de desenvolvimento local.
+
+### Pré-requisitos
+
+*   Node.js (versão 20 ou superior)
+*   npm (versão 10 ou superior)
+
+### Instalação
+
+1.  Clone o repositório:
+    ```bash
+    git clone git@github.com:anpdgovbr/shared-ui.git
+    ```
+2.  Navegue até o diretório do projeto:
+    ```bash
+    cd shared-ui
+    ```
+3.  Instale as dependências:
+    ```bash
+    npm install
+    ```
+
+### Executando o Storybook
+
+Para visualizar e interagir com os componentes, inicie o Storybook:
+
+```bash
+npm run storybook
+```
+
+O Storybook estará disponível em `http://localhost:6006`.
+
+---
+
+## 🏗️ Estrutura de Componentes
+
+A estrutura de componentes segue um padrão organizado para escalabilidade:
 
 ```
 src/
 ├── components/
-│   └── GovBRAvatar/
-│       ├── GovBRAvatar.tsx
-│       └── GovBRAvatar.stories.tsx
-├── index.ts
+│   ├── GovBRAvatar/
+│   ├── GovBRBreadcrumb/
+│   ├── GovBRButton/
+│   ├── GovBRCheckbox/
+│   ├── GovBRFormCheckbox/
+│   ├── GovBRFormInput/
+│   ├── GovBRInput/
+│   └── GovBRSignIn/
+└── index.ts
 ```
 
 ---
 
-## 📚 Como usar
+## 📚 Como Usar
 
-### 🚀 Instalação
+### Instalação em seu Projeto
 
-No momento (fase de desenvolvimento interno), use via `git+ssh`:
+Atualmente, a instalação é feita via Git. Futuramente, será disponibilizada no npm.
 
 ```bash
 npm install git+ssh://git@github.com:anpdgovbr/shared-ui.git
 ```
 
-No futuro, via npm:
-
-```bash
-npm install @anpdgovbr/shared-ui
-```
-
-### 💻 Importando e usando no seu projeto React / Next.js
+### Exemplo de Uso
 
 ```tsx
-import { GovBRAvatar } from '@anpdgovbr/shared-ui'
+import { GovBRButton } from '@anpdgovbr/shared-ui';
 
-export function Example() {
-  return <GovBRAvatar />
+function MyComponent() {
+  return <GovBRButton>Clique Aqui</GovBRButton>;
 }
 ```
 
-> 📝 **Nota:** O projeto que consome deve ter `react`, `react-dom`, `@mui/material` e `@mui/icons-material` instalados, conforme `peerDependencies`.
+Para componentes de formulário, utilize com `react-hook-form`:
+
+```tsx
+import { useForm } from 'react-hook-form';
+import { GovBRFormInput } from '@anpdgovbr/shared-ui';
+
+function MyForm() {
+  const { control } = useForm();
+
+  return (
+    <GovBRFormInput
+      name="meuInput"
+      control={control}
+      label="Meu Input"
+    />
+  );
+}
+```
+
+> **Nota:** O projeto que consome a biblioteca deve ter `react`, `react-dom`, `@mui/material`, `@mui/icons-material` e `react-hook-form` como dependências, conforme definido em `peerDependencies`.
 
 ---
 
-## 🔧 Scripts disponíveis
+## 🔧 Scripts Disponíveis
 
-| Script                    | Descrição                              |
-| ------------------------- | -------------------------------------- |
-| `npm run dev`             | Inicia o playground local com Vite     |
-| `npm run build`           | Gera o build da biblioteca (`dist/`)   |
-| `npm run storybook`       | Inicia o Storybook em `localhost:6006` |
-| `npm run build-storybook` | Gera o Storybook estático              |
-| `npm run test`            | Executa os testes com Vitest           |
-| `npm run lint`            | Roda o ESLint nos arquivos do projeto  |
-| `npm run format`          | Formata o código com Prettier          |
-
----
-
-## 📝 Roadmap futuro
-
-- 📌 Suporte completo ao **govbr-ds**, com opções `strict` (100% govbr) ou `custom` (theme e props avançados)
-- 📌 Componentes core adicionais: `GovBRModal`, `GovBRBreadcrumb`, `GovBRNotification`
-- 📌 Storybook Docs com exemplos específicos govbr-ds
-- 📌 Integração futura com `MS Qualifica`, `backlog-dim` e outros sistemas da ANPD
+| Script | Descrição |
+|---|---|
+| `npm run dev` | Inicia o Storybook para desenvolvimento. |
+| `npm run build` | Compila a biblioteca para produção (`dist/`). |
+| `npm run storybook` | Inicia o Storybook em `localhost:6006`. |
+| `npm run build-storybook` | Gera a versão estática do Storybook. |
+| `npm run test` | Executa os testes com Vitest. |
+| `npm run lint` | Analisa o código com ESLint. |
+| `npm run format` | Formata o código com Prettier. |
 
 ---
 
-## ✍️ Licença
+## 📝 Roadmap
 
-Este projeto está licenciado sob os termos da **ISC License**.
+*   [ ] Suporte completo ao **govbr-ds**, com temas customizáveis.
+*   [ ] Adicionar mais componentes: `GovBRModal`, `GovBRNotification`, `GovBRTable`.
+*   [ ] Melhorar a documentação no Storybook com mais exemplos de uso.
+*   [ ] Integração com outros sistemas da ANPD.
 
 ---
 
 ## 🚀 Contribuições
 
-Contribuições são bem-vindas! Para propor melhorias ou relatar problemas, abra uma [Issue](https://github.com/anpdgovbr/shared-ui/issues) ou envie um Pull Request seguindo nosso padrão.
+Contribuições são bem-vindas! Para propor melhorias ou relatar problemas, abra uma [Issue](https://github.com/anpdgovbr/shared-ui/issues) ou envie um Pull Request.
+
+---
+
+## ✍️ Licença
+
+Este projeto está licenciado sob a **Licença ISC**.
 
 ---
 
@@ -102,5 +174,5 @@ Contribuições são bem-vindas! Para propor melhorias ou relatar problemas, abr
 
 ### Time
 
-@lucianoedipo
-@gustavolimaf
+*   @lucianoedipo
+*   @gustavolimaf
