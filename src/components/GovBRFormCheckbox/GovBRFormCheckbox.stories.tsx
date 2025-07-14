@@ -12,7 +12,7 @@ export default {
 } as Meta
 
 const schema = z.object({
-  terms: z.boolean().refine((val) => val === true, {
+  terms: z.boolean().refine(val => val === true, {
     message: 'Você deve aceitar os termos.',
   }),
   privacy: z.boolean(),
@@ -30,7 +30,7 @@ export const WithFormValidation = () => {
   })
 
   return (
-    <form onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
+    <form onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}>
       <Stack spacing={2}>
         <GovBRFormCheckbox
           name="terms"

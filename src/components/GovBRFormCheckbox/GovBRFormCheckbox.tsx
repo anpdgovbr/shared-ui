@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form'
 import { GovBRCheckbox, type GovBRCheckboxProps } from '../GovBRCheckbox/GovBRCheckbox.js'
 import Stack from '@mui/material/Stack'
 import classNames from 'classnames'
-import { iconMap } from '../../helper/IconMap.js' 
+import { iconMap } from '../../helper/IconMap.js'
 
 interface GovBRFormCheckboxProps<
   TFieldValues extends FieldValues,
@@ -13,7 +13,7 @@ interface GovBRFormCheckboxProps<
   name: TName
   control: ControllerProps<TFieldValues, TName>['control']
   rules?: ControllerProps<TFieldValues, TName>['rules']
-  required?: boolean;
+  required?: boolean
 }
 
 export function GovBRFormCheckbox<

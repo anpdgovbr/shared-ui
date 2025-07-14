@@ -39,12 +39,12 @@ Siga estas etapas para garantir que seu componente seja criado corretamente.
 **Exemplo (`types.ts`):**
 
 ```ts
-import type { SharedUIComponentProps } from '@/types/SharedUIComponentProps';
-import type { ButtonProps } from '@mui/material/Button';
+import type { SharedUIComponentProps } from '@/types/SharedUIComponentProps'
+import type { ButtonProps } from '@mui/material/Button'
 
 export interface GovBRButtonProps extends ButtonProps, SharedUIComponentProps {
   // Adicione props customizadas aqui
-  label: string;
+  label: string
 }
 ```
 
@@ -57,10 +57,10 @@ export interface GovBRButtonProps extends ButtonProps, SharedUIComponentProps {
 **Exemplo (`GovBRButton.tsx`):**
 
 ```tsx
-import React from 'react';
-import MuiButton from '@mui/material/Button';
-import classnames from 'classnames';
-import type { GovBRButtonProps } from './types';
+import React from 'react'
+import MuiButton from '@mui/material/Button'
+import classnames from 'classnames'
+import type { GovBRButtonProps } from './types'
 
 export const GovBRButton: React.FC<GovBRButtonProps> = ({
   label,
@@ -71,14 +71,14 @@ export const GovBRButton: React.FC<GovBRButtonProps> = ({
   const buttonClasses = classnames(className, {
     'br-button': strictGovBr,
     // Adicione outras classes condicionais aqui
-  });
+  })
 
   return (
     <MuiButton className={buttonClasses} {...props}>
       {label}
     </MuiButton>
-  );
-};
+  )
+}
 ```
 
 ### 4. Exporte o Componente (`index.ts` e `src/index.ts`)
@@ -87,15 +87,15 @@ export const GovBRButton: React.FC<GovBRButtonProps> = ({
 
 ```ts
 // src/components/GovBRButton/index.ts
-export * from './GovBRButton';
-export * from './types';
+export * from './GovBRButton'
+export * from './types'
 ```
 
 - **No `src/index.ts` principal:** Adicione uma linha para exportar tudo do seu novo componente.
 
 ```ts
 // src/index.ts
-export * from './components/GovBRButton';
+export * from './components/GovBRButton'
 // ... outros exports
 ```
 
@@ -106,8 +106,8 @@ export * from './components/GovBRButton';
 **Exemplo (`GovBRButton.stories.tsx`):**
 
 ```tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { GovBRButton } from './GovBRButton';
+import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRButton } from './GovBRButton'
 
 const meta: Meta<typeof GovBRButton> = {
   title: 'Components/GovBRButton',
@@ -120,11 +120,11 @@ const meta: Meta<typeof GovBRButton> = {
       options: ['text', 'outlined', 'contained'],
     },
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -132,7 +132,7 @@ export const Default: Story = {
     variant: 'contained',
     color: 'primary',
   },
-};
+}
 
 export const StrictGovBr: Story = {
   args: {
@@ -140,7 +140,7 @@ export const StrictGovBr: Story = {
     variant: 'contained',
     strictGovBr: true,
   },
-};
+}
 ```
 
 ---
@@ -148,21 +148,27 @@ export const StrictGovBr: Story = {
 ## ✅ Checklist Final (Antes do Commit e PR)
 
 1.  **Visualize no Storybook:**
+
     ```bash
     npm run storybook
     ```
+
     - Verifique se o componente renderiza corretamente em todas as sua variações.
 
 2.  **Execute o Linter:**
+
     ```bash
     npm run lint -- --fix
     ```
+
     - Garanta que não há erros de lint e que o código segue os padrões do projeto.
 
 3.  **Execute os Testes:**
+
     ```bash
     npm run test
     ```
+
     - Adicione testes unitários para o seu componente e garanta que todos os testes estão passando.
 
 4.  **Crie o Pull Request (PR):**
@@ -172,4 +178,3 @@ export const StrictGovBr: Story = {
 ---
 
 ✅ **Pronto!** Seguindo esses passos, seu componente estará pronto para ser integrado à biblioteca.
-
