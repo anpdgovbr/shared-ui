@@ -1,40 +1,90 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRAvatar } from './GovBRAvatar.js'
+import GovBRAvatar from './GovBRAvatar.js'
+import { Stack } from '@mui/material'
 
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',
   component: GovBRAvatar,
-  parameters: {
-    layout: 'centered',
+  tags: ['autodocs'],
+  argTypes: {
+    name: { control: 'text' },
+    src: { control: 'text' },
+    size: {
+      control: 'radio',
+      options: ['small', 'medium', 'large'],
+    },
+    variant: {
+      control: 'radio',
+      options: ['circular', 'rounded', 'square'],
+    },
+    color: {
+      control: 'radio',
+      options: ['default', 'primary', 'secondary'],
+    },
+    strictGovBr: {
+      control: 'boolean',
+      description: 'Usa estilos estritamente do GovBR Design System',
+    },
   },
 }
+
 export default meta
+type Story = StoryObj<typeof meta>
 
-type Story = StoryObj<typeof GovBRAvatar>
-
-export const StrictGovBr: Story = {
+export const Default: Story = {
   args: {
-    user: { name: 'Luciano', image: '' },
-    menuItems: [
-      { label: 'Meu perfil', href: '/perfil' },
-      { label: 'Sair', href: '/logout' },
-    ],
-    onNavigate: href => alert(`Navigating to ${href}`),
-    strictGovBr: true,
+    name: 'João Silva',
+    strictGovBr: false,
   },
 }
 
-export const Customizable: Story = {
+export const WithImage: Story = {
+  name: 'Com Imagem',
   args: {
-    user: { name: 'Luciano', image: 'https://www.gravatar.com/avatar/?d=identicon&s=80' },
-    menuItems: [
-      { label: 'Perfil', href: '/perfil' },
-      { label: 'Logout', href: '/logout' },
-    ],
-    avatarSize: 40,
-    textMaxWidth: 150,
-    className: 'custom-shadow',
-    onNavigate: href => console.log('Goto', href),
-    strictGovBr: false,
+    name: 'João Silva',
+    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face',
+    alt: 'Foto de João Silva',
+  },
+}
+
+export const Sizes: Story = {
+  name: 'Tamanhos',
+  render: () => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <GovBRAvatar name="João Silva" size="small" />
+      <GovBRAvatar name="Maria Santos" size="medium" />
+      <GovBRAvatar name="Pedro Costa" size="large" />
+    </Stack>
+  ),
+}
+
+export const Variants: Story = {
+  name: 'Variações de Formato',
+  render: () => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <GovBRAvatar name="João Silva" variant="circular" />
+      <GovBRAvatar name="Maria Santos" variant="rounded" />
+      <GovBRAvatar name="Pedro Costa" variant="square" />
+    </Stack>
+  ),
+}
+
+export const Colors: Story = {
+  name: 'Cores',
+  render: () => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <GovBRAvatar name="João Silva" color="default" />
+      <GovBRAvatar name="Maria Santos" color="primary" />
+      <GovBRAvatar name="Pedro Costa" color="secondary" />
+    </Stack>
+  ),
+}
+
+export const WithoutName: Story = {
+  name: 'Sem Nome (Ícone Padrão)',
+  args: {
+    alt: 'Usuário sem nome',
+    color: 'default',
   },
 }
