@@ -1,46 +1,30 @@
-import Divider from "@mui/material/Divider"
-import { Button } from "@mui/material"
+import { Box, Container, Divider, Stack, Typography } from "@mui/material"
+import { SharedUIComponentProps } from "src/types/SharedUIComponentProps.js"
 
-/** 
- * TODO:
- * Consertar a formatação, possivelmente vai ter que refazer
-*/
-export interface GovBRITemProps{
-  image?: string
-  label: React.ReactNode
-  sideButton?: string
-  state?: 'active' | 'selected' | 'disabled'
+interface GovBrItemProps extends SharedUIComponentProps{
+  type: 'text' | 'button' | 'link' | 'radio' | 'checkbox' | 'content_button'
+  label?: string
+  image?: React.ReactNode
+  sideIcon?: string
+  asButton?: boolean
+  sx?: GovBrItemProps
+
 }
 
-export const GovBRItem: React.FC<GovBRITemProps> = ({
-  image,
+export const GovBRItem: React.FC<Readonly<GovBrItemProps>> = ({
   label,
-  sideButton,
-  state = 'active'
+  image,
+  sideIcon,
+  asButton,
+  sx,
 }) => {
 
-   function handleItemClick() {
-    alert("Clicou no botão")
-  }
-
-    return (
-      <div className="itemsList">
-        <div className="br-item">
-          <img className="itemImage" src={image}></img>
-          <p>{label}</p>
-        </div>
-        <Divider/>
-        <div className="br-item">
-          <p>{label}</p>
-          <button><img src={sideButton}/></button>
-        </div>
-        <Divider/>
-        <a className="br-item" onClick={handleItemClick}></a>
-        <Divider/>
-        <Button sx={{maxHeight: 10}} className="br-item" onClick={handleItemClick}/>
-      </div>
-      
-
-    )
+ return( 
+  <Box className="br-item" sx={{ml: 0, width: 'fit-content'}}>
+    <Stack direction="row" spacing={0}>
+      {image && <Box>{image}</Box>}
+      <Typography sx={{ml: 1, mb: 1, direction:''}} >{label}</Typography>
+    </Stack>
+  </Box>
+  )
 }
-
