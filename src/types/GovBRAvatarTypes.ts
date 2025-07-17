@@ -1,6 +1,6 @@
 import type { AvatarProps } from '@mui/material/Avatar'
 import type { SharedUIComponentProps } from './SharedUIComponentProps.js'
-import type { GovBRSize } from './GovBRTypes.js' // Caminho corrigido
+import type { GovBRSize } from './GovBRTypes.js'
 
 export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
   /**
@@ -14,7 +14,7 @@ export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
   src?: string
 
   /**
-   * Texto alternativo para a imagem
+   * Texto alternativo para a imagem 
    */
   alt?: string
 
