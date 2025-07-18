@@ -114,7 +114,9 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
         anchorEl={anchorEl}
         open={menuOpen}
         onClose={handleClose}
-        MenuListProps={{ 'aria-labelledby': 'avatar-button' }}
+        slotProps={{
+          list: { 'aria-labelledby': 'avatar-button' },
+        }}
         // Define o posicionamento preciso do menu em relação ao botão.
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
