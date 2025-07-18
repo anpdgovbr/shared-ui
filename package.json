@@ -18,12 +18,6 @@
     "dist",
     "types"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run type-check && npm run test"
-    }
-  },
   "scripts": {
     "dev": "npm run storybook",
     "build": "npm run build:types && vite build",
@@ -34,7 +28,9 @@
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "check": "npm run lint && npm run type-check && npm test"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -42,6 +38,14 @@
       "prettier --write"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anpdgovbr/shared-ui"
+  },
+  "bugs": {
+    "url": "https://github.com/anpdgovbr/shared-ui/issues"
+  },
+  "homepage": "https://github.com/anpdgovbr/shared-ui#readme",
   "peerDependencies": {
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
