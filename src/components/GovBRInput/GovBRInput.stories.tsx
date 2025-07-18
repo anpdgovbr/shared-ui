@@ -3,18 +3,32 @@ import SearchIcon from '@mui/icons-material/Search'
 import Stack from '@mui/material/Stack'
 import GovBRInput from './GovBRInput.js'
 
-export default {
+const meta = {
   title: 'GovBR/Input',
   component: GovBRInput,
   tags: ['autodocs'],
-}
 
-export const Default = {
-  args: {
-    label: 'Nome completo',
-    placeholder: 'Digite seu nome',
+  argTypes: {
+    govbrSize: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Tamanho do input, seguindo os padrões do GovBR.',
+      defaultValue: 'medium',
+    },
+    status: {
+      control: 'select',
+      options: ['success', 'warning', 'danger', 'info'],
+      description:
+        'Status visual do input, utilizado para indicar estados como sucesso, erro, informação ou aviso.',
+    },
+    clearBlock: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Define se o bloco de limpeza (clear) será exibido automaticamente.',
+    },
   },
 }
+export default meta
 
 export const Sizes = {
   render: () => (

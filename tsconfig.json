@@ -22,6 +22,6 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["src", ".storybook", "*.config.*"],
+  "include": ["src", ".storybook", "*.config.*", "vite-env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
