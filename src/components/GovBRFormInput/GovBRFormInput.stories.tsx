@@ -11,6 +11,7 @@ import GovBRFormInput from './GovBRFormInput.client.js'
 export default {
   title: 'GovBR/FormInput',
   component: GovBRFormInput,
+  tags: ['autodocs'],
 }
 
 export const Default = () => {

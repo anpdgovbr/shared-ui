@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack'
 export default {
   title: 'GovBR/FormCheckbox',
   component: GovBRFormCheckbox,
+  tags: ['autodocs'],
 } as Meta
 
 const schema = z.object({

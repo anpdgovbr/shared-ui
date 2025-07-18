@@ -1,8 +1,7 @@
-import React from 'react'
+import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
 import { GovBRBreadcrumb } from './GovBRBreadcrumb.js'
-import Stack from '@mui/material/Stack'
 
 const meta: Meta<typeof GovBRBreadcrumb> = {
   title: 'GovBR/Breadcrumb',

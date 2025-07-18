@@ -5,6 +5,7 @@ import { Stack } from '@mui/material'
 
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',
+  tags: ['autodocs'],
   component: GovBRAvatar,
   tags: ['autodocs'],
   argTypes: {

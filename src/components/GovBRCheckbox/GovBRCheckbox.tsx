@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type { InputHTMLAttributes } from 'react'
 import classNames from 'classnames'
 import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
