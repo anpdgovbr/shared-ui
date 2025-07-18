@@ -102,6 +102,22 @@ export const GovBRButton: React.FC<Readonly<GovBRButtonProps>> = ({
 }) => {
   const govbrColorClass = mapMuiColorToGovbrClass(color)
 
+  // Estilos que dependem das props do componente
+  const dynamicSx = {
+    // Se for circular, o padding horizontal é 0, senão é 3
+    px: circle ? 0 : 3,
+    // Se for circular, aplica todos os estilos de círculo
+    ...(circle && {
+      width: 'var(--button-size)',
+      height: 'var(--button-size)',
+      minWidth: 'var(--button-size)',
+      minHeight: 'var(--button-size)',
+      padding: 0,
+      borderRadius: '50%', // <- O borderRadius para o círculo
+      lineHeight: 1,
+    }),
+  }
+
   return (
     <Button
       className={classNames(
@@ -116,24 +132,8 @@ export const GovBRButton: React.FC<Readonly<GovBRButtonProps>> = ({
         },
         className
       )}
-      disableRipple
-      disableElevation
-      sx={{
-        fontWeight: 600,
-        textTransform: 'none',
-        fontSize: 'var(--font-size-scale-up-01)',
-        px: circle ? 0 : 3,
-        ...(circle && {
-          width: 'var(--button-size)',
-          height: 'var(--button-size)',
-          minWidth: 'var(--button-size)',
-          minHeight: 'var(--button-size)',
-          padding: 0,
-          borderRadius: '50%',
-          lineHeight: 1,
-        }),
-        ...sx,
-      }}
+      // As props sx são mescladas. A `sx` passada pelo usuário tem prioridade.
+      sx={{ ...dynamicSx, ...sx }}
       {...rest}
     >
       {children}
