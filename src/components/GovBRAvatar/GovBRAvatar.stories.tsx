@@ -6,7 +6,7 @@ const meta: Meta<typeof GovBRAvatar> = {
   component: GovBRAvatar,
   tags: ['autodocs'],
   parameters: {
-    layout: 'centered',
+    
   },
   argTypes: {
     name: { control: 'text' },
@@ -32,8 +32,10 @@ export default meta
 export type Story = StoryObj<typeof GovBRAvatar>
 
 const menuItems = [
-  { label: 'Meu Perfil', href: '/perfil', icon: <PersonIcon fontSize="small" /> },
-  { label: 'Sair', href: '/logout', icon: <ExitToAppIcon fontSize="small" /> },
+  { label: 'Dados pessoais', href: '/dadosPessoais'},
+  { label: 'Privacidade', href: '/privacidade' },
+  { label: 'Notificações', href: '/notificacoes' },
+  { label: 'Perguntas frequentes', href: '/faq' },
 ]
 
 export const Default: Story = {

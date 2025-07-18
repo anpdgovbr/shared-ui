@@ -1,231 +1,131 @@
-import React, { useEffect, useRef, useState } from 'react'
-import type { GovBRAvatarProps } from './types'
+import React, { useState } from 'react'
+import { Avatar as MuiAvatar, Button, Menu, MenuItem, Icon } from '@mui/material'
+import { Person, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import type { GovBRAvatarProps, GovBRAvatarMenuItem } from './types'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
  *
  * Exibe o avatar do usuário (imagem ou inicial do nome), saudação personalizada e um menu suspenso de opções.
- * Permite customização de tamanho do avatar, largura máxima do texto, itens de menu e estilo visual.
+ * Permite customização de tamanho do avatar, itens de menu e estilo visual.
  *
  * @param props Propriedades do componente GovBRAvatar.
- * @param props.user Objeto com informações do usuário, incluindo nome e imagem.
- * @param props.onNavigate Função chamada ao clicar em um item do menu, recebendo o href do item.
- * @param props.menuItems Lista de itens do menu exibidos ao clicar no avatar.
- * @param props.avatarSize Tamanho do avatar em pixels (padrão: 40).
- * @param props.textMaxWidth Largura máxima do texto de saudação em pixels (padrão: 300).
- * @param props.className Classe CSS adicional para customização.
- * @param props.strictGovBr Se verdadeiro, aplica apenas estilos estritos do GovBR.
- *
- * @returns Elemento React que representa o avatar do usuário com menu suspenso.
- *
  * @example
  * ```tsx
  * <GovBRAvatar
- *   user={{ name: 'João', image: 'url-da-imagem' }}
- *   onNavigate={href => console.log(href)}
- *   menuItems={[{ label: 'Perfil', href: '/perfil' }, { label: 'Sair', href: '/logout' }]}
+ * name="João Silva"
+ * onNavigate={href => console.log(href)}
+ * menuItems={[{ label: 'Perfil', href: '/perfil' }]}
  * />
  * ```
  */
 export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
-  user,
-  onNavigate,
+  name,
+  src,
+  alt,
   menuItems = [],
   onNavigate,
+  size = 'medium',
+  color = 'default',
   className = '',
 }) => {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const hasMenu = menuItems.length > 0
+  // O estado `anchorEl` é usado pelo MUI para saber onde posicionar o menu. `null` significa fechado.
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const menuOpen = Boolean(anchorEl)
 
-  // Tamanhos do avatar
-  const sizeMap = {
-    small: 32,
-    medium: 40,
-    large: 48,
-    xl: 56,
+  // Abre o menu definindo sua âncora no elemento clicado.
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (menuItems.length > 0) {
+      setAnchorEl(event.currentTarget)
+    }
   }
-  const avatarSize = sizeMap[size] ?? 40
 
-  // Formato do avatar
-  const variantMap = {
-    circular: '50%',
-    rounded: '8px',
-    square: '0px',
+  const handleClose = () => {
+    setAnchorEl(null)
   }
-  const borderRadius = variantMap[variant] ?? '50%'
 
-  // Cores
+  // Aciona o callback de navegação (prop) e em seguida fecha o menu.
+  const handleNavigate = (href: string) => {
+    onNavigate?.(href)
+    handleClose()
+  }
+
+  // Mapeia props de tamanho e cor para valores de estilo concretos.
+  const sizeMap = { small: 32, medium: 40, large: 48, xl: 56 }
   const colorMap = {
     default: 'var(--color-primary-lighten-01)',
     primary: 'var(--color-primary)',
     secondary: 'var(--color-secondary)',
   }
-  const backgroundColor = colorMap[color] ?? colorMap.default
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const handleNavigate = (href: string) => {
-    setMenuOpen(false)
-    onNavigate?.(href)
+  // Objeto de estilo dinâmico para o Avatar, baseado nas props recebidas.
+  const avatarSx = {
+    width: sizeMap[size] ?? 40,
+    height: sizeMap[size] ?? 40,
+    bgcolor: colorMap[color] ?? colorMap.default,
+    fontSize: (sizeMap[size] ?? 40) * 0.5,
   }
 
   const getInitials = (name: string) =>
     name
       .split(' ')
-      .map(n => n.charAt(0))
+      .map(n => n[0])
       .join('')
       .toUpperCase()
       .slice(0, 2)
 
-  const renderAvatarContent = () => {
-    if (src) {
-      return (
-        <span
-          className="image"
-          style={{
-            width: `${avatarSize}px`,
-            height: `${avatarSize}px`,
-            borderRadius,
-            overflow: 'hidden',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src={src}
-            alt={alt || name}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '50%',
-            }}
-          />
-        </span>
-      )
-    }
-
-    const fallbackContent = name ? getInitials(name) : <PersonIcon fontSize="inherit" />
-
-    return (
-      <span
-        className="content text-pure-0"
-        style={{
-          width: `${avatarSize}px`,
-          height: `${avatarSize}px`,
-          borderRadius,
-          backgroundColor,
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: `${avatarSize * 0.5}px`,
-        }}
-      >
-        {fallbackContent}
-      </span>
-    )
-  }
+  const avatarContent = name ? getInitials(name) : <Person fontSize="inherit" />
 
   return (
-    <div
-      ref={menuRef}
-      style={{ position: 'relative', display: 'inline-block' }}
-      className={classNames('govbr-avatar-container')}
-    >
-      <GovBRButton
-        type="button"
-        className={classNames('br-sign-in', className)}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-haspopup="true"
+    <>
+      <Button
+        className={className}
+        onClick={handleClick}
+        // Props de acessibilidade essenciais para leitores de tela.
+        aria-controls={menuOpen ? 'avatar-menu' : undefined}
+        aria-haspopup={menuItems.length > 0}
         aria-expanded={menuOpen}
-        style={{
-          padding: 'var(--spacing-scale-base)',
+        sx={{
+          p: 'var(--spacing-scale-base)',
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
+          borderRadius: '4px',
+          textTransform: 'none',
+          color: 'var(--text-color-primary)',
         }}
       >
-        <span
-          className="br-avatar"
-          title={name}
-          style={{
-            lineHeight: `${avatarSize}px`,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {renderAvatarContent()}
+        {/* O Avatar do MUI exibe a imagem de `src` ou, como fallback, seus `children`. */}
+        <MuiAvatar src={src} alt={alt || name} sx={avatarSx}>
+          {avatarContent}
+        </MuiAvatar>
+
+        <span>
+          Olá, <strong>{name || 'Usuário'}</strong>
         </span>
 
-        <span
-          className="ml-2 text-gray-80 text-weight-regular"
-          style={{
-            maxWidth: '200px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Olá, <span className="text-weight-semi-bold">{name || 'Usuário'}</span>
-        </span>
+        {menuItems.length > 0 && (menuOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}
+      </Button>
 
-        {hasMenu && (
-          <i
-            className={`fas fa-caret-${menuOpen ? 'up' : 'down'}`}
-            aria-hidden="true"
-            style={{ marginLeft: '4px' }}
-          />
-        )}
-      </GovBRButton>
-
-      {hasMenu && menuOpen && (
-        <div
-          className="br-list"
-          role="menu"
-          style={{
-            position: 'absolute',
-            top: '100%',
-            right: 0,
-            marginTop: '0.5rem',
-            backgroundColor: 'var(--surface-color-base)',
-            boxShadow: 'var(--surface-shadow-sm)',
-            zIndex: 1000,
-            minWidth: '200px',
-          }}
-        >
-          {menuItems.map((item: GovBRAvatarMenuItem) => (
-            <div
-              key={item.href}
-              className="br-item"
-              role="menuitem"
-              tabIndex={0}
-              onClick={() => handleNavigate(item.href)}
-              onKeyDown={e => e.key === 'Enter' && handleNavigate(item.href)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0.75rem 1rem',
-                cursor: 'pointer',
-              }}
-            >
-              {item.icon && <span style={{ marginRight: '0.5rem' }}>{item.icon}</span>}
-              {item.label}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      {/* O componente Menu do MUI renderiza o dropdown e gerencia seu comportamento. */}
+      <Menu
+        id="avatar-menu"
+        anchorEl={anchorEl}
+        open={menuOpen}
+        onClose={handleClose}
+        MenuListProps={{ 'aria-labelledby': 'avatar-button' }}
+        // Define o posicionamento preciso do menu em relação ao botão.
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        {menuItems.map((item: GovBRAvatarMenuItem) => (
+          <MenuItem key={item.href} onClick={() => handleNavigate(item.href)}>
+            {item.icon && <Icon sx={{ mr: 1.5 }}>{item.icon}</Icon>}
+            {item.label}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
   )
 }
 
