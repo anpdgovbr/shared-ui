@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, InputHTMLAttributes } from "react"
+import { InputHTMLAttributes } from "react"
 import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
 
 /**

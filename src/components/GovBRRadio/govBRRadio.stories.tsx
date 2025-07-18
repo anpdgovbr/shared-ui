@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRRadio } from './GovBRRadio.js'
 import { Stack } from '@mui/material'
-import { Disabled } from '../GovBRButton/GovBRButton.stories.js'
-
 
 const meta: Meta<typeof GovBRRadio> = {
   title:'GovBR/Radio',
