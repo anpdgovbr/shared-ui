@@ -1,4 +1,4 @@
-import { SharedUIComponentProps } from "src/types/SharedUIComponentProps";
+import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
 
 /**
  * @property id - Define o identificador do componente
