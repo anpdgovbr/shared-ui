@@ -8,6 +8,7 @@ package-lock.json
 
 # Build
 dist/
+types/
 storybook-static/
 
 # Vite
@@ -19,7 +20,7 @@ coverage/
 *.lcov
 
 # VSCode
-.vscode/
+#.vscode/
 *.code-workspace
 
 # Mac/Linux

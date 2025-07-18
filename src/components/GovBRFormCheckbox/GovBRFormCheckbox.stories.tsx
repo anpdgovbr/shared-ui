@@ -3,12 +3,13 @@ import type { Meta } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import GovBRFormCheckbox from './GovBRFormCheckbox.js'
+import GovBRFormCheckbox from './GovBRFormCheckbox'
 import Stack from '@mui/material/Stack'
 
 export default {
   title: 'GovBR/FormCheckbox',
   component: GovBRFormCheckbox,
+  tags: ['autodocs'],
 } as Meta
 
 const schema = z.object({

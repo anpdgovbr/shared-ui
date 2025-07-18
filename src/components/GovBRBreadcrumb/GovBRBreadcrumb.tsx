@@ -1,7 +1,7 @@
 import React from 'react'
 import type { HTMLAttributes } from 'react'
 import classNames from 'classnames'
-import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
+import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps'
 
 /**
  * Define a estrutura de um item individual do Breadcrumb.

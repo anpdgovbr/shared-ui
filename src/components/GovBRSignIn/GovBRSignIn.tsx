@@ -1,8 +1,8 @@
 import React from 'react'
 import type { ButtonHTMLAttributes } from 'react'
 import classNames from 'classnames'
-import type { GovBRSize } from '../../types/GovBRTypes.js'
-import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
+import type { GovBRSize } from '../../types/GovBRTypes'
+import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps'
 
 export interface GovBRSignInProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,

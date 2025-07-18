@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type { InputHTMLAttributes } from 'react'
 import classNames from 'classnames'
-import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps.js'
+import type { SharedUIComponentProps } from '../../types/SharedUIComponentProps'
 
 export interface GovBRCheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,

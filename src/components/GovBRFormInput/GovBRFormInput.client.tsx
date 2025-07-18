@@ -1,10 +1,9 @@
 'use client'
 
-import React from 'react'
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
-import GovBRInput from '../GovBRInput/GovBRInput.js' // ajuste o caminho
-import type { GovBRInputProps } from '../GovBRInput/GovBRInput.js'
+import type { GovBRInputProps } from '../GovBRInput/GovBRInput'
+import GovBRInput from '../GovBRInput/GovBRInput' // ajuste o caminho
 
 /**
  * Remove a propriedade 'required' do tipo fornecido.
@@ -38,7 +37,7 @@ type WithoutRequired<T> = Omit<T, 'required'>
  * de validação do campo de entrada.
  *
  */
-interface GovBRFormInputProps<
+export interface GovBRFormInputProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > extends WithoutRequired<GovBRInputProps> {

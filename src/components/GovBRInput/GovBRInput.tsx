@@ -1,13 +1,13 @@
 import React from 'react'
 import type { InputHTMLAttributes } from 'react'
 import classNames from 'classnames'
-import type { GovBRSize, GovBRStatus, GovBRClearBlock } from 'src/types/GovBRTypes.js'
-import { mapMuiColorToGovbrClass } from 'src/helper/MuiColorToGovBRClass.js'
+import type { GovBRSize, GovBRStatus, GovBRClearBlock } from 'src/types/GovBRTypes'
+import { mapMuiColorToGovbrClass } from 'src/helper/MuiColorToGovBRClass'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 import InfoIcon from '@mui/icons-material/Info'
 import WarningIcon from '@mui/icons-material/Warning'
-import GovBRButton from '../GovBRButton/GovBRButton.js' // ajuste para o seu caminho real
+import GovBRButton from '../GovBRButton/GovBRButton'
 
 /**
  * Propriedades do componente GovBRInput.
@@ -117,19 +117,19 @@ export type GovBRInputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export const GovBRInput: React.FC<Readonly<GovBRInputProps>> = ({
   govbrSize = 'medium',
-  status,
+  status = undefined,
   clearBlock,
   id,
-  label,
-  feedbackMessage,
-  helperText,
-  disabled,
-  highlight,
+  label = '',
+  feedbackMessage = '',
+  helperText = '',
+  disabled = false,
+  highlight = false,
   inline,
   startIcon,
   endButtonIcon,
   onEndButtonClick,
-  className,
+  className = 'br-input',
   placeholder,
   ...props
 }) => {
@@ -222,5 +222,7 @@ export const GovBRInput: React.FC<Readonly<GovBRInputProps>> = ({
     </div>
   )
 }
+
+GovBRInput.displayName = 'GovBRInput'
 
 export default GovBRInput
