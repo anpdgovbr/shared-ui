@@ -1,144 +1,105 @@
-import PersonIcon from '@mui/icons-material/Person'
-import SearchIcon from '@mui/icons-material/Search'
-import Stack from '@mui/material/Stack'
-import GovBRInput from './GovBRInput.js'
+import { Person as PersonIcon, Search as SearchIcon } from '@mui/icons-material'
+import { Stack } from '@mui/material'
+import type { Meta, StoryObj } from '@storybook/react'
+import GovBRInput from './GovBRInput'
+import type { GovBRInputProps } from './GovBRInput'
 
-export default {
+const meta: Meta<typeof GovBRInput> = {
   title: 'GovBR/Input',
   component: GovBRInput,
   tags: ['autodocs'],
-}
-
-export const Default = {
-  args: {
-    label: 'Nome completo',
-    placeholder: 'Digite seu nome',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Componente de input padronizado com o Design System do Governo Federal (GovBR). Suporta diversos estados visuais, tamanhos, ícones, layout inline e feedbacks de validação.',
+      },
+    },
   },
 }
 
-export const Sizes = {
-  render: () => (
-    <Stack spacing={3}>
-      <GovBRInput label="Small" govbrSize="small" placeholder="Digite algo" />
-      <GovBRInput label="Medium" govbrSize="medium" placeholder="Digite algo" />
-      <GovBRInput label="Large" govbrSize="large" placeholder="Digite algo" />
-    </Stack>
-  ),
+export default meta
+type Story = StoryObj<GovBRInputProps>
+
+// === Story com controles ===
+export const Default: Story = {
+  args: {
+    label: 'Nome completo',
+    placeholder: 'Digite seu nome',
+    govbrSize: 'medium',
+    status: undefined,
+    clearBlock: undefined,
+    highlight: false,
+    inline: false,
+    disabled: false,
+    feedbackMessage: '',
+    helperText: '',
+  },
 }
 
-export const Statuses = {
-  render: () => (
-    <Stack spacing={3}>
-      <GovBRInput
-        id="input-success"
-        label="Success"
-        status="success"
-        feedbackMessage="Mensagem de sucesso"
-        placeholder="Digite algo"
-      />
-      <GovBRInput
-        id="input-warning"
-        label="Warning"
-        status="warning"
-        feedbackMessage="Mensagem de alerta"
-        placeholder="Digite algo"
-      />
-      <GovBRInput
-        id="input-danger"
-        label="Danger"
-        status="danger"
-        feedbackMessage="Mensagem de erro"
-        placeholder="Digite algo"
-      />
-      <GovBRInput
-        id="input-info"
-        label="Info"
-        status="info"
-        feedbackMessage="Mensagem informativa"
-        placeholder="Digite algo"
-      />
-    </Stack>
-  ),
+// === Story com ícones e botão ===
+export const WithIconsAndButtons: Story = {
+  args: {
+    label: 'Buscar usuário',
+    placeholder: 'Digite o nome',
+    startIcon: <PersonIcon />,
+    endButtonIcon: <SearchIcon />,
+    onEndButtonClick: () => alert('Botão clicado'),
+  },
 }
 
-export const ClearBlock = {
-  render: () => (
-    <Stack spacing={3}>
-      <GovBRInput label="Clear sm" clearBlock="sm" placeholder="auto-sm" />
-      <GovBRInput label="Clear md" clearBlock="md" placeholder="auto-md" />
-      <GovBRInput label="Clear lg" clearBlock="lg" placeholder="auto-lg" />
-      <GovBRInput label="Clear xl" clearBlock="xl" placeholder="auto-xl" />
-    </Stack>
-  ),
+// === Story com layout inline ===
+export const Inline: Story = {
+  args: {
+    label: 'Campo em linha',
+    placeholder: 'Texto do input',
+    inline: true,
+  },
 }
 
-export const Highlight = {
-  render: () => (
-    <Stack spacing={3}>
-      <GovBRInput label="Highlight padrão" highlight placeholder="Input destacado" />
-      <GovBRInput
-        label="Highlight + Status"
-        highlight
-        status="info"
-        feedbackMessage="Input destacado com status"
-        placeholder="Input destacado com status"
-      />
-    </Stack>
-  ),
+// === Story com highlight e status ===
+export const HighlightWithStatus: Story = {
+  args: {
+    label: 'Campo destacado',
+    placeholder: 'Texto do input',
+    highlight: true,
+    status: 'info',
+    feedbackMessage: 'Informação adicional',
+  },
 }
 
-export const Inline = {
-  render: () => (
+// === Story com diferentes tamanhos ===
+export const Sizes: Story = {
+  render: args => (
     <Stack spacing={3}>
-      <GovBRInput label="Label lateral" inline placeholder="Com label lateral" />
-      <GovBRInput
-        label="Inline + Icon + Button"
-        inline
-        startIcon={<PersonIcon />}
-        endButtonIcon={<SearchIcon />}
-        onEndButtonClick={() => alert('Clicou no botão')}
-        placeholder="Com ícone e botão"
-      />
+      <GovBRInput {...args} label="Small" govbrSize="small" />
+      <GovBRInput {...args} label="Medium" govbrSize="medium" />
+      <GovBRInput {...args} label="Large" govbrSize="large" />
     </Stack>
   ),
+  args: { placeholder: 'Digite algo' },
 }
 
-export const WithIconsAndButtons = {
-  render: () => (
+// === Story com diferentes clearBlock ===
+export const ClearBlock: Story = {
+  render: args => (
     <Stack spacing={3}>
-      <GovBRInput
-        label="Input com ícone"
-        startIcon={<PersonIcon />}
-        placeholder="Input com startIcon"
-      />
-      <GovBRInput
-        label="Input com botão"
-        endButtonIcon={<SearchIcon />}
-        onEndButtonClick={() => alert('Clicou no botão')}
-        placeholder="Input com endButton"
-      />
-      <GovBRInput
-        label="Input completo"
-        highlight
-        inline
-        startIcon={<PersonIcon />}
-        endButtonIcon={<SearchIcon />}
-        onEndButtonClick={() => alert('Clicou no botão')}
-        placeholder="Highlight, inline, ícone e botão"
-      />
+      <GovBRInput {...args} label="Clear sm" clearBlock="sm" />
+      <GovBRInput {...args} label="Clear md" clearBlock="md" />
+      <GovBRInput {...args} label="Clear lg" clearBlock="lg" />
+      <GovBRInput {...args} label="Clear xl" clearBlock="xl" />
     </Stack>
   ),
+  args: { placeholder: 'Texto editável' },
 }
 
-export const Disabled = {
-  render: () => (
-    <GovBRInput
-      id="input-disabled"
-      label="Campo desabilitado"
-      placeholder="Digite algo"
-      disabled
-      feedbackMessage="Campo desativado"
-      status="warning"
-    />
-  ),
+// === Story com campo desabilitado ===
+export const Disabled: Story = {
+  args: {
+    label: 'Campo desabilitado',
+    placeholder: 'Texto não editável',
+    disabled: true,
+    feedbackMessage: 'Este campo está desabilitado',
+    status: 'warning',
+  },
 }

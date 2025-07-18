@@ -1,5 +1,5 @@
 // src/theme/govbrTheme.ts
-import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+import { createTheme, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 
 let govbrTheme = createTheme({
   // 1. Paleta de Cores (Palette)
@@ -166,31 +166,31 @@ let govbrTheme = createTheme({
 
   // 3. Espaçamento (Spacing) - O MUI usa múltiplos de 8px por padrão, então vamos mapear.
   spacing: (factor: number) => {
-    const spacingMap = {
-      0: 0, // --spacing-scale-default
-      0.5: 4, // --spacing-scale-half
-      1: 8, // --spacing-scale-base
-      1.5: 12, // --spacing-scale-baseh
-      2: 16, // --spacing-scale-2x
-      2.5: 20, // --spacing-scale-2xh
-      3: 24, // --spacing-scale-3x
-      3.5: 28, // --spacing-scale-3xh
-      4: 32, // --spacing-scale-4x
-      4.5: 36, // --spacing-scale-4xh
-      5: 40, // --spacing-scale-5x
-      5.5: 44, // --spacing-scale-5xh
-      6: 48, // --spacing-scale-6x
-      6.5: 52, // --spacing-scale-6xh
-      7: 56, // --spacing-scale-7x
-      7.5: 60, // --spacing-scale-7xh
-      8: 64, // --spacing-scale-8x
-      8.5: 68, // --spacing-scale-8xh
-      9: 72, // --spacing-scale-9x
-      9.5: 76, // --spacing-scale-9xh
-      10: 80, // --spacing-scale-10x
-      10.5: 84, // --spacing-scale-10xh
+    const spacingMap: Record<number, number> = {
+      0: 0,
+      0.5: 4,
+      1: 8,
+      1.5: 12,
+      2: 16,
+      2.5: 20,
+      3: 24,
+      3.5: 28,
+      4: 32,
+      4.5: 36,
+      5: 40,
+      5.5: 44,
+      6: 48,
+      6.5: 52,
+      7: 56,
+      7.5: 60,
+      8: 64,
+      8.5: 68,
+      9: 72,
+      9.5: 76,
+      10: 80,
+      10.5: 84,
     }
-    return (spacingMap as any)[factor] || factor * 8 // Fallback para o padrão MUI se não mapeado
+    return spacingMap[factor] ?? factor * 8
   },
 
   // 4. Quebras de Layout (Breakpoints)
@@ -206,13 +206,13 @@ let govbrTheme = createTheme({
 
   // 5. Sombras (Shadows)
   shadows: [
-    'none', // Padrão MUI para index 0
-    '0px 1px 6px rgba(0, 0, 0, 0.16)', // Exemplo de surface-shadow-sm
-    '0px 3px 6px rgba(0, 0, 0, 0.16)', // Exemplo de surface-shadow-md
-    '0px 6px 6px rgba(0, 0, 0, 0.16)', // Exemplo de surface-shadow-lg
-    '0px 9px 6px rgba(0, 0, 0, 0.16)', // Exemplo de surface-shadow-xl
-    ...Array(20).fill('none'), // Preenche o restante com 'none' ou defina mais se precisar
-  ] as any, // Cast para any para evitar erro de tipo com menos de 25 sombras
+    'none',
+    '0px 1px 6px rgba(0, 0, 0, 0.16)',
+    '0px 3px 6px rgba(0, 0, 0, 0.16)',
+    '0px 6px 6px rgba(0, 0, 0, 0.16)',
+    '0px 9px 6px rgba(0, 0, 0, 0.16)',
+    ...Array(20).fill('none'),
+  ] as ThemeOptions['shadows'], // Cast para any para evitar erro de tipo com menos de 25 sombras
 
   // 6. Formas (Shape - para border-radius)
   shape: {
@@ -616,6 +616,12 @@ let govbrTheme = createTheme({
           //     overflowY: 'auto',
           //   },
           // },
+          '&:hover': {
+            // O GovBR-DS usa background-image linear-gradient com rgba do color-rgb
+            backgroundImage:
+              'linear-gradient(rgba(var(--color-rgb),var(--hover)),rgba(var(--color-rgb),var(--hover)))',
+            backgroundColor: 'transparent', // Remover background-color padrão do MUI no hover
+          },
         },
         // Estilos para as áreas do Card
         // As classes do GovBR-DS são .card-header, .card-content, .card-footer
@@ -641,13 +647,7 @@ let govbrTheme = createTheme({
         //   },
         // },
         // Estilo para o hover
-        '&:hover': {
-          // O GovBR-DS usa background-image linear-gradient com rgba do color-rgb
-          backgroundImage:
-            'linear-gradient(rgba(var(--color-rgb),var(--hover)),rgba(var(--color-rgb),var(--hover)))',
-          backgroundColor: 'transparent', // Remover background-color padrão do MUI no hover
-        },
-      } as any,
+      },
     },
 
     MuiDivider: {

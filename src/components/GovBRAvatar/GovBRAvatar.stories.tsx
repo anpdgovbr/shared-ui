@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import GovBRAvatar from './GovBRAvatar.js'
-import PersonIcon from '@mui/icons-material/Person'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import { GovBRAvatar } from './GovBRAvatar'
 
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',

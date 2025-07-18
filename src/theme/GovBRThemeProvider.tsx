@@ -2,7 +2,7 @@
 import { ThemeProvider, CssBaseline } from '@mui/material'
 
 import { createContext, useContext, useMemo, useState, PropsWithChildren } from 'react'
-import { govbrTheme } from './govbrTheme.js'
+import { govbrTheme } from './govbrTheme'
 
 type Mode = 'theme' | 'css'
 

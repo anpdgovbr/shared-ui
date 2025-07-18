@@ -1,27 +1,26 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./types",
+    "emitDeclarationOnly": true,
+    "sourceMap": true,
     "strict": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@stories/*": ["src/stories/*"],
       "@theme/*": ["src/theme/*"]
-    },
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": false,
-    "outDir": "dist",
-    "sourceMap": true
+    }
   },
-  "include": ["src", ".storybook", "*.config.*"],
+  "include": ["src", ".storybook", "*.config.*", "vite-env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

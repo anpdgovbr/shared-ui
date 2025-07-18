@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
-import { GovBRSignIn } from './GovBRSignIn.js'
+import { GovBRSignIn } from './GovBRSignIn'
 
 const meta: Meta<typeof GovBRSignIn> = {
   title: 'GovBR/SignIn',

@@ -23,38 +23,43 @@ src/components/
 
 ## 🚀 Passo a Passo para Criação
 
-Siga estas etapas para garantir que seu componente seja criado corretamente.
+### 1. Crie um Branch para sua Tarefa
 
-### 1. Crie a Estrutura de Arquivos
+Antes de começar a codar, **crie uma branch a partir da `main`**:
+
+```bash
+git checkout main         # Garante que está na main
+git pull origin main      # Atualiza com a versão mais recente da main
+git checkout -b feat/NOME-DO-COMPONENTE
+```
+
+> Use um nome descritivo para sua branch (ex: `feat/GovBRCard`, `feat/GovBRInputMask`).
+
+### 2. Crie a Estrutura de Arquivos
 
 - Em `src/components`, crie uma nova pasta para o seu componente em `PascalCase` (ex: `GovBRCard`).
 - Dentro dessa pasta, crie os quatro arquivos descritos na arquitetura acima.
 
-### 2. Defina os Tipos (`types.ts`)
+### 3. Defina os Tipos (`types.ts`)
 
-- Defina a interface de props para o seu componente.
+- Crie uma interface `NomeDoComponenteProps`.
 - Herde de `SharedUIComponentProps` para incluir a prop `strictGovBr`.
-- Se o seu componente for um wrapper de um componente MUI, estenda as props do MUI para herdar suas funcionalidades (ex: `ButtonProps` do `@mui/material/Button`).
-
-**Exemplo (`types.ts`):**
+- Se o componente for baseado em MUI, estenda suas props (`ButtonProps`, `TextFieldProps` etc).
 
 ```ts
 import type { SharedUIComponentProps } from '@/types/SharedUIComponentProps'
 import type { ButtonProps } from '@mui/material/Button'
 
 export interface GovBRButtonProps extends ButtonProps, SharedUIComponentProps {
-  // Adicione props customizadas aqui
   label: string
 }
 ```
 
-### 3. Implemente o Componente (`GovBRCard.tsx`)
+### 4. Implemente o Componente (`GovBRCard.tsx`)
 
-- Utilize componentes do MUI como base sempre que possível.
-- Use a prop `strictGovBr` para aplicar as classes do Design System do Governo (`@govbr-ds/core`).
-- Utilize a biblioteca `classnames` para gerenciar classes dinamicamente.
-
-**Exemplo (`GovBRButton.tsx`):**
+- Use `React.FC<Readonly<...>>` para definição do componente.
+- Use `classnames` para aplicar classes conditionais.
+- Respeite os estilos e estruturas do `@govbr-ds/core` quando `strictGovBr` for `true`.
 
 ```tsx
 import React from 'react'
@@ -62,7 +67,7 @@ import MuiButton from '@mui/material/Button'
 import classnames from 'classnames'
 import type { GovBRButtonProps } from './types'
 
-export const GovBRButton: React.FC<GovBRButtonProps> = ({
+export const GovBRButton: React.FC<Readonly<GovBRButtonProps>> = ({
   label,
   strictGovBr = false,
   className,
@@ -70,7 +75,6 @@ export const GovBRButton: React.FC<GovBRButtonProps> = ({
 }) => {
   const buttonClasses = classnames(className, {
     'br-button': strictGovBr,
-    // Adicione outras classes condicionais aqui
   })
 
   return (
@@ -81,29 +85,23 @@ export const GovBRButton: React.FC<GovBRButtonProps> = ({
 }
 ```
 
-### 4. Exporte o Componente (`index.ts` e `src/index.ts`)
+### 5. Exporte o Componente
 
-- **No `index.ts` do componente:** Exporte o componente e seus tipos para facilitar a importação.
+#### No `index.ts` da pasta do componente
 
 ```ts
-// src/components/GovBRButton/index.ts
 export * from './GovBRButton'
 export * from './types'
 ```
 
-- **No `src/index.ts` principal:** Adicione uma linha para exportar tudo do seu novo componente.
+#### No `src/index.ts` (raiz do projeto)
 
 ```ts
-// src/index.ts
 export * from './components/GovBRButton'
-// ... outros exports
+export type { GovBRButtonProps } from './components/GovBRButton/types'
 ```
 
-### 5. Crie as Histórias no Storybook (`.stories.tsx`)
-
-- Crie histórias para documentar e visualizar os diferentes estados e variações do seu componente.
-
-**Exemplo (`GovBRButton.stories.tsx`):**
+### 6. Crie as Histórias no Storybook (`.stories.tsx`)
 
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react'
@@ -114,7 +112,6 @@ const meta: Meta<typeof GovBRButton> = {
   component: GovBRButton,
   tags: ['autodocs'],
   argTypes: {
-    // Configure os controles do Storybook aqui
     variant: {
       control: { type: 'select' },
       options: ['text', 'outlined', 'contained'],
@@ -123,8 +120,7 @@ const meta: Meta<typeof GovBRButton> = {
 }
 
 export default meta
-
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof GovBRButton>
 
 export const Default: Story = {
   args: {
@@ -133,48 +129,51 @@ export const Default: Story = {
     color: 'primary',
   },
 }
-
-export const StrictGovBr: Story = {
-  args: {
-    label: 'Botão Estilo GovBR',
-    variant: 'contained',
-    strictGovBr: true,
-  },
-}
 ```
 
 ---
 
 ## ✅ Checklist Final (Antes do Commit e PR)
 
-1.  **Visualize no Storybook:**
+1. **Atualize a branch com a main:**
 
-    ```bash
-    npm run storybook
-    ```
+```bash
+git pull origin main --rebase
+```
 
-    - Verifique se o componente renderiza corretamente em todas as sua variações.
+2. **Visualize no Storybook:**
 
-2.  **Execute o Linter:**
+```bash
+npm run storybook
+```
 
-    ```bash
-    npm run lint -- --fix
-    ```
+3. **Execute o Linter:**
 
-    - Garanta que não há erros de lint e que o código segue os padrões do projeto.
+```bash
+npm run lint -- --fix
+```
 
-3.  **Execute os Testes:**
+4. **Execute os Testes:**
 
-    ```bash
-    npm run test
-    ```
+```bash
+npm run test
+```
 
-    - Adicione testes unitários para o seu componente e garanta que todos os testes estão passando.
+5. **Confirme que os tipos `.d.ts` foram gerados corretamente** em `types/src` ou `types`
 
-4.  **Crie o Pull Request (PR):**
-    - Após commitar suas alterações, abra um Pull Request para o repositório principal.
-    - Descreva as alterações feitas e aguarde a revisão do time.
+6. **Adicione, commit e envie as alterações:**
+
+```bash
+git add .
+git commit -m "feat: adiciona GovBRCard"
+git push origin feat/NOME-DO-COMPONENTE
+```
+
+7. **Abra o PR:**
+   - Faça push para a branch.
+   - Crie o PR com título e descrição claros.
+   - Solicite revisão se necessário.
 
 ---
 
-✅ **Pronto!** Seguindo esses passos, seu componente estará pronto para ser integrado à biblioteca.
+✅ **Pronto!** Seu componente está padronizado, documentado e pronto para ser utilizado.

@@ -1,9 +1,10 @@
 // docs\GovBRPreview.tsx
 import { ReactNode, useEffect, useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
+import { Theme } from '@emotion/react'
 
 export const GovbrPreview = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<any>(null)
+  const [theme, setTheme] = useState<Theme | null>(null)
 
   useEffect(() => {
     const loadTheme = async () => {
