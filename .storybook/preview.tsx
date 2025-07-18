@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 const withGovBRTheme = (Story, context) => {
   const mode = context.globals.govbrThemeMode
 
-  function ThemeWrapper() {
+  function ThemeWrapper({ children }) {
     const { mode: currentMode, toggle } = useGovBRThemeMode()
 
     useEffect(() => {
@@ -19,18 +19,21 @@ const withGovBRTheme = (Story, context) => {
       }
     }, [mode, currentMode])
 
-    return <Story />
+    return <>{children}</>
   }
 
   return (
     <GovBRThemeProvider>
-      <CssBaseline />
-      <ThemeWrapper />
+      <ThemeWrapper>
+        <CssBaseline />
+        <Story />
+      </ThemeWrapper>
     </GovBRThemeProvider>
   )
 }
 
 const preview: Preview = {
+  decorators: [withGovBRTheme],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -42,7 +45,6 @@ const preview: Preview = {
     globals: {
       govbrThemeMode: 'theme', // Define o modo padrão como 'theme'
     },
-    decorators: [withGovBRTheme],
   },
   globalTypes: {
     govbrThemeMode: {
