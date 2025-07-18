@@ -1,10 +1,10 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRButton } from '@components/GovBRButton/GovBRButton.js'
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof GovBRButton> = {
   title: 'GovBR/Button',
   component: GovBRButton,
+  tags: ['autodocs'],
   argTypes: {
     color: {
       control: 'select',
