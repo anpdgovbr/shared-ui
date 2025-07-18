@@ -1,6 +1,6 @@
-import { SharedUIComponentProps } from "src/types/SharedUIComponentProps.js";
-import classNames from "classnames";
-import { InputHTMLAttributes } from "react";
+import { SharedUIComponentProps } from "src/types/SharedUIComponentProps.js"
+import classNames from "classnames"
+import { InputHTMLAttributes } from "react"
 
 export interface GovBRRadioProps extends 
   Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, SharedUIComponentProps {
