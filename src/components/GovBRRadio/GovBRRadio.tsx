@@ -6,6 +6,7 @@ export const GovBRRadio: React.FC<GovBRRadioProps> = ({
   label,
   helpText,
   text,
+  disabled,
   status,
   ...props
 }) => {
@@ -13,13 +14,14 @@ export const GovBRRadio: React.FC<GovBRRadioProps> = ({
   const radioClass = classNames(
     'br-radio',
     status,
+    disabled
   )
     
   return (
     <div className={radioClass}>
       {label && <p className="label">{label}</p>}
       {helpText && <p className="help-text">{helpText}</p>}
-      <input id={id} type="radio" {...props}/>
+      <input id={id} type="radio" disabled={disabled} {...props}/>
       <label htmlFor={id}>{text}</label>
     </div>
   )

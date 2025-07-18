@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRRadio } from './GovBRRadio.js'
 import { Stack } from '@mui/material'
+import { Disabled } from '../GovBRButton/GovBRButton.stories.js'
 
 
 const meta: Meta<typeof GovBRRadio> = {
@@ -12,6 +13,10 @@ const meta: Meta<typeof GovBRRadio> = {
     status: {
       control: 'radio',
       options: ['valid', 'invalid', undefined]
+    },
+    disabled: {
+      control: 'radio',
+      options: ['true', 'false']
     }
   }
 }
@@ -33,8 +38,8 @@ export const States: Story = {
   render: () => (
     <Stack>
       <GovBRRadio id='state-unchecked' label='Desmarcado'/>
-      <GovBRRadio id='state-disabled' label='Desativado' disabled/>
       <GovBRRadio id='state-checked' label='Marcado' checked/>
+      <GovBRRadio id='state-disabled' label='Desativado' disabled/>
       <GovBRRadio id='state-valid' label='Válido' status='valid' />
       <GovBRRadio id='state-invalid' label='Inválido' status='invalid'/>
     </Stack>
