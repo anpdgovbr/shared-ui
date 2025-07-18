@@ -43,6 +43,7 @@ export const WithFormValidation = () => {
           control={control}
           label="Eu aceito receber e-mails sobre novidades."
         />
+        {/* trocar a linha 46 por (<GovBRButton>Enviar</GovBRButton>) */}
         <button type="submit">Enviar</button>
       </Stack>
     </form>
