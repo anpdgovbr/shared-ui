@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRCheckbox } from './GovBRCheckbox.js'
+import { GovBRCheckbox } from './GovBRCheckbox'
 
 const meta: Meta<typeof GovBRCheckbox> = {
   title: 'GovBR/Checkbox',

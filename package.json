@@ -7,7 +7,7 @@
   "type": "module",
   "main": "./dist/shared-ui.cjs.js",
   "module": "./dist/shared-ui.es.js",
-  "types": "./dist/index.d.ts",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/shared-ui.es.js",
@@ -15,16 +15,32 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check && npm run test"
+    }
+  },
   "scripts": {
     "dev": "npm run storybook",
-    "build": "vite build",
+    "build": "npm run build:types && vite build",
+    "build:types": "tsc --emitDeclarationOnly --outDir types",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "peerDependencies": {
     "@mui/icons-material": "^7.0.0",
@@ -62,7 +78,9 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-storybook": "^9.0.17",
     "globals": "^16.3.0",
+    "husky": "^8.0.0",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.2",
     "playwright": "^1.54.1",
     "prettier": "^3.6.2",
     "react": "^19.1.0",

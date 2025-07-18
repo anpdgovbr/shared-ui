@@ -1,10 +1,9 @@
 // src/theme/ThemeDocs.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react'
 import { ThemeProvider } from '@mui/material/styles'
-import { govbrTheme } from '../theme/govbrTheme.js'
+import { govbrTheme } from '../theme/govbrTheme'
 import { Button, Typography, Switch, Card, Link, Divider } from '@mui/material'
 
-// Meta auxiliar para <Meta of={...} /> no .mdx
 const meta: Meta = {
   title: 'Documentação/Tema GovBR-DS',
   component: () => null,

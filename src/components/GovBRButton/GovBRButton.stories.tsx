@@ -1,4 +1,4 @@
-import { GovBRButton } from '@components/GovBRButton/GovBRButton.js'
+import { GovBRButton } from '@components/GovBRButton/GovBRButton'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof GovBRButton> = {

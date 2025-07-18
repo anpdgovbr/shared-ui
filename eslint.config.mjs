@@ -1,29 +1,40 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from 'eslint-plugin-storybook'
-
+// .eslintrc.mjs ou eslint.config.mjs
+import { defineConfig } from 'eslint/config'
 import js from '@eslint/js'
 import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import parser from '@typescript-eslint/parser'
+import tseslint from '@typescript-eslint/eslint-plugin'
 import pluginReact from 'eslint-plugin-react'
-import { defineConfig } from 'eslint/config'
+import storybook from 'eslint-plugin-storybook'
 
 export default defineConfig([
   {
-    ignores: ['dist/**', 'storybook-static/**'],
+    ignores: ['dist/**', 'storybook-static/**', 'node_modules/**', 'types/**', '.husky/**'],
   },
 
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    plugins: { js },
-    extends: ['js/recommended'],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
-  },
-
-  tseslint.configs.recommended,
-
-  {
-    ...pluginReact.configs.flat.recommended,
+    files: ['**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+      react: pluginReact,
+    },
     rules: {
+      ...tseslint.configs.recommended.rules,
+      ...pluginReact.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off', // Next.js does not require React in scope
+      'react/prop-types': 'off', // Use TypeScript for type checking
       semi: ['error', 'never'],
     },
     settings: {

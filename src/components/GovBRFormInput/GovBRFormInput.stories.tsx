@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import Stack from '@mui/material/Stack'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import GovBRFormInput from './GovBRFormInput.client.js'
+import GovBRFormInput from './GovBRFormInput.client'
 
 export default {
   title: 'GovBR/FormInput',

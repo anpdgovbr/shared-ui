@@ -1,4 +1,4 @@
-import { SharedUIComponentProps } from 'src/types/SharedUIComponentProps.js'
+import { SharedUIComponentProps } from 'src/types/SharedUIComponentProps'
 
 /**
  * Representa um item de menu exibido no avatar do GovBR.

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import type { GovBRAvatarProps } from './types.js'
+import type { GovBRAvatarProps } from './types'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
