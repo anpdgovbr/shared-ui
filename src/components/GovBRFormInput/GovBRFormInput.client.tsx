@@ -1,10 +1,9 @@
 'use client'
 
-import React from 'react'
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
-import GovBRInput from '../GovBRInput/GovBRInput.js' // ajuste o caminho
 import type { GovBRInputProps } from '../GovBRInput/GovBRInput.js'
+import GovBRInput from '../GovBRInput/GovBRInput.js' // ajuste o caminho
 
 /**
  * Remove a propriedade 'required' do tipo fornecido.

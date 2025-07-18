@@ -4,6 +4,7 @@ import '@govbr-ds/core/dist/core-tokens.min.css'
 
 import { GovBRThemeProvider, useGovBRThemeMode } from '../src/theme/GovBRThemeProvider.js'
 import { CssBaseline } from '@mui/material'
+import { useEffect } from 'react'
 
 // Decorator para alternar entre os modos de tema
 const withGovBRTheme = (Story, context) => {
@@ -12,10 +13,11 @@ const withGovBRTheme = (Story, context) => {
   function ThemeWrapper() {
     const { mode: currentMode, toggle } = useGovBRThemeMode()
 
-    // Aplica o modo se estiver diferente
-    if (mode !== currentMode) {
-      toggle()
-    }
+    useEffect(() => {
+      if (mode !== currentMode) {
+        toggle()
+      }
+    }, [mode, currentMode])
 
     return <Story />
   }

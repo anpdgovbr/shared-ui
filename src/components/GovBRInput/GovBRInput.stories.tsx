@@ -1,12 +1,12 @@
-import React from 'react'
-import GovBRInput from './GovBRInput.js'
-import Stack from '@mui/material/Stack'
 import PersonIcon from '@mui/icons-material/Person'
 import SearchIcon from '@mui/icons-material/Search'
+import Stack from '@mui/material/Stack'
+import GovBRInput from './GovBRInput.js'
 
 export default {
   title: 'GovBR/Input',
   component: GovBRInput,
+  tags: ['autodocs'],
 }
 
 export const Default = {

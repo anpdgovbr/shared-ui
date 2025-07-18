@@ -282,10 +282,16 @@ let govbrTheme = createTheme({
           },
         },
         containedSecondary: {
-          backgroundColor: '#FFD200',
-          color: '#333',
+          backgroundColor: 'var(--background-light)',
+          border: '1px solid var(--interactive)',
+          color: 'var(--interactive)',
           '&:hover': {
-            backgroundColor: '#FFD200', // Manter a cor base e aplicar o hover effect
+            backgroundImage:
+              'linear-gradient(rgba(var(--interactive-rgb),0.16),rgba(var(--interactive-rgb),0.16))',
+          },
+          '&:active': {
+            backgroundImage:
+              'linear-gradient(rgba(var(--interactive-rgb),0.45),rgba(var(--interactive-rgb),0.45))',
           },
         },
         textPrimary: {

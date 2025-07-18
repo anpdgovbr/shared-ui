@@ -3,6 +3,7 @@ import { GovBRAvatar } from './GovBRAvatar.js'
 
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',
+  tags: ['autodocs'],
   component: GovBRAvatar,
   parameters: {
     layout: 'centered',
