@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Avatar as MuiAvatar, Button, Menu, MenuItem, Icon } from '@mui/material'
+import { Avatar as MuiAvatar, Menu, MenuItem, Icon } from '@mui/material'
 import { Person, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import type { GovBRAvatarProps, GovBRAvatarMenuItem } from './types'
+import GovBRButton from '../GovBRButton/GovBRButton'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
@@ -78,7 +79,7 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
 
   return (
     <>
-      <Button
+      <GovBRButton
         className={className}
         onClick={handleClick}
         // Props de acessibilidade essenciais para leitores de tela.
@@ -105,7 +106,7 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
         </span>
 
         {menuItems.length > 0 && (menuOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}
-      </Button>
+      </GovBRButton>
 
       {/* O componente Menu do MUI renderiza o dropdown e gerencia seu comportamento. */}
       <Menu
