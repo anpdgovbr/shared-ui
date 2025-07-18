@@ -13,7 +13,8 @@
     "paths": {
       "src/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@stories/*": ["src/stories/*"]
+      "@stories/*": ["src/stories/*"],
+      "@theme/*": ["src/theme/*"]
     },
     "declaration": true,
     "declarationMap": true,
