@@ -1,12 +1,34 @@
+// src\index.ts
+// Estilo base GovBR
 import '@govbr-ds/core/dist/core.css'
 
-export * from './components/GovBRAvatar/GovBRAvatar.js'
-export * from './components/GovBRBreadcrumb/GovBRBreadcrumb.js'
-export * from './components/GovBRButton/GovBRButton.js'
-export * from './components/GovBRFormInput/GovBRFormInput.client.js'
-export * from './components/GovBRInput/GovBRInput.js'
-export * from './components/GovBRSignIn/GovBRSignIn.js'
+// ===== COMPONENTES =====
+export * from './components/GovBRAvatar/GovBRAvatar'
+export type { GovBRAvatarProps } from './components/GovBRAvatar/types'
 
-export * from './helper/MuiColorToGovBRClass.js'
+export * from './components/GovBRBreadcrumb/GovBRBreadcrumb'
+export type { GovBRBreadcrumbProps } from './components/GovBRBreadcrumb/GovBRBreadcrumb'
 
-export { govbrTheme } from './theme/govbrTheme.js'
+export * from './components/GovBRButton/GovBRButton'
+export type { GovBRButtonProps } from './components/GovBRButton/GovBRButton'
+
+export * from './components/GovBRFormInput/GovBRFormInput.client'
+export type { GovBRFormInputProps } from './components/GovBRFormInput/GovBRFormInput.client'
+
+export * from './components/GovBRInput/GovBRInput'
+export type { GovBRInputProps } from './components/GovBRInput/GovBRInput'
+
+export * from './components/GovBRSignIn/GovBRSignIn'
+export type { GovBRSignInProps } from './components/GovBRSignIn/GovBRSignIn'
+
+export * from './components/GovBRCheckbox/GovBRCheckbox'
+export type { GovBRCheckboxProps } from './components/GovBRCheckbox/GovBRCheckbox'
+
+export * from './components/GovBRFormCheckbox/GovBRFormCheckbox'
+export type { GovBRFormCheckboxProps } from './components/GovBRFormCheckbox/GovBRFormCheckbox'
+
+// ===== HELPERS =====
+export * from './helper/MuiColorToGovBRClass'
+
+// ===== TEMA =====
+export { govbrTheme } from './theme/govbrTheme'

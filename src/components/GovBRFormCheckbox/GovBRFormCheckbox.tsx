@@ -2,10 +2,10 @@ import Stack from '@mui/material/Stack'
 import classNames from 'classnames'
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
-import { iconMap } from '../../helper/IconMap.js'
-import { GovBRCheckbox, type GovBRCheckboxProps } from '../GovBRCheckbox/GovBRCheckbox.js'
+import { iconMap } from '../../helper/IconMap'
+import { GovBRCheckbox, type GovBRCheckboxProps } from '../GovBRCheckbox/GovBRCheckbox'
 
-interface GovBRFormCheckboxProps<
+export interface GovBRFormCheckboxProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > extends Omit<GovBRCheckboxProps, 'checked' | 'name'> {

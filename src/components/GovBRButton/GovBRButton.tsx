@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, ButtonProps } from '@mui/material'
 import classNames from 'classnames'
-import { mapMuiColorToGovbrClass } from 'src/helper/MuiColorToGovBRClass.js'
-import { GovBRClearBlock } from 'src/types/GovBRTypes.js'
+import { mapMuiColorToGovbrClass } from 'src/helper/MuiColorToGovBRClass'
+import { GovBRClearBlock } from 'src/types/GovBRTypes'
 
 /**
  * Propriedades adicionais para o componente GovBRButton.
