@@ -36,6 +36,13 @@ export type {
   CookieCategory,
 } from './components/GovBRCookiebar/GovBRCookiebar'
 
+export * from './components/GovBRHeader/GovBRHeader'
+export type {
+  GovBRHeaderProps,
+  HeaderMenuItem,
+  HeaderAction,
+} from './components/GovBRHeader/GovBRHeader'
+
 // ===== HELPERS =====
 export * from './helper/MuiColorToGovBRClass'
 
