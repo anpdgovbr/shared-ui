@@ -1,7 +1,5 @@
-import { govbrTheme } from "src/theme/govbrTheme"
 import { GovBRRadioProps } from "./types"
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material"
-import { useState } from "react";
+import { FormControl, FormControlLabel, FormLabel, Radio, Typography } from "@mui/material"
 
 export const GovBRRadio: React.FC<GovBRRadioProps> = ({
   label,
@@ -45,13 +43,6 @@ export const GovBRRadio: React.FC<GovBRRadioProps> = ({
       }}
       />} label={text}/>
     </FormControl>
-
-    {/* <div className={radioClass}>
-      {label && <p className="label">{label}</p>}
-      {helpText && <p className="help-text">{helpText}</p>}
-      <input id={id} type="radio" disabled={disabled} {...props}/>
-      <label htmlFor={id}>{text}</label>
-    </div> */}
     </>
   )
 }
