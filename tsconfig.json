@@ -6,8 +6,6 @@
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./types",
-    "emitDeclarationOnly": true,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,

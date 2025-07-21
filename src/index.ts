@@ -30,6 +30,12 @@ export type { GovBRFormCheckboxProps } from './components/GovBRFormCheckbox/GovB
 export * from './components/GovBRRadio/GovBRRadio'
 export type { GovBRRadioProps } from './components/GovBRRadio/types'
 
+export * from './components/GovBRCookiebar/GovBRCookiebar'
+export type {
+  GovBRCookiebarProps,
+  CookieCategory,
+} from './components/GovBRCookiebar/GovBRCookiebar'
+
 // ===== HELPERS =====
 export * from './helper/MuiColorToGovBRClass'
 
