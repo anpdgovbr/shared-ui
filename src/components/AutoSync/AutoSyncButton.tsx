@@ -4,6 +4,7 @@
 // - Aplica padrão de foco do GovBR (outline dashed dourado)
 // - Utiliza sistema de espaçamento e transições do Design System
 // - Inclui hover effects consistentes com o padrão GovBR
+// - Reutiliza o sistema de tamanhos do IconButton do MUI
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
@@ -22,7 +23,7 @@ export interface AutoSyncButtonProps<T = unknown> {
   tooltipEnabled?: boolean
   resetTrigger?: T
   disabled?: boolean
-  size?: 'small' | 'medium' | 'large' // Adicionando suporte aos tamanhos do GovBR
+  size?: 'small' | 'medium' | 'large'
 }
 
 export default function AutoSyncButton<T = unknown>({
@@ -167,34 +168,22 @@ export default function AutoSyncButton<T = unknown>({
   return (
     <Tooltip title={tooltipTitle}>
       <IconButton
-        size={size} // Usar o tamanho do GovBR-DS
+        size={size} // Usar sistema de tamanhos do MUI (customizado no tema GovBR)
         disabled={disabled || syncStatus === 'loading'}
         aria-label="Auto Sync"
         onClick={toggleAutoSync}
         sx={{
           marginLeft: theme.spacing(1), // Usar spacing do tema
           color: getColor(),
-          // Aplicar foco do GovBR-DS
-          '&.Mui-focusVisible': {
-            outlineColor: theme.palette.warning.main, // GovBR focus-color (gold-vivid-40)
-            outlineOffset: '4px',
-            outlineStyle: 'dashed',
-            outlineWidth: '4px',
-          },
           // Animação de loading usando as transições do GovBR
           animation:
             syncStatus === 'loading'
               ? `${spinAnimation} 1s ${theme.transitions.easing.easeInOut} infinite`
               : 'none',
-          // Hover effect do GovBR-DS
+          // Hover personalizado para este componente (sobrescreve o padrão)
           '&:hover:not(:disabled)': {
-            backgroundImage: `linear-gradient(rgba(${hexToRgb(theme.palette.primary.main)}, 0.16), rgba(${hexToRgb(theme.palette.primary.main)}, 0.16))`,
+            backgroundImage: `linear-gradient(rgba(${hexToRgb(getColor())}, 0.16), rgba(${hexToRgb(getColor())}, 0.16))`,
           },
-          // Transições suaves
-          transition: theme.transitions.create(['color', 'background-image'], {
-            duration: theme.transitions.duration.standard,
-            easing: theme.transitions.easing.easeInOut,
-          }),
         }}
       >
         {getIcon()}
