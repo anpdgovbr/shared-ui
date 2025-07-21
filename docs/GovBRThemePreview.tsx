@@ -1,16 +1,19 @@
-// docs\GovBRPreview.tsx
+// docs\GovBRThemePreview.tsx
 import { ReactNode, useEffect, useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import { Theme } from '@emotion/react'
 
-export const GovbrPreview = ({ children }: { children: ReactNode }) => {
+export const GovBRThemePreview = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme | null>(null)
 
   useEffect(() => {
     const loadTheme = async () => {
-      const isDev = import.meta.env.MODE === 'development'
-      const mod = isDev ? await import('../src/theme/govbrTheme') : await import('@anpd/shared-ui')
-      setTheme(mod.govbrTheme)
+      try {
+        const mod = await import('../src/theme/govbrTheme')
+        setTheme(mod.govbrTheme)
+      } catch (error) {
+        console.error('Erro ao carregar o tema:', error)
+      }
     }
 
     loadTheme()

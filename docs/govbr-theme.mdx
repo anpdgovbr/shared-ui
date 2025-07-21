@@ -1,5 +1,8 @@
+import { Meta } from '@storybook/blocks'
 import { Button, Typography, Switch, Card, Link, Divider } from '@mui/material'
-import { GovbrPreview } from '../docs/GovbrPreview'
+import { GovBRThemePreview } from './GovBRThemePreview'
+
+<Meta title="Documentação/Tema GovBR-DS" />
 
 # Tema GovBR-DS para Material-UI
 
@@ -29,7 +32,7 @@ Quando essas folhas de estilo estiverem carregadas globalmente, os componentes s
 
 ## Paleta de Cores
 
-<GovbrPreview>
+<GovBRThemePreview>
   <Button variant="contained" color="primary" sx={{ mr: 2 }}>
     Primary
   </Button>
@@ -48,13 +51,13 @@ Quando essas folhas de estilo estiverem carregadas globalmente, os componentes s
   <Button variant="contained" color="error">
     Error
   </Button>
-</GovbrPreview>
+</GovBRThemePreview>
 
 ---
 
 ## Tipografia
 
-<GovbrPreview>
+<GovBRThemePreview>
   <Typography variant="h1" gutterBottom>
     H1 - Título Principal
   </Typography>
@@ -71,25 +74,25 @@ Quando essas folhas de estilo estiverem carregadas globalmente, os componentes s
   <Link href="#" variant="body1">
     Link Exemplo
   </Link>
-</GovbrPreview>
+</GovBRThemePreview>
 
 ---
 
 ## Switch (Estados e Tamanhos)
 
-<GovbrPreview>
+<GovBRThemePreview>
   <Switch defaultChecked sx={{ mr: 2 }} />
   <Switch sx={{ mr: 2 }} />
   <Switch size="small" defaultChecked sx={{ mr: 2 }} />
   <Switch size="large" sx={{ mr: 2 }} />
   <Switch disabled defaultChecked />
-</GovbrPreview>
+</GovBRThemePreview>
 
 ---
 
 ## Card com Sombra e Hover
 
-<GovbrPreview>
+<GovBRThemePreview>
   <Card
     sx={{
       p: 3,
@@ -110,15 +113,15 @@ Quando essas folhas de estilo estiverem carregadas globalmente, os componentes s
       Saiba Mais
     </Button>
   </Card>
-</GovbrPreview>
+</GovBRThemePreview>
 
 ---
 
 ## Divider (Horizontal e Tracejado)
 
-<GovbrPreview>
+<GovBRThemePreview>
   <Typography variant="body1">Conteúdo acima da divisória.</Typography>
   <Divider sx={{ my: 2 }} />
   <Typography variant="body1">Conteúdo abaixo da divisória.</Typography>
   <Divider sx={{ my: 2 }} variant="fullWidth" />
-</GovbrPreview>
+</GovBRThemePreview>
