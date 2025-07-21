@@ -46,6 +46,10 @@
     "url": "https://github.com/anpdgovbr/shared-ui/issues"
   },
   "homepage": "https://github.com/anpdgovbr/shared-ui#readme",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "peerDependencies": {
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
