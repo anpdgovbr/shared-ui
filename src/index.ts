@@ -3,6 +3,9 @@
 import '@govbr-ds/core/dist/core.css'
 
 // ===== COMPONENTES =====
+export * from './components/AutoSync/AutoSyncButton'
+export type { AutoSyncButtonProps } from './components/AutoSync/AutoSyncButton'
+
 export * from './components/GovBRAvatar/GovBRAvatar'
 export type { GovBRAvatarProps } from './components/GovBRAvatar/types'
 

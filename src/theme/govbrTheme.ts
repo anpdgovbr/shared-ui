@@ -405,6 +405,49 @@ let govbrTheme = createTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          // Aplicar foco padrão do GovBR-DS
+          '&.Mui-focusVisible': {
+            outlineColor: '#F29F05', // govbr: focus-color-light (gold-vivid-40)
+            outlineOffset: '4px', // govbr: focus-offset
+            outlineStyle: 'dashed', // govbr: focus-style
+            outlineWidth: '4px', // govbr: focus-width
+          },
+          // Hover effect padrão do GovBR-DS
+          '&:hover:not(:disabled)': {
+            backgroundImage: 'linear-gradient(rgba(19, 81, 180, 0.16), rgba(19, 81, 180, 0.16))',
+          },
+          // Transições suaves
+          transition: 'all 0.3s ease-in-out',
+        },
+        sizeSmall: {
+          width: '32px',
+          height: '32px',
+          padding: '4px',
+          '& .MuiSvgIcon-root': {
+            fontSize: '1rem', // 16px
+          },
+        },
+        sizeMedium: {
+          width: '40px',
+          height: '40px',
+          padding: '8px',
+          '& .MuiSvgIcon-root': {
+            fontSize: '1.25rem', // 20px
+          },
+        },
+        sizeLarge: {
+          width: '48px',
+          height: '48px',
+          padding: '12px',
+          '& .MuiSvgIcon-root': {
+            fontSize: '1.5rem', // 24px
+          },
+        },
+      },
+    },
     MuiLink: {
       styleOverrides: {
         root: {

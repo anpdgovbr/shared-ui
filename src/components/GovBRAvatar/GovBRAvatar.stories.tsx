@@ -5,9 +5,7 @@ const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',
   component: GovBRAvatar,
   tags: ['autodocs'],
-  parameters: {
-    
-  },
+  parameters: {},
   argTypes: {
     name: { control: 'text' },
     src: { control: 'text' },
