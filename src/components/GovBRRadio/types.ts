@@ -1,5 +1,5 @@
-import { ButtonProps } from "@mui/material"
-import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
+import { ButtonProps } from '@mui/material'
+import { SharedUIComponentProps } from 'src/types/SharedUIComponentProps'
 
 /**
  * @propery helpText - Texto utilizado para informações adicionais
@@ -19,7 +19,7 @@ export interface GovBRRadioProps extends SharedUIComponentProps, ButtonProps {
   helpText?: string
   text?: string
   disabled?: boolean | undefined
-  checked?: boolean | undefined 
+  checked?: boolean | undefined
   error?: boolean
   valid?: boolean
   onChange?: () => void

@@ -9,9 +9,9 @@ const meta: Meta<typeof GovBRRadio> = {
   tags: ['autodocs'],
   argTypes: {
     label: { control: 'text' },
-    error: { control: 'boolean'},
-    valid: { control: 'boolean'},
-    disabled: { control: 'boolean'},
+    error: { control: 'boolean' },
+    valid: { control: 'boolean' },
+    disabled: { control: 'boolean' },
   },
 }
 export default meta
@@ -23,8 +23,8 @@ export const Default: Story = {
     id: 'radio-default',
     label: 'Rótulo',
     helpText: 'Informações adicionais',
-    text: 'Opção'
-  }
+    text: 'Opção',
+  },
 }
 
 export const States: Story = {
@@ -33,56 +33,57 @@ export const States: Story = {
     const [selected, setSelected] = React.useState('op2')
 
     return (
-    <Stack spacing={-3}>
-      <GovBRRadio 
-      name='opcao' 
-      value='op1' 
-      id="state-unchecked" 
-      text="Desmarcado" 
-      checked={selected === 'op1'}
+      <Stack>
+        <GovBRRadio
+          name="opcao"
+          value="op1"
+          id="state-unchecked"
+          text="Desmarcado"
+          checked={selected === 'op1'}
           onChange={() => setSelected('op1')}
-      />
-      <GovBRRadio 
-      name='opcao' 
-      value='op2' 
-      id="state-checked" 
-      text="Marcado"
-      checked={selected === 'op2'}
+        />
+        <GovBRRadio
+          name="opcao"
+          value="op2"
+          id="state-checked"
+          text="Marcado"
+          checked={selected === 'op2'}
           onChange={() => setSelected('op2')}
-      />
-      <GovBRRadio name='opcao' 
-      value='op3' 
-      id="state-disabled" 
-      text="Desativado" 
-      disabled 
-      checked={selected === 'op3'}
+        />
+        <GovBRRadio
+          name="opcao"
+          value="op3"
+          id="state-disabled"
+          text="Desativado"
+          disabled
+          checked={selected === 'op3'}
           onChange={() => setSelected('op3')}
-      />
-      <GovBRRadio 
-      name='opcao' 
-      value='op4' 
-      id="state-valid" 
-      text="Válido" 
-      valid 
-      checked={selected === 'op4'}
+        />
+        <GovBRRadio
+          name="opcao"
+          value="op4"
+          id="state-valid"
+          text="Válido"
+          valid
+          checked={selected === 'op4'}
           onChange={() => setSelected('op4')}
-      />
-      <GovBRRadio 
-      name='opcao' 
-      value='op5' 
-      id="state-invalid"
-      text="Inválido"
-      error 
-      checked={selected === 'op5'}
+        />
+        <GovBRRadio
+          name="opcao"
+          value="op5"
+          id="state-invalid"
+          text="Inválido"
+          error
+          checked={selected === 'op5'}
           onChange={() => setSelected('op5')}
-       />
-    </Stack>
+        />
+      </Stack>
     )
   },
 }
 
-export const Horizontal: Story ={
- name: 'Horizontal',
+export const Horizontal: Story = {
+  name: 'Horizontal',
   render: () => {
     const [selected, setSelected] = React.useState('opcao1')
 
@@ -111,5 +112,5 @@ export const Horizontal: Story ={
         />
       </Stack>
     )
-  }
+  },
 }
