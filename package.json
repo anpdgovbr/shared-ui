@@ -46,6 +46,10 @@
     "url": "https://github.com/anpdgovbr/shared-ui/issues"
   },
   "homepage": "https://github.com/anpdgovbr/shared-ui#readme",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "peerDependencies": {
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
@@ -68,16 +72,16 @@
     "@storybook/addon-onboarding": "^9.0.17",
     "@storybook/addon-vitest": "^9.0.17",
     "@storybook/react-vite": "^9.0.17",
-    "@types/node": "^24.0.14",
+    "@types/node": "^24.0.15",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/eslint-plugin": "^8.37.0",
-    "@typescript-eslint/parser": "^8.37.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.31.0",
-    "eslint-config-prettier": "^10.1.7",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-storybook": "^9.0.17",

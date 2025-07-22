@@ -34,7 +34,7 @@ Apenas a versão **mais recente** do repositório `shared-ui` é oficialmente su
 
 Após a análise e resolução da falha, publicaremos as correções via:
 
-- Histórico de *commits* e changelog do projeto;
+- Histórico de _commits_ e changelog do projeto;
 - Abertura de issue pública, se necessário;
 - Aviso interno via DDSS/CGTI/ANPD, se aplicável.
 
@@ -45,6 +45,7 @@ Após a análise e resolução da falha, publicaremos as correções via:
 Agradecemos a qualquer colaborador que reporte falhas de forma responsável, ajudando a manter nossos sistemas mais seguros para toda a administração pública.
 
 ---
+
 **Divisão de Desenvolvimento e Sustentação de Sistemas (DDSS)**  
 **Coordenação-Geral de Tecnologia da Informação (CGTI)**  
 Autoridade Nacional de Proteção de Dados – ANPD
