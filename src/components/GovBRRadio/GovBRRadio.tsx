@@ -1,7 +1,10 @@
 import { GovBRRadioProps } from "./types"
-import { FormControl, FormControlLabel, FormLabel, Radio, Typography } from "@mui/material"
+import {Radio, Stack, Typography } from "@mui/material"
+
 
 export const GovBRRadio: React.FC<GovBRRadioProps> = ({
+  name,
+  value,
   label,
   helpText,
   text,
@@ -14,35 +17,47 @@ export const GovBRRadio: React.FC<GovBRRadioProps> = ({
 
   return (
     <>
-    <FormControl disabled={disabled}>
-      {label && (
-        <FormLabel>
-          <Typography sx={{marginBottom: 0, fontWeight: 'bold'}} >{label}</Typography>
-        </FormLabel>
-      )}
-      {helpText && <Typography >{helpText}</Typography>}
+    <Stack>
+      <Typography className="br-label">{label}</Typography>
+      <Typography className="br-text-small">{helpText}</Typography>
+    </Stack>
+    <Stack direction="row" alignItems="center" spacing={-0.5}>
+      <Radio 
+        disabled={disabled}
+        checked={checked}
+        onChange={onChange}
+        value={value}
+        name={name}
+        sx={{
+          color: 'gray.500',
+          '&.Mui-checked': {
+            color: 'gray.500', 
+          },
+          '& .MuiSvgIcon-root': {
+            fontSize: 30,
+          },
+          ...(error && {
+            color: 'error.main',
+            '&.Mui-checked': {
+              color: 'error.main',
+            },
+          }),
+          ...(valid && !error && {
+            color: 'success.main',
+            '&.Mui-checked': {
+              color: 'success.main',
+            },
+          }),
+          gap: 1
+        }}
+      />
+      <Typography className="br-text" sx={{
+          color: disabled ? 'text.disabled' : 'text.primary',
+        }}>
+          {text}
+      </Typography>
+    </Stack>
 
-      <FormControlLabel 
-      control={
-      <Radio
-      checked={checked}
-      onChange={onChange}
-      sx={{
-        color: error
-                ? 'error.main'
-                : valid
-                ? 'success.main'
-                : 'primary.main',
-              '&.Mui-checked': {
-                color: error
-                  ? 'error.main'
-                  : valid
-                  ? 'success.main'
-                  : 'gray.1'
-              }
-      }}
-      />} label={text}/>
-    </FormControl>
     </>
   )
 }

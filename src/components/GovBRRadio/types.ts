@@ -13,6 +13,8 @@ import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
  */
 
 export interface GovBRRadioProps extends SharedUIComponentProps, ButtonProps {
+  name?: string
+  value: string
   label?: string
   helpText?: string
   text?: string
