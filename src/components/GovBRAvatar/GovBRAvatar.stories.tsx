@@ -5,9 +5,7 @@ const meta: Meta<typeof GovBRAvatar> = {
   title: 'GovBR/Avatar',
   component: GovBRAvatar,
   tags: ['autodocs'],
-  parameters: {
-    
-  },
+  parameters: {},
   argTypes: {
     name: { control: 'text' },
     src: { control: 'text' },
@@ -32,7 +30,7 @@ export default meta
 export type Story = StoryObj<typeof GovBRAvatar>
 
 const menuItems = [
-  { label: 'Dados pessoais', href: '/dadosPessoais'},
+  { label: 'Dados pessoais', href: '/dadosPessoais' },
   { label: 'Privacidade', href: '/privacidade' },
   { label: 'Notificações', href: '/notificacoes' },
   { label: 'Perguntas frequentes', href: '/faq' },
