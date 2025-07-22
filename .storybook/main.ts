@@ -5,14 +5,14 @@ import path from 'path'
 const config: StorybookConfig = {
   // Ajuste esta linha:
   stories: [
-    '../src/**/*.stories.@(ts|tsx)', // Mantém suas histórias de componentes em src
-    '../docs/**/*.mdx', // Adiciona seus arquivos MDX na pasta docs da raiz
+    '../src/**/*.stories.@(ts|tsx)', // Histórias de componentes
+    '../docs/**/*.stories.@(ts|tsx)', // Documentação como stories
+    // '../docs/**/*.mdx', // MDX temporariamente desabilitado
   ],
   addons: [
+    // Testes de acessibilidade
     '@storybook/addon-a11y',
-    // Adicione o addon-docs se ainda não estiver lá, ele é essencial para arquivos MDX
-    '@storybook/addon-essentials', // Geralmente inclui docs por padrão, mas é bom verificar
-    '@storybook/addon-docs', // Assegura que o addon docs esteja habilitado
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/react-vite',
@@ -30,6 +30,7 @@ const config: StorybookConfig = {
       '@components': path.resolve(__dirname, '../src/components'),
       '@stories': path.resolve(__dirname, '../src/stories'),
       '@theme': path.resolve(__dirname, '../src/theme'),
+      '@docs': path.resolve(__dirname, '../docs'),
     }
     return config
   },
