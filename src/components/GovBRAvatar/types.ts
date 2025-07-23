@@ -1,4 +1,4 @@
-import type { AvatarProps } from '@mui/material/Avatar'
+import type { AvatarProps, BadgeProps } from '@mui/material'
 import type { ReactNode } from 'react'
 import { GovBRSize } from 'src/types/GovBRTypes'
 import { SharedUIComponentProps } from 'src/types/SharedUIComponentProps'
@@ -17,7 +17,7 @@ export interface GovBRAvatarMenuItem {
 
 export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
   /**
-   * Nome do usuário para exibir iniciais.
+   * Nome do usuário para exibir iniciais e saudação.
    */
   name?: string
 
@@ -38,7 +38,7 @@ export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
   size?: GovBRSize
 
   /**
-   * Formato do avatar.
+   * Formato do avatar. (Sua prop original, agora será usada!)
    * @default 'circular'
    */
   variant?: 'circular' | 'rounded' | 'square'
@@ -47,16 +47,44 @@ export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
    * Cor de fundo do avatar quando não há imagem.
    * @default 'default'
    */
-  color?: 'default' | 'primary' | 'secondary'
+  color?: 'primary'| 'secondary' | 'default' 
 
   /**
-   * Lista de itens para o menu dropdown. Se fornecido, ativa a funcionalidade de menu.
+   * Lista de itens para o menu dropdown simples.
    */
   menuItems?: GovBRAvatarMenuItem[]
 
   /**
+   * Conteúdo customizado (JSX) para ser exibido dentro do dropdown.
+   * Se fornecido, sobrepõe `menuItems`.
+   */
+  dropdownContent?: ReactNode
+
+  /**
    * Função de callback chamada quando um item do menu é clicado.
-   * Obrigatória se `menuItems` for fornecido.
    */
   onNavigate?: (href: string) => void
+
+  /**
+   * Conteúdo a ser exibido no identificador (badge) sobre o avatar. Ex: números ou ícones.
+   */
+  badgeContent?: ReactNode
+
+  /**
+   * Cor do identificador (badge).
+   * @default 'error'
+   */
+  badgeColor?: BadgeProps['color']
+
+  /**
+   * Variante do identificador (badge). 'dot' é usado para status online.
+   * @default 'standard'
+   */
+  badgeVariant?: BadgeProps['variant']
+
+  /**
+   * Se `true`, oculta a saudação "Olá, [Nome]" e exibe apenas o avatar.
+   * @default false
+   */
+  hideGreeting?: boolean
 }
