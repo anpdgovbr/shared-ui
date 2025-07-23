@@ -4,7 +4,7 @@
 
 ![CI](https://github.com/anpdgovbr/shared-ui/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-ISC-blue.svg)
-![Node Version](https://img.shields.io/badge/node-18%2B-brightgreen)
+![Node Version](https://img.shields.io/badge/node-20%2B-brightgreen)
 ![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-blue)
 ![Storybook](https://img.shields.io/badge/docs-Storybook-orange)
 
