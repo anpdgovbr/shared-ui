@@ -1,72 +1,102 @@
 import React, { useState } from 'react'
-import { Avatar as MuiAvatar, Menu, MenuItem, Icon } from '@mui/material'
-import { Person, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { Avatar as MuiAvatar, Menu, MenuItem, Icon, Badge } from '@mui/material'
+import { Person, ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import type { GovBRAvatarProps, GovBRAvatarMenuItem } from './types'
 import GovBRButton from '../GovBRButton/GovBRButton'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
- *
- * Exibe o avatar do usuário (imagem ou inicial do nome), saudação personalizada e um menu suspenso de opções.
- * Permite customização de tamanho do avatar, itens de menu e estilo visual.
- *
- * @param props Propriedades do componente GovBRAvatar.
- * @example
- * ```tsx
- * <GovBRAvatar
- * name="João Silva"
- * onNavigate={href => console.log(href)}
- * menuItems={[{ label: 'Perfil', href: '/perfil' }]}
- * />
- * ```
+ * Exibe o avatar do usuário, que pode conter um identificador (badge) e acionar um dropdown.
  */
 export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
   name,
   src,
   alt,
   menuItems = [],
+  dropdownContent,
   onNavigate,
   size = 'medium',
-  color = 'default',
+  variant = 'circular',
+  color = 'primary',
   className = '',
+  badgeContent,
+  badgeColor = 'error',
+  badgeVariant = 'standard',
+  hideGreeting = false,
 }) => {
-  // O estado `anchorEl` é usado pelo MUI para saber onde posicionar o menu. `null` significa fechado.
+  // Estado para controlar o elemento de âncora do menu dropdown.
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const menuOpen = Boolean(anchorEl)
+  // Determina se o avatar deve ter a funcionalidade de dropdown.
+  const hasDropdown = menuItems.length > 0 || !!dropdownContent
 
-  // Abre o menu definindo sua âncora no elemento clicado.
+  // Abre o menu dropdown no elemento clicado.
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    if (menuItems.length > 0) {
+    if (hasDropdown) {
       setAnchorEl(event.currentTarget)
     }
   }
 
+  // Fecha o menu dropdown.
   const handleClose = () => {
     setAnchorEl(null)
   }
 
-  // Aciona o callback de navegação (prop) e em seguida fecha o menu.
+  // Executa a navegação e fecha o menu.
   const handleNavigate = (href: string) => {
     onNavigate?.(href)
     handleClose()
   }
 
-  // Mapeia props de tamanho e cor para valores de estilo concretos.
-  const sizeMap = { small: 32, medium: 40, large: 48, xl: 56 }
+  // Mapeamento de tamanhos para estilização do avatar.
+  const sizeMap = { small: 32, medium: 40, large: 55, xl: 56 }
   const colorMap = {
-    default: 'var(--color-primary-lighten-01)',
-    primary: 'var(--color-primary)',
-    secondary: 'var(--color-secondary)',
+    default: '#f7f7f7',
+    primary: '#1452b5',
+    secondary: '#ffffff',
   }
 
-  // Objeto de estilo dinâmico para o Avatar, baseado nas props recebidas.
+  // Estilo para o botão quando a saudação está oculta (versão compacta).
+  const compactButtonSx = {
+    padding: 0,
+    minHeight: '30px',
+    height: '50px',
+    width: '30px',
+    Padding: '4px 8px 4px 6px',
+    borderRadius: '50px',
+    '&:hover': {
+      bgcolor: 'transparent',
+    },
+  }
+
+  // Estilo base do componente de avatar (MuiAvatar).
   const avatarSx = {
-    width: sizeMap[size] ?? 40,
-    height: sizeMap[size] ?? 40,
+    width: sizeMap[size] ?? 30,
+    height: sizeMap[size] ?? 30,
     bgcolor: colorMap[color] ?? colorMap.default,
-    fontSize: (sizeMap[size] ?? 40) * 0.5,
+    fontSize: (sizeMap[size] ?? 40) * 0.4,
   }
 
+  // Estilo condicional do botão principal: usa o estilo completo ou compacto.
+  const buttonSx = !hideGreeting
+    ? {
+        bgcolor: 'action.hover',
+        borderRadius: '50px',
+        padding: '4px 8px 4px 6px',
+        minHeight: '40px',
+        height: '50px',
+        textTransform: 'none',
+        color: 'text.primary',
+        fontSize: '0.875rem',
+        lineHeight: 1.2,
+        gap: 0.2,
+        '&:hover': {
+          bgcolor: 'transparent',
+        },
+      }
+    : compactButtonSx
+
+  // Extrai as duas primeiras iniciais do nome para exibir no avatar.
   const getInitials = (name: string) =>
     name
       .split(' ')
@@ -75,40 +105,59 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
       .toUpperCase()
       .slice(0, 2)
 
+  // Define o conteúdo do avatar: iniciais do nome ou um ícone padrão.
   const avatarContent = name ? getInitials(name) : <Person fontSize="inherit" />
+
+  // Componente de Avatar com badge (notificação).
+  const AvatarComponent = (
+    <MuiAvatar src={src} alt={alt || name} sx={avatarSx} variant={variant}>
+      {avatarContent}
+    </MuiAvatar>
+  )
 
   return (
     <>
+      {/* Botão principal que aciona o menu e contém o avatar e a saudação. */}
       <GovBRButton
         className={className}
         onClick={handleClick}
-        // Props de acessibilidade essenciais para leitores de tela.
         aria-controls={menuOpen ? 'avatar-menu' : undefined}
-        aria-haspopup={menuItems.length > 0}
+        aria-haspopup={hasDropdown}
         aria-expanded={menuOpen}
-        sx={{
-          p: 'var(--spacing-scale-base)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          borderRadius: '4px',
-          textTransform: 'none',
-          color: 'var(--text-color-primary)',
-        }}
+        id="avatar-button"
+        variant="text"
+        sx={buttonSx}
       >
-        {/* O Avatar do MUI exibe a imagem de `src` ou, como fallback, seus `children`. */}
-        <MuiAvatar src={src} alt={alt || name} sx={avatarSx}>
-          {avatarContent}
-        </MuiAvatar>
+        {/* Badge para exibir notificações (um ponto ou número) sobre o avatar. */}
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          badgeContent={badgeContent}
+          color={badgeColor}
+          variant={badgeVariant}
+          sx={{
+            '& .MuiBadge-badge': {
+              minWidth: badgeVariant === 'dot' ? 8 : 16,
+              height: badgeVariant === 'dot' ? 8 : 16,
+              fontSize: badgeVariant === 'dot' ? 0 : 10,
+            },
+          }}
+        >
+          {AvatarComponent}
+        </Badge>
 
-        <span>
-          Olá, <strong>{name || 'Usuário'}</strong>
-        </span>
+        {/* Exibe a saudação "Olá, {nome}" se a prop `hideGreeting` for falsa. */}
+        {!hideGreeting && (
+          <span>
+            Olá, <strong>{name || 'Usuário'}</strong>
+          </span>
+        )}
 
-        {menuItems.length > 0 && (menuOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}
+        {/* Exibe a seta para baixo ou para cima se houver um dropdown. */}
+        {hasDropdown && (menuOpen ? <ArrowDropUp /> : <ArrowDropDown />)}
       </GovBRButton>
 
-      {/* O componente Menu do MUI renderiza o dropdown e gerencia seu comportamento. */}
+      {/* Menu dropdown que é aberto ao clicar no botão. */}
       <Menu
         id="avatar-menu"
         anchorEl={anchorEl}
@@ -117,16 +166,17 @@ export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
         slotProps={{
           list: { 'aria-labelledby': 'avatar-button' },
         }}
-        // Define o posicionamento preciso do menu em relação ao botão.
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        {menuItems.map((item: GovBRAvatarMenuItem) => (
-          <MenuItem key={item.href} onClick={() => handleNavigate(item.href)}>
-            {item.icon && <Icon sx={{ mr: 1.5 }}>{item.icon}</Icon>}
-            {item.label}
-          </MenuItem>
-        ))}
+        {/* Renderiza o conteúdo customizado (se fornecido) ou os itens de menu. */}
+        {dropdownContent ||
+          menuItems.map((item: GovBRAvatarMenuItem) => (
+            <MenuItem key={item.href} onClick={() => handleNavigate(item.href)}>
+              {item.icon && <Icon sx={{ mr: 1.5 }}>{item.icon}</Icon>}
+              {item.label}
+            </MenuItem>
+          ))}
       </Menu>
     </>
   )
