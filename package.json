@@ -1,5 +1,5 @@
 {
-  "name": "@anpd/shared-ui",
+  "name": "@anpdgovbr/shared-ui",
   "version": "1.0.0",
   "description": "Biblioteca de componentes React com MUI v7 e padrão govbr-ds para ANPD",
   "author": "Luciano Édipo",
