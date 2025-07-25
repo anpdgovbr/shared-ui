@@ -87,7 +87,7 @@ export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
           </>
         )
       case 'internal':
-      default: //IMPORTANTE: trocar a linha 93 ("<i className="fas fa-user" aria-hidden="true"></i>") por "<Person sx={{ p: 0, m: 0 }} />"
+      default://IMPORTANTE: trocar a linha 93 ("<i className="fas fa-user" aria-hidden="true"></i>") por "<Person sx={{ p: 0, m: 0 }} />"
         return (
           <>
             <i className="fas fa-user" aria-hidden="true"></i>
