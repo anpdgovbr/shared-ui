@@ -1,0 +1,107 @@
+name: 🐛 Bug Report
+description: Relate um problema ou comportamento inesperado
+title: '[BUG] '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Relatório de Bug
+
+        Obrigado por dedicar seu tempo para relatar este problema! Isso nos ajuda a melhorar nossos projetos.
+
+        **Antes de continuar:**
+        - 🔍 Verifique se já existe uma issue similar
+        - 📚 Consulte a documentação do projeto
+        - 🔒 Para vulnerabilidades de segurança, use nosso [processo de divulgação responsável](../profile/SECURITY.md)
+
+  - type: input
+    id: repository
+    attributes:
+      label: 📦 Repositório Afetado
+      description: Em qual repositório da ANPD o problema ocorre?
+      placeholder: 'Ex: shared-ui, cadastro-controladores-api, backlog-dim...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Descrição do Problema
+      description: Descreva claramente o que está acontecendo
+      placeholder: 'Descreva o problema de forma clara e objetiva...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 🔄 Passos para Reproduzir
+      description: Como podemos reproduzir este problema?
+      placeholder: |
+        1. Vá para '...'
+        2. Clique em '...'
+        3. Role para baixo até '...'
+        4. Veja o erro
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Comportamento Esperado
+      description: O que deveria acontecer?
+      placeholder: 'Descreva o que você esperava que acontecesse...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Comportamento Atual
+      description: O que realmente acontece?
+      placeholder: 'Descreva o que realmente acontece...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🖥️ Ambiente
+      description: Informações sobre seu ambiente
+      placeholder: |
+        - SO: [ex: Windows 11, Ubuntu 22.04, macOS 13]
+        - Navegador: [ex: Chrome 115, Firefox 117, Safari 16]
+        - Node.js: [ex: v18.17.0]
+        - Versão do projeto: [ex: v1.2.3]
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Logs e Evidências
+      description: Inclua logs de erro, screenshots ou outras evidências
+      placeholder: 'Cole aqui logs de erro, stack traces, ou outras informações relevantes...'
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: ℹ️ Informações Adicionais
+      description: Qualquer outra informação que possa ajudar
+      placeholder: 'Contexto adicional, soluções tentadas, etc...'
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Confirmações
+      description: Por favor, confirme que
+      options:
+        - label: Li e segui o [Código de Conduta](../profile/CODE_OF_CONDUCT.md)
+          required: true
+        - label: Verifiquei que não existe uma issue similar já aberta
+          required: true
+        - label: Este não é um problema de segurança (caso seja, usei o processo adequado)
+          required: true
