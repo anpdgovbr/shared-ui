@@ -1,6 +1,6 @@
 {
   "name": "@anpdgovbr/shared-ui",
-  "version": "1.0.0",
+  "version": "0.1.1-alpha.1",
   "description": "Biblioteca de componentes React com MUI v7 e padrão govbr-ds para ANPD",
   "author": "Luciano Édipo",
   "license": "ISC",
@@ -29,7 +29,6 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
-    "postinstall": "husky install",
     "check": "npm run lint && npm run type-check && npm test"
   },
   "lint-staged": {
