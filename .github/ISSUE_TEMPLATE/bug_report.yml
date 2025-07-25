@@ -13,7 +13,7 @@ body:
         **Antes de continuar:**
         - 🔍 Verifique se já existe uma issue similar
         - 📚 Consulte a documentação do projeto
-        - 🔒 Para vulnerabilidades de segurança, use nosso [processo de divulgação responsável](./SECURITY.md)
+        - 🔒 Para vulnerabilidades de segurança, use nosso [processo de divulgação responsável](../SECURITY.md)
 
   - type: input
     id: repository
