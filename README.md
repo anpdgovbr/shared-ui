@@ -9,8 +9,8 @@
 ![Storybook](https://img.shields.io/badge/docs-Storybook-orange)
 
 ---
-
-## 🚀 Sobre o Projeto
+ 
+##  🚀 Sobre o Projeto
 
 O `shared-ui` é uma biblioteca de componentes de interface de usuário (UI) modular e escalável, construída para padronizar e acelerar o desenvolvimento de aplicações front-end na Autoridade Nacional de Proteção de Dados (ANPD).
 
