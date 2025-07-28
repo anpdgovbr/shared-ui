@@ -8,12 +8,9 @@ const meta: Meta<typeof GovBRDateTimePicker> = {
   component: GovBRDateTimePicker,
   tags: ['autodocs'],
   args: {
-    label:'DatePicker',
   },
   argTypes: {
-    label: { control: 'text' },
-    value: { control: 'date' },
-    onChange: { action: 'changed' },
+    label: { control: 'text' },  
   }
 }
 
@@ -26,6 +23,5 @@ export const Default: Story = {
   name: 'Padrão',
   args: {
     label: 'Digite a data',
-    value: null,
-  },
+    },
 }
