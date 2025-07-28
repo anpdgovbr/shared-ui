@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, FormControlLabel } from '@mui/material'
-import { GovBRSwitchProps } from './types' // Certifique-se que o caminho está correto
+import { GovBRSwitchProps } from './types'
 
 const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
   checked,
@@ -16,72 +16,85 @@ const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
           onChange={onChange}
           disabled={disabled}
           sx={{
-            width: 44,
-            height: 24,
+            width: 47,
             padding: 0,
-            // Base para o container do thumb (a bolinha)
+
+            // Área interativa do switch
             '& .MuiSwitch-switchBase': {
               padding: 0,
-              margin: '2px', // Centraliza o thumb de 20px dentro do track de 24px
-              transitionDuration: '300ms',
+              margin: '2px', // Centraliza o thumb dentro do track
+              transitionDuration: '200ms',
 
-              // Estilo do Switch quando LIGADO
+              // Estilo quando o switch está ativado
               '&.Mui-checked': {
                 transform: 'translateX(20px)',
                 '& .MuiSwitch-thumb': {
-                  backgroundColor: '#0055A4', // Cor do thumb LIGADO (Azul gov.br)
+                  backgroundColor: '#5992ed', // Azul (gov.br)
                 },
                 '& + .MuiSwitch-track': {
-                  backgroundColor: '#E8F1FC', // Cor do track LIGADO (Azul claro gov.br)
+                  backgroundColor: '#ffffff',
                   opacity: 1,
-                  border: 0, // Garante que não há borda
                 },
               },
 
-              // Estilo do Switch em modo Hover
+              // Hover (personalizável se necessário)
               '&:hover': {
                 '& + .MuiSwitch-track': {
-                  // O design do gov.br não especifica um hover, mas podemos adicionar um se quisermos
                   // Ex: filter: 'brightness(95%)'
                 },
               },
 
-              // Estilo do Switch quando DESABILITADO
+              // Estilo quando desabilitado
               '&.Mui-disabled': {
                 '& .MuiSwitch-thumb': {
-                  backgroundColor: '#E0E0E0', // Cor do thumb DESABILITADO
+                  boxSizing: 'border-box',
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  backgroundColor: checked ? '#5992ed' : '#A7A7A7',
+                  boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  '&::before, &::after': {
+                    content: 'none',
+                  },
                 },
                 '& + .MuiSwitch-track': {
-                  backgroundColor: '#F0F0F0', // Cor do track DESABILITADO
+                  backgroundColor: '#F0F0F0',
                   opacity: 1,
                 },
               },
             },
 
-            // Estilo do "polegar" (a bolinha)
+            // Thumb (botão circular que se move)
             '& .MuiSwitch-thumb': {
               boxSizing: 'border-box',
               width: 20,
               height: 20,
-              borderRadius: '50%',
-              backgroundColor: '#FFFFFF', // Cor do thumb DESLIGADO (Branco)
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)', // Sombra sutil como no design
+              borderRadius: '50px',
+              backgroundColor: '#A7A7A7',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              '&::before, &::after': {
+                content: 'none',
+              },
             },
 
-            // Estilo do "trilho" (o fundo em pílula)
+            // Track (fundo do switch em forma de pílula)
             '& .MuiSwitch-track': {
               width: 44,
               height: 24,
-              borderRadius: 12, // Metade da altura
-              backgroundColor: '#A7A7A7', // Cor do track DESLIGADO (Cinza gov.br)
+              borderRadius: 12,
+              backgroundColor: '#FFFFFF',
               opacity: 1,
-              border: 0, // Garante que não há borda
-              transition: 'background-color 200ms',
+              border: 1,
+              color: '#e6e6e6',
+              transition: 'background-color 400ms',
             },
           }}
         />
       }
-      // Estilo para o Label (texto ao lado do switch)
+      // Estilo do texto ao lado do switch
       label={label}
       sx={{
         '& .MuiTypography-root': {
