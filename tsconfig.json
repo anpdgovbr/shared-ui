@@ -22,5 +22,5 @@
     }
   },
   "include": ["src", ".storybook", "*.config.*", "vite-env.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["**/*.stories.tsx", "**/*.test.ts", "dist", "types", "coverage", "node_modules"]
 }
