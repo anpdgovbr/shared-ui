@@ -17,7 +17,7 @@ const Template: StoryFn<GovBRSwitchProps> = args => {
 
 export const Padrão = Template.bind({})
 Padrão.args = {
-  label: 'Ativar recurso',
+  label: 'Label',
   checked: false,
 }
 

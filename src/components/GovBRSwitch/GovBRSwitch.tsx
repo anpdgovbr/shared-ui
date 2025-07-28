@@ -2,34 +2,45 @@ import React from 'react'
 import { Switch, FormControlLabel } from '@mui/material'
 import { GovBRSwitchProps } from './types'
 
+const sizeMap = {
+  small: { width: 40, height: 24, thumb: 16, translateX: 16 },
+  medium: { width: 52, height: 30, thumb: 22, translateX: 22 },
+  large: { width: 64, height: 36, thumb: 28, translateX: 28 },
+}
+
 const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
   checked,
   onChange,
   label,
   disabled = false,
+  size = 'medium', // padrão gov.br
+  labelPlacement = 'end',
 }) => {
+  const { width, height, thumb, translateX } = sizeMap[size]
+
   return (
     <FormControlLabel
+      label={label}
+      labelPlacement={labelPlacement}
       control={
         <Switch
           checked={checked}
           onChange={onChange}
           disabled={disabled}
           sx={{
-            width: 47,
+            width,
+            height,
             padding: 0,
 
-            // Área interativa do switch
             '& .MuiSwitch-switchBase': {
               padding: 0,
-              margin: '2px', // Centraliza o thumb dentro do track
+              margin: `${(height - thumb) / 2}px`,
               transitionDuration: '200ms',
 
-              // Estilo quando o switch está ativado
               '&.Mui-checked': {
-                transform: 'translateX(20px)',
+                transform: `translateX(${translateX}px)`,
                 '& .MuiSwitch-thumb': {
-                  backgroundColor: '#5992ed', // Azul (gov.br)
+                  backgroundColor: '#5992ed',
                 },
                 '& + .MuiSwitch-track': {
                   backgroundColor: '#ffffff',
@@ -37,66 +48,40 @@ const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
                 },
               },
 
-              // Hover (personalizável se necessário)
-              '&:hover': {
-                '& + .MuiSwitch-track': {
-                  // Ex: filter: 'brightness(95%)'
-                },
-              },
-
-              // Estilo quando desabilitado
               '&.Mui-disabled': {
                 '& .MuiSwitch-thumb': {
-                  boxSizing: 'border-box',
-                  width: 20,
-                  height: 20,
-                  borderRadius: '50%',
-                  backgroundColor: checked ? '#5992ed' : '#A7A7A7',
-                  boxShadow: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  '&::before, &::after': {
-                    content: 'none',
-                  },
-                },
-                '& + .MuiSwitch-track': {
-                  backgroundColor: '#F0F0F0',
-                  opacity: 1,
+                  width: thumb,
+                  height: thumb,
+                  backgroundColor: '#cccccc',
                 },
               },
             },
 
-            // Thumb (botão circular que se move)
             '& .MuiSwitch-thumb': {
-              boxSizing: 'border-box',
-              width: 20,
-              height: 20,
-              borderRadius: '50px',
-              backgroundColor: '#A7A7A7',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              width: thumb,
+              height: thumb,
+              borderRadius: '50%',
+              backgroundColor: '#cccccc',
+              boxShadow: 'none',
               '&::before, &::after': {
                 content: 'none',
               },
             },
 
-            // Track (fundo do switch em forma de pílula)
             '& .MuiSwitch-track': {
-              width: 44,
-              height: 24,
-              borderRadius: 12,
-              backgroundColor: '#FFFFFF',
+              width,
+              height,
+              borderRadius: 30,
+              backgroundColor: '#ffffff',
               opacity: 1,
-              border: 1,
-              color: '#e6e6e6',
-              transition: 'background-color 400ms',
+              border: '1px solid #cccccc',
+              boxSizing: 'border-box',
             },
           }}
         />
       }
-      // Estilo do texto ao lado do switch
-      label={label}
       sx={{
+        // Alinhamento e estilo do texto
         '& .MuiTypography-root': {
           color: '#333333',
           fontFamily: 'Rawline, "Open Sans", sans-serif',

@@ -1,8 +1,8 @@
-import { SharedUIComponentProps } from 'src/types/SharedUIComponentProps'
-
-export interface GovBRSwitchProps extends SharedUIComponentProps {
+export interface GovBRSwitchProps {
   checked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  label?: string
+  label: string
   disabled?: boolean
+  size?: 'small' | 'medium' | 'large' // novo
+  labelPlacement?: 'start' | 'end' // novo
 }
