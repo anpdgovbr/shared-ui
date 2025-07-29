@@ -63,6 +63,9 @@ const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
                 borderRadius: '50%',
                 backgroundColor: '#cccccc',
                 boxShadow: 'none',
+                '&::before, &::after': {
+                  content: 'none',
+                },
               },
               '& .MuiSwitch-track': {
                 width,
