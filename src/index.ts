@@ -33,6 +33,9 @@ export type { GovBRFormCheckboxProps } from './components/GovBRFormCheckbox/GovB
 export * from './components/GovBRRadio/GovBRRadio'
 export type { GovBRRadioProps } from './components/GovBRRadio/types'
 
+export * from './components/GovBRSwitch/GovBRSwitch'
+export type { GovBRSwitchProps } from './components/GovBRSwitch/types'
+
 // ===== HELPERS =====
 export * from './helper/MuiColorToGovBRClass'
 

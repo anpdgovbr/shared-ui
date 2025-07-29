@@ -24,6 +24,35 @@ Padrão.args = {
 export const Desativado = Template.bind({})
 Desativado.args = {
   label: 'Switch inativo',
-  checked: true,
+  checked: false,
   disabled: true,
+}
+
+export const Pequeno = Template.bind({})
+Pequeno.args = {
+  label: 'Pequeno',
+  checked: false,
+  size: 'small',
+}
+
+export const Grande = Template.bind({})
+Grande.args = {
+  label: 'Grande',
+  checked: false,
+  size: 'large',
+}
+
+export const ComTextoDeEstado = Template.bind({})
+ComTextoDeEstado.args = {
+  checked: true,
+  textEnabled: 'Ligado',
+  textDisabled: 'Desligado',
+}
+
+// SEGUNDO EXEMPLO
+export const ComTextoCustomizado = Template.bind({})
+ComTextoCustomizado.args = {
+  checked: true,
+  textEnabled: 'Concordo',
+  textDisabled: 'Discordo',
 }
