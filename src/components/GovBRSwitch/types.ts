@@ -3,6 +3,7 @@ export interface GovBRSwitchProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   label: string
   disabled?: boolean
-  size?: 'small' | 'medium' | 'large' // novo
-  labelPlacement?: 'start' | 'end' // novo
+  size?: 'small' | 'medium' | 'large'
+  labelPlacement?: 'start' | 'end'
+  description?: string
 }
