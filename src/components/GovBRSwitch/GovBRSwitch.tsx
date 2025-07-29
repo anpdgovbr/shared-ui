@@ -3,13 +3,13 @@ import { Switch, FormControlLabel, Box, Typography } from '@mui/material'
 import { GovBRSwitchProps } from './types'
 
 // Mapeia os tamanhos do switch para dimensões específicas
-const sizeMap = {
+export const sizeMap = {
   small: { width: 40, height: 24, thumb: 16, translateX: 16 },
   medium: { width: 52, height: 30, thumb: 22, translateX: 22 },
   large: { width: 64, height: 36, thumb: 28, translateX: 28 },
 }
 
-const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
+export const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
   checked,
   onChange,
   label,
