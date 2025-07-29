@@ -90,6 +90,7 @@ const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
             color: '#333333',
             fontFamily: 'Rawline, "Open Sans", sans-serif',
             fontSize: '16px',
+            marginTop: '18px',
           },
         }}
       />
@@ -100,6 +101,7 @@ const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
             color: '#333333',
             fontFamily: 'Rawline, "Open Sans", sans-serif',
             fontSize: '16px',
+            marginTop: '18px',
           }}
         >
           {stateText}
