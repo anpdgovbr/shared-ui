@@ -1,4 +1,3 @@
-import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from 'storybook/test'
 import { GovBRSignIn } from './GovBRSignIn'
@@ -11,50 +10,58 @@ const meta: Meta<typeof GovBRSignIn> = {
 }
 export default meta
 
-type Story = StoryObj<typeof GovBRSignIn>
+type Story = StoryObj<typeof meta>
 
-export const Variants: Story = {
-  name: 'Variações de Conteúdo',
-  render: () => (
-    <Stack spacing={2} alignItems="flex-start">
-      <GovBRSignIn variant="internal" emphasis="primary" />
-      <GovBRSignIn variant="external-text" />
-      <GovBRSignIn variant="external-image" />
-    </Stack>
-  ),
-}
-
-export const Densities: Story = {
-  name: 'Variações de Densidade',
-  render: () => (
-    <Stack spacing={2} alignItems="flex-start">
-      <GovBRSignIn variant="internal" density="small" />
-      <GovBRSignIn variant="internal" density="medium" />
-      <GovBRSignIn variant="internal" density="large" />
-    </Stack>
-  ),
-}
-
-export const Shapes: Story = {
-  name: 'Variações de Formato',
-  render: () => (
-    <Stack spacing={2} alignItems="flex-start">
-      <GovBRSignIn variant="internal" circle aria-label="Entrar" />
-      <GovBRSignIn variant="internal" block />
-    </Stack>
-  ),
-}
-
-export const Inverted: Story = {
-  name: 'Modo Invertido (Fundo Escuro)',
-  parameters: {
-    backgrounds: { default: 'dark' },
+export const Padrao: Story = {
+  args: {
+    signInVariant: 'internal',
+    color: 'primary',
   },
-  render: () => (
-    <Stack spacing={2} alignItems="flex-start">
-      <GovBRSignIn variant="internal" inverted />
-      <GovBRSignIn variant="internal" emphasis="primary" inverted />
-      <GovBRSignIn variant="internal" circle inverted aria-label="Entrar" />
-    </Stack>
-  ),
+}
+
+export const Circular: Story = {
+  args: {
+    signInVariant: 'internal',
+    color: 'primary',
+    circle: true,
+    'aria-label': 'Ícone ilustrativo',
+  },
+}
+
+export const ExternoComImagem: Story = {
+  args: {
+    signInVariant: 'external-image',
+    color: 'secondary',
+  },
+}
+
+export const ExternoComTexto: Story = {
+  args: {
+    signInVariant: 'external-text',
+    color: 'secondary',
+  },
+}
+
+export const Invertido: Story = {
+  args: {
+    signInVariant: 'internal',
+    color: 'primary',
+    inverted: true,
+  },
+}
+
+export const Desativado: Story = {
+  args: {
+    signInVariant: 'internal',
+    color: 'primary',
+    disabled: true,
+  },
+}
+
+export const Bloco: Story = {
+  args: {
+    signInVariant: 'internal',
+    color: 'primary',
+    block: true,
+  },
 }
