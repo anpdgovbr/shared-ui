@@ -22,7 +22,7 @@ export * from './components/GovBRInput/GovBRInput'
 export type { GovBRInputProps } from './components/GovBRInput/GovBRInput'
 
 export * from './components/GovBRSignIn/GovBRSignIn'
-export type { GovBRSignInProps } from './components/GovBRSignIn/GovBRSignIn'
+export type { GovBRSignInProps } from './components/GovBRSignIn/types'
 
 export * from './components/GovBRCheckbox/GovBRCheckbox'
 export type { GovBRCheckboxProps } from './components/GovBRCheckbox/GovBRCheckbox'

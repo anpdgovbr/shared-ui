@@ -1,12 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from 'storybook/test'
 import { GovBRSignIn } from './GovBRSignIn'
 
 const meta: Meta<typeof GovBRSignIn> = {
   title: 'GovBR/SignIn',
   component: GovBRSignIn,
   tags: ['autodocs'],
-  args: { onClick: fn() },
+  argTypes: {
+    color: {
+      control: 'radio',
+      options: ['primary', 'secondary'],
+      description: 'Define a cor do botão.',
+    },
+    signInVariant: {
+      control: 'radio',
+      options: ['internal', 'external-image', 'external-text'],
+      description: 'Variante de conteúdo do botão.',
+    },
+    onClick: { action: 'clicked' },
+  },
 }
 export default meta
 
@@ -19,12 +30,18 @@ export const Padrao: Story = {
   },
 }
 
-export const Circular: Story = {
+export const Secundario: Story = {
   args: {
     signInVariant: 'internal',
-    color: 'primary',
+    color: 'secondary',
+  },
+}
+
+export const Circular: Story = {
+  args: {
+    ...Padrao.args,
     circle: true,
-    'aria-label': 'Ícone ilustrativo',
+    'aria-label': 'Entrar na sua conta Gov.br',
   },
 }
 
@@ -42,26 +59,16 @@ export const ExternoComTexto: Story = {
   },
 }
 
-export const Invertido: Story = {
-  args: {
-    signInVariant: 'internal',
-    color: 'primary',
-    inverted: true,
-  },
-}
-
 export const Desativado: Story = {
   args: {
-    signInVariant: 'internal',
-    color: 'primary',
+    ...Padrao.args,
     disabled: true,
   },
 }
 
 export const Bloco: Story = {
   args: {
-    signInVariant: 'internal',
-    color: 'primary',
+    ...Padrao.args,
     block: true,
   },
 }

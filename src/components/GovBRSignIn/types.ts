@@ -1,15 +1,29 @@
-import type { GovBRButtonProps } from '../GovBRButton/GovBRButton'
+import { GovBRButtonProps } from '../GovBRButton/GovBRButton'
 
-// Omitimos a prop 'variant' de GovBRButtonProps para evitar conflitos
-// e adicionamos a nossa própria 'signInVariant'.
-export interface GovBRSignInProps extends Omit<GovBRButtonProps, 'variant'> {
+/**
+ * Opções de cor para o botão de SignIn.
+ */
+type SignInColor = 'primary' | 'secondary'
+
+export interface GovBRSignInProps extends Omit<GovBRButtonProps, 'color'> {
   /**
-   * Define o tipo de conteúdo e estilo do botão de sign-in.
-   * - `internal`: Ícone de usuário e texto "Entrar". Padrão.
-   * - `external-text`: "Entrar com gov.br".
-   * - `external-image`: "Entrar com" e a imagem do gov.br.
+   * Define a aparência do conteúdo do botão.
+   * - `internal`: Ícone de pessoa e texto "Entrar". (Padrão)
+   * - `external-image`: Texto "Entrar com" seguido da imagem oficial do gov.br.
+   * - `external-text`: Texto "Entrar com gov.br".
    * @default 'internal'
    */
-  signInVariant?: 'internal' | 'external-text' | 'external-image'
-  externalImageHeight?: string | number
+  signInVariant?: 'internal' | 'external-image' | 'external-text'
+
+  /**
+   * Define a altura máxima da imagem do gov.br quando `signInVariant` é 'external-image'.
+   * @default '16px'
+   */
+  externalImageHeight?: string
+
+  /**
+   * Define a cor do botão com base nas cores do tema.
+   * @default 'primary'
+   */
+  color?: SignInColor
 }

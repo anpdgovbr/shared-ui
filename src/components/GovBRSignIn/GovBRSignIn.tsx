@@ -1,15 +1,21 @@
 import React from 'react'
 import { Person } from '@mui/icons-material'
 import classNames from 'classnames'
-import GovBRButton, { GovBRButtonProps } from '../GovBRButton/GovBRButton'
+import GovBRButton from '../GovBRButton/GovBRButton'
 import { GovBRSignInProps } from './types'
 
+/**
+ * Componente de botão para login com Gov.br, com diferentes variações de estilo e cor.
+ * @param {GovBRSignInProps} props - As propriedades do componente.
+ */
 export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
   signInVariant = 'internal',
   className,
   externalImageHeight,
+  color = 'primary',
   ...props
 }) => {
+  // Função para renderizar o conteúdo do botão com base na variante.
   const renderContent = () => {
     switch (signInVariant) {
       case 'external-image':
@@ -22,6 +28,7 @@ export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
               style={{
                 maxHeight: externalImageHeight || '16px',
                 marginLeft: '8px',
+                verticalAlign: 'middle',
               }}
             />
           </>
@@ -30,9 +37,7 @@ export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
         return (
           <>
             Entrar com
-            <span className="text-black" style={{ marginLeft: '4px' }}>
-              gov.br
-            </span>
+            <span style={{ marginLeft: '4px', fontWeight: 'bold' }}>gov.br</span>
           </>
         )
       case 'internal':
@@ -46,8 +51,9 @@ export const GovBRSignIn: React.FC<GovBRSignInProps> = ({
     }
   }
 
+  // Renderiza o componente base GovBRButton, passando a cor e outras props diretamente.
   return (
-    <GovBRButton className={classNames('sign-in', className)} {...(props as GovBRButtonProps)}>
+    <GovBRButton className={classNames('sign-in', className)} color={color} {...props}>
       {renderContent()}
     </GovBRButton>
   )
