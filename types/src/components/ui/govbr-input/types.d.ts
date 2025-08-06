@@ -1,71 +1,72 @@
-import type { InputHTMLAttributes, ReactNode } from 'react';
-import type { GovBRSize, GovBRStatus, GovBRClearBlock } from '../../../types/GovBRTypes';
-import { SharedUIComponentProps } from '../../../types/SharedUIComponentProps';
+import type { InputHTMLAttributes, ReactNode } from 'react'
+import type { GovBRSize, GovBRStatus, GovBRClearBlock } from '../../../types/GovBRTypes'
+import { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
 /**
  * Propriedades do componente GovBRInput.
  */
-export type GovBRInputProps = InputHTMLAttributes<HTMLInputElement> & SharedUIComponentProps & {
+export type GovBRInputProps = InputHTMLAttributes<HTMLInputElement> &
+  SharedUIComponentProps & {
     /**
      * Tamanho do input, seguindo os padrões do GovBR.
      * @default 'medium'
      */
-    govbrSize?: GovBRSize;
+    govbrSize?: GovBRSize
     /**
      * Status visual do input.
      */
-    status?: GovBRStatus;
+    status?: GovBRStatus
     /**
      * Define se o bloco de limpeza será exibido.
      */
-    clearBlock?: GovBRClearBlock;
+    clearBlock?: GovBRClearBlock
     /**
      * Rótulo do campo de input.
      */
-    label?: ReactNode;
+    label?: ReactNode
     /**
      * Mensagem de feedback exibida abaixo do input.
      */
-    feedbackMessage?: string;
+    feedbackMessage?: string
     /**
      * Texto auxiliar exibido abaixo do input.
      */
-    helperText?: string;
+    helperText?: string
     /**
      * Define estado de erro no input.
      * Quando true, sobrescreve o status para 'danger'.
      * @default false
      */
-    error?: boolean;
+    error?: boolean
     /**
      * Destaca visualmente o input.
      * @default false
      */
-    highlight?: boolean;
+    highlight?: boolean
     /**
      * Exibe o input em linha com o rótulo.
      * @default false
      */
-    inline?: boolean;
+    inline?: boolean
     /**
      * Ícone exibido no início do campo.
      */
-    startIcon?: ReactNode;
+    startIcon?: ReactNode
     /**
      * Ícone do botão exibido ao final do input.
      */
-    endButtonIcon?: ReactNode;
+    endButtonIcon?: ReactNode
     /**
      * Função executada quando o botão final é clicado.
      */
-    onEndButtonClick?: () => void;
+    onEndButtonClick?: () => void
     /**
      * Tipo do botão final.
      * @default 'button'
      */
-    endButtonType?: 'button' | 'submit' | 'reset';
+    endButtonType?: 'button' | 'submit' | 'reset'
     /**
      * Tooltip para o botão final.
      */
-    endButtonTooltip?: string;
-};
+    endButtonTooltip?: string
+  }
 //# sourceMappingURL=types.d.ts.map

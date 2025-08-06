@@ -1,4 +1,4 @@
-import type { ButtonProps } from '@mui/material/Button';
+import type { ButtonProps } from '@mui/material/Button'
 /**
  * Mapeia a propriedade `color` do MUI para a classe correspondente do Design System GovBR.
  *
@@ -23,5 +23,5 @@ import type { ButtonProps } from '@mui/material/Button';
  * const govbrClass = mapMuiColorToGovbrClass('primary'); // retorna 'primary'
  *
  */
-export declare function mapMuiColorToGovbrClass(color?: ButtonProps['color']): string;
+export declare function mapMuiColorToGovbrClass(color?: ButtonProps['color']): string
 //# sourceMappingURL=muiColorToGovbrClass.d.ts.map
