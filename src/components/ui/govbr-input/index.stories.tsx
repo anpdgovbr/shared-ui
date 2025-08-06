@@ -9,7 +9,7 @@ const meta: Meta<typeof GovBRInput> = {
   component: GovBRInput,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <div style={{ padding: '2rem', maxWidth: '600px' }}>
           <Story />

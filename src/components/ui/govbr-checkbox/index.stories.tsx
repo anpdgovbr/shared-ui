@@ -8,7 +8,7 @@ const meta: Meta<typeof GovBRCheckbox> = {
   component: GovBRCheckbox,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <div style={{ padding: '2rem', maxWidth: '600px' }}>
           <Story />

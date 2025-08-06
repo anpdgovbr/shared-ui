@@ -11,7 +11,7 @@ const meta: Meta<typeof GovBRBreadcrumb> = {
   component: GovBRBreadcrumb,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '800px' }}>
           <Story />
@@ -234,6 +234,6 @@ export const Long: Story = {
       { label: 'Relatório de Impacto', href: '/cidadao/servicos/protecao/relatorio' },
       { label: 'Visualização' },
     ],
-    onNavigate: href => console.log('Navegando para:', href),
+    onNavigate: (href) => console.log('Navegando para:', href),
   },
 }

@@ -1,4 +1,4 @@
-import type { GovBRAvatarProps } from './types'
+import type { GovBRAvatarProps } from './types';
 /**
  * Componente de avatar do usuário no padrão GovBR.
  *
@@ -15,14 +15,5 @@ import type { GovBRAvatarProps } from './types'
  * />
  * ```
  */
-export declare function GovBRAvatar({
-  name,
-  src,
-  alt,
-  menuItems,
-  onNavigate,
-  size,
-  color,
-  className,
-}: GovBRAvatarProps): import('react/jsx-runtime').JSX.Element
+export declare function GovBRAvatar({ name, src, alt, menuItems, onNavigate, size, color, className, }: GovBRAvatarProps): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=index.d.ts.map

@@ -62,7 +62,7 @@ export function GovBRButton({
           loading,
           [`auto-${clearBlock}`]: !!clearBlock,
         },
-        className
+        className,
       )}
       // As props sx são mescladas. A `sx` passada pelo usuário tem prioridade.
       sx={{ ...dynamicSx, ...sx }}

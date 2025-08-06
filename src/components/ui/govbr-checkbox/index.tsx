@@ -27,7 +27,7 @@ export function GovBRCheckbox({
       disabled,
       'hidden-label': hiddenLabel,
     },
-    className
+    className,
   )
 
   return (

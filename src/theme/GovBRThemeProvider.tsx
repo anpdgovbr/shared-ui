@@ -25,9 +25,9 @@ export function GovBRThemeProvider({ children }: PropsWithChildren) {
   const contextValue = useMemo(
     () => ({
       mode,
-      toggle: () => setMode(prev => (prev === 'theme' ? 'css' : 'theme')),
+      toggle: () => setMode((prev) => (prev === 'theme' ? 'css' : 'theme')),
     }),
-    [mode]
+    [mode],
   )
 
   return (

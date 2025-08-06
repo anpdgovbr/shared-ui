@@ -49,7 +49,7 @@ export const GovBRInput: React.FC<Readonly<GovBRInputProps>> = ({
         govbrColorClass,
         { [`auto-${clearBlock}`]: !!clearBlock },
         { 'input-highlight': highlight, 'input-inline': inline },
-        className
+        className,
       )}
     >
       {inline ? (

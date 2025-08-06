@@ -17,7 +17,7 @@ export function GovBRBreadcrumb({ items, onNavigate, className, ...props }: GovB
               <a
                 className="crumb-link"
                 href={item.href}
-                onClick={e => handleItemClick(e, item.href as string)}
+                onClick={(e) => handleItemClick(e, item.href as string)}
               >
                 {item.label}
               </a>
