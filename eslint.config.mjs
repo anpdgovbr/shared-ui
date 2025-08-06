@@ -36,6 +36,28 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off', // Next.js does not require React in scope
       'react/prop-types': 'off', // Use TypeScript for type checking
       semi: ['error', 'never'],
+      'no-restricted-imports': [
+        'warn',
+        {
+          paths: [
+            {
+              name: '@mui/material',
+              message:
+                "🚫 TREE SHAKING QUEBRADO - Para componentes use: import Button from '@mui/material/Button' | Para types use: import type { SxProps } from '@mui/material/styles' | Para useMediaQuery use: import useMediaQuery from '@mui/material/useMediaQuery' | Exceções permitidas apenas: ThemeProvider, useTheme, createTheme, styled (de @mui/material/styles)",
+            },
+            {
+              name: '@mui/icons-material',
+              message:
+                "🚫 TREE SHAKING QUEBRADO - Evite imports desestruturados de ícones. Use: import XIcon from '@mui/icons-material/X'",
+            },
+            {
+              name: '@mui/icons-material/index',
+              message:
+                "🚫 TREE SHAKING QUEBRADO - Não use @mui/icons-material/index. Use o ícone diretamente: import CloseIcon from '@mui/icons-material/Close'",
+            },
+          ],
+        },
+      ],
     },
     settings: {
       react: {

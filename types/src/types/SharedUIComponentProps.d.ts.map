@@ -1,1 +1,1 @@
-{"version":3,"file":"SharedUIComponentProps.d.ts","sourceRoot":"","sources":["../../../src/types/SharedUIComponentProps.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,WAAW,sBAAsB;IACrC;;;;;OAKG;IACH,WAAW,CAAC,EAAE,OAAO,CAAA;CACtB"}
+{"version":3,"file":"SharedUIComponentProps.d.ts","sourceRoot":"","sources":["../../../src/types/SharedUIComponentProps.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,WAAW,sBAAsB;IACrC;;;;;;;;;;OAUG;IACH,WAAW,CAAC,EAAE,OAAO,CAAA;CACtB;AAED;;;;;;;;;;;GAWG;AAEH,MAAM,MAAM,mBAAmB,CAAC,CAAC,GAAG,EAAE,IAAI,CAAC,GAAG,sBAAsB,CAAA"}

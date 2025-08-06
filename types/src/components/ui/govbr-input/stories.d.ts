@@ -1,0 +1,20 @@
+import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRInput } from './index'
+declare const meta: Meta<typeof GovBRInput>
+export default meta
+type Story = StoryObj<typeof GovBRInput>
+export declare const Default: Story
+export declare const WithHelperText: Story
+export declare const WithError: Story
+export declare const WithSuccess: Story
+export declare const WithWarning: Story
+export declare const WithInfo: Story
+export declare const Disabled: Story
+export declare const Highlighted: Story
+export declare const Inline: Story
+export declare const WithStartIcon: Story
+export declare const WithEndButton: Story
+export declare const Small: Story
+export declare const Large: Story
+export declare const WithClearBlock: Story
+//# sourceMappingURL=stories.d.ts.map

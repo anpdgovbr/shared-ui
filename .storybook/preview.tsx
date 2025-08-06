@@ -3,7 +3,7 @@ import '@govbr-ds/core/dist/core.min.css'
 import '@govbr-ds/core/dist/core-tokens.min.css'
 
 import { GovBRThemeProvider, useGovBRThemeMode } from '../src/theme/GovBRThemeProvider.js'
-import { CssBaseline } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import { useEffect } from 'react'
 
 // Decorator para alternar entre os modos de tema
