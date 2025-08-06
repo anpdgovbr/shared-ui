@@ -21,7 +21,7 @@ const config: StorybookConfig = {
   // Opcional: Configuração docs para autodocs
   docs: {
     defaultName: 'Documentação',
-    docsMode: true, // Habilita o modo docs
+    docsMode: false, // Permite visualizar canvas e docs
   },
   viteFinal(config) {
     config.resolve = config.resolve || {}

@@ -1,5 +1,49 @@
 {
+  // 📦 PATH ALIASES → Usar @ui/*, @components/* em vez de caminhos relativos
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+
+  // ✨ SUGESTÕES INTELIGENTES (auto imports e completions com contexto)
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.includeInstantAutoImports": true,
+  "typescript.suggest.includeCompletionsForModuleExports": true,
+  "typescript.suggest.includeCompletionsWithInsertText": true,
+
+  // 💅 FORMATADOR PADRÃO (Prettier para .ts e .tsx)
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "prettier.requireConfig": true
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // 🧹 AÇÕES AUTOMÁTICAS AO SALVAR
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+
+  // 📚 SUGESTÕES E SNIPPETS
+  "editor.quickSuggestions": {
+    "strings": true,
+    "comments": false,
+    "other": true
+  },
+  "editor.snippetSuggestions": "top",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.wordBasedSuggestions": "matchingDocuments",
+
+  // 🧠 SPELL CHECK CUSTOMIZADO (Requer extensão Code Spell Checker)
+  "cSpell.words": ["officedocument", "openxmlformats", "sead", "spreadsheetml"],
+
+  // 🧼 IGNORAR PASTAS NÃO RELEVANTES
+  "files.exclude": {
+    "**/dist": true,
+    "**/types": true,
+    "**/node_modules": true
+  },
+
+  // 🎯 Usar Prettier do projeto (garante consistência)
+  "prettier.prettierPath": "./node_modules/prettier"
 }

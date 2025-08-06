@@ -1,82 +1,79 @@
 import React from 'react'
 import { Meta, StoryObj } from '@storybook/react'
-import {
-  Button,
-  Typography,
-  Switch,
-  Card,
-  Link,
-  Divider,
-  TextField,
-  Checkbox,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  Select,
-  MenuItem,
-  InputLabel,
-  Slider,
-  IconButton,
-  Tooltip,
-  LinearProgress,
-  CircularProgress,
-  Alert,
-  Chip,
-  Avatar,
-  Badge,
-  Breadcrumbs,
-  AppBar,
-  Toolbar,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  List,
-  ListItemText,
-  ListItemIcon,
-  ListItemButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Tabs,
-  Tab,
-  Box,
-  Stack,
-  Container,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Fab,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-  Stepper,
-  Step,
-  StepLabel,
-} from '@mui/material'
-import {
-  Home,
-  Settings,
-  Person,
-  Email,
-  Phone,
-  Edit,
-  Delete,
-  Add,
-  Save,
-  ExpandMore,
-  FileCopy,
-  Print,
-  Share,
-  Visibility,
-  VisibilityOff,
-} from '@mui/icons-material'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Switch from '@mui/material/Switch'
+import Card from '@mui/material/Card'
+import Link from '@mui/material/Link'
+import Divider from '@mui/material/Divider'
+import TextField from '@mui/material/TextField'
+import Checkbox from '@mui/material/Checkbox'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import InputLabel from '@mui/material/InputLabel'
+import Slider from '@mui/material/Slider'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import LinearProgress from '@mui/material/LinearProgress'
+import CircularProgress from '@mui/material/CircularProgress'
+import Alert from '@mui/material/Alert'
+import Chip from '@mui/material/Chip'
+import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import List from '@mui/material/List'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemButton from '@mui/material/ListItemButton'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Container from '@mui/material/Container'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import Fab from '@mui/material/Fab'
+import SpeedDial from '@mui/material/SpeedDial'
+import SpeedDialAction from '@mui/material/SpeedDialAction'
+import SpeedDialIcon from '@mui/material/SpeedDialIcon'
+import Stepper from '@mui/material/Stepper'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+// Material UI Icons - Imports específicos para tree shaking
+import HomeIcon from '@mui/icons-material/Home'
+import SettingsIcon from '@mui/icons-material/Settings'
+import PersonIcon from '@mui/icons-material/Person'
+import EmailIcon from '@mui/icons-material/Email'
+import PhoneIcon from '@mui/icons-material/Phone'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddIcon from '@mui/icons-material/Add'
+import SaveIcon from '@mui/icons-material/Save'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import FileCopyIcon from '@mui/icons-material/FileCopy'
+import PrintIcon from '@mui/icons-material/Print'
+import ShareIcon from '@mui/icons-material/Share'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { GovBRThemePreview } from './GovBRThemePreview'
 
 const meta: Meta = {
@@ -290,29 +287,29 @@ function GovBRThemeDocumentation() {
                 Botões com Ícones
               </Typography>
               <Stack direction="row" spacing={2} flexWrap="wrap" gap={1} mb={3}>
-                <Button variant="contained" startIcon={<Add />}>
+                <Button variant="contained" startIcon={<AddIcon />}>
                   Adicionar
                 </Button>
-                <Button variant="outlined" startIcon={<Edit />}>
+                <Button variant="outlined" startIcon={<EditIcon />}>
                   Editar
                 </Button>
-                <Button variant="contained" color="error" startIcon={<Delete />}>
+                <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
                   Excluir
                 </Button>
-                <Button variant="contained" color="success" endIcon={<Save />}>
+                <Button variant="contained" color="success" endIcon={<SaveIcon />}>
                   Salvar
                 </Button>
                 <IconButton color="primary">
-                  <Settings />
+                  <SettingsIcon />
                 </IconButton>
                 <IconButton color="secondary">
-                  <Person />
+                  <PersonIcon />
                 </IconButton>
                 <Fab color="primary" size="small">
-                  <Add />
+                  <AddIcon />
                 </Fab>
                 <Fab color="secondary">
-                  <Edit />
+                  <EditIcon />
                 </Fab>
               </Stack>
             </Box>
@@ -390,7 +387,7 @@ function GovBRThemeDocumentation() {
                 InputProps={{
                   endAdornment: (
                     <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                     </IconButton>
                   ),
                 }}
@@ -545,7 +542,7 @@ function GovBRThemeDocumentation() {
                 </Typography>
                 <Button color="inherit">Login</Button>
                 <IconButton color="inherit">
-                  <Person />
+                  <PersonIcon />
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -555,7 +552,7 @@ function GovBRThemeDocumentation() {
             </Typography>
             <Breadcrumbs aria-label="breadcrumb">
               <Link color="inherit" href="#" underline="hover">
-                <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+                <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                 Início
               </Link>
               <Link color="inherit" href="#" underline="hover">
@@ -570,26 +567,26 @@ function GovBRThemeDocumentation() {
             <List sx={{ bgcolor: 'background.paper', borderRadius: 1 }}>
               <ListItemButton selected>
                 <ListItemIcon>
-                  <Home />
+                  <HomeIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItemButton>
               <ListItemButton>
                 <ListItemIcon>
-                  <Person />
+                  <PersonIcon />
                 </ListItemIcon>
                 <ListItemText primary="Usuários" />
               </ListItemButton>
               <ListItemButton>
                 <ListItemIcon>
-                  <Settings />
+                  <SettingsIcon />
                 </ListItemIcon>
                 <ListItemText primary="Configurações" />
               </ListItemButton>
               <Divider />
               <ListItemButton>
                 <ListItemIcon>
-                  <Email />
+                  <EmailIcon />
                 </ListItemIcon>
                 <ListItemText primary="Contato" secondary="contato@anpd.gov.br" />
               </ListItemButton>
@@ -672,7 +669,7 @@ function GovBRThemeDocumentation() {
               <Chip label="Em análise" color="info" />
               <Chip label="Deletável" onDelete={() => alert('Chip deletado')} color="primary" />
               <Badge badgeContent={4} color="error">
-                <Email color="action" />
+                <EmailIcon color="action" />
               </Badge>
               <Badge badgeContent="NEW" color="secondary">
                 <Chip label="Novidade" />
@@ -688,7 +685,7 @@ function GovBRThemeDocumentation() {
               </Tooltip>
               <Tooltip title="Tooltip com ícone" arrow>
                 <IconButton color="primary">
-                  <Settings />
+                  <SettingsIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip
@@ -771,10 +768,10 @@ function GovBRThemeDocumentation() {
                       </TableCell>
                       <TableCell align="right">
                         <IconButton size="small" color="primary">
-                          <Edit />
+                          <EditIcon />
                         </IconButton>
                         <IconButton size="small" color="error">
-                          <Delete />
+                          <DeleteIcon />
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -817,10 +814,10 @@ function GovBRThemeDocumentation() {
                     </Typography>
                     <Stack direction="row" justifyContent="center" spacing={1}>
                       <IconButton size="small">
-                        <Email />
+                        <EmailIcon />
                       </IconButton>
                       <IconButton size="small">
-                        <Phone />
+                        <PhoneIcon />
                       </IconButton>
                     </Stack>
                   </Box>
@@ -832,7 +829,7 @@ function GovBRThemeDocumentation() {
               Accordion (Expansível)
             </Typography>
             <Accordion>
-              <AccordionSummary expandIcon={<ExpandMore />}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Seção 1 - Informações Gerais</Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -843,7 +840,7 @@ function GovBRThemeDocumentation() {
               </AccordionDetails>
             </Accordion>
             <Accordion>
-              <AccordionSummary expandIcon={<ExpandMore />}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Seção 2 - Configurações Avançadas</Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -932,10 +929,10 @@ function GovBRThemeDocumentation() {
                 sx={{ position: 'absolute', bottom: 16, right: 16 }}
                 icon={<SpeedDialIcon />}
               >
-                <SpeedDialAction icon={<FileCopy />} tooltipTitle="Copiar" />
-                <SpeedDialAction icon={<Save />} tooltipTitle="Salvar" />
-                <SpeedDialAction icon={<Print />} tooltipTitle="Imprimir" />
-                <SpeedDialAction icon={<Share />} tooltipTitle="Compartilhar" />
+                <SpeedDialAction icon={<FileCopyIcon />} tooltipTitle="Copiar" />
+                <SpeedDialAction icon={<SaveIcon />} tooltipTitle="Salvar" />
+                <SpeedDialAction icon={<PrintIcon />} tooltipTitle="Imprimir" />
+                <SpeedDialAction icon={<ShareIcon />} tooltipTitle="Compartilhar" />
               </SpeedDial>
             </Box>
           </Stack>
@@ -1235,10 +1232,10 @@ export const DataDisplay: StoryObj = {
                   </TableCell>
                   <TableCell align="right">
                     <IconButton size="small" color="primary">
-                      <Edit />
+                      <EditIcon />
                     </IconButton>
                     <IconButton size="small" color="error">
-                      <Delete />
+                      <DeleteIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>
