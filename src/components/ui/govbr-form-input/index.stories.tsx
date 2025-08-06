@@ -191,11 +191,7 @@ export const Default: Story = {
 
 export const WithValidation: Story = {
   render: () => {
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<FormData>({
+    const { control, handleSubmit } = useForm<FormData>({
       defaultValues: {
         name: '',
         email: '',
