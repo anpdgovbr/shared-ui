@@ -9,7 +9,7 @@ const meta: Meta<typeof GovBRSignIn> = {
   component: GovBRSignIn,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '600px' }}>
           <Story />
@@ -135,14 +135,14 @@ export const ANPDPortalLogin: Story = {
       console.log('Redirecionando para autenticação gov.br...')
       // Simula redirecionamento para autenticação
       alert(
-        'Redirecionamento para o portal gov.br\n\n🔐 Funcionalidades:\n• Single Sign-On (SSO)\n• Autenticação de dois fatores\n• Integração com CPF\n• Controle de sessão seguro'
+        'Redirecionamento para o portal gov.br\n\n🔐 Funcionalidades:\n• Single Sign-On (SSO)\n• Autenticação de dois fatores\n• Integração com CPF\n• Controle de sessão seguro',
       )
     }
 
     const handleExternalLogin = () => {
       console.log('Login externo iniciado...')
       alert(
-        'Autenticação externa para parceiros\n\n🔗 Integrações:\n• SIAPE\n• SUAP\n• Sistemas Corporativos\n• APIs Terceirizadas'
+        'Autenticação externa para parceiros\n\n🔗 Integrações:\n• SIAPE\n• SUAP\n• Sistemas Corporativos\n• APIs Terceirizadas',
       )
     }
 
@@ -278,7 +278,7 @@ export const ResponsiveLayout: Story = {
 
       console.log(`Fluxo de autenticação - ${steps[step as keyof typeof steps]}`)
       alert(
-        `🔒 Fluxo de Autenticação ANPD\n\nEtapa: ${steps[step as keyof typeof steps]}\n\n• Verificação automática de CPF\n• Validação de identidade\n• Controle de acesso por perfil\n• Auditoria de segurança`
+        `🔒 Fluxo de Autenticação ANPD\n\nEtapa: ${steps[step as keyof typeof steps]}\n\n• Verificação automática de CPF\n• Validação de identidade\n• Controle de acesso por perfil\n• Auditoria de segurança`,
       )
     }
 
@@ -383,7 +383,7 @@ export const Inverted: Story = {
     inverted: true,
   },
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <div
           style={{

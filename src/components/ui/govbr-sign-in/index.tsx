@@ -22,7 +22,7 @@ export function GovBRSignIn({
       block,
       inverted,
     },
-    className
+    className,
   )
 
   const renderContent = () => {

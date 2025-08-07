@@ -363,7 +363,7 @@ function GovBRThemeDocumentation() {
                 fullWidth
                 label="Campo de Texto"
                 value={textFieldValue}
-                onChange={e => setTextFieldValue(e.target.value)}
+                onChange={(e) => setTextFieldValue(e.target.value)}
                 placeholder="Digite aqui..."
                 helperText="Texto de ajuda com bordas e foco dourado"
               />
@@ -413,8 +413,8 @@ function GovBRThemeDocumentation() {
                       control={
                         <Checkbox
                           checked={checked}
-                          onChange={e =>
-                            setCheckedItems(prev => ({ ...prev, [key]: e.target.checked }))
+                          onChange={(e) =>
+                            setCheckedItems((prev) => ({ ...prev, [key]: e.target.checked }))
                           }
                           color="primary"
                         />
@@ -427,7 +427,7 @@ function GovBRThemeDocumentation() {
               </FormControl>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Radio Buttons</FormLabel>
-                <RadioGroup value={radioValue} onChange={e => setRadioValue(e.target.value)}>
+                <RadioGroup value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
                   <FormControlLabel value="option1" control={<Radio />} label="Primeira opção" />
                   <FormControlLabel value="option2" control={<Radio />} label="Segunda opção" />
                   <FormControlLabel value="option3" control={<Radio />} label="Terceira opção" />
@@ -460,8 +460,8 @@ function GovBRThemeDocumentation() {
                     control={
                       <Switch
                         checked={switchStates.basic}
-                        onChange={e =>
-                          setSwitchStates(prev => ({ ...prev, basic: e.target.checked }))
+                        onChange={(e) =>
+                          setSwitchStates((prev) => ({ ...prev, basic: e.target.checked }))
                         }
                       />
                     }
@@ -472,8 +472,8 @@ function GovBRThemeDocumentation() {
                       <Switch
                         size="small"
                         checked={switchStates.small}
-                        onChange={e =>
-                          setSwitchStates(prev => ({ ...prev, small: e.target.checked }))
+                        onChange={(e) =>
+                          setSwitchStates((prev) => ({ ...prev, small: e.target.checked }))
                         }
                       />
                     }
@@ -514,7 +514,7 @@ function GovBRThemeDocumentation() {
             >
               <FormControl fullWidth>
                 <InputLabel>Selecione uma opção</InputLabel>
-                <Select value={selectValue} onChange={e => setSelectValue(e.target.value)}>
+                <Select value={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
                   <MenuItem value="br">Brasil</MenuItem>
                   <MenuItem value="ar">Argentina</MenuItem>
                   <MenuItem value="uy">Uruguai</MenuItem>
@@ -869,7 +869,7 @@ function GovBRThemeDocumentation() {
                 gap: 2,
               }}
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
                 <Paper
                   key={item}
                   sx={{ p: 1, textAlign: 'center', bgcolor: 'primary.light', color: 'white' }}
@@ -1065,7 +1065,7 @@ export const FormControls: StoryObj = {
                 fullWidth
                 label="Campo de Texto"
                 value={values.text}
-                onChange={e => setValues(prev => ({ ...prev, text: e.target.value }))}
+                onChange={(e) => setValues((prev) => ({ ...prev, text: e.target.value }))}
                 placeholder="Digite aqui..."
               />
 
@@ -1074,7 +1074,7 @@ export const FormControls: StoryObj = {
                 label="E-mail"
                 type="email"
                 value={values.email}
-                onChange={e => setValues(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
               />
 
               <TextField
@@ -1082,7 +1082,7 @@ export const FormControls: StoryObj = {
                 label="Senha"
                 type="password"
                 value={values.password}
-                onChange={e => setValues(prev => ({ ...prev, password: e.target.value }))}
+                onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))}
               />
 
               <TextField
@@ -1097,7 +1097,7 @@ export const FormControls: StoryObj = {
                 <InputLabel>País</InputLabel>
                 <Select
                   value={values.select}
-                  onChange={e => setValues(prev => ({ ...prev, select: e.target.value }))}
+                  onChange={(e) => setValues((prev) => ({ ...prev, select: e.target.value }))}
                 >
                   <MenuItem value="br">Brasil</MenuItem>
                   <MenuItem value="ar">Argentina</MenuItem>
@@ -1111,7 +1111,7 @@ export const FormControls: StoryObj = {
                 <FormLabel>Opções de Radio</FormLabel>
                 <RadioGroup
                   value={values.radio}
-                  onChange={e => setValues(prev => ({ ...prev, radio: e.target.value }))}
+                  onChange={(e) => setValues((prev) => ({ ...prev, radio: e.target.value }))}
                 >
                   <FormControlLabel value="option1" control={<Radio />} label="Primeira opção" />
                   <FormControlLabel value="option2" control={<Radio />} label="Segunda opção" />
@@ -1126,8 +1126,8 @@ export const FormControls: StoryObj = {
                     control={
                       <Checkbox
                         checked={values.checkbox1}
-                        onChange={e =>
-                          setValues(prev => ({ ...prev, checkbox1: e.target.checked }))
+                        onChange={(e) =>
+                          setValues((prev) => ({ ...prev, checkbox1: e.target.checked }))
                         }
                       />
                     }
@@ -1137,8 +1137,8 @@ export const FormControls: StoryObj = {
                     control={
                       <Checkbox
                         checked={values.checkbox2}
-                        onChange={e =>
-                          setValues(prev => ({ ...prev, checkbox2: e.target.checked }))
+                        onChange={(e) =>
+                          setValues((prev) => ({ ...prev, checkbox2: e.target.checked }))
                         }
                       />
                     }
@@ -1151,7 +1151,7 @@ export const FormControls: StoryObj = {
                 control={
                   <Switch
                     checked={values.switch1}
-                    onChange={e => setValues(prev => ({ ...prev, switch1: e.target.checked }))}
+                    onChange={(e) => setValues((prev) => ({ ...prev, switch1: e.target.checked }))}
                   />
                 }
                 label="Switch com ícones ✓/✗"
@@ -1162,7 +1162,7 @@ export const FormControls: StoryObj = {
                 <Slider
                   value={values.slider}
                   onChange={(_, newValue) =>
-                    setValues(prev => ({ ...prev, slider: newValue as number }))
+                    setValues((prev) => ({ ...prev, slider: newValue as number }))
                   }
                   marks={[
                     { value: 0, label: '0%' },

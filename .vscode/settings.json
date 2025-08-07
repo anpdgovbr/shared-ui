@@ -25,22 +25,9 @@
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": "matchingDocuments",
   "cSpell.language": "pt-BR,en",
-  "cSpell.dictionaries": [
-    "pt-BR"
-  ],
-  "cSpell.enableFiletypes": [
-    "typescript",
-    "typescriptreact",
-    "javascript",
-    "markdown"
-  ],
-  "cSpell.words": [
-    "govbr",
-    "sead",
-    "officedocument",
-    "openxmlformats",
-    "spreadsheetml"
-  ],
+  "cSpell.dictionaries": ["pt-BR"],
+  "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
+  "cSpell.words": ["govbr", "sead", "officedocument", "openxmlformats", "spreadsheetml"],
   "files.exclude": {
     "**/dist": true,
     "**/types": true,

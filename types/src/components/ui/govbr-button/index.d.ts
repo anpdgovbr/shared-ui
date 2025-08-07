@@ -1,4 +1,4 @@
-import type { GovBRButtonProps } from './types'
+import type { GovBRButtonProps } from './types';
 /**
  * Componente de botão padronizado conforme o Design System GovBR.
  *
@@ -15,16 +15,5 @@ import type { GovBRButtonProps } from './types'
  * </GovBRButton>
  * ```
  */
-export declare function GovBRButton({
-  children,
-  circle,
-  block,
-  inverted,
-  loading,
-  clearBlock,
-  color,
-  className,
-  sx,
-  ...rest
-}: Readonly<GovBRButtonProps>): import('react/jsx-runtime').JSX.Element
+export declare function GovBRButton({ children, circle, block, inverted, loading, clearBlock, color, className, sx, ...rest }: Readonly<GovBRButtonProps>): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=index.d.ts.map

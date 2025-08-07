@@ -11,7 +11,7 @@ const meta: Meta<typeof GovBRFormCheckbox> = {
   component: GovBRFormCheckbox,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '600px' }}>
           <Story />
@@ -232,7 +232,7 @@ export const WithCustomValidation: Story = {
             required
             rules={{
               required: 'Aceitar os termos é obrigatório',
-              validate: value => value === true || 'Você deve marcar o checkbox para aceitar',
+              validate: (value) => value === true || 'Você deve marcar o checkbox para aceitar',
             }}
           />
           <GovBRFormCheckbox
@@ -243,7 +243,7 @@ export const WithCustomValidation: Story = {
             required
             rules={{
               required: 'Confirmação é obrigatória',
-              validate: value => {
+              validate: (value) => {
                 if (!termsValue) return 'Aceite os termos primeiro'
                 return value === true || 'Confirmação é obrigatória'
               },

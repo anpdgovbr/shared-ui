@@ -123,7 +123,7 @@ function MyComponent() {
       <GovBRAvatar
         name="João Silva"
         menuItems={[{ label: 'Perfil', href: '/perfil' }]}
-        onNavigate={href => (window.location.href = href)}
+        onNavigate={(href) => (window.location.href = href)}
       />
     </div>
   )

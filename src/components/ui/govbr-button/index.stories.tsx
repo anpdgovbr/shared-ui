@@ -14,7 +14,7 @@ const meta: Meta<typeof GovBRButton> = {
   component: GovBRButton,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '800px' }}>
           <Story />

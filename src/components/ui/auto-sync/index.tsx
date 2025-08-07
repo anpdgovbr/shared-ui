@@ -49,7 +49,7 @@ export function AutoSyncButton<T = unknown>({
       setTimeout(() => setSyncStatus(intermediateStatus), syncAnimationDuration)
       setTimeout(() => setSyncStatus('idle'), syncAnimationDuration + duration)
     },
-    [syncAnimationDuration]
+    [syncAnimationDuration],
   )
 
   const handleSync = useCallback(async () => {
@@ -60,7 +60,7 @@ export function AutoSyncButton<T = unknown>({
       setErrorCount(0)
     } catch (error) {
       scheduleStatusChange('error', errorDuration)
-      setErrorCount(prev => prev + 1)
+      setErrorCount((prev) => prev + 1)
       console.error(error)
     }
   }, [onSync, scheduleStatusChange, successDuration, errorDuration])
@@ -99,7 +99,7 @@ export function AutoSyncButton<T = unknown>({
   }, [isAutoSyncEnabled, handleSync, syncInterval, resetTrigger])
 
   const toggleAutoSync = () => {
-    setIsAutoSyncEnabled(prev => !prev)
+    setIsAutoSyncEnabled((prev) => !prev)
     if (!isAutoSyncEnabled) {
       setErrorCount(0)
       setSyncStatus('idle')

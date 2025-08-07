@@ -11,7 +11,7 @@ const meta: Meta<typeof GovBRRadio> = {
   component: GovBRRadio,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '600px' }}>
           <Story />

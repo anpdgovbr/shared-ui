@@ -11,7 +11,7 @@ const meta: Meta<typeof GovBRFormInput> = {
   component: GovBRFormInput,
   tags: ['autodocs'],
   decorators: [
-    Story => (
+    (Story) => (
       <GovBRThemeProvider>
         <Box sx={{ padding: 3, maxWidth: '600px' }}>
           <Story />
@@ -392,7 +392,7 @@ export const WithCustomValidation: Story = {
             disabled={!passwordValue}
             rules={{
               required: 'Confirmação de senha é obrigatória',
-              validate: value => {
+              validate: (value) => {
                 if (!passwordValue) return 'Digite a senha primeiro'
                 return value === passwordValue || 'Senhas não conferem'
               },
