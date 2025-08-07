@@ -1,9 +1,9 @@
 export * from './ui/auto-sync';
 export type { AutoSyncButtonProps } from './ui/auto-sync/types';
 export * from './ui/govbr-avatar';
-export type { GovBRAvatarProps, GovBRAvatarMenuItem } from './ui/govbr-avatar/types';
+export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './ui/govbr-avatar/types';
 export * from './ui/govbr-breadcrumb';
-export type { GovBRBreadcrumbProps, BreadcrumbItem } from './ui/govbr-breadcrumb/types';
+export type { BreadcrumbItem, GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types';
 export * from './ui/govbr-button';
 export type { GovBRButtonProps } from './ui/govbr-button/types';
 export * from './ui/govbr-checkbox';
@@ -18,4 +18,6 @@ export * from './ui/govbr-radio';
 export type { GovBRRadioProps } from './ui/govbr-radio/types';
 export * from './ui/govbr-sign-in';
 export type { GovBRSignInProps } from './ui/govbr-sign-in/types';
+export * from './ui/govbr-switch';
+export type { GovBRSwitchProps } from './ui/govbr-switch/types';
 //# sourceMappingURL=index.d.ts.map

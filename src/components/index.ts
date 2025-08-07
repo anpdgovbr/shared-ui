@@ -7,11 +7,11 @@ export type { AutoSyncButtonProps } from './ui/auto-sync/types'
 
 // GovBRAvatar
 export * from './ui/govbr-avatar'
-export type { GovBRAvatarProps, GovBRAvatarMenuItem } from './ui/govbr-avatar/types'
+export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './ui/govbr-avatar/types'
 
 // GovBRBreadcrumb
 export * from './ui/govbr-breadcrumb'
-export type { GovBRBreadcrumbProps, BreadcrumbItem } from './ui/govbr-breadcrumb/types'
+export type { BreadcrumbItem, GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types'
 
 // GovBRButton
 export * from './ui/govbr-button'
@@ -40,3 +40,7 @@ export type { GovBRRadioProps } from './ui/govbr-radio/types'
 // GovBRSignIn
 export * from './ui/govbr-sign-in'
 export type { GovBRSignInProps } from './ui/govbr-sign-in/types'
+
+// GovBRSwitch
+export * from './ui/govbr-switch'
+export type { GovBRSwitchProps } from './ui/govbr-switch/types'
