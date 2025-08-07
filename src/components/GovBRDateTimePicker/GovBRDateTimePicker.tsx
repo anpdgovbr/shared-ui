@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Box, TextFieldProps, Typography } from '@mui/material'
@@ -115,6 +116,27 @@ export const GovBRDateTimePicker: React.FC<GovBRDateTimePickerProps> = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
       {renderPicker()}
+=======
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { Typography } from '@mui/material'
+import { GovBRDateTimePickerProps } from './types'
+
+
+export const GovBRDateTimePicker: React.FC<GovBRDateTimePickerProps> = ({
+  label,
+}) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+        <Typography sx={{margin: 0, fontWeight: 'bold'}}>{label}</Typography>
+        <DatePicker slotProps={{
+          textField: {
+            size: 'small',
+              },
+        }}/>
+
+>>>>>>> 3e77ddf091c2fce383bec924a557a7a7a1693752
     </LocalizationProvider>
   )
 }

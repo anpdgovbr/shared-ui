@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Dayjs } from "dayjs";
 import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
 import { TextFieldProps } from "@mui/material";
@@ -16,4 +17,12 @@ export interface GovBRDateTimePickerProps extends SharedUIComponentProps {
   disablePast?: boolean;
   format?: string; // Custom format
   textFieldProps?: TextFieldProps;
+=======
+import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
+
+
+export interface GovBRDateTimePickerProps extends SharedUIComponentProps {
+  label?: string
+
+>>>>>>> 3e77ddf091c2fce383bec924a557a7a7a1693752
 }
