@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRDateTimePicker } from './GovBRDateTimePicker'
+import { useState } from 'react'
+import { start } from 'repl'
 
 
 
@@ -7,10 +9,11 @@ const meta: Meta<typeof GovBRDateTimePicker> = {
   title: 'GovBR/DateTimePicker',
   component: GovBRDateTimePicker,
   tags: ['autodocs'],
-  args: {
-  },
   argTypes: {
-    label: { control: 'text' },  
+    type: {
+      control: 'select',
+      options: ['date', 'time', 'datetime', 'range']
+    }
   }
 }
 
@@ -19,9 +22,48 @@ const meta: Meta<typeof GovBRDateTimePicker> = {
 export default meta
 type Story = StoryObj<typeof GovBRDateTimePicker>
 
-export const Default: Story = {
-  name: 'Padrão',
-  args: {
-    label: 'Digite a data',
-    },
+const Template = (args: any) => {
+  const [value, setValue] = useState<any>(
+    args.type === 'range' ? {start: null, end: null}
+    : null
+  )
+
+  return (
+    <GovBRDateTimePicker
+    {...args}
+    value={value}
+    onChange={setValue}/>
+  )
+}
+
+export const DatePickerSimples: Story = {
+   args: {
+    type: 'date',
+    label: 'Data',
+  },
+  render: () => <Template type='date' label='Data'/>
+}
+
+export const TimePicker: Story = {
+   args: {
+    type: 'date',
+    label: 'Data',
+  },
+  render: () => <Template type='time' label='Hora' />
+}
+
+export const DateTimePicker: Story = {
+   args: {
+    type: 'date',
+    label: 'Data',
+  },
+  render: () => <Template type='datetime' label='Data e Hora'/>
+}
+
+export const DateRangePicker: Story = {
+   args: {
+    type: 'date',
+    label: 'Data',
+  },
+  render: () => <Template type='range' label='Período'/>
 }
