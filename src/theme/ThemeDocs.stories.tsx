@@ -2,7 +2,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { ThemeProvider } from '@mui/material/styles'
 import { govbrTheme } from '../theme/govbrTheme'
-import { Button, Typography, Switch, Card, Link, Divider } from '@mui/material'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Switch from '@mui/material/Switch'
+import Card from '@mui/material/Card'
+import Link from '@mui/material/Link'
+import Divider from '@mui/material/Divider'
 
 const meta: Meta = {
   title: 'Documentação/Tema GovBR-DS',

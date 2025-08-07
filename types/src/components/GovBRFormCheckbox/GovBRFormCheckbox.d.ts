@@ -1,5 +1,5 @@
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
-import { type GovBRCheckboxProps } from '../GovBRCheckbox/GovBRCheckbox'
+import type { GovBRCheckboxProps } from '../ui/govbr-checkbox/types'
 export interface GovBRFormCheckboxProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
