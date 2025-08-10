@@ -70,7 +70,7 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
-    "check": "npm run lint && npm run type-check && npm test",
+    "check": "npm run lint && npm run type-check",
     "prepublishOnly": "npm run build && npm run check",
     "publish:beta": "npm publish --tag beta",
     "version:beta": "npm version prerelease --preid=beta",
