@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRDateTimePicker } from './GovBRDateTimePicker'
-<<<<<<< HEAD
-import { useState } from 'react'
-import { start } from 'repl'
-=======
->>>>>>> 3e77ddf091c2fce383bec924a557a7a7a1693752
+import { Dayjs } from 'dayjs'
+import { ComponentProps, useState } from 'react'
+import { GovBRDateTimePicker } from '.'
 
 
 
@@ -12,18 +9,11 @@ const meta: Meta<typeof GovBRDateTimePicker> = {
   title: 'GovBR/DateTimePicker',
   component: GovBRDateTimePicker,
   tags: ['autodocs'],
-<<<<<<< HEAD
   argTypes: {
     type: {
       control: 'select',
       options: ['date', 'time', 'datetime', 'range']
     }
-=======
-  args: {
-  },
-  argTypes: {
-    label: { control: 'text' },  
->>>>>>> 3e77ddf091c2fce383bec924a557a7a7a1693752
   }
 }
 
@@ -31,13 +21,16 @@ const meta: Meta<typeof GovBRDateTimePicker> = {
 
 export default meta
 type Story = StoryObj<typeof GovBRDateTimePicker>
+type Props = ComponentProps<typeof GovBRDateTimePicker>
 
-<<<<<<< HEAD
-const Template = (args: any) => {
-  const [value, setValue] = useState<any>(
-    args.type === 'range' ? {start: null, end: null}
-    : null
-  )
+const Template = (args: Props) => {
+  const [value, setValue] = useState<| {start: Dayjs | null; end: Dayjs | null} 
+  | Dayjs 
+  | null>(
+     args.type === 'range'
+      ? { start: null, end: null }
+      : null
+  ) 
 
   return (
     <GovBRDateTimePicker
@@ -77,11 +70,4 @@ export const DateRangePicker: Story = {
     label: 'Data',
   },
   render: () => <Template type='range' label='Período'/>
-=======
-export const Default: Story = {
-  name: 'Padrão',
-  args: {
-    label: 'Digite a data',
-    },
->>>>>>> 3e77ddf091c2fce383bec924a557a7a7a1693752
 }
