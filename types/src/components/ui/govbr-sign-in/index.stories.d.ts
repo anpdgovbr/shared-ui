@@ -4,11 +4,11 @@ declare const meta: Meta<typeof GovBRSignIn>;
 export default meta;
 type Story = StoryObj<typeof GovBRSignIn>;
 export declare const Default: Story;
-export declare const ANPDPortalLogin: Story;
-export declare const VariantsShowcase: Story;
-export declare const ResponsiveLayout: Story;
-export declare const Circle: Story;
-export declare const Block: Story;
-export declare const Inverted: Story;
-export declare const WithCustomIcon: Story;
+export declare const Secundario: Story;
+export declare const Circular: Story;
+export declare const ExternoComImagem: Story;
+export declare const ExternoComTexto: Story;
+export declare const Desativado: Story;
+export declare const Bloco: Story;
+export declare const ShowcaseCompleto: Story;
 //# sourceMappingURL=index.stories.d.ts.map

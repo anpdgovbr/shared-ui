@@ -1,6 +1,11 @@
 import type { GovBRSignInProps } from './types';
-export declare function GovBRSignIn({ variant, emphasis, density, circle, block, inverted, className, iconUrl, ...props }: GovBRSignInProps): import("react/jsx-runtime").JSX.Element;
+/**
+ * Componente de botão para login com Gov.br, com diferentes variações de estilo e cor.
+ * @param {GovBRSignInProps} props - As propriedades do componente.
+ */
+export declare function GovBRSignIn({ variant, className, externalImageHeight, color, ...props }: GovBRSignInProps): import("react/jsx-runtime").JSX.Element;
 export declare namespace GovBRSignIn {
     var displayName: string;
 }
+export type { GovBRSignInProps } from './types';
 //# sourceMappingURL=index.d.ts.map

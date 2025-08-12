@@ -1,64 +1,64 @@
-import React from 'react'
+import PersonIcon from '@mui/icons-material/Person'
 import classNames from 'classnames'
+import { GovBRButton } from '../govbr-button'
 import type { GovBRSignInProps } from './types'
 
+/**
+ * Componente de botão para login com Gov.br, com diferentes variações de estilo e cor.
+ * @param {GovBRSignInProps} props - As propriedades do componente.
+ */
 export function GovBRSignIn({
   variant = 'internal',
-  emphasis,
-  density,
-  circle = false,
-  block = false,
-  inverted = false,
   className,
-  iconUrl,
+  externalImageHeight,
+  color = 'primary',
   ...props
 }: GovBRSignInProps) {
-  const componentClass = classNames(
-    'br-sign-in',
-    emphasis,
-    density,
-    {
-      circle,
-      block,
-      inverted,
-    },
-    className,
-  )
-
+  // Função para renderizar o conteúdo do botão com base na variante.
   const renderContent = () => {
     switch (variant) {
       case 'external-image':
         return (
           <>
-            Entrar com&nbsp;
+            Entrar com
             <img
-              src={iconUrl || 'https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png'}
+              src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png"
               alt="gov.br"
+              style={{
+                maxHeight: externalImageHeight || '16px',
+                marginLeft: '8px',
+                verticalAlign: 'middle',
+              }}
             />
           </>
         )
       case 'external-text':
         return (
           <>
-            Entrar com&nbsp;<span className="text-black">gov.br</span>
+            Entrar com
+            <span style={{ marginLeft: '4px', fontWeight: 'bold' }}>gov.br</span>
           </>
         )
       case 'internal':
       default:
         return (
           <>
-            <i className="fas fa-user" aria-hidden="true"></i>
-            {!circle && 'Entrar'}
+            <PersonIcon sx={{ p: 0, m: 0, mr: props.circle ? 0 : 1 }} />
+            {!props.circle && 'Entrar'}
           </>
         )
     }
   }
 
+  // Renderiza o componente base GovBRButton, passando a cor e outras props diretamente.
   return (
-    <button type="button" className={componentClass} {...props}>
+    <GovBRButton className={classNames('sign-in', className)} color={color} {...props}>
       {renderContent()}
-    </button>
+    </GovBRButton>
   )
 }
 
 GovBRSignIn.displayName = 'GovBRSignIn'
+
+// Exports para tree shaking otimizado
+export type { GovBRSignInProps } from './types'

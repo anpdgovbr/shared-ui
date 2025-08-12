@@ -1,45 +1,27 @@
-import type { ButtonHTMLAttributes } from 'react';
-import type { GovBRSize } from '../../../types/GovBRTypes';
-import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps';
+import { GovBRButtonProps } from '../govbr-button/types';
 /**
- * Propriedades do componente GovBRSignIn.
+ * Opções de cor para o botão de SignIn.
  */
-export type GovBRSignInProps = ButtonHTMLAttributes<HTMLButtonElement> & SharedUIComponentProps & {
+type SignInColor = 'primary' | 'secondary';
+export interface GovBRSignInProps extends Omit<GovBRButtonProps, 'color' | 'variant'> {
     /**
-     * Define o tipo de conteúdo e estilo do botão.
-     * - `internal`: Ícone de usuário e texto "Entrar". Padrão.
-     * - `external-text`: "Entrar com gov.br".
-     * - `external-image`: "Entrar com" e a imagem do gov.br.
+     * Define a aparência do conteúdo do botão.
+     * - `internal`: Ícone de pessoa e texto "Entrar". (Padrão)
+     * - `external-image`: Texto "Entrar com" seguido da imagem oficial do gov.br.
+     * - `external-text`: Texto "Entrar com gov.br".
      * @default 'internal'
      */
-    variant?: 'internal' | 'external-text' | 'external-image';
+    variant?: 'internal' | 'external-image' | 'external-text';
     /**
-     * Define a ênfase visual do botão.
-     * @default 'secondary'
+     * Define a altura máxima da imagem do gov.br quando `variant` é 'external-image'.
+     * @default '16px'
      */
-    emphasis?: 'primary' | 'secondary';
+    externalImageHeight?: string;
     /**
-     * Define a densidade (tamanho) do botão.
+     * Define a cor do botão com base nas cores do tema.
+     * @default 'primary'
      */
-    density?: GovBRSize;
-    /**
-     * Transforma o botão em um ícone circular.
-     * @default false
-     */
-    circle?: boolean;
-    /**
-     * Faz o botão ocupar toda a largura disponível.
-     * @default false
-     */
-    block?: boolean;
-    /**
-     * Adapta o botão para uso em fundos escuros.
-     * @default false
-     */
-    inverted?: boolean;
-    /**
-     * URL customizada para o ícone ou imagem do gov.br.
-     */
-    iconUrl?: string;
-};
+    color?: SignInColor;
+}
+export {};
 //# sourceMappingURL=types.d.ts.map
