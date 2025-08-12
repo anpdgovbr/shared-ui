@@ -1,61 +1,28 @@
 import PersonIcon from '@mui/icons-material/Person'
 import classNames from 'classnames'
+import { GovBRButton } from '../govbr-button'
 import type { GovBRSignInProps } from './types'
 
 /**
  * Componente de botão para login com Gov.br, com diferentes variações de estilo e cor.
- * Segue as diretrizes do GovBR Design System com suporte a múltiplas variantes e estados.
- *
  * @param {GovBRSignInProps} props - As propriedades do componente.
  */
 export function GovBRSignIn({
   variant = 'internal',
-  color = 'primary',
-  density,
-  circle = false,
-  block = false,
-  inverted = false,
-  externalImageHeight,
   className,
-  iconUrl,
-  strictGovBr = false,
+  externalImageHeight,
+  color = 'primary',
   ...props
 }: GovBRSignInProps) {
-  // Classes para o modo strictGovBr (seguindo @govbr-ds/core)
-  const strictClasses = strictGovBr
-    ? classNames('br-sign-in', color, density, {
-        circle,
-        block,
-        inverted,
-      })
-    : ''
-
-  // Classes para o modo padrão (MUI + customizações)
-  const componentClass = classNames(
-    'sign-in',
-    !strictGovBr && color,
-    !strictGovBr && density,
-    {
-      'sign-in--circle': !strictGovBr && circle,
-      'sign-in--block': !strictGovBr && block,
-      'sign-in--inverted': !strictGovBr && inverted,
-      circle: strictGovBr && circle,
-      block: strictGovBr && block,
-      inverted: strictGovBr && inverted,
-    },
-    strictClasses,
-    className,
-  )
-
   // Função para renderizar o conteúdo do botão com base na variante.
   const renderContent = () => {
     switch (variant) {
       case 'external-image':
         return (
           <>
-            Entrar com&nbsp;
+            Entrar com
             <img
-              src={iconUrl || 'https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png'}
+              src="https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png"
               alt="gov.br"
               style={{
                 maxHeight: externalImageHeight || '16px',
@@ -68,7 +35,7 @@ export function GovBRSignIn({
       case 'external-text':
         return (
           <>
-            Entrar com&nbsp;
+            Entrar com
             <span style={{ marginLeft: '4px', fontWeight: 'bold' }}>gov.br</span>
           </>
         )
@@ -76,21 +43,18 @@ export function GovBRSignIn({
       default:
         return (
           <>
-            {strictGovBr ? (
-              <i className="fas fa-user" aria-hidden="true"></i>
-            ) : (
-              <PersonIcon sx={{ p: 0, m: 0, mr: circle ? 0 : 1 }} />
-            )}
-            {!circle && 'Entrar'}
+            <PersonIcon sx={{ p: 0, m: 0, mr: props.circle ? 0 : 1 }} />
+            {!props.circle && 'Entrar'}
           </>
         )
     }
   }
 
+  // Renderiza o componente base GovBRButton, passando a cor e outras props diretamente.
   return (
-    <button type="button" className={componentClass} {...props}>
+    <GovBRButton className={classNames('sign-in', className)} color={color} {...props}>
       {renderContent()}
-    </button>
+    </GovBRButton>
   )
 }
 
