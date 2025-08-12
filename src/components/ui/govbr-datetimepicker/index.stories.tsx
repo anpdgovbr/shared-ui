@@ -1,73 +1,48 @@
+import Box from '@mui/material/Box'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Dayjs } from 'dayjs'
-import { ComponentProps, useState } from 'react'
-import { GovBRDateTimePicker } from '.'
-
-
+import { GovBRDateTimePicker } from 'src/components/ui/govbr-datetimepicker'
+import { GovBRThemeProvider } from 'src/theme'
 
 const meta: Meta<typeof GovBRDateTimePicker> = {
-  title: 'GovBR/DateTimePicker',
+  title: 'Components/GovBRDateTimePicker',
   component: GovBRDateTimePicker,
   tags: ['autodocs'],
-  argTypes: {
-    type: {
-      control: 'select',
-      options: ['date', 'time', 'datetime', 'range']
+  decorators: [
+    (Story) => (
+            <GovBRThemeProvider>
+        <Box sx={{ padding: 3, maxWidth: '600px' }}>
+          <Story />
+        </Box>
+      </GovBRThemeProvider>
+    )
+  ],
+  argTypes:{
+    label: {
+      control: 'text'
     }
   }
 }
 
-
-
 export default meta
 type Story = StoryObj<typeof GovBRDateTimePicker>
-type Props = ComponentProps<typeof GovBRDateTimePicker>
 
-const Template = (args: Props) => {
-  const [value, setValue] = useState<| {start: Dayjs | null; end: Dayjs | null} 
-  | Dayjs 
-  | null>(
-     args.type === 'range'
-      ? { start: null, end: null }
-      : null
-  ) 
-
-  return (
-    <GovBRDateTimePicker
-    {...args}
-    value={value}
-    onChange={setValue}/>
-  )
-}
-
-export const DatePickerSimples: Story = {
-   args: {
+export const DatePicker: Story = {
+  args: {
     type: 'date',
-    label: 'Data',
-  },
-  render: () => <Template type='date' label='Data'/>
+    label: 'Selecione a data'
+  }
 }
 
 export const TimePicker: Story = {
-   args: {
-    type: 'date',
-    label: 'Data',
-  },
-  render: () => <Template type='time' label='Hora' />
+  args: {
+    type: 'time',
+    label: 'Selecione a hora'
+  }
 }
 
 export const DateTimePicker: Story = {
-   args: {
-    type: 'date',
-    label: 'Data',
-  },
-  render: () => <Template type='datetime' label='Data e Hora'/>
-}
-
-export const DateRangePicker: Story = {
-   args: {
-    type: 'date',
-    label: 'Data',
-  },
-  render: () => <Template type='range' label='Período'/>
+  args: {
+    type: 'datetime',
+    label: 'Selecione a data e hora'
+  }
 }

@@ -1,19 +1,18 @@
-import { TextFieldProps } from "@mui/material/TextField";
-import { Dayjs } from "dayjs";
-import { SharedUIComponentProps } from "src/types/SharedUIComponentProps";
+import { DatePicker, DateTimePicker, TimePicker } from "@mui/x-date-pickers"
+import { Dayjs } from "dayjs"
+import { SharedUIComponentProps } from "src/types/SharedUIComponentProps"
 
-export type PickerType = 'date' | 'datetime' | 'time' | 'range';
+type PickerType = 'date' | 'time' | 'datetime'
+
+export const pickerMap: Record<PickerType, React.ElementType> = {
+  date: DatePicker,
+  time: TimePicker,
+  datetime: DateTimePicker
+}
 export interface GovBRDateTimePickerProps extends SharedUIComponentProps {
   type: PickerType
-  label?: string 
-  value?: Dayjs | { start: Dayjs | null; end: Dayjs | null} | null
-  onChange?: (value: Dayjs) => void;
-  error?: boolean;
-  helperText?: string;
-  minDate?: Dayjs;
-  maxDate?: Dayjs;
-  disableFuture?: boolean;
-  disablePast?: boolean;
-  format?: string; // Custom format
-  textFieldProps?: TextFieldProps;
+  title?: string
+  label?: string
+  value?: Dayjs
+  onChange?: () => void
 }

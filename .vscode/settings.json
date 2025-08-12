@@ -27,7 +27,18 @@
   "cSpell.language": "pt-BR,en",
   "cSpell.dictionaries": ["pt-BR"],
   "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
-  "cSpell.words": ["govbr", "sead", "officedocument", "openxmlformats", "spreadsheetml"],
+  "cSpell.words": [
+    "ANPD",
+    "anpdgovbr",
+    "autodocs",
+    "govbr",
+    "MIGRACAO",
+    "officedocument",
+    "openxmlformats",
+    "sead",
+    "shadcn",
+    "spreadsheetml"
+  ],
   "files.exclude": {
     "**/dist": true,
     "**/types": true,

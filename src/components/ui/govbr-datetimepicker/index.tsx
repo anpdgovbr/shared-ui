@@ -1,119 +1,27 @@
-import { Box, TextFieldProps } from '@mui/material'
-import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers'
+import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { Dayjs } from 'dayjs'
-import React from 'react'
-import { GovBRDateTimePickerProps, PickerType } from './types'
+import dayjs, { Dayjs } from "dayjs"
+import 'dayjs/locale/pt-br'
+import React from "react"
+import { GovBRDateTimePickerProps, pickerMap } from "src/components/ui/govbr-datetimepicker/types"
 
-
-export const GovBRDateTimePicker: React.FC<GovBRDateTimePickerProps> = ({
+export function GovBRDateTimePicker ({
   type,
   label,
-  value,
-  onChange,
-  error,
-  helperText,
-  minDate,
-  maxDate,
-  disableFuture = false,
-  disablePast = false,
-  format,
-  textFieldProps,
-}) => {
+}: Readonly<GovBRDateTimePickerProps>) {
 
-  const defaultFormats: Record<PickerType, string> = {
-    date: 'DD/MM/YYYY',
-    time: 'HH:mm',
-    datetime: 'DD/MM/YYYY HH:mm',
-    range: 'DD/MM/YYYY',
-  }
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs)
 
-  const commonProps = {
-    minDate,
-    maxDate,
-    disableFuture,
-    disablePast,
-    format: format || defaultFormats[type],
-    slotProps: {
-      textField: {
-        sx: {
-          width: '300px' ,
-          '& .MuiPickersInputBase-root': {
-              
-          }
-        }, 
-        fullWidth: true,
-        size: 'small' as TextFieldProps['size'],
-        error,
-        helperText,
-        ...textFieldProps,
-      }
-    }
-  }
+  dayjs.locale('pt-br')
 
-  const renderPicker = () => {
-    switch(type) {
-      case 'date':
-        return (
-          <DatePicker 
-            label={label}
-            value={value as Dayjs | null}
-            onChange={onChange}
-            {...commonProps}
-          />
-        )
-      case 'datetime' :
-        return (
-          <DateTimePicker 
-
-            label={label}
-            value={value as Dayjs | null}
-            onChange={onChange}
-            ampm={false}
-            {...commonProps}
-            
-          />
-        )
-        case 'time' :
-          return (
-          <TimePicker 
-            label={label}
-            value={value as Dayjs | null}
-            onChange={onChange}
-            ampm={false}
-            {...commonProps}
-          />
-          )
-        case 'range':
-          const rangeValue = value as {start: Dayjs | null; end: Dayjs | null}
-          return (
-            <Box display='flex' gap={2}>
-              <DatePicker
-              label={`${label || 'Data'} - Início`}
-              value={rangeValue?.start || null}
-              onChange={(newStart) =>
-                onChange({ ...rangeValue, start: newStart })
-              }
-              {...commonProps}
-            />
-            <DatePicker
-              label={`${label || 'Data'} - Fim`}
-              value={rangeValue?.end || null}
-              onChange={(newEnd) =>
-                onChange({ ...rangeValue, end: newEnd })
-              }
-              {...commonProps}
-            />
-            </Box>
-          )
-          default:
-            return null
-    }
-  }
-
+  const PickerComponent = pickerMap[type]
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
-      {renderPicker()}
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+    <PickerComponent 
+    label={label}
+    value={value}
+    onChange={(newValue: Dayjs) => setValue(newValue)}
+    />
     </LocalizationProvider>
   )
 }
