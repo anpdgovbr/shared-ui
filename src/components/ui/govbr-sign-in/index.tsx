@@ -1,4 +1,3 @@
-import React from 'react'
 import PersonIcon from '@mui/icons-material/Person'
 import classNames from 'classnames'
 import type { GovBRSignInProps } from './types'
