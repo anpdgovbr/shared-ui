@@ -1,0 +1,412 @@
+{
+  "Import MUI SxProps Type": {
+    "prefix": "imsxprops",
+    "body": ["import type { SxProps } from '@mui/material/styles'"],
+    "description": "Importação do tipo SxProps da MUI (CORRETO: do styles)",
+  },
+  "Import MUI Theme Type": {
+    "prefix": "imthemetype",
+    "body": ["import type { Theme } from '@mui/material/styles'"],
+    "description": "Importação do tipo Theme da MUI (CORRETO: do styles)",
+  },
+  "Import MUI Palette Type": {
+    "prefix": "impalettetype",
+    "body": ["import type { Palette } from '@mui/material/styles'"],
+    "description": "Importação do tipo Palette da MUI (CORRETO: do styles)",
+  },
+  "Import MUI ThemeOptions Type": {
+    "prefix": "imthemeoptionstype",
+    "body": ["import type { ThemeOptions } from '@mui/material/styles'"],
+    "description": "Importação do tipo ThemeOptions da MUI (CORRETO: do styles)",
+  },
+  "Import MUI TypographyVariant Type": {
+    "prefix": "imtypographyvarianttype",
+    "body": ["import type { TypographyVariant } from '@mui/material/styles'"],
+    "description": "Importação do tipo TypographyVariant da MUI (CORRETO: do styles)",
+  },
+  "Import MUI Component Props Type": {
+    "prefix": "imcomppropstype",
+    "body": ["import type { ${1:Component}Props } from '@mui/material/${1:Component}'"],
+    "description": "Importação do tipo Props de componente da MUI (ex: ButtonProps)",
+  },
+  "Import ThemeProvider and useTheme": {
+    "prefix": "imtheme",
+    "body": ["import { ThemeProvider, useTheme } from '@mui/material/styles'"],
+    "description": "Importação do ThemeProvider e useTheme da MUI (PERMITIDO: desestruturado)",
+  },
+  "Import DataGrid": {
+    "prefix": "imdatagrid",
+    "body": ["import { DataGrid } from '@mui/x-data-grid'"],
+    "description": "Importação do DataGrid da MUI X (PERMITIDO: desestruturado)",
+  },
+  "MUI Box Import": {
+    "prefix": "imbox",
+    "body": ["import Box from '@mui/material/Box'"],
+    "description": "Importação otimizada do componente Box da MUI",
+  },
+  "MUI Button Import": {
+    "prefix": "imbutton",
+    "body": ["import Button from '@mui/material/Button'"],
+    "description": "Importação otimizada do componente Button da MUI",
+  },
+  "MUI Stack Import": {
+    "prefix": "imstack",
+    "body": ["import Stack from '@mui/material/Stack'"],
+    "description": "Importação otimizada do componente Stack da MUI",
+  },
+  "MUI Typography Import": {
+    "prefix": "imtypography",
+    "body": ["import Typography from '@mui/material/Typography'"],
+    "description": "Importação otimizada do componente Typography da MUI",
+  },
+  "MUI Divider Import": {
+    "prefix": "imdivider",
+    "body": ["import Divider from '@mui/material/Divider'"],
+    "description": "Importação otimizada do componente Divider da MUI",
+  },
+  "MUI Tooltip Import": {
+    "prefix": "imtooltip",
+    "body": ["import Tooltip from '@mui/material/Tooltip'"],
+    "description": "Importação otimizada do componente Tooltip da MUI",
+  },
+  "MUI Icon Import": {
+    "prefix": "imicon",
+    "body": ["import Icon from '@mui/material/Icon'"],
+    "description": "Importação otimizada do componente Icon da MUI",
+  },
+  "MUI Grid Import": {
+    "prefix": "imgrid",
+    "body": ["import Grid from '@mui/material/Grid'"],
+    "description": "Importação otimizada do componente Grid da MUI",
+  },
+  "MUI TextField Import": {
+    "prefix": "imtextfield",
+    "body": ["import TextField from '@mui/material/TextField'"],
+    "description": "Importação otimizada do componente TextField da MUI",
+  },
+  "MUI AppBar Import": {
+    "prefix": "imappbar",
+    "body": ["import AppBar from '@mui/material/AppBar'"],
+    "description": "Importação otimizada do componente AppBar da MUI",
+  },
+  "MUI Toolbar Import": {
+    "prefix": "imtoolbar",
+    "body": ["import Toolbar from '@mui/material/Toolbar'"],
+    "description": "Importação otimizada do componente Toolbar da MUI",
+  },
+  "MUI Drawer Import": {
+    "prefix": "imdrawer",
+    "body": ["import Drawer from '@mui/material/Drawer'"],
+    "description": "Importação otimizada do componente Drawer da MUI",
+  },
+  "MUI Paper Import": {
+    "prefix": "impaper",
+    "body": ["import Paper from '@mui/material/Paper'"],
+    "description": "Importação otimizada do componente Paper da MUI",
+  },
+  "MUI Card Import": {
+    "prefix": "imcard",
+    "body": ["import Card from '@mui/material/Card'"],
+    "description": "Importação otimizada do componente Card da MUI",
+  },
+  "MUI CardContent Import": {
+    "prefix": "imcardcontent",
+    "body": ["import CardContent from '@mui/material/CardContent'"],
+    "description": "Importação otimizada do componente CardContent da MUI",
+  },
+  "MUI CardActions Import": {
+    "prefix": "imcardactions",
+    "body": ["import CardActions from '@mui/material/CardActions'"],
+    "description": "Importação otimizada do componente CardActions da MUI",
+  },
+  "MUI Snackbar Import": {
+    "prefix": "imsnackbar",
+    "body": ["import Snackbar from '@mui/material/Snackbar'"],
+    "description": "Importação otimizada do componente Snackbar da MUI",
+  },
+  "MUI Menu Import": {
+    "prefix": "immenu",
+    "body": ["import Menu from '@mui/material/Menu'"],
+    "description": "Importação otimizada do componente Menu da MUI",
+  },
+  "MUI MenuItem Import": {
+    "prefix": "immenuitem",
+    "body": ["import MenuItem from '@mui/material/MenuItem'"],
+    "description": "Importação otimizada do componente MenuItem da MUI",
+  },
+  "MUI List Import": {
+    "prefix": "imlist",
+    "body": ["import List from '@mui/material/List'"],
+    "description": "Importação otimizada do componente List da MUI",
+  },
+  "MUI ListItem Import": {
+    "prefix": "imlistitem",
+    "body": ["import ListItem from '@mui/material/ListItem'"],
+    "description": "Importação otimizada do componente ListItem da MUI",
+  },
+  "MUI ListItemIcon Import": {
+    "prefix": "imlistitemicon",
+    "body": ["import ListItemIcon from '@mui/material/ListItemIcon'"],
+    "description": "Importação otimizada do componente ListItemIcon da MUI",
+  },
+  "MUI ListItemText Import": {
+    "prefix": "imlistitemtext",
+    "body": ["import ListItemText from '@mui/material/ListItemText'"],
+    "description": "Importação otimizada do componente ListItemText da MUI",
+  },
+  "MUI Switch Import": {
+    "prefix": "imswitch",
+    "body": ["import Switch from '@mui/material/Switch'"],
+    "description": "Importação otimizada do componente Switch da MUI",
+  },
+  "MUI Checkbox Import": {
+    "prefix": "imcheckbox",
+    "body": ["import Checkbox from '@mui/material/Checkbox'"],
+    "description": "Importação otimizada do componente Checkbox da MUI",
+  },
+  "MUI Radio Import": {
+    "prefix": "imradio",
+    "body": ["import Radio from '@mui/material/Radio'"],
+    "description": "Importação otimizada do componente Radio da MUI",
+  },
+  "MUI RadioGroup Import": {
+    "prefix": "imradiogroup",
+    "body": ["import RadioGroup from '@mui/material/RadioGroup'"],
+    "description": "Importação otimizada do componente RadioGroup da MUI",
+  },
+  "MUI FormControl Import": {
+    "prefix": "imformcontrol",
+    "body": ["import FormControl from '@mui/material/FormControl'"],
+    "description": "Importação otimizada do componente FormControl da MUI",
+  },
+  "MUI FormControlLabel Import": {
+    "prefix": "imformcontrollabel",
+    "body": ["import FormControlLabel from '@mui/material/FormControlLabel'"],
+    "description": "Importação otimizada do componente FormControlLabel da MUI",
+  },
+  "MUI FormLabel Import": {
+    "prefix": "imformlabel",
+    "body": ["import FormLabel from '@mui/material/FormLabel'"],
+    "description": "Importação otimizada do componente FormLabel da MUI",
+  },
+  "MUI Select Import": {
+    "prefix": "imselect",
+    "body": ["import Select from '@mui/material/Select'"],
+    "description": "Importação otimizada do componente Select da MUI",
+  },
+  "MUI InputLabel Import": {
+    "prefix": "iminputlabel",
+    "body": ["import InputLabel from '@mui/material/InputLabel'"],
+    "description": "Importação otimizada do componente InputLabel da MUI",
+  },
+  "MUI CircularProgress Import": {
+    "prefix": "imcircularprogress",
+    "body": ["import CircularProgress from '@mui/material/CircularProgress'"],
+    "description": "Importação otimizada do componente CircularProgress da MUI",
+  },
+  "MUI LinearProgress Import": {
+    "prefix": "imlinearprogress",
+    "body": ["import LinearProgress from '@mui/material/LinearProgress'"],
+    "description": "Importação otimizada do componente LinearProgress da MUI",
+  },
+  "MUI Dialog Import": {
+    "prefix": "imdialog",
+    "body": ["import Dialog from '@mui/material/Dialog'"],
+    "description": "Importação otimizada do componente Dialog da MUI",
+  },
+  "MUI DialogTitle Import": {
+    "prefix": "imdialogtitle",
+    "body": ["import DialogTitle from '@mui/material/DialogTitle'"],
+    "description": "Importação otimizada do componente DialogTitle da MUI",
+  },
+  "MUI DialogContent Import": {
+    "prefix": "imdialogcontent",
+    "body": ["import DialogContent from '@mui/material/DialogContent'"],
+    "description": "Importação otimizada do componente DialogContent da MUI",
+  },
+  "MUI DialogActions Import": {
+    "prefix": "imdialogactions",
+    "body": ["import DialogActions from '@mui/material/DialogActions'"],
+    "description": "Importação otimizada do componente DialogActions da MUI",
+  },
+  "MUI Tabs Import": {
+    "prefix": "imtabs",
+    "body": ["import Tabs from '@mui/material/Tabs'"],
+    "description": "Importação otimizada do componente Tabs da MUI",
+  },
+  "MUI Tab Import": {
+    "prefix": "imtab",
+    "body": ["import Tab from '@mui/material/Tab'"],
+    "description": "Importação otimizada do componente Tab da MUI",
+  },
+  "MUI Chip Import": {
+    "prefix": "imchip",
+    "body": ["import Chip from '@mui/material/Chip'"],
+    "description": "Importação otimizada do componente Chip da MUI",
+  },
+  "MUI Badge Import": {
+    "prefix": "imbadge",
+    "body": ["import Badge from '@mui/material/Badge'"],
+    "description": "Importação otimizada do componente Badge da MUI",
+  },
+  "MUI Avatar Import": {
+    "prefix": "imavatar",
+    "body": ["import Avatar from '@mui/material/Avatar'"],
+    "description": "Importação otimizada do componente Avatar da MUI",
+  },
+  "MUI Table Import": {
+    "prefix": "imtable",
+    "body": ["import Table from '@mui/material/Table'"],
+    "description": "Importação otimizada do componente Table da MUI",
+  },
+  "MUI TableRow Import": {
+    "prefix": "imtablerow",
+    "body": ["import TableRow from '@mui/material/TableRow'"],
+    "description": "Importação otimizada do componente TableRow da MUI",
+  },
+  "MUI TableCell Import": {
+    "prefix": "imtablecell",
+    "body": ["import TableCell from '@mui/material/TableCell'"],
+    "description": "Importação otimizada do componente TableCell da MUI",
+  },
+  "MUI TableHead Import": {
+    "prefix": "imtablehead",
+    "body": ["import TableHead from '@mui/material/TableHead'"],
+    "description": "Importação otimizada do componente TableHead da MUI",
+  },
+  "MUI TableBody Import": {
+    "prefix": "imtablebody",
+    "body": ["import TableBody from '@mui/material/TableBody'"],
+    "description": "Importação otimizada do componente TableBody da MUI",
+  },
+  "MUI Accordion Import": {
+    "prefix": "imaccordion",
+    "body": ["import Accordion from '@mui/material/Accordion'"],
+    "description": "Importação otimizada do componente Accordion da MUI",
+  },
+  "MUI AccordionSummary Import": {
+    "prefix": "imaccordionsummary",
+    "body": ["import AccordionSummary from '@mui/material/AccordionSummary'"],
+    "description": "Importação otimizada do componente AccordionSummary da MUI",
+  },
+  "MUI AccordionDetails Import": {
+    "prefix": "imaccordiondetails",
+    "body": ["import AccordionDetails from '@mui/material/AccordionDetails'"],
+    "description": "Importação otimizada do componente AccordionDetails da MUI",
+  },
+  "MUI Icon AddCircleOutline Import": {
+    "prefix": "imaddcircleoutlineicon",
+    "body": ["import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'"],
+    "description": "Importação individual do ícone AddCircleOutline",
+  },
+  "MUI Icon EditOutlined Import": {
+    "prefix": "imeditoutlinedicon",
+    "body": ["import EditOutlinedIcon from '@mui/icons-material/EditOutlined'"],
+    "description": "Importação individual do ícone EditOutlined",
+  },
+  "MUI Icon Delete Import": {
+    "prefix": "imdeleteicon",
+    "body": ["import DeleteIcon from '@mui/icons-material/Delete'"],
+    "description": "Importação individual do ícone Delete",
+  },
+  "MUI Icon Search Import": {
+    "prefix": "imsearchicon",
+    "body": ["import SearchIcon from '@mui/icons-material/Search'"],
+    "description": "Importação individual do ícone Search",
+  },
+  "MUI Icon Close Import": {
+    "prefix": "imcloseicon",
+    "body": ["import CloseIcon from '@mui/icons-material/Close'"],
+    "description": "Importação individual do ícone Close",
+  },
+  "MUI Icon Menu Import": {
+    "prefix": "immenuicon",
+    "body": ["import MenuIcon from '@mui/icons-material/Menu'"],
+    "description": "Importação individual do ícone Menu",
+  },
+  "MUI Icon ArrowBack Import": {
+    "prefix": "imarrowbackicon",
+    "body": ["import ArrowBackIcon from '@mui/icons-material/ArrowBack'"],
+    "description": "Importação individual do ícone ArrowBack",
+  },
+  "MUI Icon ArrowForward Import": {
+    "prefix": "imarrowforwardicon",
+    "body": ["import ArrowForwardIcon from '@mui/icons-material/ArrowForward'"],
+    "description": "Importação individual do ícone ArrowForward",
+  },
+  "MUI Icon Check Import": {
+    "prefix": "imcheckicon",
+    "body": ["import CheckIcon from '@mui/icons-material/Check'"],
+    "description": "Importação individual do ícone Check",
+  },
+  "MUI Icon Clear Import": {
+    "prefix": "imclearicon",
+    "body": ["import ClearIcon from '@mui/icons-material/Clear'"],
+    "description": "Importação individual do ícone Clear",
+  },
+  "MUI Icon ExpandMore Import": {
+    "prefix": "imexpandmoreicon",
+    "body": ["import ExpandMoreIcon from '@mui/icons-material/ExpandMore'"],
+    "description": "Importação individual do ícone ExpandMore",
+  },
+  "MUI Icon ExpandLess Import": {
+    "prefix": "imexpandlessicon",
+    "body": ["import ExpandLessIcon from '@mui/icons-material/ExpandLess'"],
+    "description": "Importação individual do ícone ExpandLess",
+  },
+  "MUI Icon MoreVert Import": {
+    "prefix": "immoreverticon",
+    "body": ["import MoreVertIcon from '@mui/icons-material/MoreVert'"],
+    "description": "Importação individual do ícone MoreVert",
+  },
+  "MUI Icon Visibility Import": {
+    "prefix": "imvisibilityicon",
+    "body": ["import VisibilityIcon from '@mui/icons-material/Visibility'"],
+    "description": "Importação individual do ícone Visibility",
+  },
+  "MUI Icon VisibilityOff Import": {
+    "prefix": "imvisibilityofficon",
+    "body": ["import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'"],
+    "description": "Importação individual do ícone VisibilityOff",
+  },
+  "MUI useMediaQuery Import": {
+    "prefix": "imusemediaquery",
+    "body": ["import useMediaQuery from '@mui/material/useMediaQuery'"],
+    "description": "Importação individual do useMediaQuery da MUI",
+  },
+  "MUI Theme Imports (Styles)": {
+    "prefix": "imtheme",
+    "body": ["import { ThemeProvider, useTheme } from '@mui/material/styles'"],
+    "description": "Importação correta de ThemeProvider e useTheme (permitido desestruturado)",
+  },
+  "MUI Styled Import": {
+    "prefix": "imstyled",
+    "body": ["import { styled } from '@mui/material/styles'"],
+    "description": "Importação correta de styled (permitido desestruturado)",
+  },
+  "MUI CreateTheme Import": {
+    "prefix": "imcreatetheme",
+    "body": ["import { createTheme } from '@mui/material/styles'"],
+    "description": "Importação correta de createTheme (permitido desestruturado)",
+  },
+  "MUI DataGrid Imports": {
+    "prefix": "imdatagrid",
+    "body": ["import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'"],
+    "description": "Importação correta dos componentes do DataGrid (permitido desestruturado)",
+  },
+  "MUI DataGrid Simple": {
+    "prefix": "imdatagridbasic",
+    "body": ["import { DataGrid } from '@mui/x-data-grid'"],
+    "description": "Importação simples do DataGrid",
+  },
+  "MUI DatePicker Imports": {
+    "prefix": "imdatepicker",
+    "body": ["import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'"],
+    "description": "Importação correta dos componentes de DatePicker (permitido desestruturado)",
+  },
+  "MUI Lab Imports": {
+    "prefix": "imlab",
+    "body": ["import { LoadingButton } from '@mui/lab'"],
+    "description": "Importação correta dos componentes do Lab (permitido desestruturado)",
+  },
+}
