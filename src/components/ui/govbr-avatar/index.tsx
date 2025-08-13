@@ -8,27 +8,15 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import React, { useState } from 'react'
 import { GovBRButton } from '../govbr-button/index'
-import type { GovBRAvatarMenuItem, GovBRAvatarProps } from './types'
+import type { GovBRAvatarProps } from './types'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
  *
  * Exibe o avatar do usuário (imagem ou inicial do nome), saudação personalizada e um menu suspenso de opções.
  * Permite customização de tamanho do avatar, itens de menu, badge de notificações e estilo visual.
- *
- * @param props Propriedades do componente GovBRAvatar.
- * @example
- * ```tsx
- * <GovBRAvatar
- *   name="João Silva"
- *   onNavigate={href => console.log(href)}
- *   menuItems={[{ label: 'Perfil', href: '/perfil' }]}
- *   badgeContent="3"
- *   badgeColor="error"
- * />
- * ```
  */
-export function GovBRAvatar({
+export const GovBRAvatar: React.FC<GovBRAvatarProps> = ({
   name,
   src,
   alt,
@@ -43,7 +31,8 @@ export function GovBRAvatar({
   badgeColor = 'error',
   badgeVariant = 'standard',
   hideGreeting = false,
-}: GovBRAvatarProps) {
+  ...props
+}) => {
   // O estado `anchorEl` é usado pelo MUI para saber onde posicionar o menu. `null` significa fechado.
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const menuOpen = Boolean(anchorEl)
@@ -68,49 +57,58 @@ export function GovBRAvatar({
     handleClose()
   }
 
-  // Mapeia props de tamanho e cor para valores de estilo concretos.
-  const sizeMap = { small: 32, medium: 40, large: 48 }
+  // Mapeia props de tamanho e cor para valores de estilo concretos seguindo o padrão GovBR.
+  const sizeMap = {
+    small: 32, // Tamanho pequeno para avatares
+    medium: 40, // Tamanho médio (padrão)
+    large: 48, // Tamanho grande
+  }
+
+  const textSizeMap = {
+    small: '0.75rem', // Texto menor
+    medium: '1rem', // Texto médio
+    large: '1.25rem', // Texto maior
+  }
+
   const colorMap = {
-    default: 'var(--color-primary-lighten-01)',
+    default: '#0868AC', // --blue-10 (azul padrão GovBR)
     primary: 'var(--color-primary)',
     secondary: 'var(--color-secondary)',
   }
 
   const avatarSize = sizeMap[size] ?? 40
+  const textSize = textSizeMap[size] ?? '1rem'
 
-  // Objeto de estilo dinâmico para o Avatar, baseado nas props recebidas.
+  // Objeto de estilo dinâmico para o Avatar, seguindo o padrão GovBR.
   const avatarSx = {
     width: avatarSize,
     height: avatarSize,
     bgcolor: colorMap[color] ?? colorMap.default,
-    fontSize: avatarSize * 0.5,
+    color: '#FFFFFF', // --blue-warm-20 ou texto branco sobre azul
+    fontSize: textSize,
+    fontWeight: 700, // --font-weight-bold
+    textTransform: 'uppercase',
+    border: 'none',
   }
 
-  // Estilo condicional do botão: completo com saudação ou compacto apenas com avatar
-  const buttonSx = hideGreeting
-    ? {
-        // Estilo compacto (apenas avatar)
-        padding: 0,
-        minWidth: avatarSize + 8,
-        minHeight: avatarSize + 8,
-        borderRadius: '50px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '&:hover': {
-          bgcolor: 'transparent',
-        },
-      }
-    : {
-        // Estilo padrão (com saudação)
-        p: 'var(--spacing-scale-base)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        color: 'var(--text-color-primary)',
-        minHeight: avatarSize + 16,
-        fontSize: size === 'small' ? '0.875rem' : size === 'large' ? '1.125rem' : '1rem',
-      }
+  // Estilo condicional do botão seguindo o padrão GovBR
+  const buttonSx = {
+    p: hideGreeting ? 1 : 1.5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: hideGreeting ? 'center' : 'flex-start',
+    gap: hideGreeting ? 0 : 1,
+    color: hideGreeting ? 'inherit' : '#4B4B4C',
+    fontSize: hideGreeting ? 'inherit' : '1rem',
+    fontWeight: hideGreeting ? 'inherit' : 400,
+    textTransform: hideGreeting ? 'inherit' : 'none',
+    minWidth: hideGreeting ? avatarSize + 16 : 'auto',
+    minHeight: hideGreeting ? avatarSize + 16 : avatarSize + 24, // Altura maior para o botão
+    borderRadius: 50, // Formato de pílula - valor alto para bordas completamente arredondadas
+    '& strong': {
+      fontWeight: 600,
+    },
+  }
 
   const getInitials = (name: string) =>
     name
@@ -134,7 +132,10 @@ export function GovBRAvatar({
         '& .MuiBadge-badge': {
           minWidth: badgeVariant === 'dot' ? 8 : 16,
           height: badgeVariant === 'dot' ? 8 : 16,
-          fontSize: badgeVariant === 'dot' ? 0 : 10,
+          fontSize: badgeVariant === 'dot' ? 0 : '0.625rem',
+          fontWeight: 600,
+          top: size === 'large' ? 4 : size === 'medium' ? 3 : 2,
+          right: size === 'large' ? 4 : size === 'medium' ? 3 : 2,
         },
       }}
     >
@@ -158,6 +159,7 @@ export function GovBRAvatar({
         aria-haspopup={hasDropdown}
         aria-expanded={menuOpen}
         sx={buttonSx}
+        {...props}
       >
         {/* Avatar com badge opcional */}
         {AvatarComponent}
@@ -173,24 +175,57 @@ export function GovBRAvatar({
         {hasDropdown && (menuOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />)}
       </GovBRButton>
 
-      {/* O componente Menu do MUI renderiza o dropdown e gerencia seu comportamento. */}
+      {/* O componente Menu do MUI renderiza o dropdown seguindo o padrão br-list do GovBR. */}
       <Menu
         id="avatar-menu"
         anchorEl={anchorEl}
         open={menuOpen}
         onClose={handleClose}
         slotProps={{
-          list: { 'aria-labelledby': 'avatar-button' },
+          paper: {
+            sx: {
+              borderRadius: 2,
+              border: '1px solid #E5E5E5',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+              minWidth: '200px',
+              mt: 1,
+            },
+          },
+          list: {
+            'aria-labelledby': 'avatar-button',
+            sx: { p: 0 },
+          },
         }}
-        // Define o posicionamento preciso do menu em relação ao botão.
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        // Define o posicionamento preciso do menu em relação ao botão - centralizado.
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         {/* Renderiza o conteúdo customizado (se fornecido) ou os itens de menu */}
         {dropdownContent ||
-          menuItems.map((item: GovBRAvatarMenuItem) => (
-            <MenuItem key={item.href} onClick={() => item.href && handleNavigate(item.href)}>
-              {item.icon && <Icon sx={{ mr: 1.5 }}>{item.icon}</Icon>}
+          menuItems.map((item) => (
+            <MenuItem
+              key={item.href}
+              onClick={() => item.href && handleNavigate(item.href)}
+              sx={{
+                px: 2,
+                py: 1.5,
+                fontSize: '1rem',
+                color: '#4B4B4C',
+                borderBottom: '1px solid #F5F5F5',
+                '&:last-child': {
+                  borderBottom: 'none',
+                },
+                '&:hover': {
+                  backgroundColor: '#F8F9FA',
+                },
+                '&:focus': {
+                  backgroundColor: '#E3F2FD',
+                  outline: '2px solid #0868AC',
+                  outlineOffset: '-2px',
+                },
+              }}
+            >
+              {item.icon && <Icon sx={{ mr: 1.5, fontSize: '1.25rem' }}>{item.icon}</Icon>}
               {item.label}
             </MenuItem>
           ))}
@@ -199,5 +234,4 @@ export function GovBRAvatar({
   )
 }
 
-// Exports nomeados para tree shaking
-export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './types'
+export default GovBRAvatar

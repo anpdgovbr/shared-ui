@@ -1,15 +1,8 @@
 import { GovBRMenuItem, GovBRNavigationCallback } from '@govbr-types/CommonTypes'
 import { GovBRColor, GovBRSize } from '@govbr-types/GovBRTypes'
 import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
-import type { AvatarProps } from '@mui/material/Avatar'
 
-/**
- * Define a estrutura de um item individual do menu do avatar.
- * @deprecated Use GovBRMenuItem from CommonTypes instead. Will be removed in next major version.
- */
-export type GovBRAvatarMenuItem = GovBRMenuItem
-
-export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
+export interface GovBRAvatarProps extends SharedUIComponentProps {
   /**
    * Nome do usuário para exibir iniciais.
    */
@@ -81,4 +74,9 @@ export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
    * @default false
    */
   hideGreeting?: boolean
+
+  /**
+   * Classes CSS adicionais.
+   */
+  className?: string
 }

@@ -1,12 +1,3 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import PersonIcon from '@mui/icons-material/Person'
-import SettingsIcon from '@mui/icons-material/Settings'
-import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRAvatar } from './index'
 
@@ -14,306 +5,173 @@ const meta: Meta<typeof GovBRAvatar> = {
   title: 'Components/GovBRAvatar',
   component: GovBRAvatar,
   tags: ['autodocs'],
+  parameters: {},
   argTypes: {
-    name: {
-      control: 'text',
-      description: 'Nome do usuário para exibir na saudação e gerar iniciais',
-    },
-    src: {
-      control: 'text',
-      description: 'URL da imagem do avatar',
-    },
-    alt: {
-      control: 'text',
-      description: 'Texto alternativo para a imagem do avatar',
-    },
+    name: { control: 'text' },
+    src: { control: 'text' },
     size: {
-      control: 'select',
+      control: 'radio',
       options: ['small', 'medium', 'large'],
-      description: 'Tamanho do avatar conforme padrões GovBR',
-    },
-    color: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary'],
-      description: 'Cor de fundo do avatar quando não há imagem',
     },
     variant: {
-      control: 'select',
+      control: 'radio',
       options: ['circular', 'rounded', 'square'],
-      description: 'Formato visual do avatar',
     },
-    menuItems: {
-      control: 'object',
-      description: 'Lista de itens para o menu dropdown',
+    color: {
+      control: 'radio',
+      options: ['default', 'primary', 'secondary'],
     },
-    badgeContent: {
-      control: 'text',
-      description: 'Conteúdo do badge (número ou texto)',
-    },
+    onNavigate: { action: 'navigatedTo' },
+    badgeContent: { control: 'text', description: 'Número ou texto para o badge' },
     badgeColor: {
-      control: 'select',
+      control: 'radio',
       options: ['primary', 'secondary', 'error', 'warning', 'info', 'success'],
-      description: 'Cor do badge',
     },
     badgeVariant: {
-      control: 'select',
+      control: 'radio',
       options: ['standard', 'dot'],
-      description: 'Variante do badge',
     },
-    hideGreeting: {
-      control: 'boolean',
-      description: 'Oculta a saudação, exibindo apenas o avatar',
-    },
-    onNavigate: { action: 'navigate' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: `
-## GovBRAvatar - Componente GovBR-DS
-
-Componente de avatar do usuário que segue as diretrizes visuais do GovBR Design System.
-
-### Características Principais:
-- 🎨 **Cores Semânticas**: Utiliza paleta oficial do GovBR-DS
-- 👤 **Avatar Inteligente**: Exibe imagem ou iniciais do nome automaticamente
-- 🔍 **Acessibilidade**: Propriedades ARIA e navegação por teclado
-- 📏 **Tamanhos Padrão**: Small (32px), Medium (40px), Large (48px)
-- 📋 **Menu Contextual**: Dropdown com ações do usuário
-- 🎭 **Variações Visuais**: Circular, arredondado ou quadrado
-- 🔔 **Badge de Notificações**: Suporte a badge com números ou indicador de status
-- 💬 **Modo Compacto**: Opção para ocultar saudação e exibir apenas o avatar
-        `,
-      },
-    },
+    hideGreeting: { control: 'boolean' },
   },
 }
 
 export default meta
-type Story = StoryObj<typeof GovBRAvatar>
+export type Story = StoryObj<typeof GovBRAvatar>
 
-const mockMenuItems = [
-  { label: 'Perfil', href: '/perfil', icon: <PersonIcon /> },
-  { label: 'Configurações', href: '/config', icon: <SettingsIcon /> },
-  { label: 'Notificações', href: '/notifications', icon: <NotificationsIcon /> },
-  { label: 'Sair', href: '/logout', icon: <ExitToAppIcon /> },
+const simpleMenuItems = [
+  { label: 'Dados pessoais', href: '/dadosPessoais' },
+  { label: 'Privacidade', href: '/privacidade' },
+  { label: 'Notificações', href: '/notificacoes' },
+  { label: 'Perguntas frequentes', href: '/faq' },
 ]
 
-const mockNavigate = (href: string) => {
-  console.log('Navegando para:', href)
-}
-
 export const Default: Story = {
+  name: 'Padrão (Com Saudação e Menu)',
   args: {
-    name: 'João Silva',
+    name: 'Fulano de Tal',
+    menuItems: simpleMenuItems,
+    src: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face',
+    alt: 'Foto de perfil de Fulano de Tal',
     size: 'medium',
-    color: 'default',
-    variant: 'circular',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
   },
 }
 
-export const WithImage: Story = {
+export const ComNotificacao: Story = {
+  name: 'Com Notificação',
   args: {
     name: 'Maria Santos',
-    src: 'https://via.placeholder.com/150',
+    src: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face',
+    alt: 'Foto de perfil de Maria Santos',
     size: 'medium',
-    color: 'primary',
-    variant: 'circular',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
-  },
-}
-
-export const SmallSize: Story = {
-  args: {
-    ...Default.args,
-    size: 'small',
-  },
-}
-
-export const LargeSize: Story = {
-  args: {
-    ...Default.args,
-    size: 'large',
-  },
-}
-
-export const NoMenu: Story = {
-  args: {
-    name: 'Pedro Costa',
-    size: 'medium',
-    color: 'secondary',
-    variant: 'circular',
-    // Sem menuItems para mostrar avatar sem dropdown
-  },
-}
-
-export const AllSizesComparison: Story = {
-  render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Small (32px)
-        </Typography>
-        <GovBRAvatar
-          name="João Silva"
-          size="small"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Medium (40px)
-        </Typography>
-        <GovBRAvatar
-          name="Maria Santos"
-          size="medium"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Large (48px)
-        </Typography>
-        <GovBRAvatar
-          name="Pedro Costa"
-          size="large"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-    </Stack>
-  ),
-}
-
-export const AllColorsComparison: Story = {
-  render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Default
-        </Typography>
-        <GovBRAvatar
-          name="Default User"
-          color="default"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Primary
-        </Typography>
-        <GovBRAvatar
-          name="Primary User"
-          color="primary"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Secondary
-        </Typography>
-        <GovBRAvatar
-          name="Secondary User"
-          color="secondary"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
-      </Box>
-    </Stack>
-  ),
-}
-
-export const WithBadge: Story = {
-  args: {
-    name: 'Maria Santos',
-    src: 'https://via.placeholder.com/150',
-    size: 'medium',
-    color: 'primary',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
+    menuItems: simpleMenuItems,
     badgeContent: '3',
     badgeColor: 'error',
   },
 }
 
-export const WithBadgeDot: Story = {
-  args: {
-    name: 'Carlos Lima',
-    size: 'medium',
-    color: 'primary',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
-    badgeContent: '',
-    badgeColor: 'success',
-    badgeVariant: 'dot',
-  },
-}
-
-export const CompactMode: Story = {
+export const ComStatusOnlineDropdown: Story = {
+  name: 'Avatar com Status Online',
   args: {
     name: 'Ana Costa',
-    size: 'medium',
-    color: 'primary',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
-    hideGreeting: true,
-  },
-}
-
-export const CompactWithBadge: Story = {
-  args: {
-    name: 'João Santos',
-    size: 'large',
-    color: 'primary',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
-    hideGreeting: true,
-    badgeContent: '5',
-    badgeColor: 'error',
-  },
-}
-
-export const CompactWithOnlineStatus: Story = {
-  args: {
-    name: 'Pedro Silva',
-    size: 'medium',
-    color: 'primary',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
     hideGreeting: true,
     badgeVariant: 'dot',
     badgeColor: 'success',
+    variant: 'circular',
+    color: 'primary',
+    size: 'medium',
+    menuItems: simpleMenuItems,
   },
 }
 
-export const IntegrationExample: Story = {
+export const ApenasIniciaisDropdown: Story = {
+  name: 'Avatar Apenas com Iniciais',
+  args: {
+    name: 'Carlos Pereira',
+    hideGreeting: true,
+    badgeContent: '1',
+    badgeColor: 'error',
+    variant: 'circular',
+    color: 'primary',
+    size: 'medium',
+    menuItems: simpleMenuItems,
+  },
+}
+
+export const ComStatusOnline: Story = {
+  name: 'Avatar com Status Online',
+  args: {
+    name: 'Bruno Lima',
+    hideGreeting: true,
+    badgeVariant: 'dot',
+    badgeColor: 'success',
+    variant: 'circular',
+    color: 'primary',
+    size: 'medium',
+  },
+}
+
+export const ApenasIniciais: Story = {
+  name: 'Avatar Apenas com Iniciais',
+  args: {
+    name: 'Marcos Silva',
+    hideGreeting: true,
+    badgeContent: '1',
+    badgeColor: 'error',
+    variant: 'circular',
+    color: 'primary',
+    size: 'medium',
+  },
+}
+
+export const TamanhosGovBR: Story = {
+  name: 'Tamanhos Padrão GovBR',
   render: () => (
-    <Paper elevation={1} sx={{ p: 3, maxWidth: 600 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-        <Box>
-          <Typography variant="h6">Dashboard da ANPD</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Sistema de Proteção de Dados
-          </Typography>
-        </Box>
+    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Small (32px)</div>
         <GovBRAvatar
-          name="Luciano Silva"
-          size="medium"
-          menuItems={[
-            { label: 'Meu Perfil', href: '/perfil', icon: <AccountCircleIcon /> },
-            { label: 'Configurações', href: '/config', icon: <SettingsIcon /> },
-            { label: 'Sair do Sistema', href: '/logout', icon: <ExitToAppIcon /> },
-          ]}
-          onNavigate={mockNavigate}
+          name="João Silva"
+          size="small"
+          hideGreeting={true}
+          badgeContent="2"
+          badgeColor="error"
         />
-      </Stack>
-    </Paper>
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Medium (40px)</div>
+        <GovBRAvatar
+          name="Maria Santos"
+          size="medium"
+          hideGreeting={true}
+          badgeVariant="dot"
+          badgeColor="success"
+        />
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Large (48px)</div>
+        <GovBRAvatar
+          name="Ana Costa"
+          size="large"
+          hideGreeting={true}
+          badgeContent="5"
+          badgeColor="warning"
+        />
+      </div>
+    </div>
+  ),
+}
+
+export const EstiloGovBROriginal: Story = {
+  name: 'Estilo Similar ao Design System GovBR',
+  render: () => (
+    <div style={{ padding: '20px', backgroundColor: '#f8f9fa' }}>
+      <h3 style={{ marginBottom: '16px', color: '#333' }}>Avatar com Menu (br-sign-in)</h3>
+      <GovBRAvatar
+        name="Fulano"
+        menuItems={simpleMenuItems}
+        size="small"
+        onNavigate={(href) => console.log('Navegando para:', href)}
+      />
+    </div>
   ),
 }
