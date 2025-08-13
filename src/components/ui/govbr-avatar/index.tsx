@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import Avatar from '@mui/material/Avatar'
-import Badge from '@mui/material/Badge'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import Icon from '@mui/material/Icon'
-import PersonIcon from '@mui/icons-material/Person'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import type { GovBRAvatarProps, GovBRAvatarMenuItem } from './types'
+import PersonIcon from '@mui/icons-material/Person'
+import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Icon from '@mui/material/Icon'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import React, { useState } from 'react'
 import { GovBRButton } from '../govbr-button/index'
+import type { GovBRAvatarMenuItem, GovBRAvatarProps } from './types'
 
 /**
  * Componente de avatar do usuário no padrão GovBR.
@@ -200,4 +200,4 @@ export function GovBRAvatar({
 }
 
 // Exports nomeados para tree shaking
-export type { GovBRAvatarProps, GovBRAvatarMenuItem } from './types'
+export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './types'
