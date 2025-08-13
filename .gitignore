@@ -7,7 +7,7 @@ pnpm-debug.log*
 
 
 # Build
-dist/
+dist/ 
 types/
 storybook-static/
 

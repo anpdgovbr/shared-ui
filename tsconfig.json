@@ -16,11 +16,15 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
+      "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
+      "@ui/*": ["src/components/ui/*"],
       "@stories/*": ["src/stories/*"],
-      "@theme/*": ["src/theme/*"]
+      "@theme/*": ["src/theme/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@govbr-types/*": ["src/types/*"]
     }
   },
   "include": ["src", ".storybook", "*.config.*", "vite-env.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["**/*.test.ts", "dist", "types", "coverage", "node_modules"]
 }

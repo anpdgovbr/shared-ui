@@ -1,5 +1,37 @@
 {
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.includeInstantAutoImports": true,
+  "typescript.suggest.includeCompletionsForModuleExports": true,
+  "typescript.suggest.includeCompletionsWithInsertText": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "prettier.requireConfig": true
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true,
+    "comments": false,
+    "other": true
+  },
+  "editor.snippetSuggestions": "top",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "cSpell.language": "pt-BR,en",
+  "cSpell.dictionaries": ["pt-BR"],
+  "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
+  "cSpell.words": ["govbr", "sead", "officedocument", "openxmlformats", "spreadsheetml", "autodocs", "notificacoes", "ANPD"],
+  "files.exclude": {
+    "**/dist": true,
+    "**/types": true,
+    "**/node_modules": true
+  },
+  "prettier.prettierPath": "./node_modules/prettier"
 }

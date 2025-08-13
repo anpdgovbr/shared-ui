@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'AnpdSharedUI',
+      name: '@anpdgovbr/shared-ui',
       formats: ['es', 'cjs'],
-      fileName: format => `shared-ui.${format}.js`,
+      fileName: (format) => `shared-ui.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom', '@mui/material', '@mui/icons-material'],
