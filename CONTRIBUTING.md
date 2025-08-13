@@ -2,7 +2,7 @@
 
 Obrigado pelo interesse em contribuir com a biblioteca de componentes `shared-ui` da ANPD!
 
-Este projeto é **público**, mas voltado principalmente a **desenvolvedores internos da ANPD e parceiros institucionais**. Nosso objetivo é manter uma base de componentes React robusta, reutilizável e compatível com o design system **GovBR-DS**.
+Este projeto é **público**, mas voltado principalmente a **desenvolvedores internos da ANPD e parceiros institucionais**. Nosso objetivo é manter uma base de componentes React robusta, reutilizável e compatível com o design system **GovBR-DS**. 
 
 ---
 
