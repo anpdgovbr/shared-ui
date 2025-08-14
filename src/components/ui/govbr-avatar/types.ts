@@ -1,8 +1,9 @@
 import { GovBRMenuItem, GovBRNavigationCallback } from '@govbr-types/CommonTypes'
-import { GovBRColor, GovBRSize } from '@govbr-types/GovBRTypes'
+import { GovBRSize } from '@govbr-types/GovBRTypes'
 import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
+import type { BoxProps } from '@mui/material/Box'
 
-export interface GovBRAvatarProps extends SharedUIComponentProps {
+export interface GovBRAvatarProps extends Omit<BoxProps, 'onClick'>, SharedUIComponentProps {
   /**
    * Nome do usuário para exibir iniciais.
    */
@@ -29,12 +30,6 @@ export interface GovBRAvatarProps extends SharedUIComponentProps {
    * @default 'circular'
    */
   variant?: 'circular' | 'rounded' | 'square'
-
-  /**
-   * Cor de fundo do avatar quando não há imagem.
-   * @default 'default'
-   */
-  color?: GovBRColor
 
   /**
    * Lista de itens para o menu dropdown. Se fornecido, ativa a funcionalidade de menu.

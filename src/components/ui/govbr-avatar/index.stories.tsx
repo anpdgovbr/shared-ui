@@ -1,3 +1,5 @@
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRAvatar } from './index'
 
@@ -16,10 +18,6 @@ const meta: Meta<typeof GovBRAvatar> = {
     variant: {
       control: 'radio',
       options: ['circular', 'rounded', 'square'],
-    },
-    color: {
-      control: 'radio',
-      options: ['default', 'primary', 'secondary'],
     },
     onNavigate: { action: 'navigatedTo' },
     badgeContent: { control: 'text', description: 'Número ou texto para o badge' },
@@ -48,7 +46,7 @@ const simpleMenuItems = [
 export const Default: Story = {
   name: 'Padrão (Com Saudação e Menu)',
   args: {
-    name: 'Fulano de Tal',
+    name: 'Fulano',
     menuItems: simpleMenuItems,
     src: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face',
     alt: 'Foto de perfil de Fulano de Tal',
@@ -77,7 +75,6 @@ export const ComStatusOnlineDropdown: Story = {
     badgeVariant: 'dot',
     badgeColor: 'success',
     variant: 'circular',
-    color: 'primary',
     size: 'medium',
     menuItems: simpleMenuItems,
   },
@@ -91,7 +88,6 @@ export const ApenasIniciaisDropdown: Story = {
     badgeContent: '1',
     badgeColor: 'error',
     variant: 'circular',
-    color: 'primary',
     size: 'medium',
     menuItems: simpleMenuItems,
   },
@@ -105,7 +101,6 @@ export const ComStatusOnline: Story = {
     badgeVariant: 'dot',
     badgeColor: 'success',
     variant: 'circular',
-    color: 'primary',
     size: 'medium',
   },
 }
@@ -118,60 +113,143 @@ export const ApenasIniciais: Story = {
     badgeContent: '1',
     badgeColor: 'error',
     variant: 'circular',
-    color: 'primary',
     size: 'medium',
   },
+}
+
+export const TesteBadges: Story = {
+  name: 'Teste de Badges (Diversos Cenários)',
+  render: () => (
+    <Box sx={{ display: 'flex', gap: 3, alignItems: 'center', flexWrap: 'wrap' }}>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
+          Badge com Número
+        </Typography>
+        <GovBRAvatar
+          name="João Silva"
+          hideGreeting={true}
+          size="medium"
+          badgeContent="9"
+          badgeColor="error"
+        />
+      </Box>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
+          Badge com Ponto
+        </Typography>
+        <GovBRAvatar
+          name="Maria Santos"
+          hideGreeting={true}
+          size="medium"
+          badgeVariant="dot"
+          badgeColor="success"
+        />
+      </Box>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
+          Badge Grande
+        </Typography>
+        <GovBRAvatar
+          name="Pedro Costa"
+          hideGreeting={true}
+          size="large"
+          badgeContent="99+"
+          badgeColor="warning"
+        />
+      </Box>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
+          Badge Pequeno
+        </Typography>
+        <GovBRAvatar
+          name="Ana Oliveira"
+          hideGreeting={true}
+          size="small"
+          badgeContent="5"
+          badgeColor="info"
+        />
+      </Box>
+    </Box>
+  ),
+}
+
+export const CoresAleatorias: Story = {
+  name: 'Cores Aleatórias (Sem Imagem)',
+  render: () => (
+    <Box sx={{ display: 'flex', gap: 3, alignItems: 'center', flexWrap: 'wrap' }}>
+      {[
+        'João Silva',
+        'Maria Santos',
+        'Pedro Costa',
+        'Ana Oliveira',
+        'Carlos Pereira',
+        'Fernanda Lima',
+        'Roberto Souza',
+        'Camila Rocha',
+        'Lucas Mendes',
+        'Beatriz Alves',
+      ].map((name) => (
+        <Box key={name} sx={{ textAlign: 'center' }}>
+          <GovBRAvatar name={name} hideGreeting={true} size="medium" />
+          <Typography variant="caption" sx={{ display: 'block', mt: 1, fontSize: '12px' }}>
+            {name}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
+  ),
+}
+
+export const ComparacaoComImagem: Story = {
+  name: 'Comparação: Com e Sem Imagem',
+  render: () => (
+    <Box sx={{ display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Com Imagem (Cor Padrão)
+        </Typography>
+        <GovBRAvatar
+          name="João Silva"
+          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face"
+          alt="Foto de perfil"
+          hideGreeting={true}
+          size="large"
+        />
+      </Box>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Sem Imagem (Cor Aleatória)
+        </Typography>
+        <GovBRAvatar name="João Silva" hideGreeting={true} size="large" />
+      </Box>
+    </Box>
+  ),
 }
 
 export const TamanhosGovBR: Story = {
   name: 'Tamanhos Padrão GovBR',
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Small (32px)</div>
-        <GovBRAvatar
-          name="João Silva"
-          size="small"
-          hideGreeting={true}
-          badgeContent="2"
-          badgeColor="error"
-        />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Medium (40px)</div>
-        <GovBRAvatar
-          name="Maria Santos"
-          size="medium"
-          hideGreeting={true}
-          badgeVariant="dot"
-          badgeColor="success"
-        />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>Large (48px)</div>
-        <GovBRAvatar
-          name="Ana Costa"
-          size="large"
-          hideGreeting={true}
-          badgeContent="5"
-          badgeColor="warning"
-        />
-      </div>
-    </div>
+    <Box sx={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <GovBRAvatar name="João Silva" size="small" hideGreeting={true} />
+      <GovBRAvatar name="Maria Santos" size="medium" hideGreeting={true} />
+      <GovBRAvatar name="Ana Costa" size="large" hideGreeting={true} />
+    </Box>
   ),
 }
 
 export const EstiloGovBROriginal: Story = {
   name: 'Estilo Similar ao Design System GovBR',
   render: () => (
-    <div style={{ padding: '20px', backgroundColor: '#f8f9fa' }}>
-      <h3 style={{ marginBottom: '16px', color: '#333' }}>Avatar com Menu (br-sign-in)</h3>
+    <Box sx={{ p: 2.5, backgroundColor: '#f8f9fa' }}>
+      <Typography variant="h6" sx={{ mb: 2, color: '#333' }}>
+        Avatar com Menu (br-sign-in)
+      </Typography>
       <GovBRAvatar
         name="Fulano"
         menuItems={simpleMenuItems}
         size="small"
         onNavigate={(href) => console.log('Navegando para:', href)}
       />
-    </div>
+    </Box>
   ),
 }
