@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import type { GovBRCheckboxProps } from './types'

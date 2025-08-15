@@ -56,8 +56,6 @@ src/components/ui/nome-do-componente/
 
 ---
 
----
-
 ## ✅ Checklist antes de abrir o PR
 
 ### 🏗️ Estrutura e Código
@@ -93,7 +91,33 @@ src/components/ui/nome-do-componente/
 
 ## 🧪 Testes
 
-Estamos estruturando testes automatizados gradualmente. Sempre que possível, adicione testes ao seu componente usando `jest` + `@testing-library/react`.
+Todos os componentes devem ter testes automatizados. Estamos usando `vitest` e `@testing-library/react` para os testes.
+
+- **Testes de Renderização:** Verificam se o componente renderiza corretamente sem quebrar.
+- **Testes de Funcionalidade:** Verificam o comportamento do componente (ex: cliques, eventos).
+- **Testes de Snapshot:** Verificam se a estrutura do componente não foi alterada inesperadamente.
+
+### `'use client';`
+
+Todos os componentes de UI devem ser marcados com a diretiva `'use client';` no topo do arquivo. Isso garante que eles sejam renderizados apenas no cliente, o que é essencial para a compatibilidade com frameworks de renderização do lado do servidor (SSR) como o Next.js.
+
+---
+
+## 🧼 Linting
+
+O projeto usa `eslint` e `prettier` para garantir a qualidade e a consistência do código. As regras de lint são executadas automaticamente antes de cada commit e push.
+
+Para executar o linter manualmente, use o comando:
+
+```bash
+npm run lint
+```
+
+Para corrigir os erros de lint automaticamente, use o comando:
+
+```bash
+npm run lint -- --fix
+```
 
 ---
 

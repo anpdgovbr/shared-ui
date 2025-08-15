@@ -31,6 +31,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 - **CONTRIBUTING**: Atualizado com checklist detalhado e novos padrões
 - **Templates GitHub**: Issues e PR adaptados para contexto de biblioteca UI
 - **Organização de Arquivos**: Exemplos movidos para `/examples` com estrutura padronizada
+- **ESLint Rule 'use client'**: Aprimorada regra customizada para verificar diretiva 'use client' em componentes UI
 
 ### 🐛 Corrigido
 

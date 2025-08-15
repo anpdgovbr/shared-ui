@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Radio from '@mui/material/Radio'
 import Stack from '@mui/material/Stack'

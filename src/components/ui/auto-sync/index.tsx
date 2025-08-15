@@ -1,3 +1,4 @@
+'use client'
 // Componente de sincronização automática com visual adaptado ao GovBR-DS
 // - Usa cores semânticas do tema (success, error, primary, grey)
 // - Aplica padrão de foco do GovBR (outline dashed dourado)
@@ -171,7 +172,9 @@ export function AutoSyncButton<T = unknown>({
               : 'none',
           // Hover personalizado para este componente (sobrescreve o padrão)
           '&:hover:not(:disabled)': {
-            backgroundImage: `linear-gradient(rgba(${hexToRgb(getColor())}, 0.16), rgba(${hexToRgb(getColor())}, 0.16))`,
+            backgroundImage: `linear-gradient(rgba(${hexToRgb(
+              getColor(),
+            )}, 0.16), rgba(${hexToRgb(getColor())}, 0.16))`,
           },
         }}
       >
