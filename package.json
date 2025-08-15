@@ -40,16 +40,6 @@
       "import": "./dist/shared-ui.es.js",
       "require": "./dist/shared-ui.cjs.js"
     },
-    "./theme": {
-      "types": "./types/src/theme/govbrTheme.d.ts",
-      "import": "./dist/shared-ui.es.js",
-      "require": "./dist/shared-ui.cjs.js"
-    },
-    "./theme-provider": {
-      "types": "./types/src/theme/GovBRThemeProvider.d.ts",
-      "import": "./dist/shared-ui.es.js",
-      "require": "./dist/shared-ui.cjs.js"
-    },
     "./styles": "./dist/shared-ui.css"
   },
   "files": [
@@ -124,7 +114,7 @@
     "@storybook/addon-onboarding": "^9.1.2",
     "@storybook/addon-vitest": "^9.1.2",
     "@storybook/react-vite": "^9.1.2",
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@typescript-eslint/eslint-plugin": "^8.39.1",

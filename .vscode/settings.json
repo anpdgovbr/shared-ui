@@ -13,8 +13,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": true
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.quickSuggestions": {
     "strings": true,
@@ -24,10 +24,6 @@
   "editor.snippetSuggestions": "top",
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": "matchingDocuments",
-  "cSpell.language": "pt-BR,en",
-  "cSpell.dictionaries": ["pt-BR"],
-  "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
-  "cSpell.words": ["govbr", "sead", "officedocument", "openxmlformats", "spreadsheetml"],
   "files.exclude": {
     "**/dist": true,
     "**/types": true,
