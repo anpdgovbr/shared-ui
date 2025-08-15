@@ -1,15 +1,15 @@
 import { Meta, StoryFn } from '@storybook/react'
 import { useState } from 'react'
-import GovBRTextArea from './GovBRTextArea'
+import GovBRTextArea from '.'
 import { GovBRTextAreaProps } from './types'
 
 export default {
-  title: 'GovBR/TextArea',
+  title: 'Components/GovBRTextArea',
   tags: ['autodocs'],
   component: GovBRTextArea,
 } as Meta
 
-const Template: StoryFn<GovBRTextAreaProps> = args => {
+const Template: StoryFn<GovBRTextAreaProps> = (args) => {
   const [value, setValue] = useState(args.value || '')
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
