@@ -1,4 +1,5 @@
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
+
 import type { GovBRCheckboxProps } from '../govbr-checkbox/types'
 
 /**

@@ -2,6 +2,7 @@
 import tseslint from '@typescript-eslint/eslint-plugin'
 import parser from '@typescript-eslint/parser'
 import pluginReact from 'eslint-plugin-react'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import storybook from 'eslint-plugin-storybook'
 import { defineConfig } from 'eslint/config'
 import globals from 'globals'
@@ -28,8 +29,11 @@ export default defineConfig([
     plugins: {
       '@typescript-eslint': tseslint,
       react: pluginReact,
+  'simple-import-sort': simpleImportSort,
     },
     rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       ...tseslint.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off', // Next.js does not require React in scope

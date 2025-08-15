@@ -1,11 +1,12 @@
 'use client'
-import React from 'react'
-import classNames from 'classnames'
 import { mapMuiColorToGovbrClass } from '@helpers/muiColorToGovbrClass'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 import InfoIcon from '@mui/icons-material/Info'
 import WarningIcon from '@mui/icons-material/Warning'
+import classNames from 'classnames'
+import React from 'react'
+
 import { GovBRButton } from '../govbr-button'
 import type { GovBRInputProps } from './types'
 

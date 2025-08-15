@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from 'react'
-import type { GovBRSize, GovBRStatus, GovBRClearBlock } from '../../../types/GovBRTypes'
+
+import type { GovBRClearBlock, GovBRSize, GovBRStatus } from '../../../types/GovBRTypes'
 import { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
 
 /**

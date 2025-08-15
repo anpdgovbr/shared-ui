@@ -1,8 +1,10 @@
 'use client'
 import '@testing-library/jest-dom'
+
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
+
 import { AutoSyncButton } from './index'
 
 describe('AutoSyncButton', () => {

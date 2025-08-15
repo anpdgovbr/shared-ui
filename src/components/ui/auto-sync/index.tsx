@@ -11,9 +11,10 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import SyncIcon from '@mui/icons-material/Sync'
 import SyncDisabledIcon from '@mui/icons-material/SyncDisabled'
 import IconButton from '@mui/material/IconButton'
+import { keyframes, useTheme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
-import { useTheme, keyframes } from '@mui/material/styles'
 import { useCallback, useEffect, useState } from 'react'
+
 import type { AutoSyncButtonProps } from './types'
 
 export function AutoSyncButton<T = unknown>({
@@ -172,9 +173,7 @@ export function AutoSyncButton<T = unknown>({
               : 'none',
           // Hover personalizado para este componente (sobrescreve o padrão)
           '&:hover:not(:disabled)': {
-            backgroundImage: `linear-gradient(rgba(${hexToRgb(
-              getColor(),
-            )}, 0.16), rgba(${hexToRgb(getColor())}, 0.16))`,
+            backgroundImage: `linear-gradient(rgba(${hexToRgb(getColor())}, 0.16), rgba(${hexToRgb(getColor())}, 0.16))`,
           },
         }}
       >

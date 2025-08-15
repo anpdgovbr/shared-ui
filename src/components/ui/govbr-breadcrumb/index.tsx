@@ -1,6 +1,7 @@
 'use client'
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
+
 import type { GovBRBreadcrumbProps } from './types'
 
 export function GovBRBreadcrumb({ items, onNavigate, className, ...props }: GovBRBreadcrumbProps) {

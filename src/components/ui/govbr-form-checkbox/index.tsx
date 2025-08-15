@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 import classNames from 'classnames'
 import type { FieldPath, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
+
 import { GovBRCheckbox } from '../govbr-checkbox'
 import type { GovBRFormCheckboxProps } from './types'
 

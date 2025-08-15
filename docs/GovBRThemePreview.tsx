@@ -1,7 +1,7 @@
 // docs\GovBRThemePreview.tsx
-import { ReactNode, useEffect, useState } from 'react'
-import { ThemeProvider } from '@mui/material/styles'
 import { Theme } from '@emotion/react'
+import { ThemeProvider } from '@mui/material/styles'
+import { ReactNode, useEffect, useState } from 'react'
 
 export const GovBRThemePreview = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme | null>(null)

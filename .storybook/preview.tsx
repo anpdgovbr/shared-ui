@@ -1,10 +1,11 @@
-import type { Preview } from '@storybook/react'
 import '@govbr-ds/core/dist/core.min.css'
 import '@govbr-ds/core/dist/core-tokens.min.css'
 
-import { GovBRThemeProvider, useGovBRThemeMode } from '../src/theme/GovBRThemeProvider.js'
 import CssBaseline from '@mui/material/CssBaseline'
+import type { Preview } from '@storybook/react'
 import { useEffect } from 'react'
+
+import { GovBRThemeProvider, useGovBRThemeMode } from '../src/theme/GovBRThemeProvider.js'
 
 // Decorator para alternar entre os modos de tema
 const withGovBRTheme = (Story, context) => {
