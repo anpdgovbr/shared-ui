@@ -89,6 +89,39 @@ src/components/ui/nome-do-componente/
 
 ---
 
+## 📦 Peer dependencies e gerenciamento de dependências
+
+Esta biblioteca declara dependências como _peerDependencies_ para que o projeto consumidor controle as versões principais de runtime (React, MUI e GovBR-DS). Antes de instalar/atualizar dependências, siga este fluxo:
+
+- Mantenha `package-lock.json` versionado — o CI usa `npm ci`.
+- Ao atualizar/instalar dependências localmente, atualize `package.json` e `package-lock.json` e commit ambos.
+- Dependências recomendadas que o consumidor deve instalar:
+  - `react@^19`
+  - `react-dom@^19`
+  - `@mui/material@^7`
+  - `@mui/icons-material@^7`
+  - `@emotion/react@^11`
+  - `@emotion/styled@^11`
+  - `react-hook-form@^7`
+  - `@govbr-ds/core@^3`
+
+Exemplo de instalação no projeto consumidor:
+
+```bash
+npm install react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
+	@emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+```
+
+Se precisar forçar uma mudança no `package-lock.json`, siga este processo:
+
+1. Atualize dependências localmente com `npm install`.
+2. Rode `npm run check` e `npm run build` para validar.
+3. Commit `package.json` e `package-lock.json` juntos com uma mensagem clara (ex: `chore(deps): upgrade MUI to 7.x`).
+
+Se houver dúvidas sobre ranges compatíveis do `@govbr-ds/core`, prefira usar `^3.0.0` para aceitar compatibilidade com qualquer 3.x; se necessitar um mínimo absoluto (ex.: recursos adicionados em 3.6.2), utilize `^3.6.2`.
+
+---
+
 ## 🧪 Testes
 
 Todos os componentes devem ter testes automatizados. Estamos usando `vitest` e `@testing-library/react` para os testes.

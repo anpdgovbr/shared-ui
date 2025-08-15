@@ -59,8 +59,11 @@
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
-    "prepare": "husky install",
+    "prepare": "husky",
     "check": "npm run lint && npm run type-check",
+    "clean": "node ./scripts/clean.js",
+    "clean:full": "node ./scripts/clean.js --full",
+    "reset": "node ./scripts/reset.js",
     "prepublishOnly": "npm run build && npm run check",
     "publish:beta": "npm publish --tag beta",
     "version:beta": "npm version prerelease --preid=beta",
@@ -81,34 +84,39 @@
   },
   "bugs": {
     "url": "https://github.com/anpdgovbr/shared-ui/issues",
-    "email": "ti@anpd.gov.br"
+    "email": "desenvolvimento@anpd.gov.br"
   },
   "homepage": "https://github.com/anpdgovbr/shared-ui#readme",
   "funding": {
     "type": "government",
-    "url": "https://anpd.gov.br"
+    "url": "https://gov.br/anpd"
   },
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@govbr-ds/core": "^3.0.0",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.45.0"
+    "react-hook-form": "^7.0.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@govbr-ds/core": "^3.6.2",
     "classnames": "^2.5.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
     "@eslint/js": "^9.33.0",
+    "@govbr-ds/core": "^3.0.0",
     "@hookform/resolvers": "^5.2.1",
+    "@mui/icons-material": "^7.0.0",
+    "@mui/material": "^7.0.0",
     "@storybook/addon-a11y": "^9.1.2",
     "@storybook/addon-docs": "^9.1.2",
     "@storybook/addon-onboarding": "^9.1.2",
