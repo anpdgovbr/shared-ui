@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { Box, FormLabel, TextareaAutosize, Typography } from '@mui/material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import ErrorIcon from '@mui/icons-material/Error'
+import InfoIcon from '@mui/icons-material/Info'
+import WarningIcon from '@mui/icons-material/Warning'
+import Box from '@mui/material/Box'
+import FormLabel from '@mui/material/FormLabel'
+import TextareaAutosize from '@mui/material/TextareaAutosize'
+import Typography from '@mui/material/Typography'
+import React, { useEffect, useState } from 'react'
 import { GovBRTextAreaProps } from './types'
-import { CheckCircle, Error, Warning, Info } from '@mui/icons-material'
 
 const statusMap = {
   success: {
-    icon: <CheckCircle />,
+    icon: <CheckCircleIcon />,
     color: 'var(--success)',
   },
   danger: {
-    icon: <Error />,
+    icon: <ErrorIcon />,
     color: 'var(--danger)',
   },
   warning: {
-    icon: <Warning />,
+    icon: <WarningIcon />,
     color: 'var(--warning)',
   },
   info: {
-    icon: <Info />,
+    icon: <InfoIcon />,
     color: 'var(--info)',
   },
 }
