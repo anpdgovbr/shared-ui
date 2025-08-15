@@ -7,8 +7,8 @@ pnpm-debug.log*
 
 
 # Build
-#dist/ 
-#types/
+dist/ 
+types/
 storybook-static/
 
 # Vite

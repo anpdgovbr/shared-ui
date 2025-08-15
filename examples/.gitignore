@@ -1,0 +1,5 @@
+# Examples são apenas para referência
+# Não precisam ser compilados ou testados
+*.d.ts
+*.js
+*.js.map

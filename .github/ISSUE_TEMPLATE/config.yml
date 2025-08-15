@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Segurança – Política de Reporte
+    url: https://github.com/anpdgovbr/shared-ui/blob/main/SECURITY.md
+    about: Leia antes de reportar vulnerabilidades
+  - name: Suporte – Shared UI
+    url: https://github.com/anpdgovbr/shared-ui/blob/main/SUPPORT.md
+    about: Como obter suporte

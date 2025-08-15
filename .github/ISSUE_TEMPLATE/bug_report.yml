@@ -1,107 +1,74 @@
-name: 🐛 Bug Report
-description: Relate um problema ou comportamento inesperado
-title: '[BUG] '
-labels: ['bug', 'triage']
+name: '🐞 Bug report'
+description: Reporte um problema encontrado na Shared UI
+labels: ['type: bug']
 body:
   - type: markdown
     attributes:
       value: |
-        ## 🐛 Relatório de Bug
-
-        Obrigado por dedicar seu tempo para relatar este problema! Isso nos ajuda a melhorar nossos projetos.
-
-        **Antes de continuar:**
-        - 🔍 Verifique se já existe uma issue similar
-        - 📚 Consulte a documentação do projeto
-        - 🔒 Para vulnerabilidades de segurança, use nosso [processo de divulgação responsável](../SECURITY.md)
-
+        Obrigado por reportar! Evite inserir dados pessoais reais.
   - type: input
-    id: repository
+    id: summary
     attributes:
-      label: 📦 Repositório Afetado
-      description: Em qual repositório da ANPD o problema ocorre?
-      placeholder: 'Ex: shared-ui, cadastro-controladores-api, backlog-dim...'
+      label: Resumo
+      description: Descreva brevemente o bug
+      placeholder: Ex. Componente Button não aplica variante corretamente
     validations:
       required: true
-
   - type: textarea
-    id: description
+    id: steps
     attributes:
-      label: 📝 Descrição do Problema
-      description: Descreva claramente o que está acontecendo
-      placeholder: 'Descreva o problema de forma clara e objetiva...'
-    validations:
-      required: true
-
-  - type: textarea
-    id: reproduction
-    attributes:
-      label: 🔄 Passos para Reproduzir
-      description: Como podemos reproduzir este problema?
+      label: Passos para reproduzir
+      description: Liste os passos
       placeholder: |
-        1. Vá para '...'
-        2. Clique em '...'
-        3. Role para baixo até '...'
-        4. Veja o erro
+        1. Importar o componente Button
+        2. Definir variant="secondary"
+        3. Renderizar o componente
+        4. Verificar estilos aplicados
+      render: bash
     validations:
       required: true
-
   - type: textarea
     id: expected
     attributes:
-      label: ✅ Comportamento Esperado
-      description: O que deveria acontecer?
-      placeholder: 'Descreva o que você esperava que acontecesse...'
+      label: Comportamento esperado
     validations:
       required: true
-
   - type: textarea
     id: actual
     attributes:
-      label: ❌ Comportamento Atual
-      description: O que realmente acontece?
-      placeholder: 'Descreva o que realmente acontece...'
+      label: Comportamento atual
     validations:
       required: true
-
-  - type: textarea
-    id: environment
+  - type: dropdown
+    id: area
     attributes:
-      label: 🖥️ Ambiente
-      description: Informações sobre seu ambiente
-      placeholder: |
-        - SO: [ex: Windows 11, Ubuntu 22.04, macOS 13]
-        - Navegador: [ex: Chrome 115, Firefox 117, Safari 16]
-        - Node.js: [ex: v18.17.0]
-        - Versão do projeto: [ex: v1.2.3]
-      render: markdown
+      label: Área afetada
+      options:
+        - Componentes UI
+        - Tema/Estilos
+        - Types/TypeScript
+        - Storybook/Docs
+        - Build/Vite
+        - Exports/Index
     validations:
       required: true
-
   - type: textarea
     id: logs
     attributes:
-      label: 📋 Logs e Evidências
-      description: Inclua logs de erro, screenshots ou outras evidências
-      placeholder: 'Cole aqui logs de erro, stack traces, ou outras informações relevantes...'
-      render: shell
-
-  - type: textarea
-    id: additional
+      label: Logs/erros
+      description: Cole trechos relevantes (sem dados sensíveis)
+      render: bash
+  - type: input
+    id: version
     attributes:
-      label: ℹ️ Informações Adicionais
-      description: Qualquer outra informação que possa ajudar
-      placeholder: 'Contexto adicional, soluções tentadas, etc...'
-
+      label: Versão/commit
+      placeholder: Ex. 0.1.5 / abcdef1
   - type: checkboxes
-    id: terms
+    id: checks
     attributes:
-      label: ✅ Confirmações
-      description: Por favor, confirme que
+      label: Checklist
       options:
-        - label: Li e segui o [Código de Conduta](../profile/CODE_OF_CONDUCT.md)
+        - label: Não inclui dados pessoais reais
           required: true
-        - label: Verifiquei que não existe uma issue similar já aberta
-          required: true
-        - label: Este não é um problema de segurança (caso seja, usei o processo adequado)
+        - label: Verifiquei se ocorre em `develop` mais recente
           required: true

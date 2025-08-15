@@ -13,10 +13,12 @@
 ## 📚 Documentação
 
 - 📖 **[Storybook - Documentação Interativa](http://localhost:6006)** - Visualizar componentes
+- 🎨 **[Como Usar o Tema](./docs/COMO_USAR_TEMA.md)** - Guia completo para usar o tema GovBR
 - 📝 **[Adicionar Componente](./docs/ADICIONAR_COMPONENTE.md)** - Guia para criar novos componentes
 - 🔄 **[Guia de Migração](./docs/GUIA_MIGRACAO.md)** - Migrar componentes existentes
 - 🚨 **[Como Contribuir](./CONTRIBUTING.md)** - Processo de contribuição detalhado
 - 📊 **[CHANGELOG](./CHANGELOG.md)** - Histórico de mudanças
+- 📋 **[Exemplos de Uso](./examples/)** - Exemplos práticos de implementação
 
 ---
 
