@@ -19,7 +19,32 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 - **GitHub Copilot Instructions**: Instruções personalizadas para desenvolvimento assistido por IA
 - **Templates de Issues**: Adaptados para contexto de biblioteca UI com áreas específicas (Componentes UI, Tema/Estilos, Types/TypeScript)
 - **Pasta Examples**: Organização centralizada de exemplos de uso com estrutura padronizada
+- **ESLint Rule 'use client'**: Regra customizada que força todos os componentes UI a terem diretiva `'use client'` para compatibilidade Next.js
+- **Suite de Testes Completa**: Implementados testes básicos para todos os 11 componentes usando Vitest + Testing Library
+- **Husky v10+ Ready**: Configuração de git hooks atualizada para versões futuras do Husky
+
+### 🔧 Corrigido
+
+- **Husky Compatibility**: Removidas linhas depreciadas dos hooks pre-commit e pre-push
+- **ESLint Custom Plugin**: Implementado plugin inline com análise AST para validação de diretivas
+- **Test Environment**: Configurado jsdom com suporte completo a MUI e React Testing Library
+
+### 🧪 Testes
+
+- **40 testes implementados** cobrindo:
+  - GovBRButton (1 teste)
+  - GovBRInput (3 testes)
+  - GovBRCheckbox (3 testes)
+  - GovBRRadio (4 testes)
+  - GovBRAvatar (4 testes)
+  - GovBRBreadcrumb (4 testes)
+  - AutoSyncButton (4 testes)
+  - GovBRFormInput (4 testes)
+  - GovBRFormCheckbox (3 testes)
+  - GovBRSignIn (5 testes)
+  - GovBRSwitch (5 testes)
 - **Template PR Atualizado**: Refletindo novos padrões kebab-case e checklist de qualidade
+- **Testes Básicos**: Criados testes unitários básicos para todos os componentes com Vitest + Testing Library
 
 ### 🔧 Modificado
 
@@ -32,6 +57,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 - **Templates GitHub**: Issues e PR adaptados para contexto de biblioteca UI
 - **Organização de Arquivos**: Exemplos movidos para `/examples` com estrutura padronizada
 - **ESLint Rule 'use client'**: Aprimorada regra customizada para verificar diretiva 'use client' em componentes UI
+- **Husky Configuration**: Removidas linhas deprecadas para compatibilidade com Husky v10+
 
 ### 🐛 Corrigido
 
