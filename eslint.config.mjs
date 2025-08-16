@@ -91,7 +91,7 @@ export default defineConfig([
                   if (!isUseClient) {
                     context.report({
                       node: node,
-                      message: `🚨 COMPONENTE SEM 'use client': Este arquivo em src/components/ui/ deve começar com 'use client' para funcionar em Next.js. Adicione 'use client' como primeira linha.`,
+                      message: `🚨 Missing 'use client' directive: Files in src/components/ui/ must start with 'use client' for Next.js compatibility. Add 'use client' as the first line of this file.`,
                     })
                   }
                 },
