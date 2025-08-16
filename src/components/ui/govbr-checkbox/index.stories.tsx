@@ -42,7 +42,7 @@ const meta: Meta<typeof GovBRCheckbox> = {
       control: 'boolean',
       description: 'Define se o checkbox está marcado',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplicar estilos estritamente compatíveis com govbr-ds',
     },

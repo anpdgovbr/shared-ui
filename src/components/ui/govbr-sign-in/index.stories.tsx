@@ -55,7 +55,7 @@ const meta: Meta<typeof GovBRSignIn> = {
       control: 'text',
       description: 'URL customizada para o ícone ou imagem do gov.br',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-sign-in)',
     },

@@ -77,7 +77,7 @@ function MyComponent() {
       control: { type: 'text' },
       description: 'Texto exibido quando o switch está desligado',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: { type: 'boolean' },
       description: 'Aplica rigorosamente as cores oficiais do GovBR',
     },
@@ -162,7 +162,7 @@ export const StrictGovBr: Story = {
   args: {
     label: 'Switch GovBR Oficial',
     checked: true,
-    strictGovBr: true,
+    strictgovbr: true,
     textEnabled: 'Ativo',
     textDisabled: 'Inativo',
   },

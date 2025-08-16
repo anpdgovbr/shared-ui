@@ -72,7 +72,7 @@ const meta: Meta<typeof GovBRFormInput> = {
       control: 'boolean',
       description: 'Destaca visualmente o campo com bordas mais evidentes',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-input)',
     },

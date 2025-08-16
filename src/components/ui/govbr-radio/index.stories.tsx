@@ -63,7 +63,7 @@ const meta: Meta<typeof GovBRRadio> = {
       options: ['small', 'medium', 'large'],
       description: 'Tamanho do radio button: small (16px), medium (20px), large (24px)',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-radio)',
     },

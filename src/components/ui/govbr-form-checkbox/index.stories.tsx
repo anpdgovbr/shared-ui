@@ -54,7 +54,7 @@ const meta: Meta<typeof GovBRFormCheckbox> = {
       control: 'boolean',
       description: 'Oculta visualmente o label mantendo acessibilidade para leitores de tela',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-checkbox)',
     },

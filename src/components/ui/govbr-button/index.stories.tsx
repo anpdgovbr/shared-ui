@@ -73,7 +73,7 @@ const meta: Meta<typeof GovBRButton> = {
       options: [undefined, 'sm', 'md', 'lg', 'xl'],
       description: 'Aplicar espaçamento clearBlock para responsividade',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-button)',
     },
@@ -128,7 +128,7 @@ export const WithStrictGovBr: Story = {
     children: 'Padrão GovBR',
     color: 'primary',
     variant: 'contained',
-    strictGovBr: true,
+    strictgovbr: true,
   },
   parameters: {
     docs: {
@@ -307,14 +307,14 @@ export const GovernmentExample: Story = {
         <Typography variant="h6" gutterBottom>
           Portal de Serviços - ANPD
         </Typography>
-        <GovBRButton fullWidth color="primary" size="large" strictGovBr>
+        <GovBRButton fullWidth color="primary" size="large" strictgovbr>
           Consultar Processos
         </GovBRButton>
         <Stack direction="row" spacing={1}>
-          <GovBRButton variant="outlined" color="primary" fullWidth strictGovBr>
+          <GovBRButton variant="outlined" color="primary" fullWidth strictgovbr>
             Protocolar
           </GovBRButton>
-          <GovBRButton variant="text" color="secondary" fullWidth strictGovBr>
+          <GovBRButton variant="text" color="secondary" fullWidth strictgovbr>
             Ajuda
           </GovBRButton>
         </Stack>

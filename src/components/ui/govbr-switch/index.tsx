@@ -24,7 +24,7 @@ export const GovBRSwitch: React.FC<GovBRSwitchProps> = ({
   labelPlacement = 'end',
   textEnabled,
   textDisabled,
-  strictGovBr = false,
+  strictgovbr: strictGovBr = false,
   className,
   ...props
 }) => {

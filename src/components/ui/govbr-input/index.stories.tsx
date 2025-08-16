@@ -42,7 +42,7 @@ const meta: Meta<typeof GovBRInput> = {
       control: 'boolean',
       description: 'Aplica destaque visual no input',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplicar estilos estritamente compatíveis com govbr-ds',
     },
