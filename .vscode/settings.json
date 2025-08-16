@@ -13,9 +13,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
+  "editor.organizeImports": false,
   "editor.quickSuggestions": {
     "strings": true,
     "comments": false,
@@ -26,7 +26,7 @@
   "editor.wordBasedSuggestions": "matchingDocuments",
   "files.exclude": {
     "**/dist": true,
-    "**/types": true,
+    "types": true,
     "**/node_modules": true
   },
   "prettier.prettierPath": "./node_modules/prettier"

@@ -1,7 +1,9 @@
-import React from 'react'
+'use client'
 import Radio from '@mui/material/Radio'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import React from 'react'
+
 import type { GovBRRadioProps } from './types'
 
 export function GovBRRadio({

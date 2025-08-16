@@ -1,11 +1,11 @@
 // .eslintrc.mjs ou eslint.config.mjs
-import { defineConfig } from 'eslint/config'
-import js from '@eslint/js'
-import globals from 'globals'
-import parser from '@typescript-eslint/parser'
 import tseslint from '@typescript-eslint/eslint-plugin'
+import parser from '@typescript-eslint/parser'
 import pluginReact from 'eslint-plugin-react'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import storybook from 'eslint-plugin-storybook'
+import { defineConfig } from 'eslint/config'
+import globals from 'globals'
 
 export default defineConfig([
   {
@@ -29,8 +29,11 @@ export default defineConfig([
     plugins: {
       '@typescript-eslint': tseslint,
       react: pluginReact,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       ...tseslint.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off', // Next.js does not require React in scope
@@ -63,6 +66,43 @@ export default defineConfig([
       react: {
         version: 'detect',
       },
+    },
+  },
+
+  // Regra customizada para garantir 'use client' em componentes UI
+  // Necessário para compatibilidade com Next.js App Router (RSC)
+  {
+    files: ['src/components/ui/**/*.tsx'],
+    ignores: ['**/*.stories.tsx', '**/*.test.tsx'],
+    plugins: {
+      'use-client': {
+        rules: {
+          required: {
+            create(context) {
+              return {
+                Program(node) {
+                  const firstStatement = node.body[0]
+                  const isUseClient =
+                    firstStatement &&
+                    firstStatement.type === 'ExpressionStatement' &&
+                    firstStatement.expression.type === 'Literal' &&
+                    firstStatement.expression.value === 'use client'
+
+                  if (!isUseClient) {
+                    context.report({
+                      node: node,
+                      message: `🚨 Missing 'use client' directive: Files in src/components/ui/ must start with 'use client' for Next.js compatibility. Add 'use client' as the first line of this file.`,
+                    })
+                  }
+                },
+              }
+            },
+          },
+        },
+      },
+    },
+    rules: {
+      'use-client/required': 'error',
     },
   },
 

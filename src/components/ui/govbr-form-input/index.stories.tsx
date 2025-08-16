@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useForm } from 'react-hook-form'
+
 import { GovBRFormInput } from './index'
 
 const meta: Meta<typeof GovBRFormInput> = {

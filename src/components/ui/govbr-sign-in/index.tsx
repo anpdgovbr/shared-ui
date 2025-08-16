@@ -1,5 +1,7 @@
-import React from 'react'
+'use client'
 import classNames from 'classnames'
+import React from 'react'
+
 import type { GovBRSignInProps } from './types'
 
 export function GovBRSignIn({
