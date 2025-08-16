@@ -1,0 +1,26 @@
+name: '📝 Documentação'
+description: Solicitar ajustes ou adicionar documentação
+labels: ['type: docs']
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Resumo
+      placeholder: Ex. Atualizar documentação do componente Button
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Detalhes
+      description: O que precisa ser alterado/criado?
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options:
+        - README
+        - /docs
+        - Storybook/Stories
+        - Comentários JSDoc/TS
+        - Guia de contribuição
