@@ -29,7 +29,7 @@ export default defineConfig([
     plugins: {
       '@typescript-eslint': tseslint,
       react: pluginReact,
-  'simple-import-sort': simpleImportSort,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
       'simple-import-sort/imports': 'error',
