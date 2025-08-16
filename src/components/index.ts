@@ -7,7 +7,7 @@ export type { AutoSyncButtonProps } from './ui/auto-sync/types'
 
 // GovBRAvatar
 export * from './ui/govbr-avatar'
-export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './ui/govbr-avatar/types'
+export type { GovBRAvatarProps } from './ui/govbr-avatar/types'
 
 // GovBRBreadcrumb
 export * from './ui/govbr-breadcrumb'
