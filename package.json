@@ -29,7 +29,7 @@
       "url": "https://github.com/orgs/anpdgovbr/people"
     }
   ],
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/shared-ui.cjs.js",
   "module": "./dist/shared-ui.es.js",

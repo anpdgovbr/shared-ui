@@ -3,7 +3,7 @@
 > Biblioteca de componentes React com MUI v7 e padrão GovBR-DS para a ANPD.
 
 ![CI](https://github.com/anpdgovbr/shared-ui/actions/workflows/ci.yml/badge.svg)
-![License](https://img.shields.io/badge/license-ISC-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node Version](https://img.shields.io/badge/node-20%2B-brightgreen)
 ![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-blue)
 ![Storybook](https://img.shields.io/badge/docs-Storybook-orange)
@@ -250,7 +250,7 @@ A biblioteca utiliza um sistema de tipos centralizados para garantir consistênc
 - **`GovBRNavigationCallback`**: Callback padronizado de navegação
 - **`GovBRPosition`**: Posicionamento para componentes flutuantes
 
-**⚡ Props Compartilhados:**
+**⚡ Props Compartilhadas:**
 
 - **`SharedUIComponentProps`**: Props comuns a todos os componentes
 - **`GovBRNavigatable`**: Para componentes com navegação
@@ -326,7 +326,7 @@ Contribuições são bem-vindas! Siga nosso processo padronizado:
 
 ## ✍️ Licença
 
-Este projeto está licenciado sob a **Licença ISC**.
+Este projeto está licenciado sob a **Licença MIT**.
 
 ---
 
