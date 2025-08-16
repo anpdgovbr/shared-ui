@@ -73,6 +73,7 @@ src/components/ui/nome-do-componente/
 - [ ] Foi criado **Storybook** representando os estados do componente
 - [ ] Stories incluem `tags: ['autodocs']` para documentação automática
 - [ ] Casos de uso com `strictGovBr=true` e `false` documentados
+- [ ] Comentários JSDoc adequados para futura integração com TypeDocs
 
 ### 🧪 Qualidade
 
@@ -101,8 +102,9 @@ Estamos estruturando testes automatizados gradualmente. Sempre que possível, ad
 - Nomeie o PR de forma clara e objetiva, por exemplo:
 
 ```
-feat: adiciona componente GovBRBadge
-fix: corrige alinhamento do GovBRCard
+feat: adiciona componente govbr-badge
+fix: corrige alinhamento do govbr-card
+docs: atualiza exemplos de uso
 ```
 
 - Vincule a issue correspondente (se houver) usando `Closes #num`.
