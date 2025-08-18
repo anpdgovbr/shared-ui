@@ -76,7 +76,7 @@ export const typography: TypographyVariantsOptions & {
     fontWeight: 'var(--font-weight-bold, 700)', // 700
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
     marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
-    marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem (16px)
+    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem (16px)
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (min-width:576px)': {
       fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // 1.728rem
