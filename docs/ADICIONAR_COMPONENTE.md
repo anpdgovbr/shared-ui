@@ -1,12 +1,41 @@
 # 📝 Guia para Adicionar Novos Componentes
 
-Este guia detalha o processo para criar e adicionar novos componentes React à biblioteca `shared-ui`, garantindo consistência, qualidade e alinhamento com as tecnologias do projeto (MUI v7, GovBR-DS, TypeScript).
+Este guia detalha o processo para criar componentes React na **biblioteca de componentes compartilháveis da ANPD**, seguindo a arquitetura híbrida definida no documento ARQUITETURA.md.
 
 > 📚 **Documentos Relacionados:**
 >
+> - [🏛️ Arquitetura](../ARQUITETURA.md) - **LEIA PRIMEIRO** - Fundamentos da arquitetura híbrida
 > - [🔄 Guia de Migração](./GUIA_MIGRACAO.md) - Migrar componentes existentes
 > - [📖 README Principal](../README.md) - Visão geral do projeto
 > - [🚨 Contribuindo](../CONTRIBUTING.md) - Processo de contribuição
+
+---
+
+## 🎯 Objetivo da Biblioteca
+
+A `shared-ui` é uma **biblioteca de componentes compartilháveis da ANPD** que:
+
+- Centraliza componentes reutilizáveis entre projetos
+- Mantém consistência visual com Gov.br Design System
+- Utiliza Material-UI como base técnica robusta
+- Garante manutenibilidade e padrões de qualidade
+
+## 🏛️ Arquitetura Definida
+
+Para atender aos objetivos da biblioteca, utilizamos uma **arquitetura de modo duplo**:
+
+### 🔄 Modo Padrão (`strictgovbr={false}`)
+
+- Renderiza componente MUI estilizado via `govbrTheme.ts`
+- Componente é "burro" - só repassa props para o MUI
+- Estilização controlada inteiramente pelo tema
+- **Modo principal** para uso geral
+
+### ⚡ Modo Estrito (`strictgovbr={true}`)
+
+- Renderiza elemento HTML puro com classes CSS do Gov.br DS
+- Usado quando necessário 100% de fidelidade visual ao Gov.br DS
+- Complementa o modo padrão para casos específicos
 
 ---
 
@@ -240,6 +269,23 @@ export const WithStrictGovBr: Story = {
 
 ## ✅ Checklist Final (Antes do Commit e PR)
 
+### 🎯 1. Validação da Arquitetura Híbrida
+
+- [ ] **Modo Padrão funciona**: Componente MUI renderizado corretamente
+- [ ] **Modo Estrito funciona**: HTML puro com classes Gov.br DS aplicadas
+- [ ] **Prop `strictgovbr`**: Implementada e testada nos dois estados
+- [ ] **Componente "burro"**: No modo padrão, apenas repassa props para MUI
+- [ ] **Estilização pelo tema**: Verificar se `govbrTheme.ts` controla a aparência no modo padrão
+
+### 🔧 2. Implementação dos Estilos no Tema
+
+- [ ] **govbrTheme.ts atualizado**: Adicionada entrada para o componente MUI correspondente
+- [ ] **styleOverrides configurado**: Slots corretos mapeados com tokens Gov.br DS
+- [ ] **Variáveis CSS utilizadas**: Usado `var(--token-name)` em vez de valores fixos
+- [ ] **DevTools testado**: Inspecionado o componente Gov.br DS oficial para obter os tokens corretos
+
+### 📦 3. Validação Técnica
+
 1. **Atualize a branch com a main:**
 
 ```bash
@@ -279,14 +325,28 @@ npm run test
 
 ```bash
 git add .
-git commit -m "feat: adiciona govbr-card component"
+git commit -m "feat: adiciona govbr-card component seguindo arquitetura híbrida"
 git push origin feat/govbr-card
 ```
 
-9. **Abra o PR:**
-   - Faça push para a branch.
-   - Crie o PR com título e descrição claros.
-   - Solicite revisão se necessário.
+### 🎨 4. Testes de Integração Visual
+
+- [ ] **Storybook - Modo Padrão**: Story default renderiza componente MUI com tema
+- [ ] **Storybook - Modo Estrito**: Story `WithStrictGovBr` renderiza HTML puro
+- [ ] **Comparação Visual**: Ambos os modos têm aparência similar mas arquiteturas diferentes
+- [ ] **Responsividade**: Componente funciona em diferentes breakpoints
+
+---
+
+## 🔗 Recursos Essenciais
+
+- 📖 **[ARQUITETURA.md](../ARQUITETURA.md)** - Fundamentos da arquitetura híbrida
+- 🎨 **[Gov.br DS](https://gov.br/ds)** - Documentação oficial do Design System
+- 🧩 **[MUI Customization](https://mui.com/material-ui/customization/theme-components/)** - Como customizar componentes MUI
+- 🔧 **[CSS Tokens DevTools](https://gov.br/ds)** - Inspecione componentes para encontrar variáveis CSS
+  - Faça push para a branch.
+  - Crie o PR com título e descrição claros.
+  - Solicite revisão se necessário.
 
 ---
 

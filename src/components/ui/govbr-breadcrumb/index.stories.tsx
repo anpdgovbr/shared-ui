@@ -1,9 +1,7 @@
-import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
+import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
-import React from 'react'
 
 import { GovBRBreadcrumb } from './index'
 
@@ -14,48 +12,38 @@ const meta: Meta<typeof GovBRBreadcrumb> = {
   decorators: [
     (Story) => (
       <GovBRThemeProvider>
-        <Box sx={{ padding: 3, maxWidth: '800px' }}>
+        <div style={{ padding: '2rem' }}>
           <Story />
-        </Box>
+        </div>
       </GovBRThemeProvider>
     ),
   ],
   argTypes: {
-    items: {
-      control: 'object',
-      description:
-        'Array de objetos breadcrumb com propriedades label (obrigatório) e href (opcional)',
-    },
-    onNavigate: {
-      action: 'navigate',
-      description: 'Função callback executada ao clicar em um item navegável',
-    },
-    className: {
-      control: 'text',
-      description: 'Classes CSS customizadas para estilização adicional',
-    },
-    strictGovBr: {
+    // --- Geral ---
+    strictgovbr: {
       control: 'boolean',
-      description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-breadcrumb)',
+      description: 'Ativa o modo de renderização estrito (HTML puro com classes CSS)',
+      table: { category: 'Geral' },
     },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: `
-## GovBRBreadcrumb - Componente GovBR-DS
 
-Componente de breadcrumb (trilha de navegação) que segue as diretrizes visuais do GovBR Design System.
+    // --- Modo Padrão (MUI) ---
+    children: {
+      control: false,
+      description:
+        'Os elementos a serem renderizados dentro do breadcrumb (geralmente Links e Typography).',
+      table: { category: 'Modo Padrão (MUI)' },
+    },
+    separator: {
+      control: 'text',
+      description: 'O separador a ser usado entre os itens.',
+      table: { category: 'Modo Padrão (MUI)' },
+    },
 
-### Características Principais:
-- 🧭 **Navegação Hierárquica**: Mostra o caminho atual na estrutura do site
-- 🔍 **Acessibilidade**: Suporte a navegação por teclado e leitores de tela  
-- 🎨 **Estilo GovBR**: Seguindo padrões visuais governamentais
-- 📱 **Responsivo**: Adaptação automática para dispositivos móveis
-- ⚡ **Performance**: Renderização otimizada com callback de navegação
-- 🏛️ **GovBR Strict Mode**: Aplicação rigorosa dos padrões governamentais
-        `,
-      },
+    // --- Modo Estrito (GovBR) ---
+    links: {
+      control: 'object',
+      description: 'Uma lista de objetos de link para o modo estrito.',
+      table: { category: 'Modo Estrito (GovBR)' },
     },
   },
 }
@@ -63,178 +51,116 @@ Componente de breadcrumb (trilha de navegação) que segue as diretrizes visuais
 export default meta
 type Story = StoryObj<typeof GovBRBreadcrumb>
 
-// Mock function para simular navegação
-const mockNavigate = (href: string) => {
-  console.log('Navegando para:', href)
-  // Em uma aplicação real, seria usado React Router ou Next.js Router
-  // router.push(href) ou navigate(href)
-}
+// --- Estórias do Modo Padrão (MUI) ---
 
-export const Default: Story = {
-  args: {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Serviços', href: '/servicos' },
-      { label: 'Consulta', href: '/servicos/consulta' },
-      { label: 'Resultado' }, // Último item sem href (página atual)
-    ],
-    onNavigate: mockNavigate,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Breadcrumb padrão com 4 níveis, onde o último representa a página atual',
-      },
-    },
-  },
-}
-
-export const WithStrictGovBr: Story = {
-  args: {
-    items: [
-      { label: 'Portal Gov.br', href: '/' },
-      { label: 'ANPD', href: '/anpd' },
-      { label: 'Serviços Públicos', href: '/anpd/servicos' },
-      { label: 'Proteção de Dados', href: '/anpd/servicos/protecao' },
-      { label: 'Consultar Processos' },
-    ],
-    strictGovBr: true,
-    onNavigate: mockNavigate,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Breadcrumb seguindo rigorosamente o padrão GovBR-DS com 5 níveis',
-      },
-    },
-  },
-}
-
-export const Short: Story = {
-  args: {
-    items: [{ label: 'Home', href: '/' }, { label: 'Página Atual' }],
-    onNavigate: mockNavigate,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Breadcrumb mínimo com apenas 2 níveis',
-      },
-    },
-  },
-}
-
-export const LongPath: Story = {
-  args: {
-    items: [
-      { label: 'Portal', href: '/' },
-      { label: 'Cidadão', href: '/cidadao' },
-      { label: 'Serviços', href: '/cidadao/servicos' },
-      { label: 'Documentos', href: '/cidadao/servicos/documentos' },
-      { label: 'Certidões', href: '/cidadao/servicos/documentos/certidoes' },
-      {
-        label: 'Certidão de Nascimento',
-        href: '/cidadao/servicos/documentos/certidoes/nascimento',
-      },
-      { label: 'Solicitar Certidão' },
-    ],
-    onNavigate: mockNavigate,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Breadcrumb com caminho longo (7 níveis) demonstrando comportamento responsivo',
-      },
-    },
-  },
-}
-
-export const SingleLevel: Story = {
-  args: {
-    items: [{ label: 'Dashboard' }],
-    onNavigate: mockNavigate,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Breadcrumb com apenas um nível (sem navegação)',
-      },
-    },
-  },
-}
-
-export const ANPDPortalExample: Story = {
-  render: () => (
-    <Box>
-      <Paper elevation={1} sx={{ p: 3, mb: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          Portal ANPD - Exemplo Real
-        </Typography>
-        <GovBRBreadcrumb
-          items={[
-            { label: 'ANPD', href: '/' },
-            { label: 'Cidadão', href: '/cidadao' },
-            { label: 'Denúncias', href: '/cidadao/denuncias' },
-            { label: 'Nova Denúncia' },
-          ]}
-          strictGovBr
-          onNavigate={mockNavigate}
-        />
-      </Paper>
-
-      <Paper elevation={1} sx={{ p: 3, mb: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          Seção Empresas
-        </Typography>
-        <GovBRBreadcrumb
-          items={[
-            { label: 'ANPD', href: '/' },
-            { label: 'Empresas', href: '/empresas' },
-            { label: 'Relatórios de Impacto', href: '/empresas/relatorios' },
-            { label: 'Submeter DPIA' },
-          ]}
-          strictGovBr
-          onNavigate={mockNavigate}
-        />
-      </Paper>
-
-      <Paper elevation={1} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Área Institucional
-        </Typography>
-        <GovBRBreadcrumb
-          items={[
-            { label: 'ANPD', href: '/' },
-            { label: 'Institucional', href: '/institucional' },
-            { label: 'Legislação', href: '/institucional/legislacao' },
-            { label: 'LGPD', href: '/institucional/legislacao/lgpd' },
-            { label: 'Artigo 46' },
-          ]}
-          strictGovBr
-          onNavigate={mockNavigate}
-        />
-      </Paper>
-    </Box>
+export const MuiDefault: Story = {
+  name: 'Padrão (MUI): Default',
+  render: (args) => (
+    <GovBRBreadcrumb {...args}>
+      <Link underline="hover" color="inherit" href="#">
+        Página Inicial
+      </Link>
+      <Link underline="hover" color="inherit" href="#">
+        Página Anterior
+      </Link>
+      <Typography color="text.primary">Página Atual</Typography>
+    </GovBRBreadcrumb>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Exemplos de uso em diferentes seções do Portal ANPD',
-      },
-    },
+  args: {
+    strictgovbr: false,
   },
 }
 
-export const Long: Story = {
+export const MuiWithLongPath: Story = {
+  name: 'Padrão (MUI): Caminho Longo',
+  render: (args) => (
+    <GovBRBreadcrumb {...args}>
+      <Link underline="hover" color="inherit" href="#">
+        Portal Gov.br
+      </Link>
+      <Link underline="hover" color="inherit" href="#">
+        Ministérios
+      </Link>
+      <Link underline="hover" color="inherit" href="#">
+        ANPD
+      </Link>
+      <Link underline="hover" color="inherit" href="#">
+        Regulamentação
+      </Link>
+      <Typography color="text.primary">LGPD - Lei Geral de Proteção de Dados</Typography>
+    </GovBRBreadcrumb>
+  ),
   args: {
-    items: [
-      { label: 'Início', href: '/' },
-      { label: 'Cidadão', href: '/cidadao' },
-      { label: 'Serviços', href: '/cidadao/servicos' },
-      { label: 'Proteção de Dados', href: '/cidadao/servicos/protecao' },
-      { label: 'Relatório de Impacto', href: '/cidadao/servicos/protecao/relatorio' },
-      { label: 'Visualização' },
-    ],
-    onNavigate: (href) => console.log('Navegando para:', href),
+    strictgovbr: false,
   },
+}
+
+// --- Estórias do Modo Estrito (GovBR-DS) ---
+
+export const StrictDefault: Story = {
+  name: 'Estrito (GovBR): Default',
+  args: {
+    strictgovbr: true,
+    links: [
+      { label: 'Página Inicial', url: '#' },
+      { label: 'Página Anterior', url: '#' },
+      { label: 'Página Atual', url: '#' }, // Último item sem URL é tratado como atual
+    ],
+  },
+}
+
+export const StrictLongPath: Story = {
+  name: 'Estrito (GovBR): Caminho Longo',
+  args: {
+    strictgovbr: true,
+    links: [
+      { label: 'Portal Gov.br', url: 'https://gov.br' },
+      { label: 'Ministérios', url: '#' },
+      { label: 'ANPD', url: '#' },
+      { label: 'Regulamentação', url: '#' },
+      { label: 'LGPD - Lei Geral de Proteção de Dados', url: '#' },
+    ],
+  },
+}
+
+// --- Comparação Visual ---
+
+export const Comparison: Story = {
+  name: '🔍 Comparação: MUI vs Estrito',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: '#333' }}>
+          Modo Padrão (MUI) - Estilizado via govbrTheme
+        </h3>
+        <GovBRBreadcrumb>
+          <Link underline="hover" color="inherit" href="#">
+            Portal Gov.br
+          </Link>
+          <Link underline="hover" color="inherit" href="#">
+            ANPD
+          </Link>
+          <Link underline="hover" color="inherit" href="#">
+            Regulamentação
+          </Link>
+          <Typography color="text.primary">LGPD</Typography>
+        </GovBRBreadcrumb>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: '1rem', color: '#333' }}>
+          Modo Estrito - Classes CSS do @govbr-ds/core
+        </h3>
+        <GovBRBreadcrumb
+          strictgovbr
+          links={[
+            { label: 'Portal Gov.br', url: '#' },
+            { label: 'ANPD', url: '#' },
+            { label: 'Regulamentação', url: '#' },
+            { label: 'LGPD', url: '#' },
+          ]}
+        />
+      </div>
+    </div>
+  ),
 }

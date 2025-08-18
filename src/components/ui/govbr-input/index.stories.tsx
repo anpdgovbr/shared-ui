@@ -1,5 +1,4 @@
-import ClearIcon from '@mui/icons-material/Clear'
-import SearchIcon from '@mui/icons-material/Search'
+import SearchIcon from '@mui/icons-material/Search' // Import SearchIcon
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
@@ -19,73 +18,150 @@ const meta: Meta<typeof GovBRInput> = {
     ),
   ],
   argTypes: {
+    strictgovbr: {
+      control: 'boolean',
+      description: 'Ativa modo estrito com renderização HTML puro e classes CSS do GovBR-DS',
+      table: {
+        category: 'Configuração',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Rótulo do campo de entrada - texto descritivo exibido acima do input',
+      table: {
+        category: 'Conteúdo',
+        type: { summary: 'string' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Desabilita o campo impedindo edição e aplicando estilos visuais apropriados',
+      table: {
+        category: 'Estado',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Texto de exemplo exibido quando o campo está vazio para orientar o usuário',
+      table: {
+        category: 'Conteúdo',
+        type: { summary: 'string' },
+      },
+    },
+    variant: {
+      control: 'select',
+      options: ['outlined', 'filled', 'standard'],
+      description:
+        'Estilo visual do campo: outlined (contorno), filled (preenchido), standard (linha inferior)',
+      table: {
+        category: 'Aparência',
+        defaultValue: { summary: 'outlined' },
+      },
+    },
+    color: {
+      control: 'select',
+      options: ['primary', 'secondary', 'success', 'warning', 'info', 'error'],
+      description: 'Cor semântica que afeta bordas e estados de foco conforme paleta GovBR-DS',
+      table: {
+        category: 'Aparência',
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    helperText: {
+      control: 'text',
+      description: 'Texto de auxílio exibido abaixo do campo para orientações adicionais',
+      table: {
+        category: 'Conteúdo',
+        type: { summary: 'string' },
+      },
+    },
+    error: {
+      control: 'boolean',
+      description: 'Ativa estado de erro com bordas vermelhas e cor de texto apropriada',
+      table: {
+        category: 'Estado',
+        defaultValue: { summary: 'false' },
+      },
+    },
     govbrSize: {
       control: 'select',
       options: ['small', 'medium', 'large'],
-      description: 'Tamanho do input conforme padrões GovBR',
+      description:
+        'Tamanho do campo conforme especificações GovBR-DS: small (32px), medium (40px), large (48px)',
+      table: {
+        category: 'Aparência',
+        defaultValue: { summary: 'medium' },
+      },
     },
     status: {
       control: 'select',
       options: ['success', 'danger', 'info', 'warning'],
-      description: 'Status visual do input para feedback',
-    },
-    clearBlock: {
-      control: 'select',
-      options: ['sm', 'md', 'lg', 'xl'],
-      description: 'Configuração do bloco de limpeza',
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Define se o input está desabilitado',
-    },
-    highlight: {
-      control: 'boolean',
-      description: 'Aplica destaque visual no input',
-    },
-    strictGovBr: {
-      control: 'boolean',
-      description: 'Aplicar estilos estritamente compatíveis com govbr-ds',
-    },
-    label: {
-      control: 'text',
-      description: 'Texto do label do input',
-    },
-    placeholder: {
-      control: 'text',
-      description: 'Texto placeholder do input',
-    },
-    helperText: {
-      control: 'text',
-      description: 'Texto de ajuda abaixo do input',
+      description: 'Estado visual para feedback imediato - aplica cores e ícones apropriados',
+      table: {
+        category: 'Estado',
+        type: { summary: 'success | danger | info | warning' },
+      },
     },
     feedbackMessage: {
       control: 'text',
-      description: 'Mensagem de feedback para estados visuais',
+      description: 'Mensagem de feedback personalizada exibida no modo estrito GovBR',
+      table: {
+        category: 'Conteúdo',
+        type: { summary: 'string' },
+      },
     },
-    error: {
+    highlight: {
       control: 'boolean',
-      description: 'Define estado de erro (sobrescreve status para danger)',
+      description:
+        'Aplica destaque visual especial no campo - usado para campos importantes ou em foco',
+      table: {
+        category: 'Aparência',
+        defaultValue: { summary: 'false' },
+      },
     },
-    required: {
+    inline: {
       control: 'boolean',
-      description: 'Define se o campo é obrigatório',
+      description: 'Posiciona o rótulo e campo na mesma linha horizontalmente (modo estrito)',
+      table: {
+        category: 'Layout',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    clearBlock: {
+      control: 'select',
+      options: [undefined, 'sm', 'md', 'lg', 'xl'],
+      description:
+        'Breakpoint responsivo para limpeza de float - controla layout em diferentes telas',
+      table: {
+        category: 'Layout',
+        type: { summary: 'sm | md | lg | xl' },
+      },
     },
   },
   parameters: {
     docs: {
       description: {
         component: `
-## GovBRInput - Componente GovBR-DS
+## GovBRInput - Campo de Entrada Governamental
 
-Componente de campo de entrada de texto que segue as diretrizes visuais do GovBR Design System.
+Componente de entrada de texto padronizado conforme diretrizes do GovBR Design System, oferecendo flexibilidade entre modo MUI e HTML puro.
 
 ### Características Principais:
-- 🎨 **Estados Visuais**: Success, danger, info, warning
-- 🔍 **Acessibilidade**: Labels, aria-labels e navegação por teclado
-- 📏 **Tamanhos Padrão**: Small, Medium, Large
-- 🎭 **Feedback Visual**: Estados de erro, sucesso e validação
-- ✨ **Destaque**: Opção de highlight para campos importantes
-- 📝 **Textos de Ajuda**: Helper text e mensagens contextuais
+- 🎨 **Modo Duplo**: Suporte a MUI com tema personalizado ou HTML puro com classes GovBR-DS
+- ♿ **Acessibilidade Completa**: Labels associados, navegação por teclado, suporte a screen readers
+- 🎭 **Estados Visuais**: Normal, hover, focus, error, disabled, success, warning
+- 📏 **Tamanhos Responsivos**: Small (32px), Medium (40px), Large (48px)
+- 🔧 **Flexibilidade**: Suporte a ícones, helper text, validation feedback
+- 🏛️ **Compliance**: Segue rigorosamente padrões de acessibilidade WCAG 2.1
+- ⚡ **Performance**: Otimizado para formulários grandes com debounce e validation
+
+### Casos de Uso:
+- Formulários governamentais e administrativos  
+- Campos de busca e filtros
+- Entrada de dados pessoais e documentos
+- Sistemas de cadastro e autenticação
         `,
       },
     },
@@ -95,144 +171,162 @@ Componente de campo de entrada de texto que segue as diretrizes visuais do GovBR
 export default meta
 type Story = StoryObj<typeof GovBRInput>
 
-export const Default: Story = {
+// --- Estórias do Modo Padrão (MUI) ---
+
+export const MuiDefault: Story = {
+  name: 'Padrão (MUI): Default',
   args: {
-    label: 'Nome completo',
+    label: 'Nome (MUI)',
     placeholder: 'Digite seu nome completo',
-    govbrSize: 'medium',
+    fullWidth: true,
   },
 }
 
-export const WithHelperText: Story = {
+export const MuiWithAdornments: Story = {
+  name: 'Padrão (MUI): Com Ícones',
   args: {
-    label: 'Email',
-    placeholder: 'Digite seu email',
-    helperText: 'Digite um email válido para receber notificações',
-    govbrSize: 'medium',
+    label: 'Buscar (MUI)',
+    fullWidth: true,
+    startIcon: <SearchIcon />,
+    endButtonIcon: <SearchIcon />,
+    onEndButtonClick: () => alert('Busca clicada!'),
   },
 }
 
-export const WithError: Story = {
+export const MuiWithError: Story = {
+  name: 'Padrão (MUI): Com Erro',
   args: {
-    label: 'CPF',
+    label: 'Email (MUI)',
+    fullWidth: true,
+    error: true,
+    helperText: 'Por favor, insira um email válido.',
+  },
+}
+
+// --- Estórias do Modo Estrito (GovBR-DS) ---
+
+export const StrictDefault: Story = {
+  name: 'Estrito (GovBR): Default',
+  args: {
+    strictgovbr: true,
+    label: 'Nome (Estrito)',
+    placeholder: 'Digite seu nome completo',
+  },
+}
+
+export const StrictWithError: Story = {
+  name: 'Estrito (GovBR): Com Erro',
+  args: {
+    strictgovbr: true,
+    label: 'CPF (Estrito)',
     placeholder: 'Digite seu CPF',
     error: true,
     feedbackMessage: 'CPF inválido. Verifique os dados digitados.',
-    govbrSize: 'medium',
   },
 }
 
-export const WithErrorDirect: Story = {
+export const StrictWithSuccess: Story = {
+  name: 'Estrito (GovBR): Com Sucesso',
   args: {
-    label: 'Email',
-    placeholder: 'Digite seu email',
-    error: true,
-    feedbackMessage: 'Este campo é obrigatório',
-    govbrSize: 'medium',
-  },
-}
-
-export const WithSuccess: Story = {
-  args: {
-    label: 'Email',
-    placeholder: 'Digite seu email',
+    strictgovbr: true,
+    label: 'Email (Estrito)',
     status: 'success',
     feedbackMessage: 'Email válido!',
     value: 'usuario@exemplo.com',
-    govbrSize: 'medium',
   },
 }
 
-export const WithWarning: Story = {
+export const StrictWithWarning: Story = {
+  name: 'Estrito (GovBR): Com Aviso',
   args: {
-    label: 'Senha',
+    strictgovbr: true,
+    label: 'Senha (Estrito)',
     type: 'password',
     placeholder: 'Digite sua senha',
     status: 'warning',
     feedbackMessage: 'Senha fraca. Considere adicionar números e símbolos.',
-    govbrSize: 'medium',
   },
 }
 
-export const WithInfo: Story = {
+export const StrictWithInfo: Story = {
+  name: 'Estrito (GovBR): Com Informação',
   args: {
-    label: 'Código de verificação',
+    strictgovbr: true,
+    label: 'Código de verificação (Estrito)',
     placeholder: 'Digite o código de 6 dígitos',
     status: 'info',
     feedbackMessage: 'Código enviado para seu email',
-    govbrSize: 'medium',
   },
 }
 
-export const Disabled: Story = {
+export const StrictDisabled: Story = {
+  name: 'Estrito (GovBR): Desabilitado',
   args: {
-    label: 'Campo desabilitado',
+    strictgovbr: true,
+    label: 'Campo desabilitado (Estrito)',
     placeholder: 'Este campo está desabilitado',
-    value: 'Valor fixo',
     disabled: true,
-    govbrSize: 'medium',
   },
 }
 
-export const Highlighted: Story = {
+export const StrictHighlighted: Story = {
+  name: 'Estrito (GovBR): Destacado',
   args: {
-    label: 'Campo destacado',
+    strictgovbr: true,
+    label: 'Campo destacado (Estrito)',
     placeholder: 'Este campo está destacado',
     highlight: true,
-    govbrSize: 'medium',
   },
 }
 
-export const Inline: Story = {
+export const StrictInline: Story = {
+  name: 'Estrito (GovBR): Em Linha',
   args: {
-    label: 'Buscar:',
+    strictgovbr: true,
+    label: 'Buscar (Estrito):',
     placeholder: 'Digite sua busca',
     inline: true,
-    govbrSize: 'medium',
   },
 }
 
-export const WithStartIcon: Story = {
+export const StrictWithStartIcon: Story = {
+  name: 'Estrito (GovBR): Com Ícone Inicial',
   args: {
-    label: 'Buscar',
+    strictgovbr: true,
+    label: 'Buscar (Estrito)',
     placeholder: 'Digite sua busca',
     startIcon: <SearchIcon />,
-    govbrSize: 'medium',
   },
 }
 
-export const WithEndButton: Story = {
+export const StrictWithEndButton: Story = {
+  name: 'Estrito (GovBR): Com Botão Final',
   args: {
-    label: 'Campo com botão',
+    strictgovbr: true,
+    label: 'Campo com botão (Estrito)',
     placeholder: 'Digite algo aqui',
     value: 'Conteúdo para limpar',
-    endButtonIcon: <ClearIcon />,
+    endButtonIcon: <SearchIcon />,
     onEndButtonClick: () => alert('Botão clicado!'),
-    govbrSize: 'medium',
   },
 }
 
-export const Small: Story = {
+export const StrictSizes: Story = {
+  name: 'Estrito (GovBR): Tamanhos',
   args: {
-    label: 'Campo pequeno',
-    placeholder: 'Input pequeno',
+    strictgovbr: true,
+    label: 'Campo de Tamanho (Estrito)',
+    placeholder: 'Input de tamanho',
     govbrSize: 'small',
   },
 }
 
-export const Large: Story = {
+export const StrictWithClearBlock: Story = {
+  name: 'Estrito (GovBR): Com Limpeza Automática',
   args: {
-    label: 'Campo grande',
-    placeholder: 'Input grande',
-    govbrSize: 'large',
-  },
-}
-
-export const WithClearBlock: Story = {
-  args: {
-    label: 'Campo com limpeza automática',
+    strictgovbr: true,
+    label: 'Campo com limpeza automática (Estrito)',
     placeholder: 'Digite algo',
     clearBlock: 'md',
-    govbrSize: 'medium',
   },
 }

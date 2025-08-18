@@ -1,12 +1,17 @@
-import type { Control, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form'
+import type { Control, ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 
 import type { GovBRInputProps } from '../govbr-input/types'
 
-export interface GovBRFormInputProps<
+/**
+ * Props para o componente GovBRFormInput.
+ * Estende as GovBRInputProps e adiciona as props do React Hook Form.
+ */
+export type GovBRFormInputProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
-> extends Omit<GovBRInputProps, 'name'> {
+> = Omit<GovBRInputProps, 'name' | 'defaultValue' | 'value' | 'onChange'> & {
   name: TName
   control: Control<TFieldValues>
-  rules?: RegisterOptions<TFieldValues, TName>
+  rules?: ControllerProps<TFieldValues, TName>['rules']
+  errorMessage?: string
 }

@@ -1,66 +1,67 @@
 import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import React from 'react'
 
-import { AutoSyncButton } from './index'
+import { AutoSync } from './index'
 
-const meta: Meta<typeof AutoSyncButton> = {
-  title: 'Components/AutoSyncButton',
-  component: AutoSyncButton,
+const meta: Meta<typeof AutoSync> = {
+  title: 'Components/Custom/AutoSync',
+  component: AutoSync,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <GovBRThemeProvider>
+        <Box sx={{ padding: 3, maxWidth: '800px' }}>
+          <Story />
+        </Box>
+      </GovBRThemeProvider>
+    ),
+  ],
   argTypes: {
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-      description: 'Tamanho do botão conforme padrões GovBR',
+    onSync: {
+      action: 'synced',
+      description: 'Função chamada quando o botão de sincronização é clicado.',
     },
     syncInterval: {
-      control: { type: 'number', min: 1000, max: 60000, step: 1000 },
-      description: 'Intervalo de sincronização em milissegundos',
+      control: 'number',
+      description: 'Intervalo entre sincronizações automáticas em milissegundos',
     },
     maxErrorCount: {
-      control: { type: 'number', min: 1, max: 10 },
-      description: 'Número máximo de erros antes de desabilitar',
-    },
-    syncAnimationDuration: {
-      control: { type: 'number', min: 1000, max: 5000 },
-      description: 'Duração da animação de sincronização',
-    },
-    successDuration: {
-      control: { type: 'number', min: 1000, max: 5000 },
-      description: 'Duração da exibição do estado de sucesso',
-    },
-    errorDuration: {
-      control: { type: 'number', min: 1000, max: 5000 },
-      description: 'Duração da exibição do estado de erro',
-    },
-    tooltipEnabled: {
-      control: 'boolean',
-      description: 'Habilitar tooltips explicativos',
+      control: 'number',
+      description: 'Número máximo de erros antes de desabilitar sincronização',
     },
     disabled: {
       control: 'boolean',
-      description: 'Desabilitar o componente',
+      description: 'Desabilita completamente a sincronização',
     },
-    onSync: { action: 'sync-triggered' },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Tamanho do ícone do botão',
+    },
+    tooltipEnabled: {
+      control: 'boolean',
+      description: 'Habilita/desabilita tooltip explicativo',
+    },
   },
   parameters: {
     docs: {
       description: {
         component: `
-## AutoSyncButton - Componente GovBR-DS
+## AutoSync - Componente de Sincronização Automática
 
-Componente de sincronização automática que segue as diretrizes visuais do GovBR Design System.
+Componente personalizado da ANPD para controle de sincronização automática de dados.
 
-### Características Principais:
-- 🎨 **Cores Semânticas**: Utiliza paleta oficial do GovBR-DS
-- 🔍 **Acessibilidade**: Foco visual e tooltips contextuais  
-- 🎭 **Estados Visuais**: Feedback claro para cada operação
-- 📏 **Tamanhos Padrão**: Small (32px), Medium (40px), Large (48px)
-- 🔄 **Auto-recuperação**: Gerencia erros e tenta reconectar automaticamente
+### Características:
+- 🔄 **Estados Visuais**: Idle, Loading, Success, Error, Critical Error
+- ⏰ **Intervalo Configurável**: Controle do tempo entre sincronizações
+- 🎨 **Cores Semânticas**: Segue paleta do GovBR-DS (primary, success, error, grey)
+- 🔧 **Gerenciamento de Erro**: Contador de falhas com desativação automática
+- 📏 **Tamanhos Responsivos**: Small, Medium, Large do sistema MUI/GovBR
+- 💡 **Tooltip Informativo**: Instruções claras sobre estado atual
         `,
       },
     },
@@ -68,111 +69,181 @@ Componente de sincronização automática que segue as diretrizes visuais do Gov
 }
 
 export default meta
-type Story = StoryObj<typeof AutoSyncButton>
-
-// Mock function para simular sincronização
-const mockSync = async (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const isSuccess = Math.random() > 0.3 // 70% de chance de sucesso
-    setTimeout(() => {
-      if (isSuccess) {
-        resolve()
-      } else {
-        reject(new Error('Erro de sincronização simulado'))
-      }
-    }, 1000)
-  })
-}
+type Story = StoryObj<typeof AutoSync>
 
 export const Default: Story = {
   args: {
-    onSync: mockSync,
-    size: 'medium',
-    syncInterval: 10000,
-    maxErrorCount: 3,
-    syncAnimationDuration: 2000,
-    successDuration: 2000,
-    errorDuration: 2000,
+    onSync: async () => {
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000))
+    },
+    syncInterval: 10000, // 10 segundos para demonstração
     tooltipEnabled: true,
-    disabled: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Componente de sincronização automática com configuração padrão',
+      },
+    },
   },
 }
 
-export const Small: Story = {
-  args: {
-    ...Default.args,
-    size: 'small',
+export const AllSizes: Story = {
+  render: function AllSizesDemo() {
+    const handleSync = async () => {
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000))
+    }
+
+    return (
+      <Stack spacing={2} direction="row" alignItems="center">
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Small
+          </Typography>
+          <AutoSync size="small" onSync={handleSync} syncInterval={15000} />
+        </Box>
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Medium
+          </Typography>
+          <AutoSync size="medium" onSync={handleSync} syncInterval={15000} />
+        </Box>
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Large
+          </Typography>
+          <AutoSync size="large" onSync={handleSync} syncInterval={15000} />
+        </Box>
+      </Stack>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstração dos três tamanhos disponíveis do componente',
+      },
+    },
   },
 }
 
-export const Large: Story = {
-  args: {
-    ...Default.args,
-    size: 'large',
+export const WithSuccessSimulation: Story = {
+  render: function SuccessSimulation() {
+    const [successes, setSuccesses] = React.useState(0)
+
+    const handleSyncSuccess = async () => {
+      setSuccesses((prev) => prev + 1)
+      // Simula sempre sucesso
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 800))
+    }
+
+    return (
+      <Box>
+        <Typography variant="body2" gutterBottom>
+          Sincronizações bem-sucedidas: {successes}
+        </Typography>
+        <AutoSync onSync={handleSyncSuccess} syncInterval={5000} tooltipEnabled={true} />
+      </Box>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstra comportamento com sincronizações sempre bem-sucedidas',
+      },
+    },
   },
 }
 
-export const Disabled: Story = {
+export const WithErrorSimulation: Story = {
+  render: function ErrorSimulation() {
+    const [attempts, setAttempts] = React.useState(0)
+
+    const handleSyncWithError = async () => {
+      setAttempts((prev) => prev + 1)
+      // Simula erro nas primeiras tentativas
+      await new Promise<void>((resolve, reject) => {
+        setTimeout(() => {
+          if (attempts < 2) {
+            reject(new Error('Erro simulado de sincronização'))
+          } else {
+            resolve()
+          }
+        }, 800)
+      })
+    }
+
+    return (
+      <Box>
+        <Typography variant="body2" gutterBottom>
+          Tentativas de sincronização: {attempts}
+        </Typography>
+        <AutoSync
+          onSync={handleSyncWithError}
+          syncInterval={6000}
+          maxErrorCount={3}
+          tooltipEnabled={true}
+        />
+      </Box>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstra comportamento com erros de sincronização e recuperação',
+      },
+    },
+  },
+}
+
+export const DisabledState: Story = {
   args: {
-    ...Default.args,
+    onSync: async () => {
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000))
+    },
     disabled: true,
+    tooltipEnabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Estado desabilitado - sincronização completamente inativa',
+      },
+    },
+  },
+}
+
+export const WithoutTooltip: Story = {
+  args: {
+    onSync: async () => {
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000))
+    },
+    tooltipEnabled: false,
+    syncInterval: 8000,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Componente sem tooltip para interfaces mais limpas',
+      },
+    },
   },
 }
 
 export const FastSync: Story = {
   args: {
-    ...Default.args,
-    syncInterval: 3000,
+    onSync: async () => {
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 500))
+    },
+    syncInterval: 3000, // 3 segundos - muito rápido para demonstração
     syncAnimationDuration: 1000,
-    successDuration: 1000,
-    errorDuration: 1000,
+    successDuration: 1500,
+    tooltipEnabled: true,
   },
-}
-
-export const AllSizes: Story = {
-  render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Small (32px)
-        </Typography>
-        <AutoSyncButton size="small" onSync={mockSync} />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Medium (40px)
-        </Typography>
-        <AutoSyncButton size="medium" onSync={mockSync} />
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="body2" gutterBottom>
-          Large (48px)
-        </Typography>
-        <AutoSyncButton size="large" onSync={mockSync} />
-      </Box>
-    </Stack>
-  ),
-}
-
-export const IntegrationExample: Story = {
-  render: () => (
-    <Paper elevation={1} sx={{ p: 3, maxWidth: 400 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-        <Box>
-          <Typography variant="h6">Dashboard da ANPD</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Dados atualizados automaticamente
-          </Typography>
-        </Box>
-        <AutoSyncButton onSync={mockSync} size="small" tooltipEnabled />
-      </Stack>
-    </Paper>
-  ),
-}
-
-export const WithoutTooltips: Story = {
-  args: {
-    ...Default.args,
-    tooltipEnabled: false,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Sincronização rápida com intervalos curtos para demonstração',
+      },
+    },
   },
 }

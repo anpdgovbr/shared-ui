@@ -11,7 +11,7 @@ describe('GovBRInput', () => {
   it('should render the input with label', () => {
     render(<GovBRInput id="test-input" label="Nome completo" placeholder="Digite seu nome" />)
 
-    const labelElement = screen.getByText('Nome completo')
+    const labelElement = screen.getByLabelText('Nome completo')
     const inputElement = screen.getByPlaceholderText('Digite seu nome')
 
     expect(labelElement).toBeInTheDocument()
