@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useForm } from 'react-hook-form'
+
 import { GovBRFormCheckbox } from './index'
 
 const meta: Meta<typeof GovBRFormCheckbox> = {
@@ -53,7 +54,7 @@ const meta: Meta<typeof GovBRFormCheckbox> = {
       control: 'boolean',
       description: 'Oculta visualmente o label mantendo acessibilidade para leitores de tela',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-checkbox)',
     },

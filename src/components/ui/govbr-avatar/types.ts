@@ -1,7 +1,7 @@
-import type { AvatarProps } from '@mui/material/Avatar'
-import { GovBRSize, GovBRColor } from '@govbr-types/GovBRTypes'
-import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
 import { GovBRMenuItem, GovBRNavigationCallback } from '@govbr-types/CommonTypes'
+import { GovBRColor, GovBRSize } from '@govbr-types/GovBRTypes'
+import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
+import type { AvatarProps } from '@mui/material/Avatar'
 
 /**
  * Define a estrutura de um item individual do menu do avatar.

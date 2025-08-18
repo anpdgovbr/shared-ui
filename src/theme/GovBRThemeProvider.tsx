@@ -1,8 +1,8 @@
 // src/theme/GovBRThemeProvider.tsx
-import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
 
-import { createContext, useContext, useMemo, useState, PropsWithChildren } from 'react'
 import { govbrTheme } from './govbrTheme'
 
 type Mode = 'theme' | 'css'

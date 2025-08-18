@@ -1,10 +1,11 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { GovBRBreadcrumb } from './index'
+import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import React from 'react'
+
+import { GovBRBreadcrumb } from './index'
 
 const meta: Meta<typeof GovBRBreadcrumb> = {
   title: 'Components/GovBRBreadcrumb',
@@ -33,7 +34,7 @@ const meta: Meta<typeof GovBRBreadcrumb> = {
       control: 'text',
       description: 'Classes CSS customizadas para estilização adicional',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-breadcrumb)',
     },
@@ -97,7 +98,7 @@ export const WithStrictGovBr: Story = {
       { label: 'Proteção de Dados', href: '/anpd/servicos/protecao' },
       { label: 'Consultar Processos' },
     ],
-    strictGovBr: true,
+    strictgovbr: true,
     onNavigate: mockNavigate,
   },
   parameters: {
@@ -176,7 +177,7 @@ export const ANPDPortalExample: Story = {
             { label: 'Denúncias', href: '/cidadao/denuncias' },
             { label: 'Nova Denúncia' },
           ]}
-          strictGovBr
+          strictgovbr
           onNavigate={mockNavigate}
         />
       </Paper>
@@ -192,7 +193,7 @@ export const ANPDPortalExample: Story = {
             { label: 'Relatórios de Impacto', href: '/empresas/relatorios' },
             { label: 'Submeter DPIA' },
           ]}
-          strictGovBr
+          strictgovbr
           onNavigate={mockNavigate}
         />
       </Paper>
@@ -209,7 +210,7 @@ export const ANPDPortalExample: Story = {
             { label: 'LGPD', href: '/institucional/legislacao/lgpd' },
             { label: 'Artigo 46' },
           ]}
-          strictGovBr
+          strictgovbr
           onNavigate={mockNavigate}
         />
       </Paper>

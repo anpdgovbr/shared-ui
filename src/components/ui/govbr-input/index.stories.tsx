@@ -2,6 +2,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import SearchIcon from '@mui/icons-material/Search'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+
 import { GovBRInput } from './index'
 
 const meta: Meta<typeof GovBRInput> = {
@@ -41,7 +42,7 @@ const meta: Meta<typeof GovBRInput> = {
       control: 'boolean',
       description: 'Aplica destaque visual no input',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplicar estilos estritamente compatíveis com govbr-ds',
     },

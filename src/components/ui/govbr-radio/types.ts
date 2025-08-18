@@ -1,4 +1,5 @@
 import type { ButtonProps } from '@mui/material/Button'
+
 import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
 
 /**

@@ -14,7 +14,7 @@ export interface SharedUIComponentProps {
    *
    * @default false
    */
-  strictGovBr?: boolean
+  strictgovbr?: boolean
 }
 
 /**

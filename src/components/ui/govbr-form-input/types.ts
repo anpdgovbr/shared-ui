@@ -1,4 +1,5 @@
-import type { FieldValues, FieldPath, Control, RegisterOptions } from 'react-hook-form'
+import type { Control, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form'
+
 import type { GovBRInputProps } from '../govbr-input/types'
 
 export interface GovBRFormInputProps<

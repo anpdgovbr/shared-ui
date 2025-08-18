@@ -1,3 +1,4 @@
+'use client'
 // Componente de sincronização automática com visual adaptado ao GovBR-DS
 // - Usa cores semânticas do tema (success, error, primary, grey)
 // - Aplica padrão de foco do GovBR (outline dashed dourado)
@@ -10,9 +11,10 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import SyncIcon from '@mui/icons-material/Sync'
 import SyncDisabledIcon from '@mui/icons-material/SyncDisabled'
 import IconButton from '@mui/material/IconButton'
+import { keyframes, useTheme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
-import { useTheme, keyframes } from '@mui/material/styles'
 import { useCallback, useEffect, useState } from 'react'
+
 import type { AutoSyncButtonProps } from './types'
 
 export function AutoSyncButton<T = unknown>({

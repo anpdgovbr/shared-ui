@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { GovBRCheckbox } from './index'
 import { GovBRThemeProvider } from '../../../theme/GovBRThemeProvider'
+import { GovBRCheckbox } from './index'
 
 const meta: Meta<typeof GovBRCheckbox> = {
   title: 'Components/GovBRCheckbox',
@@ -42,7 +42,7 @@ const meta: Meta<typeof GovBRCheckbox> = {
       control: 'boolean',
       description: 'Define se o checkbox está marcado',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplicar estilos estritamente compatíveis com govbr-ds',
     },

@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useForm } from 'react-hook-form'
+
 import { GovBRFormInput } from './index'
 
 const meta: Meta<typeof GovBRFormInput> = {
@@ -71,7 +72,7 @@ const meta: Meta<typeof GovBRFormInput> = {
       control: 'boolean',
       description: 'Destaca visualmente o campo com bordas mais evidentes',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-input)',
     },

@@ -1,9 +1,10 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import type { Meta, StoryObj } from '@storybook/react'
+import React from 'react'
+
 import { AutoSyncButton } from './index'
 
 const meta: Meta<typeof AutoSyncButton> = {

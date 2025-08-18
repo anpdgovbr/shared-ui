@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+
 import { GovBRSignIn } from './index'
 
 const meta: Meta<typeof GovBRSignIn> = {
@@ -54,7 +55,7 @@ const meta: Meta<typeof GovBRSignIn> = {
       control: 'text',
       description: 'URL customizada para o ícone ou imagem do gov.br',
     },
-    strictGovBr: {
+    strictgovbr: {
       control: 'boolean',
       description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-sign-in)',
     },

@@ -1,7 +1,9 @@
-import React from 'react'
+'use client'
+import { mapMuiColorToGovbrClass } from '@helpers/muiColorToGovbrClass'
 import Button from '@mui/material/Button'
 import classNames from 'classnames'
-import { mapMuiColorToGovbrClass } from '@helpers/muiColorToGovbrClass'
+import React from 'react'
+
 import type { GovBRButtonProps } from './types'
 
 /**

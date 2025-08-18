@@ -1,9 +1,10 @@
-import React from 'react'
+'use client'
+import { iconMap } from '@helpers/iconMap'
 import Stack from '@mui/material/Stack'
 import classNames from 'classnames'
-import { Controller } from 'react-hook-form'
 import type { FieldPath, FieldValues } from 'react-hook-form'
-import { iconMap } from '@helpers/iconMap'
+import { Controller } from 'react-hook-form'
+
 import { GovBRCheckbox } from '../govbr-checkbox'
 import type { GovBRFormCheckboxProps } from './types'
 
