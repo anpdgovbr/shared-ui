@@ -118,7 +118,7 @@ export const typography: TypographyVariantsOptions & {
     fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
     fontWeight: 'var(--font-weight-regular, 400)', // 400
     lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
-    marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
+    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   body2: {
