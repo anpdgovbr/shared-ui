@@ -1,3 +1,4 @@
+'use client'
 // src/theme/GovBRThemeProvider.tsx
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
