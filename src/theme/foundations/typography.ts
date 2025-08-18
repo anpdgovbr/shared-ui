@@ -105,7 +105,7 @@ export const typography: TypographyVariantsOptions & {
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
     marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
     marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
-    paddingBottom: 'var(--spacing-scale-base, 1rem)', // 0.571rem
+    paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem
     textTransform: 'uppercase',
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (min-width:576px)': {
