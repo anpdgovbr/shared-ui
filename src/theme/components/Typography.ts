@@ -20,7 +20,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
 
         '&:hover': {
           color: muiPalette.primary.dark, // #0c326f
-          backgroundColor: muiPalette.primary.light, // #5992ed
         },
       },
     },
