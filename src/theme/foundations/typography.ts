@@ -103,7 +103,7 @@ export const typography: TypographyVariantsOptions & {
     fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem (11.662px)
     fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
+    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
     marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
     paddingBottom: 'var(--spacing-scale-base, 1rem)', // 0.571rem
     textTransform: 'uppercase',
