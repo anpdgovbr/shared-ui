@@ -1,10 +1,11 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { GovBRBreadcrumb } from './index'
+import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import React from 'react'
+
+import { GovBRBreadcrumb } from './index'
 
 const meta: Meta<typeof GovBRBreadcrumb> = {
   title: 'Components/GovBRBreadcrumb',

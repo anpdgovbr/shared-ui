@@ -1,13 +1,14 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SaveIcon from '@mui/icons-material/Save'
-import { GovBRButton } from './index'
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import React from 'react'
+
+import { GovBRButton } from './index'
 
 const meta: Meta<typeof GovBRButton> = {
   title: 'Components/GovBRButton',

@@ -9,9 +9,9 @@ import {
   GovBRBreadcrumb,
   GovBRButton,
   GovBRCheckbox,
-  GovBRInput,
-  GovBRFormInput,
   GovBRFormCheckbox,
+  GovBRFormInput,
+  GovBRInput,
   GovBRRadio,
   GovBRSignIn,
 } from '@anpdgovbr/shared-ui'

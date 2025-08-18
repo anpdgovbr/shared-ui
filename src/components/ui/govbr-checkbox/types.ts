@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
+
 import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
 
 export interface GovBRCheckboxProps

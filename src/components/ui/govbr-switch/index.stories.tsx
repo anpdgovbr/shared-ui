@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
+
 import { GovBRSwitch } from './index'
 import type { GovBRSwitchProps } from './types'
 

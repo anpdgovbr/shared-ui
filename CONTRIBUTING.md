@@ -56,8 +56,6 @@ src/components/ui/nome-do-componente/
 
 ---
 
----
-
 ## ✅ Checklist antes de abrir o PR
 
 ### 🏗️ Estrutura e Código
@@ -73,6 +71,7 @@ src/components/ui/nome-do-componente/
 - [ ] Foi criado **Storybook** representando os estados do componente
 - [ ] Stories incluem `tags: ['autodocs']` para documentação automática
 - [ ] Casos de uso com `strictGovBr=true` e `false` documentados
+- [ ] Comentários JSDoc adequados para futura integração com TypeDocs
 
 ### 🧪 Qualidade
 
@@ -90,9 +89,68 @@ src/components/ui/nome-do-componente/
 
 ---
 
+## 📦 Peer dependencies e gerenciamento de dependências
+
+Esta biblioteca declara dependências como _peerDependencies_ para que o projeto consumidor controle as versões principais de runtime (React, MUI e GovBR-DS). Antes de instalar/atualizar dependências, siga este fluxo:
+
+- Mantenha `package-lock.json` versionado — o CI usa `npm ci`.
+- Ao atualizar/instalar dependências localmente, atualize `package.json` e `package-lock.json` e commit ambos.
+- Dependências recomendadas que o consumidor deve instalar:
+  - `react@^19`
+  - `react-dom@^19`
+  - `@mui/material@^7`
+  - `@mui/icons-material@^7`
+  - `@emotion/react@^11`
+  - `@emotion/styled@^11`
+  - `react-hook-form@^7`
+  - `@govbr-ds/core@^3`
+
+Exemplo de instalação no projeto consumidor:
+
+```bash
+npm install react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
+	@emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+```
+
+Se precisar forçar uma mudança no `package-lock.json`, siga este processo:
+
+1. Atualize dependências localmente com `npm install`.
+2. Rode `npm run check` e `npm run build` para validar.
+3. Commit `package.json` e `package-lock.json` juntos com uma mensagem clara (ex: `chore(deps): upgrade MUI to 7.x`).
+
+Se houver dúvidas sobre ranges compatíveis do `@govbr-ds/core`, prefira usar `^3.0.0` para aceitar compatibilidade com qualquer 3.x; se necessitar um mínimo absoluto (ex.: recursos adicionados em 3.6.2), utilize `^3.6.2`.
+
+---
+
 ## 🧪 Testes
 
-Estamos estruturando testes automatizados gradualmente. Sempre que possível, adicione testes ao seu componente usando `jest` + `@testing-library/react`.
+Todos os componentes devem ter testes automatizados. Estamos usando `vitest` e `@testing-library/react` para os testes.
+
+- **Testes de Renderização:** Verificam se o componente renderiza corretamente sem quebrar.
+- **Testes de Funcionalidade:** Verificam o comportamento do componente (ex: cliques, eventos).
+- **Testes de Snapshot:** Verificam se a estrutura do componente não foi alterada inesperadamente.
+
+### `'use client';`
+
+Todos os componentes de UI devem ser marcados com a diretiva `'use client';` no topo do arquivo. Isso garante que eles sejam renderizados apenas no cliente, o que é essencial para a compatibilidade com frameworks de renderização do lado do servidor (SSR) como o Next.js.
+
+---
+
+## 🧼 Linting
+
+O projeto usa `eslint` e `prettier` para garantir a qualidade e a consistência do código. As regras de lint são executadas automaticamente antes de cada commit e push.
+
+Para executar o linter manualmente, use o comando:
+
+```bash
+npm run lint
+```
+
+Para corrigir os erros de lint automaticamente, use o comando:
+
+```bash
+npm run lint -- --fix
+```
 
 ---
 
@@ -101,8 +159,9 @@ Estamos estruturando testes automatizados gradualmente. Sempre que possível, ad
 - Nomeie o PR de forma clara e objetiva, por exemplo:
 
 ```
-feat: adiciona componente GovBRBadge
-fix: corrige alinhamento do GovBRCard
+feat: adiciona componente govbr-badge
+fix: corrige alinhamento do govbr-card
+docs: atualiza exemplos de uso
 ```
 
 - Vincule a issue correspondente (se houver) usando `Closes #num`.

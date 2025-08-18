@@ -13,9 +13,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
+<<<<<<< HEAD
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit"
+=======
+    "source.fixAll.eslint": "explicit"
+>>>>>>> fd1b796846e1862f5aac14e06349eb6b73e8b6ad
   },
+  "editor.organizeImports": false,
   "editor.quickSuggestions": {
     "strings": true,
     "comments": false,
@@ -24,6 +29,7 @@
   "editor.snippetSuggestions": "top",
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": "matchingDocuments",
+<<<<<<< HEAD
   "cSpell.language": "pt-BR,en",
   "cSpell.dictionaries": ["pt-BR"],
   "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
@@ -39,9 +45,11 @@
     "shadcn",
     "spreadsheetml"
   ],
+=======
+>>>>>>> fd1b796846e1862f5aac14e06349eb6b73e8b6ad
   "files.exclude": {
     "**/dist": true,
-    "**/types": true,
+    "types": true,
     "**/node_modules": true
   },
   "prettier.prettierPath": "./node_modules/prettier"

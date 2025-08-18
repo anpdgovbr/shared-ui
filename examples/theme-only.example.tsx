@@ -1,13 +1,12 @@
 // Exemplos de uso apenas do tema GovBR
+// ✅ Importação apenas do tema
+import { govbrTheme, GovBRThemeProvider } from '@anpdgovbr/shared-ui'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-
-// ✅ Importação apenas do tema
-import { govbrTheme, GovBRThemeProvider } from '@anpdgovbr/shared-ui'
 
 // Exemplo 1: Usando o GovBRThemeProvider (recomendado)
 export const ExemploComThemeProvider = () => {

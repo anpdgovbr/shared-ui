@@ -13,10 +13,12 @@
 ## 📚 Documentação
 
 - 📖 **[Storybook - Documentação Interativa](http://localhost:6006)** - Visualizar componentes
+- 🎨 **[Como Usar o Tema](./docs/COMO_USAR_TEMA.md)** - Guia completo para usar o tema GovBR
 - 📝 **[Adicionar Componente](./docs/ADICIONAR_COMPONENTE.md)** - Guia para criar novos componentes
 - 🔄 **[Guia de Migração](./docs/GUIA_MIGRACAO.md)** - Migrar componentes existentes
 - 🚨 **[Como Contribuir](./CONTRIBUTING.md)** - Processo de contribuição detalhado
 - 📊 **[CHANGELOG](./CHANGELOG.md)** - Histórico de mudanças
+- 📋 **[Exemplos de Uso](./examples/)** - Exemplos práticos de implementação
 
 ---
 
@@ -155,6 +157,31 @@ function MyForm() {
 ```
 
 > **Nota:** O projeto consumidor deve declarar `react`, `@mui/material`, `@mui/icons-material` e `react-hook-form` como dependências.
+
+### ⚠️ Peer dependencies (recomendado)
+
+Como esta biblioteca fornece componentes React baseados em MUI e no GovBR-DS, algumas dependências são esperadas no projeto consumidor. Recomendamos que o projeto consumidor instale as seguintes dependências (ranges compatíveis):
+
+- `react@^19.0.0`
+- `react-dom@^19.0.0`
+- `@mui/material@^7.0.0`
+- `@mui/icons-material@^7.0.0`
+- `@emotion/react@^11.0.0`
+- `@emotion/styled@^11.0.0`
+- `react-hook-form@^7.0.0`
+- `@govbr-ds/core@^3.0.0`
+
+Exemplo de instalação (projeto consumidor):
+
+```bash
+npm install react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
+  @emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+```
+
+Observações:
+
+- `@emotion/*` e `@govbr-ds/core` são recomendadas como peerDependencies para evitar múltiplas instâncias e conflitos de CSS-in-JS no runtime do consumidor.
+- Ajuste o range do `@govbr-ds/core` se o seu projeto exigir uma versão mínima específica (por exemplo `^3.6.2`).
 
 ---
 
