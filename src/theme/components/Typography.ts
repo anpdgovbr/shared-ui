@@ -26,7 +26,7 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
 
     // Display (títulos muito grandes)
     h1: {
-      fontSize: 'var(--font-size-scale-up-05, 2.074rem)', // 2.074rem (33.2px)
+      fontSize: 'var(--font-size-scale-up-04, 2.074rem)', // 2.074rem (33.2px)
       fontWeight: 'var(--font-weight-bold, 700)', // 700
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
       letterSpacing: 'var(--font-letter-spacing-tight, -0.02em)', // -0.02em
