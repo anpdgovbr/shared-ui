@@ -20,14 +20,13 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
 
         '&:hover': {
           color: muiPalette.primary.dark, // #0c326f
-          backgroundColor: muiPalette.primary.light, // #5992ed
         },
       },
     },
 
     // Display (títulos muito grandes)
     h1: {
-      fontSize: 'var(--font-size-scale-up-05, 2.074rem)', // 2.074rem (33.2px)
+      fontSize: 'var(--font-size-scale-up-04, 2.074rem)', // 2.074rem (33.2px)
       fontWeight: 'var(--font-weight-bold, 700)', // 700
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
       letterSpacing: 'var(--font-letter-spacing-tight, -0.02em)', // -0.02em

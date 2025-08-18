@@ -21,7 +21,7 @@ export const cssVariableToHex = {
   'var(--gray-10, #eeeeee)': govbrColors.gray[20], // #eeeeee
   'var(--gray-20, #cccccc)': govbrColors.gray[40], // #cccccc
   'var(--gray-40, #999999)': govbrColors.gray[50], // #999999
-  'var(--gray-60, #777777)': govbrColors.gray[60], // #757575
+  'var(--gray-60, #757575)': govbrColors.gray[60], // #757575
   'var(--gray-70, #666666)': govbrColors.gray[70], // #666666
   'var(--gray-80, #333333)': govbrColors.gray[80], // #333333
 

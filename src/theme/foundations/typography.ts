@@ -76,7 +76,7 @@ export const typography: TypographyVariantsOptions & {
     fontWeight: 'var(--font-weight-bold, 700)', // 700
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
     marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
-    marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem (16px)
+    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem (16px)
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (min-width:576px)': {
       fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // 1.728rem
@@ -88,9 +88,9 @@ export const typography: TypographyVariantsOptions & {
     fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
     fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
-    marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
-    paddingBottom: 'var(--spacing-scale-base, 1rem)', // 0.571rem (8px)
+    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
+    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
+    paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem (8px)
     textTransform: 'uppercase',
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (min-width:576px)': {
@@ -100,12 +100,12 @@ export const typography: TypographyVariantsOptions & {
     },
   },
   h6: {
-    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem (11.662px)
+    fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem (11.662px)
     fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
-    marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
-    paddingBottom: 'var(--spacing-scale-base, 1rem)', // 0.571rem
+    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
+    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
+    paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem
     textTransform: 'uppercase',
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (min-width:576px)': {
@@ -118,7 +118,7 @@ export const typography: TypographyVariantsOptions & {
     fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
     fontWeight: 'var(--font-weight-regular, 400)', // 400
     lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
-    marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
+    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   body2: {

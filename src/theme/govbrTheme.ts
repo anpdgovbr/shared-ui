@@ -85,7 +85,10 @@ export const govbrTheme: Theme = createTheme({
 
   // Configurações adicionais
   shape: {
-    borderRadius: 4, // Valor direto em vez de CSS variable para evitar erros no MUI
+    // O Theme.shape.borderRadius espera um número. `surfaceRounders` não existe aqui,
+    // então usamos um fallback numérico. Para aplicar tokens do Gov.br DS use
+    // 'var(--surface-rounder-*)' dentro dos styleOverrides dos componentes.
+    borderRadius: 8,
   },
 
   transitions: {
