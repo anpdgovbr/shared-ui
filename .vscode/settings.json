@@ -29,24 +29,6 @@
   "editor.snippetSuggestions": "top",
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": "matchingDocuments",
-<<<<<<< HEAD
-  "cSpell.language": "pt-BR,en",
-  "cSpell.dictionaries": ["pt-BR"],
-  "cSpell.enableFiletypes": ["typescript", "typescriptreact", "javascript", "markdown"],
-  "cSpell.words": [
-    "ANPD",
-    "anpdgovbr",
-    "autodocs",
-    "govbr",
-    "MIGRACAO",
-    "officedocument",
-    "openxmlformats",
-    "sead",
-    "shadcn",
-    "spreadsheetml"
-  ],
-=======
->>>>>>> fd1b796846e1862f5aac14e06349eb6b73e8b6ad
   "files.exclude": {
     "**/dist": true,
     "types": true,
