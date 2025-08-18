@@ -1,3 +1,4 @@
+import Typography from '@mui/material/Typography'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs, { Dayjs } from 'dayjs'
@@ -13,13 +14,20 @@ export function GovBRDateTimePicker({ type, label }: Readonly<GovBRDateTimePicke
   const PickerComponent = pickerMap[type]
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+      <Typography sx={{ marginBottom: 0, fontWeight: 'bold' }}>{label}</Typography>
       <PickerComponent
-        label={label}
         value={value}
         onChange={(newValue: Dayjs) => setValue(newValue)}
         slotProps={{
-          '& .MuiInputLabel-root': {
-            color: 'warning.main',
+          textField: {
+            sx: {
+              '& .MuiPickersInputBase-root': {
+                height: '40px',
+              },
+              'MuiPickersOutlinedInput-notchedOutline': {
+                borderColor: 'redii',
+              },
+            },
           },
         }}
       />
