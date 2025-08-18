@@ -89,7 +89,7 @@ export const typography: TypographyVariantsOptions & {
     fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
     marginBottom: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
-    marginTop: 'var(--spacing-scale-2x, 2rem)', // 1.142rem
+    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
     paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem (8px)
     textTransform: 'uppercase',
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
