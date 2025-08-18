@@ -85,7 +85,7 @@ export const govbrTheme: Theme = createTheme({
 
   // Configurações adicionais
   shape: {
-    borderRadius: 4, // Valor direto em vez de CSS variable para evitar erros no MUI
+    borderRadius: surfaceRounders.sm, // Usar token do design system para consistência
   },
 
   transitions: {
