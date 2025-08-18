@@ -100,7 +100,7 @@ export const typography: TypographyVariantsOptions & {
     },
   },
   h6: {
-    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem (11.662px)
+    fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem (11.662px)
     fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
     lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
     marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
