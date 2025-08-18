@@ -19,7 +19,7 @@ export const createSpacing = () => {
     1.5: 'var(--spacing-scale-1xh, 0.75rem)', // 0.857rem (12px)
     2: 'var(--spacing-scale-2x, 2rem)', // 1.142rem (16px)
     2.5: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem (24px)
-    3: 'var(--spacing-scale-3x, 3rem)', // 1.714rem (24px) - mesmo valor que 2xh
+    3: 'var(--spacing-scale-3x, 1.714rem)', // 1.714rem (24px) - mesmo valor que 2xh
     3.5: 'var(--spacing-scale-3xh, 2rem)', // 2rem (28px)
     4: 'var(--spacing-scale-4x, 2.857rem)', // 2.286rem (32px)
     5: 'var(--spacing-scale-5x, 2.857rem)', // 2.857rem (40px)
