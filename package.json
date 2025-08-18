@@ -1,6 +1,6 @@
 {
   "name": "@anpdgovbr/shared-ui",
-  "version": "0.2.2-beta.1",
+  "version": "0.2.2-beta.2",
   "description": "Biblioteca de componentes React com MUI v7 e padrão govbr-ds para ANPD",
   "keywords": [
     "react",
@@ -29,7 +29,7 @@
       "url": "https://github.com/orgs/anpdgovbr/people"
     }
   ],
-  "license": "MIT",
+  "license": "ISC",
   "type": "module",
   "main": "./dist/shared-ui.cjs.js",
   "module": "./dist/shared-ui.es.js",
@@ -87,6 +87,10 @@
     "email": "desenvolvimento@anpd.gov.br"
   },
   "homepage": "https://github.com/anpdgovbr/shared-ui#readme",
+  "funding": {
+    "type": "government",
+    "url": "https://gov.br/anpd"
+  },
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
@@ -94,7 +98,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
-    "@govbr-ds/core": "^3.0.0",
+    "@govbr-ds/core": "^3.6.2",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
     "react": "^19.0.0",
@@ -106,13 +110,13 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
     "@eslint/js": "^9.33.0",
-    "@govbr-ds/core": "^3.6.2",
+    "@govbr-ds/core": "^3.0.0",
     "@hookform/resolvers": "^5.2.1",
-    "@mui/icons-material": "^7.3.1",
-    "@mui/material": "^7.3.1",
+    "@mui/icons-material": "^7.0.0",
+    "@mui/material": "^7.0.0",
     "@storybook/addon-a11y": "^9.1.2",
     "@storybook/addon-docs": "^9.1.2",
     "@storybook/addon-onboarding": "^9.1.2",
@@ -132,7 +136,7 @@
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^9.1.2",
     "globals": "^16.3.0",
     "husky": "^9.1.7",

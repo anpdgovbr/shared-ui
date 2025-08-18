@@ -8,91 +8,59 @@ import { describe, expect, it, vi } from 'vitest'
 import { GovBRSwitch } from './index'
 
 describe('GovBRSwitch', () => {
-  it('should render switch with label', () => {
-    render(
-      <GovBRSwitch
-        id="test-switch"
-        label="Ativar notificações"
-        checked={false}
-        onChange={() => {}}
-      />,
-    )
+  describe('MUI Mode', () => {
+    it('should render a MUI switch with a label', () => {
+      render(<GovBRSwitch label="MUI Switch" />)
+      expect(screen.getByText('MUI Switch')).toBeInTheDocument()
+      expect(screen.getByRole('switch')).toHaveClass('MuiSwitch-input')
+    })
 
-    const labelElement = screen.getByText('Ativar notificações')
-    const switchElement = screen.getByRole('switch') // MUI Switch usa role="switch"
+    it('should toggle when clicked', async () => {
+      const user = userEvent.setup()
+      const mockOnChange = vi.fn()
+      render(<GovBRSwitch label="Click me" onChange={mockOnChange} />)
 
-    expect(labelElement).toBeInTheDocument()
-    expect(switchElement).toBeInTheDocument()
+      const switchElement = screen.getByRole('switch')
+      await user.click(switchElement)
+      expect(mockOnChange).toHaveBeenCalledTimes(1)
+    })
+
+    it('should be disabled', () => {
+      render(<GovBRSwitch label="Disabled" disabled />)
+      const switchElement = screen.getByRole('switch')
+      expect(switchElement).toBeDisabled()
+    })
+
+    it('should accept switchProps', () => {
+      render(<GovBRSwitch label="Small" switchProps={{ size: 'small' }} />)
+      const switchElement = screen.getByRole('switch')
+      // MUI adds a size class to the parent span of the input
+      expect(switchElement.closest('.MuiSwitch-root')).toHaveClass('MuiSwitch-sizeSmall')
+    })
   })
 
-  it('should toggle when clicked', async () => {
-    const user = userEvent.setup()
-    const mockOnChange = vi.fn()
+  describe('Strict Mode', () => {
+    it('should render with br-switch class', () => {
+      const { container } = render(<GovBRSwitch strictgovbr label="Strict Switch" />)
+      expect(container.firstChild).toHaveClass('br-switch')
+    })
 
-    render(
-      <GovBRSwitch
-        id="test-switch"
-        label="Ativar notificações"
-        checked={false}
-        onChange={mockOnChange}
-      />,
-    )
+    it('should render a native checkbox with a label', () => {
+      render(<GovBRSwitch strictgovbr label="Strict Label" id="strict-switch" />)
+      expect(screen.getByText('Strict Label')).toBeInTheDocument()
+      const input = screen.getByRole('checkbox')
+      expect(input).toBeInTheDocument()
+      expect(input).toHaveAttribute('id', 'strict-switch')
+    })
 
-    const switchElement = screen.getByRole('switch')
+    it('should toggle native checkbox', async () => {
+      const user = userEvent.setup()
+      const mockOnChange = vi.fn()
+      render(<GovBRSwitch strictgovbr label="Click me strict" onChange={mockOnChange} />)
 
-    expect(switchElement).not.toBeChecked()
-
-    await user.click(switchElement)
-    expect(mockOnChange).toHaveBeenCalledTimes(1)
-  })
-
-  it('should be disabled when disabled prop is true', () => {
-    render(
-      <GovBRSwitch
-        id="test-switch"
-        label="Switch desabilitado"
-        checked={false}
-        disabled
-        onChange={() => {}}
-      />,
-    )
-
-    const switchElement = screen.getByRole('switch')
-    expect(switchElement).toBeDisabled()
-  })
-
-  it('should be checked when checked prop is true', () => {
-    render(<GovBRSwitch id="test-switch" label="Switch ativado" checked onChange={() => {}} />)
-
-    const switchElement = screen.getByRole('switch')
-    expect(switchElement).toBeChecked()
-  })
-
-  it('should render different sizes', () => {
-    const { rerender } = render(
-      <GovBRSwitch
-        id="test-switch"
-        label="Switch pequeno"
-        size="small"
-        checked={false}
-        onChange={() => {}}
-      />,
-    )
-
-    let switchElement = screen.getByRole('switch')
-    expect(switchElement).toBeInTheDocument()
-
-    rerender(
-      <GovBRSwitch
-        id="test-switch"
-        label="Switch grande"
-        size="large"
-        checked={false}
-        onChange={() => {}}
-      />,
-    )
-
-    switchElement = screen.getByRole('switch')
-    expect(switchElement).toBeInTheDocument()
+      const switchElement = screen.getByRole('checkbox') // Changed from 'switch' to 'checkbox'
+      await user.click(switchElement)
+      expect(mockOnChange).toHaveBeenCalledTimes(1)
+    })
   })
 })

@@ -1,342 +1,145 @@
-# 📦 shared-ui
+# 📦 ANPD Shared UI
 
-> Biblioteca de componentes React com MUI v7 e padrão GovBR-DS para a ANPD.
+> Biblioteca de componentes React com MUI e padrão Gov.br para a ANPD.
 
 ![CI](https://github.com/anpdgovbr/shared-ui/actions/workflows/ci.yml/badge.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-ISC-blue.svg)
 ![Node Version](https://img.shields.io/badge/node-20%2B-brightgreen)
-![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-blue)
-![Storybook](https://img.shields.io/badge/docs-Storybook-orange)
 
 ---
 
-## 📚 Documentação
+## Sobre o Projeto
 
-- 📖 **[Storybook - Documentação Interativa](http://localhost:6006)** - Visualizar componentes
-- 🎨 **[Como Usar o Tema](./docs/COMO_USAR_TEMA.md)** - Guia completo para usar o tema GovBR
-- 📝 **[Adicionar Componente](./docs/ADICIONAR_COMPONENTE.md)** - Guia para criar novos componentes
-- 🔄 **[Guia de Migração](./docs/GUIA_MIGRACAO.md)** - Migrar componentes existentes
-- 🚨 **[Como Contribuir](./CONTRIBUTING.md)** - Processo de contribuição detalhado
-- 📊 **[CHANGELOG](./CHANGELOG.md)** - Histórico de mudanças
-- 📋 **[Exemplos de Uso](./examples/)** - Exemplos práticos de implementação
+O `shared-ui` é uma **biblioteca de componentes compartilháveis da ANPD**, construída com React, TypeScript e Material-UI (MUI), seguindo os padrões visuais do **Gov.br Design System**.
 
----
+### 🎯 Objetivo Principal
 
-## 🚀 Sobre o Projeto
+Centralizar e padronizar componentes de interface para todos os projetos da ANPD, garantindo:
 
-O `shared-ui` é uma biblioteca de componentes de interface de usuário (UI) modular e escalável, construída para padronizar e acelerar o desenvolvimento de aplicações front-end na Autoridade Nacional de Proteção de Dados (ANPD).
+- **Consistência visual** entre aplicações
+- **Reutilização** de código e padrões
+- **Manutenibilidade** centralizada
+- **Conformidade** com Gov.br Design System
 
-### ✨ Principais Características
+### 🏛️ Arquitetura Híbrida
 
-- **🚀 Baseado em React 19+**: Utiliza os recursos mais recentes do React.
-- **🎨 MUI v7**: Construído sobre o Material-UI para garantir consistência visual e acessibilidade.
-- **🏛️ Padrão GovBR-DS**: Inspirado nos princípios do Design System do Governo Federal.
-- **📘 TypeScript**: Totalmente tipado para um desenvolvimento mais seguro e robusto.
-- **🧪 Testado**: Cobertura de testes com Vitest e Playwright.
-- **📖 Documentado com Storybook**: Componentes visualizáveis e documentados interativamente.
-- **⚙️ CI com GitHub Actions**: Build e lint automáticos em Pull Requests.
-- **🔒 Hooks com Husky**: Pre-commit e pre-push com lint, format e type-check automáticos.
-- **🌳 Tree Shaking Otimizado**: Imports específicos para bundle reduzido.
-- **🎯 Path Aliases**: Imports limpos com aliases configurados.
+Para atender aos requisitos do projeto, implementamos uma **arquitetura de modo duplo** que permite flexibilidade na utilização dos componentes:
 
----
+- **Modo Padrão** (`strictgovbr={false}` - padrão): Componente MUI estilizado via `govbrTheme.ts`
+- **Modo Estrito** (`strictgovbr={true}`): Elemento HTML puro com classes CSS do Gov.br DS
 
-## 🛠️ Tecnologias Utilizadas
+Esta arquitetura resolve questões técnicas de compatibilidade entre MUI (CSS-in-JS) e Gov.br DS (classes CSS globais).
 
-- **⚛️ React 19+** - Framework UI
-- **🎨 Material-UI (MUI v7)** - Biblioteca de componentes
-- **📘 TypeScript** - Tipagem estática
-- **📖 Storybook** - Documentação interativa
-- **⚡ Vite** - Build tool e dev server
-- **🧪 Vitest** - Framework de testes
-- **🔍 ESLint** - Análise de código
-- **💅 Prettier** - Formatação de código
-- **📋 React Hook Form** - Gerenciamento de formulários
-- **🔒 Husky + Lint-Staged** - Git hooks
+## Instalação e Uso
 
----
+Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 
-## 🏁 Começando
-
-Siga estas instruções para configurar o ambiente de desenvolvimento local.
-
-### Pré-requisitos
-
-- Node.js (versão 20 ou superior)
-- npm (versão 10 ou superior)
-
-### Instalação
-
-1. Clone o repositório:
-   ```bash
-   git clone git@github.com:anpdgovbr/shared-ui.git
-   ```
-2. Navegue até o diretório do projeto:
-   ```bash
-   cd shared-ui
-   ```
-3. Instale as dependências:
-
-   ```bash
-   npm install
-   ```
-
-4. Configure os hooks:
-
-   ```bash
-   npm run prepare
-   ```
-
-5. Mantenha sua branch atualizada com a `main`:
-   ```bash
-   git checkout -b minha-feature main
-   git pull origin main
-   ```
-
-### Executando o Storybook
+### Passo 1: Instalar a Biblioteca
 
 ```bash
-npm run storybook
+npm install @anpdgovbr/shared-ui
 ```
 
-O Storybook estará disponível em `http://localhost:6006`.
+### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
 
----
-
-## 📚 Como Usar
-
-### Instalação via Git
+**Esta etapa é obrigatória.** A `shared-ui` espera que a sua aplicação forneça as seguintes bibliotecas. Instale-as no seu projeto:
 
 ```bash
-npm install git+ssh://git@github.com:anpdgovbr/shared-ui.git
+npm install @emotion/react @emotion/styled @govbr-ds/core @mui/icons-material @mui/material react react-dom
 ```
 
-### Exemplo de Uso
+### Passo 3: Configurar o Tema e CSS
+
+No arquivo de layout principal da sua aplicação (geralmente `_app.tsx` ou `layout.tsx`), você precisa importar os estilos do Gov.br DS e envolver sua aplicação com o `GovBRThemeProvider`.
 
 ```tsx
-import { GovBRButton, GovBRAvatar } from '@anpdgovbr/shared-ui'
+// Em src/app/layout.tsx (ou equivalente)
 
-function MyComponent() {
+// 1. Importe os arquivos de estilo do Gov.br DS
+import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core-tokens.min.css'
+
+// 2. Importe o Provedor de Tema da nossa biblioteca
+import { GovBRThemeProvider } from '@anpdgovbr/shared-ui'
+
+export default function RootLayout({ children }) {
   return (
-    <div>
-      <GovBRButton size="medium" color="primary">
-        Clique Aqui
-      </GovBRButton>
-      <GovBRAvatar
-        name="João Silva"
-        menuItems={[{ label: 'Perfil', href: '/perfil' }]}
-        onNavigate={(href) => (window.location.href = href)}
-      />
-    </div>
+    <html lang="pt-BR">
+      <body>
+        {/* 3. Envolva sua aplicação com o Provedor */}
+        <GovBRThemeProvider>{children}</GovBRThemeProvider>
+      </body>
+    </html>
   )
 }
 ```
 
-Para formulários com `react-hook-form`:
+### Passo 4: Usar os Componentes
+
+Agora você pode usar os componentes em qualquer lugar da sua aplicação.
+
+**Exemplo 1: Modo Padrão (Recomendado)**
+
+Este é o modo principal de uso. O componente renderiza um componente MUI estilizado pelo `govbrTheme.ts` para seguir os padrões do Gov.br DS.
 
 ```tsx
-import { useForm } from 'react-hook-form'
-import { GovBRFormInput, GovBRFormCheckbox } from '@anpdgovbr/shared-ui'
+import { GovBRButton } from '@anpdgovbr/shared-ui'
 
-function MyForm() {
-  const { control } = useForm()
+function MeuComponente() {
   return (
-    <div>
-      <GovBRFormInput
-        name="meuInput"
-        control={control}
-        label="Campo de Texto"
-        govbrSize="medium"
-        error={errors.meuInput ? true : false}
-        feedbackMessage={errors.meuInput?.message}
-      />
-      <GovBRFormCheckbox name="meuCheckbox" control={control} label="Aceito os termos" />
-    </div>
+    <GovBRButton variant="contained" color="primary">
+      Salvar
+    </GovBRButton>
   )
 }
 ```
 
-> **Nota:** O projeto consumidor deve declarar `react`, `@mui/material`, `@mui/icons-material` e `react-hook-form` como dependências.
+**Exemplo 2: Modo Estrito (Quando Necessário)**
 
-### ⚠️ Peer dependencies (recomendado)
+Use `strictgovbr={true}` quando precisar de 100% de fidelidade visual ao CSS oficial do Gov.br DS.
 
-Como esta biblioteca fornece componentes React baseados em MUI e no GovBR-DS, algumas dependências são esperadas no projeto consumidor. Recomendamos que o projeto consumidor instale as seguintes dependências (ranges compatíveis):
+```tsx
+import { GovBRButton } from '@anpdgovbr/shared-ui'
 
-- `react@^19.0.0`
-- `react-dom@^19.0.0`
-- `@mui/material@^7.0.0`
-- `@mui/icons-material@^7.0.0`
-- `@emotion/react@^11.0.0`
-- `@emotion/styled@^11.0.0`
-- `react-hook-form@^7.0.0`
-- `@govbr-ds/core@^3.0.0`
-
-Exemplo de instalação (projeto consumidor):
-
-```bash
-npm install react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
-  @emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+function MeuComponente() {
+  return (
+    <GovBRButton strictgovbr inverted>
+      Cancelar
+    </GovBRButton>
+  )
+}
 ```
 
-Observações:
+---
 
-- `@emotion/*` e `@govbr-ds/core` são recomendadas como peerDependencies para evitar múltiplas instâncias e conflitos de CSS-in-JS no runtime do consumidor.
-- Ajuste o range do `@govbr-ds/core` se o seu projeto exigir uma versão mínima específica (por exemplo `^3.6.2`).
+## Nossa Arquitetura
+
+Para entender em profundidade _por que_ a biblioteca funciona dessa maneira e como contribuir com novos componentes, hooks e layouts, consulte nosso guia de arquitetura completo.
+
+- **📖 [Guia de Arquitetura Didático](./ARQUITETURA.md)**
 
 ---
 
-## 🏗️ Estrutura de Componentes
+## Desenvolvimento Local
 
-```text
-src/
-├── components/
-│   └── ui/                        # Componentes padronizados (kebab-case)
-│       ├── auto-sync/            # AutoSyncButton
-│       ├── govbr-avatar/         # GovBRAvatar
-│       ├── govbr-breadcrumb/     # GovBRBreadcrumb
-│       ├── govbr-button/         # GovBRButton
-│       ├── govbr-checkbox/       # GovBRCheckbox
-│       ├── govbr-form-checkbox/  # GovBRFormCheckbox
-│       ├── govbr-form-input/     # GovBRFormInput
-│       ├── govbr-input/          # GovBRInput
-│       ├── govbr-radio/          # GovBRRadio
-│       └── govbr-sign-in/        # GovBRSignIn
-├── helpers/                      # Utilitários
-│   ├── MuiColorToGovBRClass.ts  # Conversão de cores MUI → GovBR
-│   └── IconMap.tsx              # Mapeamento de ícones
-├── types/                       # Definições de tipos centralizadas
-│   ├── GovBRTypes.ts           # Tipos base do GovBR-DS
-│   └── SharedUIComponentProps.ts # Props compartilhados
-├── theme/                       # Configuração de tema
-│   ├── govbrTheme.ts           # Tema MUI customizado
-│   └── GovBRThemeProvider.tsx  # Provider do tema
-└── index.ts                     # Exports principais
-```
+Para contribuir com o desenvolvimento da `shared-ui`:
 
-### 📁 Estrutura de Componente Padrão
+1.  Clone o repositório: `git clone git@github.com:anpdgovbr/shared-ui.git`
+2.  Instale as dependências: `npm install`
+3.  Execute o Storybook para ver os componentes em ação:
 
-Cada componente segue a estrutura **kebab-case** inspirada no shadcn/ui:
-
-```text
-src/components/ui/nome-componente/
-├── index.tsx              # Componente + exports
-├── types.ts               # Interfaces e tipos
-├── index.stories.tsx      # Histórias do Storybook
-└── hooks.ts               # Hooks específicos (opcional)
-```
-
-### 🎨 Sistema de Tipos Padronizado
-
-A biblioteca utiliza um sistema de tipos centralizados para garantir consistência:
-
-**🎯 Path Aliases Configurados:**
-
-- `@components/*` → `src/components/*`
-- `@theme/*` → `src/theme/*`
-- `@helpers/*` → `src/helper/*`
-- `@govbr-types/*` → `src/types/*`
-
-**📋 Tipos Base:**
-
-- **`GovBRSize`**: `'small' | 'medium' | 'large'` - Tamanhos padronizados
-- **`GovBRColor`**: `'default' | 'primary' | 'secondary'` - Cores básicas
-- **`GovBRSemanticColor`**: Inclui cores semânticas como `'success' | 'warning' | 'error' | 'info'`
-- **`GovBRStatus`**: Estados de feedback visual
-
-**🧩 Tipos Comuns:**
-
-- **`GovBRMenuItem`**: Interface para itens de menu com ícone
-- **`GovBRNavigationItem`**: Interface para navegação (breadcrumbs, tabs)
-- **`GovBRNavigationCallback`**: Callback padronizado de navegação
-- **`GovBRPosition`**: Posicionamento para componentes flutuantes
-
-**⚡ Props Compartilhadas:**
-
-- **`SharedUIComponentProps`**: Props comuns a todos os componentes
-- **`GovBRNavigatable`**: Para componentes com navegação
-- **`GovBRSelectable`**: Para componentes com seleção
-
-✅ **Todos os componentes implementam `SharedUIComponentProps`** com:
-
-- `strictGovBr?: boolean` - Para compatibilidade estrita com GovBR-DS
+    ```bash
+    npm run dev
+    ```
 
 ---
 
-## 🔧 Scripts Disponíveis
+## Contribuições
 
-| Script                    | Descrição                                 |
-| ------------------------- | ----------------------------------------- |
-| `npm run dev`             | Inicia o Storybook para desenvolvimento.  |
-| `npm run build`           | Compila a biblioteca (`types` + `dist`).  |
-| `npm run storybook`       | Inicia o Storybook em `localhost:6006`.   |
-| `npm run build-storybook` | Gera versão estática do Storybook.        |
-| `npm run test`            | Executa os testes com Vitest.             |
-| `npm run lint`            | Verifica erros de lint.                   |
-| `npm run format`          | Formata com Prettier.                     |
-| `npm run type-check`      | Verifica tipos com `tsc --noEmit`.        |
-| `npm run check`           | Executa lint, type-check e testes juntos. |
+Contribuições são bem-vindas! Leia nosso **[Guia de Contribuição](./CONTRIBUTING.md)** para entender o processo de desenvolvimento, validação e submissão de Pull Requests.
 
 ---
 
-## 📝 Roadmap
-
-- [ ] Suporte completo ao govbr-ds com tokens CSS customizáveis.
-- [ ] Novos componentes (`GovBRModal`, `GovBRNotification`, `GovBRTable`).
-- [ ] Melhoria da documentação com exemplos avançados.
-- [ ] Integração com outras aplicações da ANPD.
-
----
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Siga nosso processo padronizado:
-
-### 🚀 Para Novos Componentes
-
-1. **📖 Leia o [Guia de Adição de Componentes](./docs/ADICIONAR_COMPONENTE.md)**
-2. **Crie uma branch a partir da `main`:**
-   ```bash
-   git checkout -b feat/nome-do-componente main
-   git pull origin main
-   ```
-
-### 🔄 Para Migrar Componentes Existentes
-
-1. **📖 Consulte o [Guia de Migração](./docs/GUIA_MIGRACAO.md)**
-
-### ✅ Processo Geral
-
-1. **Desenvolva seguindo os padrões estabelecidos**
-2. **Valide com:**
-   ```bash
-   npm run check    # lint + type-check + test
-   npm run build    # verifica se compila corretamente
-   ```
-3. **Faça commit e push:**
-   ```bash
-   git add .
-   git commit -m "feat: adiciona novo componente"
-   git push origin feat/nome-do-componente
-   ```
-4. **📋 Abra um Pull Request** seguindo o template
-
-> 📚 **Documentação Completa:** [CONTRIBUTING.md](./CONTRIBUTING.md)
-
----
-
-## ✍️ Licença
+## Licença
 
 Este projeto está licenciado sob a **Licença MIT**.
-
----
-
-## 🛡 Desenvolvido pela
-
-> **Divisão de Desenvolvimento e Sustentação de Sistemas**  
-> Autoridade Nacional de Proteção de Dados - ANPD
-
-### Time
-
-- @lucianoedipo
-- @gustavolimaf
-- @eduHanjos0411

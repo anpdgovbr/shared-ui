@@ -4,7 +4,7 @@
 
 // Import centralizado de todos os componentes (permite tree-shaking automático)
 import {
-  AutoSyncButton,
+  AutoSync,
   GovBRAvatar,
   GovBRBreadcrumb,
   GovBRButton,
@@ -33,18 +33,13 @@ export function ExamplePage() {
         <div className="header-content">
           <h1>Sistema ANPD</h1>
 
-          {/* Avatar do usuário com menu */}
-          <GovBRAvatar
-            name="João Silva"
-            src=""
-            alt="Avatar do usuário"
-            menuItems={[]}
-            onNavigate={(href: string) => console.log('Navegando para:', href)}
-            size="medium"
-          />
+          {/* Avatar do usuário (modo estrito para demonstrar density e letter) */}
+          <GovBRAvatar strictgovbr density="medium" tooltip="João Silva" className="">
+            JS
+          </GovBRAvatar>
 
-          {/* Botão de sincronização automática */}
-          <AutoSyncButton
+          {/* Componente de sincronização automática */}
+          <AutoSync
             onSync={async () => console.log('Sincronizando...')}
             resetTrigger={null}
             size="small"
@@ -55,8 +50,8 @@ export function ExamplePage() {
       {/* Navegação estrutural */}
       <nav className="breadcrumb-nav">
         <GovBRBreadcrumb
-          items={breadcrumbItems}
-          onNavigate={(href: string) => console.log('Navegando para:', href)}
+          strictgovbr
+          links={breadcrumbItems.map((it) => ({ url: it.href ?? '#', label: it.label }))}
           className=""
         />
       </nav>
@@ -70,22 +65,19 @@ export function ExamplePage() {
           <form className="gov-form">
             {/* Input padrão */}
             <GovBRInput
+              strictgovbr
               id="nome"
               label="Nome completo"
               placeholder="Digite seu nome completo"
               govbrSize="medium"
               clearBlock="md"
               inline={false}
-              startIcon={null}
-              endButtonIcon={null}
-              onEndButtonClick={() => {}}
             />
 
             {/* Checkboxes */}
             <GovBRCheckbox
               id="terms"
               label="Li e aceito os termos de uso"
-              status="valid"
               className=""
               disabled={false}
             />
@@ -93,39 +85,30 @@ export function ExamplePage() {
             <GovBRCheckbox
               id="newsletter"
               label="Desejo receber informações por email"
-              status="valid"
               className=""
               disabled={false}
             />
 
             {/* Radio buttons */}
-            <div className="radio-group">
-              <label>Gênero:</label>
+            <fieldset className="radio-group">
+              <legend>Gênero:</legend>
               <GovBRRadio
                 name="gender"
                 value="M"
                 label="Masculino"
-                helpText=""
-                text=""
                 disabled={false}
                 checked={false}
-                error={false}
-                valid={true}
                 onChange={() => {}}
               />
               <GovBRRadio
                 name="gender"
                 value="F"
                 label="Feminino"
-                helpText=""
-                text=""
                 disabled={false}
                 checked={false}
-                error={false}
-                valid={true}
                 onChange={() => {}}
               />
-            </div>
+            </fieldset>
 
             {/* Botões de ação */}
             <div className="form-actions">
@@ -134,7 +117,6 @@ export function ExamplePage() {
                 type="submit"
                 size="large"
                 circle={false}
-                block={false}
                 inverted={false}
                 loading={false}
                 clearBlock="md"
@@ -149,7 +131,6 @@ export function ExamplePage() {
                 variant="outlined"
                 type="button"
                 circle={false}
-                block={false}
                 inverted={false}
                 loading={false}
                 clearBlock="md"
@@ -161,13 +142,7 @@ export function ExamplePage() {
             </div>
 
             {/* Componente de login */}
-            <GovBRSignIn
-              variant="internal"
-              emphasis="secondary"
-              density="medium"
-              className=""
-              iconUrl=""
-            />
+            <GovBRSignIn onClick={() => console.log('Entrar com gov.br')} className="" />
           </form>
         </section>
       </main>
@@ -239,7 +214,6 @@ export function ReactHookFormExample() {
         type="submit"
         color="primary"
         circle={false}
-        block={false}
         inverted={false}
         loading={false}
         clearBlock="md"
