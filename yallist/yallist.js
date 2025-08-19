@@ -325,7 +325,7 @@ Yallist.prototype.splice = function (start, deleteCount /*, ...nodes */) {
     start = this.length - 1
   }
   if (start < 0) {
-    start = this.length + start;
+    start = this.length + start
   }
 
   for (var i = 0, walker = this.head; walker !== null && i < start; i++) {
@@ -348,7 +348,7 @@ Yallist.prototype.splice = function (start, deleteCount /*, ...nodes */) {
   for (var i = 2; i < arguments.length; i++) {
     walker = insert(this, walker, arguments[i])
   }
-  return ret;
+  return ret
 }
 
 Yallist.prototype.reverse = function () {
