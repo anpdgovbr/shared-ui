@@ -12,7 +12,7 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
       padding: 'var(--spacing-scale-base, 1rem)', // 8px
 
       '&:hover': {
-        backgroundColor: 'var(--interactive-light, #5992ed)',
+        backgroundColor: 'var(--interactive-rgb), #5992ed)',
         borderRadius: '50%',
       },
 
@@ -20,7 +20,7 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
         color: 'var(--interactive, #1351B4)', // Azul GovBR quando marcado
 
         '&:hover': {
-          backgroundColor: 'var(--interactive-light, #5992ed)',
+          backgroundColor: 'var(--interactive-rgb), #5992ed)',
         },
       },
 
