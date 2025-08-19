@@ -1,32 +1,20 @@
-import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
+import type { Control, ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 
-import type { GovBRCheckboxProps } from '../govbr-checkbox/types'
+import type { GovBRCheckboxProps } from '../govbr-checkbox'
 
 /**
- * Propriedades do componente GovBRFormCheckbox.
+ * Props para o componente GovBRFormCheckbox.
+ * Estende as GovBRCheckboxProps e adiciona as props do React Hook Form.
  */
 export type GovBRFormCheckboxProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
-> = Omit<GovBRCheckboxProps, 'checked' | 'name'> & {
-  /**
-   * Nome do campo no formulário.
-   */
+> = Omit<
+  GovBRCheckboxProps,
+  'name' | 'defaultValue' | 'checked' | 'onChange' | 'label' // Omit label to redefine it as required
+> & {
   name: TName
-
-  /**
-   * Controle do react-hook-form.
-   */
-  control: ControllerProps<TFieldValues, TName>['control']
-
-  /**
-   * Regras de validação.
-   */
+  control: Control<TFieldValues>
   rules?: ControllerProps<TFieldValues, TName>['rules']
-
-  /**
-   * Indica se o campo é obrigatório.
-   * @default false
-   */
-  required?: boolean
+  label: React.ReactNode // Label is now required
 }

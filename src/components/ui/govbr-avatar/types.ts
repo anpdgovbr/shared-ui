@@ -1,56 +1,34 @@
-import { GovBRMenuItem, GovBRNavigationCallback } from '@govbr-types/CommonTypes'
-import { GovBRColor, GovBRSize } from '@govbr-types/GovBRTypes'
-import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
 import type { AvatarProps } from '@mui/material/Avatar'
+import type { HTMLAttributes } from 'react'
 
-/**
- * Define a estrutura de um item individual do menu do avatar.
- * @deprecated Use GovBRMenuItem from CommonTypes instead. Will be removed in next major version.
- */
-export type GovBRAvatarMenuItem = GovBRMenuItem
-
-export interface GovBRAvatarProps extends AvatarProps, SharedUIComponentProps {
+// Props customizadas que são compartilhadas entre os dois modos
+interface GovBRAvatarBaseProps {
   /**
-   * Nome do usuário para exibir iniciais.
+   * Ativa o modo de renderização estrito, que usa um elemento `<div>` padrão
+   * com as classes CSS do GovBR-DS, em vez de um Avatar do MUI estilizado pelo tema.
+   * Garante máxima fidelidade visual ao GovBR-DS.
+   * @default false
    */
-  name?: string
-
-  /**
-   * URL da imagem do avatar.
-   */
-  src?: string
-
-  /**
-   * Texto alternativo para a imagem.
-   */
-  alt?: string
-
-  /**
-   * Tamanho do avatar.
-   * @default 'medium'
-   */
-  size?: GovBRSize
-
-  /**
-   * Formato do avatar.
-   * @default 'circular'
-   */
-  variant?: 'circular' | 'rounded' | 'square'
-
-  /**
-   * Cor de fundo do avatar quando não há imagem.
-   * @default 'default'
-   */
-  color?: GovBRColor
-
-  /**
-   * Lista de itens para o menu dropdown. Se fornecido, ativa a funcionalidade de menu.
-   */
-  menuItems?: GovBRMenuItem[]
-
-  /**
-   * Função de callback chamada quando um item do menu é clicado.
-   * Obrigatória se `menuItems` for fornecido.
-   */
-  onNavigate?: GovBRNavigationCallback
+  strictgovbr?: boolean
 }
+
+// Props para o modo ESTRITO (baseado em div HTML)
+export type GovBRAvatarStrictProps = HTMLAttributes<HTMLDivElement> &
+  GovBRAvatarBaseProps & {
+    strictgovbr: true
+    /** A letra ou ícone a ser exibido no avatar. */
+    letter?: React.ReactNode
+    /** Tooltip para o avatar */
+    tooltip?: string
+    /** Densidade (tamanho) do avatar */
+    density?: 'small' | 'medium' | 'large'
+  }
+
+// Props para o modo PADRÃO (baseado em Avatar do MUI)
+export type GovBRAvatarMuiProps = AvatarProps &
+  GovBRAvatarBaseProps & {
+    strictgovbr?: false
+  }
+
+// O tipo final é uma união dos dois modos.
+export type GovBRAvatarProps = GovBRAvatarStrictProps | GovBRAvatarMuiProps

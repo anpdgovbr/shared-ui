@@ -1,7 +1,8 @@
-# 🔄 Guia de Migração - Estrutura Padronizada
+# 🔄 Guia de Migração - Arquitetura Híbrida
 
 > 📚 **Documentos Relacionados:**
 >
+> - [🏛️ ARQUITETURA.md](../ARQUITETURA.md) - **LEIA PRIMEIRO** - Fundamentos da arquitetura híbrida
 > - [📝 Adicionar Componente](./ADICIONAR_COMPONENTE.md) - Guia para criar novos componentes
 > - [📖 README Principal](../README.md) - Visão geral do projeto
 > - [🚨 Contribuindo](../CONTRIBUTING.md) - Processo de contribuição
@@ -9,9 +10,30 @@
 
 ---
 
-## 📋 Resumo das Mudanças
+## 📋 Sobre a Biblioteca shared-ui
 
-Este projeto foi reestruturado seguindo padrões modernos inspirados no **shadcn/ui** com adaptações para o contexto do **GovBR Design System**. As principais mudanças incluem:
+A `shared-ui` é uma **biblioteca de componentes compartilháveis da ANPD** construída com:
+
+- **React + TypeScript** como base
+- **Material-UI (MUI)** como framework de componentes
+- **Gov.br Design System** como padrão visual
+- **Arquitetura híbrida** para flexibilidade de uso
+
+### 🏛️ Arquitetura Híbrida Implementada
+
+Para atender aos requisitos da biblioteca, foi definida uma **arquitetura de modo duplo**:
+
+**Modo Padrão** (`strictgovbr={false}` - padrão):
+
+- Renderiza componente MUI estilizado pelo `govbrTheme.ts`
+- Componente é "burro" - só repassa props
+- Uso principal da biblioteca
+
+**Modo Estrito** (`strictgovbr={true}`):
+
+- Renderiza elemento HTML puro com classes Gov.br DS
+- Para casos que necessitam 100% de fidelidade visual
+- Complementa o modo padrão
 
 ### ✨ Novos Padrões Implementados
 
@@ -23,48 +45,48 @@ Este projeto foi reestruturado seguindo padrões modernos inspirados no **shadcn
 6. **🔧 Hooks isolados**: Lógica reutilizável em arquivos específicos quando necessário
 7. **📱 Client-side dedicado**: Arquivos `.client.tsx` quando necessário
 
-## 🚀 Componentes Atualizados (Prontos para Uso)
+## 🚀 Componentes Atualizados (Seguindo Arquitetura Híbrida)
 
 ### AutoSyncButton
 
 ```tsx
-// ✅ NOVO (Recomendado)
+// ✅ NOVO (Arquitetura híbrida implementada)
 import { AutoSyncButton } from '@anpdgovbr/shared-ui'
+
+// Modo Padrão: MUI estilizado pelo govbrTheme
 ;<AutoSyncButton onSync={handleSync} size="medium" tooltipEnabled />
-```
 
-### GovBRAvatar
-
-```tsx
-// ✅ NOVO (Recomendado)
-import { GovBRAvatar } from '@anpdgovbr/shared-ui'
-;<GovBRAvatar name="João Silva" menuItems={menuItems} onNavigate={handleNavigate} size="medium" />
+// Modo Estrito: HTML puro (não aplicável - componente customizado ANPD)
+// AutoSyncButton não tem modo estrito (componente específico da ANPD)
 ```
 
 ### GovBRButton
 
 ```tsx
-// ✅ NOVO (Recomendado)
+// ✅ NOVO (Modo duplo implementado)
 import { GovBRButton } from '@anpdgovbr/shared-ui'
-;<GovBRButton color="primary" variant="contained" size="large">
+
+// Modo Padrão: Componente MUI estilizado
+<GovBRButton variant="contained" color="primary" size="large">
   Clique aqui
+</GovBRButton>
+
+// Modo Estrito: HTML puro com classes Gov.br DS
+<GovBRButton strictgovbr inverted>
+  Gov.br DS Puro
 </GovBRButton>
 ```
 
-### GovBRBreadcrumb
+### GovBRAvatar
 
 ```tsx
-// ✅ NOVO (Recomendado)
-import { GovBRBreadcrumb } from '@anpdgovbr/shared-ui'
-;<GovBRBreadcrumb items={breadcrumbItems} onNavigate={handleNavigate} />
-```
+// ✅ NOVO (Arquitetura híbrida implementada)
+import { GovBRAvatar } from '@anpdgovbr/shared-ui'
 
-### GovBRCheckbox
+// Modo Padrão: MUI customizado
+;<GovBRAvatar name="João Silva" menuItems={menuItems} onNavigate={handleNavigate} size="medium" />
 
-```tsx
-// ✅ NOVO (Recomendado)
-import { GovBRCheckbox } from '@anpdgovbr/shared-ui'
-;<GovBRCheckbox id="terms" label="Aceito os termos" required />
+// Modo Estrito: Não aplicável (componente específico da ANPD)
 ```
 
 ## 🔄 Componentes em Transição (Funcionam, mas serão atualizados)
@@ -83,37 +105,54 @@ import {
 // Não é necessário alterar código existente
 ```
 
-## 📈 Benefícios da Nova Estrutura
+## 📈 Benefícios da Arquitetura Híbrida
+
+### � Resolução de Conflitos de Estilo
+
+````tsx
+## 📈 Benefícios da Arquitetura Híbrida
+
+### 🎯 Para a Biblioteca de Componentes ANPD
+
+```tsx
+// Flexibilidade de uso conforme necessidade do projeto
+<GovBRButton variant="contained" color="primary"> // ✅ Uso padrão - MUI + tema
+  Modo Principal
+</GovBRButton>
+
+<GovBRButton strictgovbr inverted> // ✅ Quando precisar de fidelidade total
+  Modo Específico
+</GovBRButton>
+````
+
+### 🏗️ Arquitetura Limpa e Manutenível
+
+- **Componentes "burros"**: No modo padrão, só repassam props para MUI
+- **Tema centralizado**: Toda estilização MUI controlada pelo `govbrTheme.ts`
+- **Flexibilidade técnica**: Escolha entre robustez MUI ou fidelidade Gov.br DS
+- **Reutilização**: Componentes servem múltiplos projetos da ANPD
+
+### 🌳 Tree Shaking Mantido
+
+```tsx
+// Otimização de bundle preservada
+import { GovBRButton } from '@anpdgovbr/shared-ui' // Só importa o necessário
+```
+
+````
+
+### 🏗️ Arquitetura Limpa e Manutenível
+
+- **Componentes "burros"**: No modo padrão, só repassam props para MUI
+- **Tema centralizado**: Toda estilização MUI controlada pelo `govbrTheme.ts`
+- **Flexibilidade**: Escolha entre MUI (robustez) ou Gov.br DS puro (fidelidade)
 
 ### 🌳 Tree Shaking Melhorado
 
 ```tsx
-// Antes: Importa toda a biblioteca
-import { GovBRButton } from '@anpdgovbr/shared-ui'
-
-// Agora: Import otimizado (só importa o necessário)
-import { GovBRButton } from '@anpdgovbr/shared-ui' // Tree shaking automático
-```
-
-### 🎯 Imports Mais Limpos
-
-```tsx
-// ✅ NOVO - Path aliases configurados
-import { GovBRButton } from '@ui/govbr-button'
-import { GovBRAvatar } from '@ui/govbr-avatar'
-```
-
-### 🧩 Melhor Organização
-
-```
-src/components/ui/govbr-button/
-├── index.tsx      # Componente principal
-├── types.ts       # Tipos e interfaces
-├── stories.tsx    # Stories do Storybook
-├── hooks.ts       # Hooks específicos (futuro)
-├── styles.ts      # Estilos customizados (futuro)
-└── utils.ts       # Utilitários internos (futuro)
-```
+// Tree shaking otimizado mantido
+import { GovBRButton } from '@anpdgovbr/shared-ui' // Só importa o necessário
+````
 
 ## 🛡️ Garantia de Compatibilidade
 
@@ -126,8 +165,15 @@ import { GovBRButton, GovBRAvatar } from '@anpdgovbr/shared-ui'
 function MyComponent() {
   return (
     <div>
-      <GovBRButton color="primary">Botão</GovBRButton>
-      <GovBRAvatar name="User" />
+      {/* Modo padrão é mantido automaticamente */}
+      <GovBRButton variant="contained" color="primary">
+        Funciona como antes
+      </GovBRButton>
+
+      {/* Nova funcionalidade opcional */}
+      <GovBRButton strictgovbr inverted>
+        100% Gov.br DS quando necessário
+      </GovBRButton>
     </div>
   )
 }
@@ -136,8 +182,9 @@ function MyComponent() {
 ### 🔄 Migração Gradual
 
 - **Não é obrigatório** migrar código existente imediatamente
-- **Recomendado** usar nova estrutura em novos desenvolvimentos
-- **Compatibilidade** garantida durante período de transição
+- **Modo padrão funciona** exatamente como antes da arquitetura híbrida
+- **Modo estrito é opcional** - use apenas quando precisar de 100% fidelidade Gov.br DS
+- **Compatibilidade garantida** durante período de transição
 
 ## 📊 Performance e Bundle Size
 

@@ -1,63 +1,31 @@
-import type { ButtonProps } from '@mui/material/Button'
+import type { FormControlLabelProps } from '@mui/material/FormControlLabel'
+import type { RadioProps } from '@mui/material/Radio'
+import type { InputHTMLAttributes } from 'react'
 
-import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
+// Props customizadas que são compartilhadas entre os dois modos
+interface GovBRRadioBaseProps {
+  /**
+   * Ativa o modo de renderização estrito, que usa um elemento `<input>` padrão
+   * com as classes CSS do GovBR-DS, em vez de um Radio do MUI estilizado pelo tema.
+   * Garante máxima fidelidade visual ao GovBR-DS.
+   * @default false
+   */
+  strictgovbr?: boolean
+}
 
-/**
- * Propriedades do componente GovBRRadio.
- */
-export type GovBRRadioProps = SharedUIComponentProps &
-  ButtonProps & {
-    /**
-     * Nome do grupo de radio buttons.
-     */
-    name?: string
-
-    /**
-     * Valor do radio button.
-     */
-    value: string
-
-    /**
-     * Rótulo exibido no topo do componente.
-     */
-    label?: string
-
-    /**
-     * Texto utilizado para informações adicionais.
-     */
-    helpText?: string
-
-    /**
-     * Texto exibido na opção de seleção.
-     */
-    text?: string
-
-    /**
-     * Indica se o componente está desabilitado.
-     * @default false
-     */
-    disabled?: boolean
-
-    /**
-     * Indica se o radio está selecionado.
-     * @default false
-     */
-    checked?: boolean
-
-    /**
-     * Indica estado de erro.
-     * @default false
-     */
-    error?: boolean
-
-    /**
-     * Indica estado válido.
-     * @default false
-     */
-    valid?: boolean
-
-    /**
-     * Função executada quando o estado muda.
-     */
-    onChange?: () => void
+// Props para o modo ESTRITO (baseado em input HTML)
+export type GovBRRadioStrictProps = InputHTMLAttributes<HTMLInputElement> &
+  GovBRRadioBaseProps & {
+    strictgovbr: true
+    label?: React.ReactNode
   }
+
+// Props para o modo PADRÃO (baseado em Radio do MUI)
+export type GovBRRadioMuiProps = Omit<FormControlLabelProps, 'control'> &
+  GovBRRadioBaseProps & {
+    strictgovbr?: false
+    radioProps?: RadioProps
+  }
+
+// O tipo final é uma união dos dois modos.
+export type GovBRRadioProps = GovBRRadioStrictProps | GovBRRadioMuiProps

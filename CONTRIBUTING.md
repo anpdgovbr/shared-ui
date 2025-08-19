@@ -1,19 +1,48 @@
 # 🤝 Contribuindo com o `shared-ui`
 
-Obrigado pelo interesse em contribuir com a biblioteca de componentes `shared-ui` da ANPD!
+Obrigado pelo interesse em contribuir com a **biblioteca de componentes compartilháveis da ANPD**!
 
-Este projeto é **público**, mas voltado principalmente a **desenvolvedores internos da ANPD e parceiros institucionais**. Nosso objetivo é manter uma base de componentes React robusta, reutilizável e compatível com o design system **GovBR-DS**.
+Este projeto centraliza componentes React reutilizáveis, construídos com Material-UI e seguindo os padrões visuais do Gov.br Design System, para uso em todos os projetos da ANPD.
+
+> 📖 **LEIA PRIMEIRO:** [ARQUITETURA.md](./ARQUITETURA.md) - Entenda a arquitetura híbrida da biblioteca
 
 ---
 
-## 📚 Documentação Rápida
+## � Objetivo da Biblioteca
 
-Antes de começar, consulte nossa documentação:
+A `shared-ui` é uma **biblioteca de componentes compartilháveis da ANPD** que visa:
 
-- 📝 **[Adicionar Componente](./docs/ADICIONAR_COMPONENTE.md)** - Guia completo para novos componentes
-- 🔄 **[Guia de Migração](./docs/GUIA_MIGRACAO.md)** - Como migrar componentes existentes
-- 📊 **[CHANGELOG](./CHANGELOG.md)** - Histórico de mudanças do projeto
-- 🤖 **[Instruções Copilot](./.github/copilot/instructions.md)** - Padrões para IA
+- **Centralizar** componentes reutilizáveis entre projetos
+- **Padronizar** interfaces seguindo Gov.br Design System
+- **Acelerar** desenvolvimento com componentes prontos
+- **Manter** consistência visual e funcional
+
+### 🏛️ Arquitetura Híbrida
+
+Para atender aos objetivos da biblioteca, utilizamos uma **arquitetura de modo duplo**:
+
+1. **Modo Padrão** (`strictgovbr={false}`): Componente MUI estilizado pelo `govbrTheme.ts`
+2. **Modo Estrito** (`strictgovbr={true}`): Elemento HTML puro com classes Gov.br DS
+
+```tsx
+// Modo Padrão: Uso principal da biblioteca
+<GovBRButton variant="contained" color="primary">Botão</GovBRButton>
+
+// Modo Estrito: Quando precisar de 100% fidelidade Gov.br DS
+<GovBRButton strictgovbr inverted>Botão</GovBRButton>
+```
+
+---
+
+## 📚 Documentação Essencial
+
+Antes de contribuir, consulte nossa documentação na seguinte ordem:
+
+1. 🏛️ **[ARQUITETURA.md](./ARQUITETURA.md)** - **LEIA PRIMEIRO** - Fundamentos da arquitetura híbrida
+2. 📝 **[ADICIONAR_COMPONENTE.md](./docs/ADICIONAR_COMPONENTE.md)** - Guia para criar componentes seguindo a arquitetura
+3. 🎨 **[COMO_USAR_TEMA.md](./docs/COMO_USAR_TEMA.md)** - Como o tema resolve conflitos de estilo
+4. 🔄 **[GUIA_MIGRACAO.md](./docs/GUIA_MIGRACAO.md)** - Como migrar componentes existentes
+5. 📊 **[CHANGELOG.md](./CHANGELOG.md)** - Histórico de mudanças do projeto
 
 ---
 
@@ -40,17 +69,35 @@ git checkout -b feat/nome-do-componente
 
 ---
 
-## 📦 Estrutura de componentes
+## 📦 Estrutura de Componentes (Arquitetura Híbrida)
 
-Todo novo componente deve seguir a estrutura **kebab-case** padronizada:
+Todo novo componente deve implementar o **padrão de modo duplo**:
 
 ```
 src/components/ui/nome-do-componente/
-├── index.tsx              # Implementação principal + exports
-├── types.ts               # Tipagens e interfaces
-├── index.stories.tsx      # Stories do Storybook
-└── hooks.ts               # Hooks específicos (opcional)
+├── index.tsx              # Implementação com modo duplo + exports
+├── types.ts               # Interface estendendo SharedUIComponentProps
+└── index.stories.tsx      # Stories mostrando ambos os modos
 ```
+
+### Implementação Obrigatória do Modo Duplo
+
+```tsx
+export const GovBRComponente: React.FC<Props> = ({ strictgovbr, ...props }) => {
+  // Modo Estrito: HTML puro com classes Gov.br DS
+  if (strictgovbr) {
+    return <div className="br-component">...</div>
+  }
+
+  // Modo Padrão: Componente MUI estilizado pelo tema
+  return <MuiComponent {...props}>...</MuiComponent>
+}
+```
+
+├── index.stories.tsx # Stories do Storybook
+└── hooks.ts # Hooks específicos (opcional)
+
+````
 
 > 📖 **Documentação Completa:** [docs/ADICIONAR_COMPONENTE.md](./docs/ADICIONAR_COMPONENTE.md)
 
@@ -58,20 +105,35 @@ src/components/ui/nome-do-componente/
 
 ## ✅ Checklist antes de abrir o PR
 
+### �️ Arquitetura Híbrida
+
+- [ ] **Modo duplo implementado**: Componente detecta `strictgovbr` e renderiza MUI ou HTML puro
+- [ ] **Modo Padrão funciona**: Componente MUI estilizado pelo `govbrTheme.ts`
+- [ ] **Modo Estrito funciona**: HTML puro com classes CSS do Gov.br DS
+- [ ] **Componente "burro"**: No modo padrão, apenas repassa props para MUI
+- [ ] **Tema atualizado**: `govbrTheme.ts` contém styleOverrides para o componente MUI correspondente
+
+### 🎨 Estilização
+
+- [ ] **Tokens CSS utilizados**: Usa `var(--token-name)` em vez de valores fixos no tema
+- [ ] **DevTools inspecionado**: Verificado componente oficial Gov.br DS para obter tokens corretos
+- [ ] **Slots MUI mapeados**: styleOverrides aplicados nos slots corretos do componente MUI
+- [ ] **Classe base Gov.br DS**: Modo estrito usa classe correta (ex: `.br-button`)
+
 ### 🏗️ Estrutura e Código
 
-- [ ] Componente segue a estrutura **kebab-case**: `src/components/ui/nome-componente/`
-- [ ] Usa **path aliases** (@components, @theme, @helpers, @govbr-types)
-- [ ] **Herda SharedUIComponentProps** para inclusão automática de `strictGovBr`
+- [ ] Componente segue estrutura **kebab-case**: `src/components/ui/nome-componente/`
+- [ ] **Interface estende SharedUIComponentProps** para prop `strictgovbr` automática
 - [ ] Usa **imports específicos do MUI** para tree shaking (ex: `@mui/material/Button`)
-- [ ] Segue padrões visuais do **GovBR-DS** quando `strictGovBr=true`
+- [ ] Usa **path aliases** (@components, @theme, @helpers, @govbr-types)
+- [ ] Biblioteca **classnames** usada para lógica de classes no modo estrito
 
 ### 📖 Documentação
 
-- [ ] Foi criado **Storybook** representando os estados do componente
+- [ ] **Stories do Storybook** mostram ambos os modos (padrão e estrito)
 - [ ] Stories incluem `tags: ['autodocs']` para documentação automática
-- [ ] Casos de uso com `strictGovBr=true` e `false` documentados
-- [ ] Comentários JSDoc adequados para futura integração com TypeDocs
+- [ ] **Comparação visual**: Verificado que ambos os modos têm aparência similar
+- [ ] Comentários JSDoc adequados no código
 
 ### 🧪 Qualidade
 
@@ -110,7 +172,7 @@ Exemplo de instalação no projeto consumidor:
 ```bash
 npm install react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
 	@emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
-```
+````
 
 Se precisar forçar uma mudança no `package-lock.json`, siga este processo:
 

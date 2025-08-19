@@ -59,7 +59,7 @@ jobs:
     needs: [lint, test]
     permissions:
       contents: read # needed for checkout
-      actions: write  # needed for upload-artifact
+      actions: write # needed for upload-artifact
     steps:
       - name: Checkout
         uses: actions/checkout@v4

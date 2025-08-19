@@ -2,68 +2,51 @@
 import '@testing-library/jest-dom'
 
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { GovBRAvatar } from './index'
 
 describe('GovBRAvatar', () => {
-  const mockNavigate = vi.fn()
+  describe('MUI Mode', () => {
+    it('should render with children', () => {
+      render(<GovBRAvatar>L</GovBRAvatar>)
+      expect(screen.getByText('L')).toBeInTheDocument()
+    })
 
-  it('should render avatar with name', () => {
-    render(<GovBRAvatar name="João Silva" menuItems={[]} onNavigate={mockNavigate} />)
+    it('should render with an image when src is provided', () => {
+      render(<GovBRAvatar src="/fake-image.jpg" alt="Test Avatar" />)
+      const img = screen.getByRole('img')
+      expect(img).toBeInTheDocument()
+      expect(img).toHaveAttribute('src', '/fake-image.jpg')
+    })
 
-    const avatarElement = screen.getByText('JS') // Iniciais do nome
-    expect(avatarElement).toBeInTheDocument()
+    it('should pass sx prop to MUI Avatar', () => {
+      const { container } = render(<GovBRAvatar sx={{ backgroundColor: 'red' }}>A</GovBRAvatar>)
+      // MUI Avatar root is the first child of the container
+      expect(container.firstChild).toHaveStyle('background-color: rgb(255, 0, 0)')
+    })
   })
 
-  it('should render avatar with image when src is provided', () => {
-    render(
-      <GovBRAvatar
-        name="João Silva"
-        src="https://example.com/avatar.jpg"
-        alt="Avatar do João"
-        menuItems={[]}
-        onNavigate={mockNavigate}
-      />,
-    )
+  describe('Strict Mode', () => {
+    it('should render with br-avatar class', () => {
+      const { container } = render(<GovBRAvatar strictgovbr />)
+      expect(container.firstChild).toHaveClass('br-avatar')
+    })
 
-    const imageElement = screen.getByRole('img')
-    expect(imageElement).toHaveAttribute('src', 'https://example.com/avatar.jpg')
-    expect(imageElement).toHaveAttribute('alt', 'Avatar do João')
-  })
+    it('should render with letter', () => {
+      render(<GovBRAvatar strictgovbr letter="A" />)
+      expect(screen.getByText('A')).toBeInTheDocument()
+      expect(screen.getByText('A')).toHaveClass('letter')
+    })
 
-  it('should open menu when clicked', async () => {
-    const user = userEvent.setup()
-    const menuItems = [
-      { label: 'Perfil', href: '/profile' },
-      { label: 'Sair', href: '/logout' },
-    ]
+    it('should apply density class', () => {
+      const { container } = render(<GovBRAvatar strictgovbr density="large" />)
+      expect(container.firstChild).toHaveClass('large')
+    })
 
-    render(<GovBRAvatar name="João Silva" menuItems={menuItems} onNavigate={mockNavigate} />)
-
-    const avatarButton = screen.getByRole('button')
-    await user.click(avatarButton)
-
-    // Verifica se os itens do menu apareceram
-    expect(screen.getByText('Perfil')).toBeInTheDocument()
-    expect(screen.getByText('Sair')).toBeInTheDocument()
-  })
-
-  it('should call onNavigate when menu item is clicked', async () => {
-    const user = userEvent.setup()
-    const menuItems = [{ label: 'Perfil', href: '/profile' }]
-
-    render(<GovBRAvatar name="João Silva" menuItems={menuItems} onNavigate={mockNavigate} />)
-
-    // Abrir menu
-    const avatarButton = screen.getByRole('button')
-    await user.click(avatarButton)
-
-    // Clicar no item do menu
-    const profileLink = screen.getByText('Perfil')
-    await user.click(profileLink)
-
-    expect(mockNavigate).toHaveBeenCalledWith('/profile')
+    it('should have a title when tooltip is provided', () => {
+      const { container } = render(<GovBRAvatar strictgovbr tooltip="Test Tooltip" />)
+      expect(container.firstChild).toHaveAttribute('title', 'Test Tooltip')
+    })
   })
 })

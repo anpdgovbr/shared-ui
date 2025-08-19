@@ -5,13 +5,13 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { AutoSyncButton } from './index'
+import { AutoSync } from './index'
 
-describe('AutoSyncButton', () => {
+describe('AutoSync', () => {
   it('should render sync button', () => {
     const mockOnSync = vi.fn()
 
-    render(<AutoSyncButton onSync={mockOnSync} resetTrigger={null} />)
+    render(<AutoSync onSync={mockOnSync} resetTrigger={null} />)
 
     const syncButton = screen.getByRole('button')
     expect(syncButton).toBeInTheDocument()
@@ -21,7 +21,7 @@ describe('AutoSyncButton', () => {
     const user = userEvent.setup()
     const mockOnSync = vi.fn().mockResolvedValue(undefined)
 
-    render(<AutoSyncButton onSync={mockOnSync} resetTrigger={null} />)
+    render(<AutoSync onSync={mockOnSync} resetTrigger={null} />)
 
     const syncButton = screen.getByRole('button')
 
@@ -45,7 +45,7 @@ describe('AutoSyncButton', () => {
       (): Promise<void> => new Promise((resolve) => setTimeout(() => resolve(), 50)),
     )
 
-    render(<AutoSyncButton onSync={mockOnSync} resetTrigger={null} />)
+    render(<AutoSync onSync={mockOnSync} resetTrigger={null} />)
 
     const syncButton = screen.getByRole('button')
     expect(syncButton).toBeInTheDocument()
@@ -65,14 +65,12 @@ describe('AutoSyncButton', () => {
 
   it('should render with different sizes', () => {
     const mockOnSync = vi.fn()
-    const { rerender } = render(
-      <AutoSyncButton onSync={mockOnSync} resetTrigger={null} size="small" />,
-    )
+    const { rerender } = render(<AutoSync onSync={mockOnSync} resetTrigger={null} size="small" />)
 
     let syncButton = screen.getByRole('button')
     expect(syncButton).toBeInTheDocument()
 
-    rerender(<AutoSyncButton onSync={mockOnSync} resetTrigger={null} size="large" />)
+    rerender(<AutoSync onSync={mockOnSync} resetTrigger={null} size="large" />)
 
     syncButton = screen.getByRole('button')
     expect(syncButton).toBeInTheDocument()

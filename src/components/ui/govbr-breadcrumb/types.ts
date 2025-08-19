@@ -1,25 +1,36 @@
+import type { BreadcrumbsProps } from '@mui/material/Breadcrumbs'
 import type { HTMLAttributes } from 'react'
 
-import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
+// Props customizadas que são compartilhadas entre os dois modos
+interface GovBRBreadcrumbBaseProps {
+  /**
+   * Ativa o modo de renderização estrito, que usa um elemento `<nav>` padrão
+   * com as classes CSS do GovBR-DS, em vez de um Breadcrumbs do MUI estilizado pelo tema.
+   * Garante fidelidade visual máxima ao GovBR-DS.
+   * @default false
+   */
+  strictgovbr?: boolean
+}
 
-/**
- * Define a estrutura de um item individual do Breadcrumb.
- */
-export interface BreadcrumbItem {
-  /** O texto a ser exibido para o item. */
+// Interface para um único link no modo estrito
+export interface BreadcrumbLink {
+  url: string
   label: string
-  /** O caminho (URL) para onde o item deve navegar. Se omitido, o item é tratado como a página atual (não clicável). */
-  href?: string
 }
 
-export interface GovBRBreadcrumbProps extends HTMLAttributes<HTMLElement>, SharedUIComponentProps {
-  /**
-   * Lista de objetos `BreadcrumbItem` que compõem o caminho de navegação.
-   */
-  items: BreadcrumbItem[]
-  /**
-   * Função chamada quando o usuário clica em um item navegável.
-   * Recebe o `href` do item clicado como argumento.
-   */
-  onNavigate: (href: string) => void
-}
+// Props para o modo ESTRITO (baseado em nav HTML)
+export type GovBRBreadcrumbStrictProps = HTMLAttributes<HTMLElement> &
+  GovBRBreadcrumbBaseProps & {
+    strictgovbr: true
+    /** Lista de links para exibir no breadcrumb. */
+    links: BreadcrumbLink[]
+  }
+
+// Props para o modo PADRÃO (baseado em Breadcrumbs do MUI)
+export type GovBRBreadcrumbMuiProps = BreadcrumbsProps &
+  GovBRBreadcrumbBaseProps & {
+    strictgovbr?: false
+  }
+
+// O tipo final é uma união dos dois modos.
+export type GovBRBreadcrumbProps = GovBRBreadcrumbStrictProps | GovBRBreadcrumbMuiProps

@@ -1,17 +1,19 @@
 // ===== COMPONENTES REESTRUTURADOS (NOVO PADRÃO) =====
 // Usando kebab-case e estrutura shadcn/ui
 
-// AutoSyncButton
-export * from './ui/auto-sync'
-export type { AutoSyncButtonProps } from './ui/auto-sync/types'
+// AutoSync
+export { AutoSync } from './ui/auto-sync'
+export type { AutoSyncProps } from './ui/auto-sync/types'
+
+// GovBRAvatar
 
 // GovBRAvatar
 export * from './ui/govbr-avatar'
-export type { GovBRAvatarMenuItem, GovBRAvatarProps } from './ui/govbr-avatar/types'
+export type { GovBRAvatarProps } from './ui/govbr-avatar/types'
 
 // GovBRBreadcrumb
 export * from './ui/govbr-breadcrumb'
-export type { BreadcrumbItem, GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types'
+export type { GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types'
 
 // GovBRButton
 export * from './ui/govbr-button'
@@ -26,7 +28,7 @@ export * from './ui/govbr-form-checkbox'
 export type { GovBRFormCheckboxProps } from './ui/govbr-form-checkbox/types'
 
 // GovBRFormInput
-export { GovBRFormInput } from './ui/govbr-form-input/index.client'
+export { GovBRFormInput } from './ui/govbr-form-input'
 export type { GovBRFormInputProps } from './ui/govbr-form-input/types'
 
 // GovBRInput

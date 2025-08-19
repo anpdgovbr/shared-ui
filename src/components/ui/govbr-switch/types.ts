@@ -1,13 +1,31 @@
-import type { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
-import type { BoxProps } from '@mui/material/Box'
+import type { FormControlLabelProps } from '@mui/material/FormControlLabel'
+import type { SwitchProps } from '@mui/material/Switch'
+import type { InputHTMLAttributes } from 'react'
 
-export interface GovBRSwitchProps extends Omit<BoxProps, 'onChange'>, SharedUIComponentProps {
-  checked: boolean
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  label?: string
-  size?: 'small' | 'medium' | 'large'
-  labelPlacement?: 'start' | 'end' | 'top'
-  disabled?: boolean
-  textEnabled?: string
-  textDisabled?: string
+// Props customizadas que são compartilhadas entre os dois modos
+interface GovBRSwitchBaseProps {
+  /**
+   * Ativa o modo de renderização estrito, que usa um elemento `<input>` padrão
+   * com as classes CSS do GovBR-DS, em vez de um Switch do MUI estilizado pelo tema.
+   * Garante máxima fidelidade visual ao GovBR-DS.
+   * @default false
+   */
+  strictgovbr?: boolean
 }
+
+// Props para o modo ESTRITO (baseado em input HTML)
+export type GovBRSwitchStrictProps = InputHTMLAttributes<HTMLInputElement> &
+  GovBRSwitchBaseProps & {
+    strictgovbr: true
+    label?: React.ReactNode
+  }
+
+// Props para o modo PADRÃO (baseado em Switch do MUI)
+export type GovBRSwitchMuiProps = Omit<FormControlLabelProps, 'control'> &
+  GovBRSwitchBaseProps & {
+    strictgovbr?: false
+    switchProps?: SwitchProps
+  }
+
+// O tipo final é uma união dos dois modos.
+export type GovBRSwitchProps = GovBRSwitchStrictProps | GovBRSwitchMuiProps

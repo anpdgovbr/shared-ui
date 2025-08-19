@@ -1,76 +1,55 @@
 'use client'
-import { mapMuiColorToGovbrClass } from '@helpers/muiColorToGovbrClass'
 import Button from '@mui/material/Button'
 import classNames from 'classnames'
-import React from 'react'
 
 import type { GovBRButtonProps } from './types'
 
 /**
- * Componente de botão padronizado conforme o Design System GovBR.
- *
- * @remarks
- * Este componente encapsula o botão do Material UI, aplicando estilos e comportamentos do padrão GovBR.
- *
- * @param props - Propriedades para configuração do botão, incluindo as propriedades do Material UI e as adicionais do GovBR.
- * @returns Um botão estilizado conforme o padrão GovBR.
- *
- * @example
- * ```tsx
- * <GovBRButton color="primary" block>
- *   Clique aqui
- * </GovBRButton>
- * ```
+ * Componente de botão que implementa o Design System GovBR de duas formas:
+ * 1.  **Modo Padrão (default):** Renderiza um `<Button>` do Material-UI, estilizado via `govbrTheme`.
+ *     Use as props padrão do MUI como `variant`, `color`, `fullWidth`.
+ * 2.  **Modo Estrito (`strictgovbr`):** Renderiza um elemento `<button>` HTML padrão e aplica as classes CSS do
+ *     `@govbr-ds/core` diretamente. Garante fidelidade visual máxima ao GovBR-DS.
  */
-export function GovBRButton({
-  children,
-  circle,
-  block,
-  inverted,
-  loading,
-  clearBlock,
-  color,
-  className,
-  sx,
-  ...rest
-}: Readonly<GovBRButtonProps>) {
-  const govbrColorClass = mapMuiColorToGovbrClass(color)
+export function GovBRButton(props: Readonly<GovBRButtonProps>) {
+  const { strictgovbr, className, children, ...rest } = props
 
-  // Estilos que dependem das props do componente
-  const dynamicSx = {
-    // Se for circular, o padding horizontal é 0, senão é 3
-    px: circle ? 0 : 3,
-    // Se for circular, aplica todos os estilos de círculo
-    ...(circle && {
-      width: 'var(--button-size)',
-      height: 'var(--button-size)',
-      minWidth: 'var(--button-size)',
-      minHeight: 'var(--button-size)',
-      padding: 0,
-      borderRadius: '50%', // <- O borderRadius para o círculo
-      lineHeight: 1,
-    }),
+  if (strictgovbr) {
+    // MODO ESTRITO: Renderiza um <button> padrão com classes CSS do GovBR-DS.
+    const {
+      color,
+      //variant, TODO: descobrir senão é necessário ou se o componente está mal desenvolvido
+      size,
+      fullWidth,
+      inverted,
+      circle,
+      loading,
+      //clearBlock, TODO: descobrir senão é necessário ou se o componente está mal desenvolvido
+      ...nativeButtonProps
+    } = rest
+
+    const govbrClasses = classNames(
+      'br-button',
+      { [color || '']: !!color },
+      { inverted: inverted },
+      { circle: circle },
+      { block: fullWidth },
+      { [size || '']: !!size },
+      { loading: loading },
+      className,
+    )
+
+    return (
+      <button className={govbrClasses} {...nativeButtonProps}>
+        {children}
+      </button>
+    )
+  } else {
+    // MODO PADRÃO: Renderiza um Button do MUI e deixa o tema cuidar do estilo.
+    return (
+      <Button className={className} {...rest}>
+        {children}
+      </Button>
+    )
   }
-
-  return (
-    <Button
-      className={classNames(
-        'br-button',
-        govbrColorClass,
-        {
-          circle,
-          block,
-          inverted,
-          loading,
-          [`auto-${clearBlock}`]: !!clearBlock,
-        },
-        className,
-      )}
-      // As props sx são mescladas. A `sx` passada pelo usuário tem prioridade.
-      sx={{ ...dynamicSx, ...sx }}
-      {...rest}
-    >
-      {children}
-    </Button>
-  )
 }

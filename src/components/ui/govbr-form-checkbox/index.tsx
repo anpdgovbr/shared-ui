@@ -1,7 +1,5 @@
 'use client'
-import { iconMap } from '@helpers/iconMap'
-import Stack from '@mui/material/Stack'
-import classNames from 'classnames'
+import FormHelperText from '@mui/material/FormHelperText'
 import type { FieldPath, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
@@ -11,44 +9,38 @@ import type { GovBRFormCheckboxProps } from './types'
 export function GovBRFormCheckbox<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
->({
-  name,
-  control,
-  rules,
-  required,
-  ...govBRCheckboxProps
-}: Readonly<GovBRFormCheckboxProps<TFieldValues, TName>>) {
-  const finalRules = required
-    ? {
-        ...rules,
-        required: typeof required === 'string' ? required : 'Campo obrigatório',
-      }
-    : rules
-
+>({ name, control, rules, label, ...rest }: Readonly<GovBRFormCheckboxProps<TFieldValues, TName>>) {
   return (
     <Controller
       name={name}
       control={control}
-      rules={finalRules}
-      render={({ field, fieldState }) => (
-        <Stack>
-          <GovBRCheckbox
-            {...govBRCheckboxProps}
-            id={name}
-            {...field}
-            checked={!!field.value}
-            status={fieldState.error ? 'invalid' : govBRCheckboxProps.status}
-          />
-          {fieldState.error && (
-            <span className={classNames('feedback', 'invalid')} role="alert">
-              {iconMap['Error']}
-              {fieldState.error.message}
-            </span>
-          )}
-        </Stack>
-      )}
+      rules={rules}
+      render={({ field, fieldState }) => {
+        // Omitir props que causam conflito de tipo com FormControlLabelProps
+        const { onBlur, onChange, value, ref } = field
+
+        // Construímos um objeto de props compatível com GovBRCheckbox
+        const checkboxProps = {
+          id: name,
+          label,
+          ...rest,
+          onBlur,
+          onChange,
+          checked: !!value,
+          inputRef: ref,
+        } as unknown as Parameters<typeof GovBRCheckbox>[0]
+
+        return (
+          <div>
+            <GovBRCheckbox {...checkboxProps} />
+            {fieldState.error && (
+              <FormHelperText error sx={{ ml: '14px' }}>
+                {fieldState.error.message}
+              </FormHelperText>
+            )}
+          </div>
+        )
+      }}
     />
   )
 }
-
-GovBRFormCheckbox.displayName = 'GovBRFormCheckbox'

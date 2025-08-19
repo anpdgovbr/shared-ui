@@ -1,6 +1,17 @@
 # 🎨 Como Usar o Tema GovBR
 
-Este documento explica como usar o tema GovBR da shared-ui em sua aplicação.
+Este documento explica como usar o **govbrTheme** da shared-ui, que implementa os padrões visuais do Gov.br Design System sobre componentes Material-UI.
+
+> 📚 **Contexto:** [ARQUITETURA.md](../ARQUITETURA.md) - Entenda a arquitetura híbrida da biblioteca de componentes ANPD.
+
+## 🎯 Objetivo do Tema
+
+O `govbrTheme` é parte fundamental da **biblioteca de componentes compartilháveis da ANPD**, fornecendo:
+
+- **Consistência visual**: Aplica padrões Gov.br DS automaticamente
+- **Compatibilidade técnica**: Resolve questões de integração entre MUI e Gov.br DS
+- **Manutenibilidade**: Centraliza estilização em um local
+- **Flexibilidade**: Suporte aos dois modos da arquitetura híbrida
 
 ## 📦 Instalação
 
@@ -10,22 +21,29 @@ npm install @anpdgovbr/shared-ui
 
 ## 🚀 Uso Básico
 
-### Opção 1: Provider Customizado (Recomendado)
+### Opção 1: GovBRThemeProvider (Recomendado)
 
-O jeito mais simples é usar o `GovBRThemeProvider` que já vem configurado:
+Use nosso provider que já resolve todos os conflitos de estilo:
 
 ```tsx
 import React from 'react'
 import { GovBRThemeProvider, GovBRButton } from '@anpdgovbr/shared-ui'
-import '@anpdgovbr/shared-ui/styles'
+import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core-tokens.min.css'
 
 function App() {
   return (
     <GovBRThemeProvider>
       <div>
         <h1>Minha Aplicação</h1>
+        {/* Modo Padrão: MUI estilizado pelo govbrTheme */}
         <GovBRButton variant="contained" color="primary">
-          Botão com Tema GovBR
+          Botão Modo Padrão
+        </GovBRButton>
+
+        {/* Modo Estrito: HTML puro com classes Gov.br DS */}
+        <GovBRButton strictgovbr inverted>
+          Botão Modo Estrito
         </GovBRButton>
       </div>
     </GovBRThemeProvider>
@@ -63,9 +81,9 @@ function App() {
 export default App
 ```
 
-## 🎯 Usando Apenas o Tema (sem componentes)
+## 🎯 Usando Apenas o Tema (sem componentes GovBR)
 
-Se você quiser usar apenas o tema do GovBR com componentes do MUI padrão:
+Se quiser usar apenas o tema com componentes MUI padrão:
 
 ```tsx
 import React from 'react'
@@ -73,7 +91,8 @@ import { ThemeProvider } from '@mui/material/styles'
 import { Button, TextField, Checkbox } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { govbrTheme } from '@anpdgovbr/shared-ui'
-import '@anpdgovbr/shared-ui/styles'
+import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core-tokens.min.css'
 
 function App() {
   return (
@@ -82,7 +101,7 @@ function App() {
       <div>
         {/* Estes componentes MUI usarão automaticamente o tema GovBR */}
         <Button variant="contained" color="primary">
-          Botão MUI com Tema GovBR
+          Botão MUI com Visual Gov.br DS
         </Button>
 
         <TextField label="Campo de texto" variant="outlined" margin="normal" />
@@ -94,11 +113,13 @@ function App() {
 }
 ```
 
+> 💡 **Como funciona:** O `govbrTheme` contém `styleOverrides` que fazem componentes MUI renderizarem com a aparência do Gov.br DS automaticamente.
+
 ## 🔧 Customização Avançada
 
-### Estendendo o Tema
+### Estendendo o Tema com Tokens Gov.br DS
 
-Você pode estender o tema GovBR para adicionar customizações específicas:
+**Abordagem Recomendada:** Use variáveis CSS do Gov.br DS para manter sincronização automática:
 
 ```tsx
 import { createTheme } from '@mui/material/styles'
@@ -108,39 +129,33 @@ const meuTemaCustomizado = createTheme({
   ...govbrTheme,
   palette: {
     ...govbrTheme.palette,
-    // Adicionar cores customizadas mantendo as do GovBR
+    // ✅ Bom: Usar tokens CSS do Gov.br DS
     tertiary: {
-      main: '#8B5CF6',
-      contrastText: '#fff',
+      main: 'var(--blue-warm-vivid-50)',
+      contrastText: 'var(--gray-2)',
     },
   },
   components: {
     ...govbrTheme.components,
-    // Personalizar componentes específicos
+    // Personalizar componentes específicos mantendo a arquitetura
     MuiButton: {
       ...govbrTheme.components?.MuiButton,
       styleOverrides: {
         ...govbrTheme.components?.MuiButton?.styleOverrides,
         root: {
           ...govbrTheme.components?.MuiButton?.styleOverrides?.root,
-          // Suas customizações adicionais
-          textTransform: 'uppercase',
+          // ✅ Bom: Usar variáveis ao invés de valores fixos
+          borderRadius: 'var(--surface-rounder-md)',
+          // ❌ Evitar: Valores fixos quebram a sincronização
+          // borderRadius: '8px',
         },
       },
     },
   },
 })
-
-// Usar o tema customizado
-function App() {
-  return (
-    <ThemeProvider theme={meuTemaCustomizado}>
-      <CssBaseline />
-      {/* Seu conteúdo */}
-    </ThemeProvider>
-  )
-}
 ```
+
+> 🎯 **Princípio:** Sempre use `var(--token-name)` para manter os valores sincronizados com atualizações do Gov.br DS.
 
 ### Acessando o Tema em Componentes
 
@@ -225,25 +240,23 @@ Fontes configuradas: **Rawline** e **Raleway** como fallback.
 
 ## ✅ Boas Práticas
 
-1. **Sempre importe os estilos**: `import '@anpdgovbr/shared-ui/styles'`
-2. **Use CssBaseline**: Para reset CSS consistente
-3. **Prefira o GovBRThemeProvider**: Mais simples e já configurado
-4. **Teste em diferentes breakpoints**: O tema é responsivo
-5. **Mantenha consistência**: Use as cores e espaçamentos do tema
+### 🎯 Arquitetura e Implementação
+
+1. **Sempre importe os CSS do Gov.br DS**: `core.min.css` e `core-tokens.min.css`
+2. **Prefira o GovBRThemeProvider**: Mais simples e já configurado para resolver conflitos
+3. **Use variáveis CSS**: `var(--token-name)` em vez de valores fixos nas customizações
+4. **Entenda os dois modos**: Modo padrão (MUI) vs modo estrito (HTML puro)
+
+### 🎨 Estilização e Visual
+
+5. **Use CssBaseline**: Para reset CSS consistente
+6. **Teste em diferentes breakpoints**: O tema é responsivo
+7. **Mantenha consistência**: Use as cores e espaçamentos do tema
+8. **Inspecione com DevTools**: Para descobrir tokens CSS nos componentes oficiais Gov.br DS
 
 ## 🆘 Problemas Comuns
 
-### Fontes não aparecem
-
-```tsx
-// ✅ Correto - importar os estilos
-import '@anpdgovbr/shared-ui/styles'
-
-// ❌ Incorreto - esquecer os estilos
-// Os estilos incluem as fontes do GovBR
-```
-
-### Tema não funciona
+### Tema não funciona / Conflitos de estilo
 
 ```tsx
 // ✅ Correto - envolver com provider
@@ -255,12 +268,41 @@ import '@anpdgovbr/shared-ui/styles'
 <MeuComponente /> // Tema não será aplicado
 ```
 
-### Cores não aparecem
+### Fontes não aparecem
 
 ```tsx
-// ✅ Correto - usar color prop do MUI
-<Button color="primary">OK</Button>
+// ✅ Correto - importar os estilos CSS
+import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core-tokens.min.css'
 
-// ❌ Incorreto - usar CSS direto
-<Button style={{backgroundColor: '#1351B4'}}>Não recomendado</Button>
+// ❌ Incorreto - esquecer os estilos
+// As fontes vêm dos arquivos CSS do Gov.br DS
 ```
+
+### Cores diferentes do esperado
+
+```tsx
+// ✅ Correto - usar color prop do MUI (controlado pelo tema)
+<Button color="primary">Seguirá o tema</Button>
+
+// ⚠️ Modo estrito quando precisar de 100% fidelidade
+<GovBRButton strictgovbr color="primary">Gov.br DS puro</GovBRButton>
+
+// ❌ Evitar - CSS direto conflita com a arquitetura
+<Button style={{backgroundColor: '#1351B4'}}>Pode conflitar</Button>
+```
+
+### Componente não tem aparência Gov.br DS
+
+1. **Verifique se o componente está no govbrTheme.ts**
+2. **Use componentes GovBR quando disponíveis**: `GovBRButton` em vez de `Button`
+3. **Para MUI puro**: Certifique-se que há `styleOverrides` para aquele componente no tema
+
+---
+
+## 🔗 Recursos Relacionados
+
+- 📖 **[ARQUITETURA.md](../ARQUITETURA.md)** - Fundamentos da arquitetura híbrida
+- 🎨 **[Gov.br DS](https://gov.br/ds)** - Design System oficial
+- 📝 **[ADICIONAR_COMPONENTE.md](./ADICIONAR_COMPONENTE.md)** - Como criar novos componentes
+- 🔧 **[MUI Theme](https://mui.com/material-ui/customization/theming/)** - Documentação de temas MUI
