@@ -20,7 +20,7 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
         color: 'var(--interactive, #1351B4)', // Azul GovBR quando marcado
 
         '&:hover': {
-          backgroundColor: 'var(--interactive-rgb), #5992ed)',
+          backgroundColor: 'var(--interactive-rgb, #5992ed)',
         },
       },
 
