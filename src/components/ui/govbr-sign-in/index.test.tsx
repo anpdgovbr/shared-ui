@@ -2,59 +2,52 @@
 import '@testing-library/jest-dom'
 
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
 
 import { GovBRSignIn } from './index'
 
 describe('GovBRSignIn', () => {
-  it('should render internal variant sign-in', () => {
-    render(<GovBRSignIn variant="internal" emphasis="secondary" />)
-
-    // Deve renderizar algum elemento de sign-in
-    const signInElement = screen.getByRole('button', { name: /entrar|sign.?in|login/i })
-    expect(signInElement).toBeInTheDocument()
+  it('should render the sign-in button with default text', () => {
+    render(<GovBRSignIn onClick={() => {}} />)
+    const button = screen.getByRole('button', { name: /Entrar com gov.br/i })
+    expect(button).toBeInTheDocument()
   })
 
-  it('should render external variant sign-in', () => {
-    render(<GovBRSignIn variant="external-text" emphasis="primary" />)
+  it("should call onClick with 'govbr' when clicked", async () => {
+    const user = userEvent.setup()
+    const mockOnClick = vi.fn()
+    render(<GovBRSignIn onClick={mockOnClick} />)
 
-    const signInElement = screen.getByRole('button', { name: /entrar|sign.?in|login/i })
-    expect(signInElement).toBeInTheDocument()
+    const button = screen.getByRole('button')
+    await user.click(button)
+
+    expect(mockOnClick).toHaveBeenCalledTimes(1)
+    expect(mockOnClick).toHaveBeenCalledWith('govbr')
   })
 
-  it('should render with custom className', () => {
-    render(<GovBRSignIn variant="internal" emphasis="secondary" className="custom-signin" />)
-
-    // Teste básico: verifica se o componente renderiza (className pode não estar aplicado no local esperado)
-    const signInElement = screen.getByRole('button')
-    expect(signInElement).toBeInTheDocument()
+  it('should be disabled when disabled prop is true', () => {
+    render(<GovBRSignIn onClick={() => {}} disabled />)
+    const button = screen.getByRole('button')
+    expect(button).toBeDisabled()
   })
 
-  it('should render with different density options', () => {
-    const { rerender } = render(
-      <GovBRSignIn variant="internal" emphasis="secondary" density="medium" />,
-    )
-
-    let signInElement = screen.getByRole('button')
-    expect(signInElement).toBeInTheDocument()
-
-    rerender(<GovBRSignIn variant="internal" emphasis="secondary" density="large" />)
-
-    signInElement = screen.getByRole('button')
-    expect(signInElement).toBeInTheDocument()
+  it('should render in strict mode when strictgovbr is true', () => {
+    // This test checks if the button is a native <button> (strict mode)
+    // instead of a MUI button, which has a different DOM structure.
+    render(<GovBRSignIn onClick={() => {}} strictgovbr />)
+    const button = screen.getByRole('button')
+    // A native button rendered by our strict mode logic will be a direct child
+    expect(button.tagName).toBe('BUTTON')
+    // It should have the br-button class
+    expect(button).toHaveClass('br-button')
   })
 
-  it('should render with custom icon when iconUrl is provided', () => {
-    render(
-      <GovBRSignIn
-        variant="internal"
-        emphasis="secondary"
-        iconUrl="https://example.com/icon.svg"
-      />,
-    )
-
-    // Se há iconUrl, deve haver uma imagem no componente
-    const signInElement = screen.getByRole('button')
-    expect(signInElement).toBeInTheDocument()
+  it('should render in MUI mode by default', () => {
+    render(<GovBRSignIn onClick={() => {}} />)
+    const button = screen.getByRole('button')
+    // A MUI button will not be a direct child and will have MUI classes
+    expect(button.tagName).toBe('BUTTON')
+    expect(button).toHaveClass('MuiButton-root')
   })
 })

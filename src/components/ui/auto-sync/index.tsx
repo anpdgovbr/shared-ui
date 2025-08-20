@@ -15,9 +15,9 @@ import { keyframes, useTheme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
 import { useCallback, useEffect, useState } from 'react'
 
-import type { AutoSyncButtonProps } from './types'
+import type { AutoSyncProps } from './types'
 
-export function AutoSyncButton<T = unknown>({
+export function AutoSync<T = unknown>({
   onSync,
   syncInterval = 30000,
   maxErrorCount = 3,
@@ -28,7 +28,7 @@ export function AutoSyncButton<T = unknown>({
   resetTrigger,
   disabled = false,
   size = 'medium', // Valor padrão conforme GovBR
-}: Readonly<AutoSyncButtonProps<T>>) {
+}: Readonly<AutoSyncProps<T>>) {
   const theme = useTheme()
   const [syncStatus, setSyncStatus] = useState<
     'idle' | 'loading' | 'success' | 'error' | 'critical-error'

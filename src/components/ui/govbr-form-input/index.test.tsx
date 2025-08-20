@@ -46,7 +46,7 @@ describe('GovBRFormInput', () => {
       </TestWrapper>,
     )
 
-    const labelElement = screen.getByText('Nome completo')
+    const labelElement = screen.getByLabelText('Nome completo')
     const inputElement = screen.getByPlaceholderText('Digite seu nome')
 
     expect(labelElement).toBeInTheDocument()
@@ -85,7 +85,7 @@ describe('GovBRFormInput', () => {
     )
 
     // Verifica se há indicador de campo obrigatório
-    const labelElement = screen.getByText(/Nome completo/i)
+    const labelElement = screen.getByLabelText(/Nome completo/i)
     expect(labelElement).toBeInTheDocument()
   })
 

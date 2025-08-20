@@ -1,53 +1,17 @@
-import type { ButtonHTMLAttributes } from 'react'
+import type { ButtonProps } from '@mui/material/Button'
 
-import type { GovBRSize } from '../../../types/GovBRTypes'
-import type { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
+// Props para o componente GovBRSignIn
+export interface GovBRSignInProps extends Omit<ButtonProps, 'onClick'> {
+  /**
+   * Ativa o modo de renderização estrito para o botão interno, que usa um elemento `<button>` padrão
+   * com as classes CSS do GovBR-DS, em vez de um botão MUI estilizado pelo tema.
+   * @default false
+   */
+  strictgovbr?: boolean
 
-/**
- * Propriedades do componente GovBRSignIn.
- */
-export type GovBRSignInProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  SharedUIComponentProps & {
-    /**
-     * Define o tipo de conteúdo e estilo do botão.
-     * - `internal`: Ícone de usuário e texto "Entrar". Padrão.
-     * - `external-text`: "Entrar com gov.br".
-     * - `external-image`: "Entrar com" e a imagem do gov.br.
-     * @default 'internal'
-     */
-    variant?: 'internal' | 'external-text' | 'external-image'
-
-    /**
-     * Define a ênfase visual do botão.
-     * @default 'secondary'
-     */
-    emphasis?: 'primary' | 'secondary'
-
-    /**
-     * Define a densidade (tamanho) do botão.
-     */
-    density?: GovBRSize
-
-    /**
-     * Transforma o botão em um ícone circular.
-     * @default false
-     */
-    circle?: boolean
-
-    /**
-     * Faz o botão ocupar toda a largura disponível.
-     * @default false
-     */
-    block?: boolean
-
-    /**
-     * Adapta o botão para uso em fundos escuros.
-     * @default false
-     */
-    inverted?: boolean
-
-    /**
-     * URL customizada para o ícone ou imagem do gov.br.
-     */
-    iconUrl?: string
-  }
+  /**
+   * Função a ser executada quando o botão de login é clicado.
+   * Recebe o provedor de login como argumento.
+   */
+  onClick: (provider: 'govbr') => void
+}

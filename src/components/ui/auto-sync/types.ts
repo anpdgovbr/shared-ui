@@ -1,7 +1,7 @@
 import { GovBRSize } from '../../../types/GovBRTypes'
 import { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
 
-export interface AutoSyncButtonProps<T = unknown> extends SharedUIComponentProps {
+export interface AutoSyncProps<T = unknown> extends SharedUIComponentProps {
   onSync: () => Promise<void>
   syncInterval?: number
   maxErrorCount?: number

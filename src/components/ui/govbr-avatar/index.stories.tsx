@@ -1,13 +1,10 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import PersonIcon from '@mui/icons-material/Person'
-import SettingsIcon from '@mui/icons-material/Settings'
 import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import React from 'react'
 
 import { GovBRAvatar } from './index'
 
@@ -15,39 +12,50 @@ const meta: Meta<typeof GovBRAvatar> = {
   title: 'Components/GovBRAvatar',
   component: GovBRAvatar,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <GovBRThemeProvider>
+        <Box sx={{ padding: 3, maxWidth: '800px' }}>
+          <Story />
+        </Box>
+      </GovBRThemeProvider>
+    ),
+  ],
   argTypes: {
-    name: {
+    strictgovbr: {
+      control: 'boolean',
+      description: 'Ativa o modo de renderização estrito (HTML puro com classes CSS)',
+    },
+    children: {
       control: 'text',
-      description: 'Nome do usuário para exibir na saudação e gerar iniciais',
+      description: 'Letra, ícone ou conteúdo a ser exibido no avatar (modo MUI)',
     },
     src: {
       control: 'text',
-      description: 'URL da imagem do avatar',
+      description: 'URL de uma imagem para o avatar',
     },
     alt: {
       control: 'text',
-      description: 'Texto alternativo para a imagem do avatar',
-    },
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-      description: 'Tamanho do avatar conforme padrões GovBR',
-    },
-    color: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary'],
-      description: 'Cor de fundo do avatar quando não há imagem',
+      description: 'Texto alternativo para a imagem',
     },
     variant: {
       control: 'select',
       options: ['circular', 'rounded', 'square'],
-      description: 'Formato visual do avatar',
+      description: 'Formato do avatar (modo MUI)',
     },
-    menuItems: {
-      control: 'object',
-      description: 'Lista de itens para o menu dropdown',
+    letter: {
+      control: 'text',
+      description: 'Letra a ser exibida no avatar (modo estrito)',
     },
-    onNavigate: { action: 'navigate' },
+    density: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Tamanho do avatar (modo estrito)',
+    },
+    tooltip: {
+      control: 'text',
+      description: 'Tooltip exibido ao passar o mouse (modo estrito)',
+    },
   },
   parameters: {
     docs: {
@@ -55,15 +63,15 @@ const meta: Meta<typeof GovBRAvatar> = {
         component: `
 ## GovBRAvatar - Componente GovBR-DS
 
-Componente de avatar do usuário que segue as diretrizes visuais do GovBR Design System.
+Componente de avatar padronizado seguindo as diretrizes do GovBR Design System.
 
 ### Características Principais:
-- 🎨 **Cores Semânticas**: Utiliza paleta oficial do GovBR-DS
-- 👤 **Avatar Inteligente**: Exibe imagem ou iniciais do nome automaticamente
-- 🔍 **Acessibilidade**: Propriedades ARIA e navegação por teclado
-- 📏 **Tamanhos Padrão**: Small (32px), Medium (40px), Large (48px)
-- 📋 **Menu Contextual**: Dropdown com ações do usuário
-- 🎭 **Variações Visuais**: Circular, arredondado ou quadrado
+- 🎨 **Modo Duplo**: MUI theme-based ou HTML puro com classes CSS do GovBR-DS  
+- 📷 **Tipos de Conteúdo**: Imagem, letra, ícone
+- 📏 **Tamanhos**: Small (32px), Medium (56px), Large (80px)
+- 🔔 **Notificação**: Indicador visual opcional
+- 🎭 **Formatos**: Circular, quadrado, arredondado (modo MUI)
+- 🏛️ **GovBR Strict Mode**: Aplicação rigorosa dos padrões governamentais
         `,
       },
     },
@@ -73,165 +81,185 @@ Componente de avatar do usuário que segue as diretrizes visuais do GovBR Design
 export default meta
 type Story = StoryObj<typeof GovBRAvatar>
 
-const mockMenuItems = [
-  { label: 'Perfil', href: '/perfil', icon: <PersonIcon /> },
-  { label: 'Configurações', href: '/config', icon: <SettingsIcon /> },
-  { label: 'Notificações', href: '/notifications', icon: <NotificationsIcon /> },
-  { label: 'Sair', href: '/logout', icon: <ExitToAppIcon /> },
-]
-
-const mockNavigate = (href: string) => {
-  console.log('Navegando para:', href)
-}
-
 export const Default: Story = {
   args: {
-    name: 'João Silva',
-    size: 'medium',
-    color: 'default',
-    variant: 'circular',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
+    children: 'JP',
+  },
+}
+
+export const WithStrictGovBr: Story = {
+  args: {
+    strictgovbr: true,
+    letter: 'A',
+    tooltip: 'Usuário ANPD',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatar seguindo rigorosamente o padrão GovBR-DS com classes `.br-avatar`',
+      },
+    },
   },
 }
 
 export const WithImage: Story = {
   args: {
-    name: 'Maria Santos',
-    src: 'https://via.placeholder.com/150',
-    size: 'medium',
-    color: 'primary',
-    variant: 'circular',
-    menuItems: mockMenuItems,
-    onNavigate: mockNavigate,
+    src: 'https://images.unsplash.com/photo-1494790108755-2616b60c-4-ce-4eca-a7a4-3aacd40b5e8f?w=400',
+    alt: 'Foto do usuário',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatar com imagem de perfil',
+      },
+    },
   },
 }
 
-export const SmallSize: Story = {
-  args: {
-    ...Default.args,
-    size: 'small',
-  },
-}
-
-export const LargeSize: Story = {
-  args: {
-    ...Default.args,
-    size: 'large',
-  },
-}
-
-export const NoMenu: Story = {
-  args: {
-    name: 'Pedro Costa',
-    size: 'medium',
-    color: 'secondary',
-    variant: 'circular',
-    // Sem menuItems para mostrar avatar sem dropdown
-  },
-}
-
-export const AllSizesComparison: Story = {
+export const AllSizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
+    <Stack spacing={3} direction="row" alignItems="center">
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
           Small (32px)
         </Typography>
-        <GovBRAvatar
-          name="João Silva"
-          size="small"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar sx={{ width: 32, height: 32, fontSize: '0.875rem' }}>S</GovBRAvatar>
       </Box>
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
-          Medium (40px)
+          Medium (56px)
         </Typography>
-        <GovBRAvatar
-          name="Maria Santos"
-          size="medium"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar>M</GovBRAvatar>
       </Box>
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
-          Large (48px)
+          Large (80px)
         </Typography>
-        <GovBRAvatar
-          name="Pedro Costa"
-          size="large"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar sx={{ width: 80, height: 80, fontSize: '1.5rem' }}>L</GovBRAvatar>
       </Box>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstração dos três tamanhos disponíveis (modo MUI)',
+      },
+    },
+  },
 }
 
-export const AllColorsComparison: Story = {
+export const StrictSizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
+    <Stack spacing={3} direction="row" alignItems="center">
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
-          Default
+          Small
         </Typography>
-        <GovBRAvatar
-          name="Default User"
-          color="default"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar strictgovbr letter="S" density="small" tooltip="Small avatar" />
       </Box>
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
-          Primary
+          Medium
         </Typography>
-        <GovBRAvatar
-          name="Primary User"
-          color="primary"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar strictgovbr letter="M" density="medium" tooltip="Medium avatar" />
       </Box>
       <Box textAlign="center">
         <Typography variant="body2" gutterBottom>
-          Secondary
+          Large
         </Typography>
-        <GovBRAvatar
-          name="Secondary User"
-          color="secondary"
-          menuItems={mockMenuItems}
-          onNavigate={mockNavigate}
-        />
+        <GovBRAvatar strictgovbr letter="L" density="large" tooltip="Large avatar" />
       </Box>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstração dos três tamanhos no modo estrito GovBR-DS',
+      },
+    },
+  },
 }
 
-export const IntegrationExample: Story = {
+export const AllVariants: Story = {
   render: () => (
-    <Paper elevation={1} sx={{ p: 3, maxWidth: 600 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-        <Box>
-          <Typography variant="h6">Dashboard da ANPD</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Sistema de Proteção de Dados
+    <Stack spacing={2}>
+      <Typography variant="h6" gutterBottom>
+        Variantes do Avatar (Modo MUI)
+      </Typography>
+      <Stack spacing={3} direction="row" alignItems="center">
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Circular (padrão)
           </Typography>
+          <GovBRAvatar variant="circular">C</GovBRAvatar>
         </Box>
-        <GovBRAvatar
-          name="Luciano Silva"
-          size="medium"
-          menuItems={[
-            { label: 'Meu Perfil', href: '/perfil', icon: <AccountCircleIcon /> },
-            { label: 'Configurações', href: '/config', icon: <SettingsIcon /> },
-            { label: 'Sair do Sistema', href: '/logout', icon: <ExitToAppIcon /> },
-          ]}
-          onNavigate={mockNavigate}
-        />
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Arredondado
+          </Typography>
+          <GovBRAvatar variant="rounded">R</GovBRAvatar>
+        </Box>
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>
+            Quadrado
+          </Typography>
+          <GovBRAvatar variant="square">Q</GovBRAvatar>
+        </Box>
       </Stack>
-    </Paper>
+    </Stack>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Diferentes formatos do avatar disponíveis no modo MUI',
+      },
+    },
+  },
+}
+
+export const WithIcon: Story = {
+  render: () => (
+    <Stack spacing={3} direction="row" alignItems="center">
+      <GovBRAvatar>
+        <AccountCircleIcon />
+      </GovBRAvatar>
+      <GovBRAvatar sx={{ bgcolor: 'secondary.main' }}>
+        <AccountCircleIcon />
+      </GovBRAvatar>
+      <GovBRAvatar sx={{ bgcolor: 'success.main' }}>
+        <AccountCircleIcon />
+      </GovBRAvatar>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatar com ícones e diferentes cores de fundo',
+      },
+    },
+  },
+}
+
+export const UserProfile: Story = {
+  render: () => (
+    <Box sx={{ maxWidth: 300, mx: 'auto' }}>
+      <Stack spacing={2} alignItems="center">
+        <Typography variant="h6">Perfil do Usuário - ANPD</Typography>
+        <GovBRAvatar strictgovbr letter="A" density="large" tooltip="Administrador ANPD" />
+        <Typography variant="body1" textAlign="center">
+          João Silva
+        </Typography>
+        <Typography variant="body2" color="text.secondary" textAlign="center">
+          Analista de Proteção de Dados
+        </Typography>
+      </Stack>
+    </Box>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Exemplo de uso em perfil de usuário governamental',
+      },
+    },
+  },
 }

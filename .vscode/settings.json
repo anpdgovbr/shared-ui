@@ -29,10 +29,6 @@
   "editor.snippetSuggestions": "top",
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": "matchingDocuments",
-  "files.exclude": {
-    "**/dist": true,
-    "types": true,
-    "**/node_modules": true
-  },
+
   "prettier.prettierPath": "./node_modules/prettier"
 }

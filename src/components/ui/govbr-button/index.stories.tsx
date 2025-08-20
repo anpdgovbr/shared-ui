@@ -35,9 +35,9 @@ const meta: Meta<typeof GovBRButton> = {
     },
     variant: {
       control: 'select',
-      options: ['contained', 'outlined', 'text'],
+      options: ['contained', 'outlined', 'text', 'circle', 'inverted'],
       description:
-        'Variante visual: contained (preenchido), outlined (contorno), text (apenas texto)',
+        'Variante visual: contained (preenchido), outlined (contorno), text (apenas texto), circle (circular), inverted (cores invertidas)',
     },
     size: {
       control: 'select',
@@ -52,18 +52,6 @@ const meta: Meta<typeof GovBRButton> = {
       control: false,
       description: 'Ícone exibido após o texto do botão',
     },
-    circle: {
-      control: 'boolean',
-      description: 'Aplicar estilo circular ao botão (ideal para ícones únicos)',
-    },
-    block: {
-      control: 'boolean',
-      description: 'Botão ocupa toda a largura disponível do container',
-    },
-    inverted: {
-      control: 'boolean',
-      description: 'Aplicar estilo invertido seguindo padrões GovBR-DS',
-    },
     loading: {
       control: 'boolean',
       description: 'Mostrar indicador de carregamento e desabilitar interações',
@@ -72,10 +60,6 @@ const meta: Meta<typeof GovBRButton> = {
       control: 'select',
       options: [undefined, 'sm', 'md', 'lg', 'xl'],
       description: 'Aplicar espaçamento clearBlock para responsividade',
-    },
-    strictGovBr: {
-      control: 'boolean',
-      description: 'Aplica estilos rigorosos do GovBR Design System (classes .br-button)',
     },
     disabled: {
       control: 'boolean',
@@ -128,7 +112,7 @@ export const WithStrictGovBr: Story = {
     children: 'Padrão GovBR',
     color: 'primary',
     variant: 'contained',
-    strictGovBr: true,
+    strictgovbr: true,
   },
   parameters: {
     docs: {
@@ -227,7 +211,7 @@ export const LoadingState: Story = {
 export const BlockButton: Story = {
   args: {
     children: 'Botão de Largura Completa',
-    block: true,
+    fullWidth: true,
     color: 'primary',
   },
   parameters: {
@@ -280,13 +264,13 @@ export const AllSizes: Story = {
 export const CircularButtons: Story = {
   render: () => (
     <Stack spacing={2} direction="row" alignItems="center">
-      <GovBRButton circle color="primary" size="small">
+      <GovBRButton variant="circle" color="primary" size="small">
         <AddIcon />
       </GovBRButton>
-      <GovBRButton circle color="secondary" size="medium">
+      <GovBRButton variant="circle" color="secondary" size="medium">
         <SaveIcon />
       </GovBRButton>
-      <GovBRButton circle color="error" size="large">
+      <GovBRButton variant="circle" color="error" size="large">
         <DeleteIcon />
       </GovBRButton>
     </Stack>
@@ -307,14 +291,14 @@ export const GovernmentExample: Story = {
         <Typography variant="h6" gutterBottom>
           Portal de Serviços - ANPD
         </Typography>
-        <GovBRButton fullWidth color="primary" size="large" strictGovBr>
+        <GovBRButton fullWidth color="primary" size="large" strictgovbr>
           Consultar Processos
         </GovBRButton>
         <Stack direction="row" spacing={1}>
-          <GovBRButton variant="outlined" color="primary" fullWidth strictGovBr>
+          <GovBRButton variant="outlined" color="primary" fullWidth strictgovbr>
             Protocolar
           </GovBRButton>
-          <GovBRButton variant="text" color="secondary" fullWidth strictGovBr>
+          <GovBRButton variant="text" color="secondary" fullWidth strictgovbr>
             Ajuda
           </GovBRButton>
         </Stack>

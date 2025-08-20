@@ -1,85 +1,95 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
 import { GovBRSwitch } from './index'
-import type { GovBRSwitchProps } from './types'
 
 const meta: Meta<typeof GovBRSwitch> = {
-  title: 'components/GovBRSwitch',
+  title: 'Components/GovBRSwitch',
   component: GovBRSwitch,
-  tags: ['autodocs'], // cspell:disable-line
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <GovBRThemeProvider>
+        <div style={{ padding: '2rem' }}>
+          <Story />
+        </div>
+      </GovBRThemeProvider>
+    ),
+  ],
+  argTypes: {
+    // --- Configuração ---
+    strictgovbr: {
+      control: 'boolean',
+      description:
+        'Ativa modo estrito com renderização HTML puro e classes CSS oficiais do GovBR-DS',
+      table: {
+        category: 'Configuração',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Texto do rótulo que descreve a função do switch - exibido ao lado do controle',
+      table: {
+        category: 'Conteúdo',
+        type: { summary: 'string' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description:
+        'Desabilita o switch impedindo alterações de estado e aplicando estilos visuais apropriados',
+      table: {
+        category: 'Estado',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    checked: {
+      control: 'boolean',
+      description: 'Estado do switch - true quando ligado/ativo, false quando desligado/inativo',
+      table: {
+        category: 'Estado',
+        defaultValue: { summary: 'false' },
+      },
+    },
+
+    // --- Layout ---
+    labelPlacement: {
+      control: 'select',
+      options: ['top', 'bottom', 'start', 'end'],
+      description:
+        'Posicionamento do rótulo: top (acima), bottom (abaixo), start (esquerda), end (direita)',
+      table: {
+        category: 'Layout',
+        defaultValue: { summary: 'end' },
+      },
+    },
+  },
   parameters: {
     docs: {
       description: {
         component: `
-## 🔄 GovBRSwitch
+## GovBRSwitch - Controle Liga/Desliga Governamental
 
-Componente de switch personalizado seguindo o padrão do GovBR Design System, construído sobre o Material-UI Switch.
+Componente de switch (alternador) padronizado para ativação/desativação de funcionalidades conforme GovBR Design System.
 
-### ✨ Características Principais
+### Características Principais:
+- 🎨 **Modo Duplo**: Suporte a MUI com tema personalizado ou HTML puro com classes GovBR-DS
+- 🔄 **Estados Binários**: Controle claro de ligado/desligado com feedback visual imediato
+- ♿ **Acessibilidade WCAG**: Suporte completo a teclado, screen readers e navegação assistiva
+- 🎭 **Estados Visuais**: Normal, hover, focus, checked/unchecked, disabled
+- 📍 **Layout Adaptável**: Posicionamento flexível do rótulo para diferentes layouts
+- 🏛️ **Padrões GovBR**: Implementação fiel às diretrizes de interface governamental
+- ⚡ **Performance**: Transições suaves e responsivas para melhor experiência do usuário
 
-- 🎨 **Design GovBR**: Cores e estilos alinhados com o design system
-- 📐 **Múltiplos Tamanhos**: Small, medium e large
-- 🏷️ **Posicionamento de Label**: Start, end ou top
-- 💬 **Texto de Estado**: Exibe "Ligado/Desligado" ou textos customizados
-- ♿ **Acessibilidade**: Totalmente acessível e navegável por teclado
-- 🎯 **Modo Strict GovBR**: Aplicação rigorosa das cores oficiais
-
-### 🚀 Uso Básico
-
-\`\`\`tsx
-import { GovBRSwitch } from '@anpdgovbr/shared-ui' // cspell:disable-line
-
-function MyComponent() {
-  const [checked, setChecked] = useState(false)
-  
-  return (
-    <GovBRSwitch
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-      label="Habilitar notificações"
-    />
-  )
-}
-\`\`\`
+### Casos de Uso Típicos:
+- Ativação/desativação de notificações em sistemas governamentais
+- Controles de privacidade e preferências em painéis administrativos
+- Habilitação de funcionalidades opcionais em formulários
+- Configurações de sistema em aplicações governamentais
+- Controles de exibição e filtros em dashboards administrativos
         `,
       },
-    },
-  },
-  argTypes: {
-    checked: {
-      control: { type: 'boolean' },
-      description: 'Estado do switch (ligado/desligado)',
-    },
-    label: {
-      control: { type: 'text' },
-      description: 'Texto da label do switch',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
-      description: 'Tamanho do switch',
-    },
-    labelPlacement: {
-      control: { type: 'select' },
-      options: ['start', 'end', 'top'],
-      description: 'Posição da label em relação ao switch',
-    },
-    disabled: {
-      control: { type: 'boolean' },
-      description: 'Se o switch está desabilitado',
-    },
-    textEnabled: {
-      control: { type: 'text' },
-      description: 'Texto exibido quando o switch está ligado',
-    },
-    textDisabled: {
-      control: { type: 'text' },
-      description: 'Texto exibido quando o switch está desligado',
-    },
-    strictGovBr: {
-      control: { type: 'boolean' },
-      description: 'Aplica rigorosamente as cores oficiais do GovBR',
     },
   },
 }
@@ -87,114 +97,54 @@ function MyComponent() {
 export default meta
 type Story = StoryObj<typeof GovBRSwitch>
 
-// Template com estado controlado
-const ControlledTemplate = (args: GovBRSwitchProps) => {
-  const [checked, setChecked] = useState(args.checked ?? false)
+// --- Estórias do Modo Padrão (MUI) ---
 
-  return <GovBRSwitch {...args} checked={checked} onChange={(e) => setChecked(e.target.checked)} />
-}
-
-export const Default: Story = {
-  render: ControlledTemplate,
+export const MuiDefault: Story = {
+  name: 'Padrão (MUI): Default',
   args: {
-    label: 'Switch Padrão',
-    checked: false,
-  },
-}
-
-export const Checked: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Switch Ativado',
+    label: 'Switch Padrão (MUI)',
     checked: true,
   },
 }
 
-export const Disabled: Story = {
-  render: ControlledTemplate,
+export const MuiLabelPlacement: Story = {
+  name: 'Padrão (MUI): Posição do Rótulo',
   args: {
+    label: 'Rótulo no início',
+    labelPlacement: 'start',
+    checked: true,
+  },
+}
+
+export const MuiColors: Story = {
+  name: 'Padrão (MUI): Cores',
+  args: {
+    label: 'Switch Colorido (MUI)',
+    checked: true,
+    switchProps: {
+      color: 'secondary',
+    },
+  },
+}
+
+// --- Estórias do Modo Estrito (GovBR-DS) ---
+
+export const StrictDefault: Story = {
+  name: 'Estrito (GovBR): Default',
+  args: {
+    strictgovbr: true,
+    label: 'Switch Estrito (Gov.br)',
+    id: 'strict-switch-1',
+    checked: true,
+  },
+}
+
+export const StrictDisabled: Story = {
+  name: 'Estrito (GovBR): Desabilitado',
+  args: {
+    strictgovbr: true,
     label: 'Switch Desabilitado',
-    checked: false,
+    id: 'strict-switch-2',
     disabled: true,
-  },
-}
-
-export const Small: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Switch Pequeno',
-    checked: false,
-    size: 'small',
-  },
-}
-
-export const Large: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Switch Grande',
-    checked: false,
-    size: 'large',
-  },
-}
-
-export const WithStateText: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Notificações',
-    checked: true,
-    textEnabled: 'Ligado',
-    textDisabled: 'Desligado',
-  },
-}
-
-export const WithCustomStateText: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Aceitar termos',
-    checked: false,
-    textEnabled: 'Concordo',
-    textDisabled: 'Discordo',
-  },
-}
-
-export const StrictGovBr: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: 'Switch GovBR Oficial',
-    checked: true,
-    strictGovBr: true,
-    textEnabled: 'Ativo',
-    textDisabled: 'Inativo',
-  },
-}
-
-export const LabelPositions: Story = {
-  render: () => {
-    const [checked1, setChecked1] = useState(false)
-    const [checked2, setChecked2] = useState(false)
-    const [checked3, setChecked3] = useState(false)
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <GovBRSwitch
-          label="Label no final (padrão)"
-          checked={checked1}
-          onChange={(e) => setChecked1(e.target.checked)}
-          labelPlacement="end"
-        />
-        <GovBRSwitch
-          label="Label no início"
-          checked={checked2}
-          onChange={(e) => setChecked2(e.target.checked)}
-          labelPlacement="start"
-        />
-        <GovBRSwitch
-          label="Label no topo"
-          checked={checked3}
-          onChange={(e) => setChecked3(e.target.checked)}
-          labelPlacement="top"
-        />
-      </div>
-    )
   },
 }

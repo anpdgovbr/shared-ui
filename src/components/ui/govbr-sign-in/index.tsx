@@ -1,66 +1,29 @@
 'use client'
-import classNames from 'classnames'
-import React from 'react'
 
+import { GovBRButton } from '../govbr-button'
 import type { GovBRSignInProps } from './types'
 
-export function GovBRSignIn({
-  variant = 'internal',
-  emphasis,
-  density,
-  circle = false,
-  block = false,
-  inverted = false,
-  className,
-  iconUrl,
-  ...props
-}: GovBRSignInProps) {
-  const componentClass = classNames(
-    'br-sign-in',
-    emphasis,
-    density,
-    {
-      circle,
-      block,
-      inverted,
-    },
-    className,
-  )
+/**
+ * Componente de botão para login com a conta gov.br.
+ * Encapsula o GovBRButton com a lógica e estilo específicos para o login.
+ */
+export function GovBRSignIn(props: Readonly<GovBRSignInProps>) {
+  const { onClick, strictgovbr, loading, ...rest } = props
 
-  const renderContent = () => {
-    switch (variant) {
-      case 'external-image':
-        return (
-          <>
-            Entrar com&nbsp;
-            <img
-              src={iconUrl || 'https://www.gov.br/++theme++padrao_govbr/img/govbr-colorido-b.png'}
-              alt="gov.br"
-            />
-          </>
-        )
-      case 'external-text':
-        return (
-          <>
-            Entrar com&nbsp;<span className="text-black">gov.br</span>
-          </>
-        )
-      case 'internal':
-      default:
-        return (
-          <>
-            <i className="fas fa-user" aria-hidden="true"></i>
-            {!circle && 'Entrar'}
-          </>
-        )
-    }
+  const handleClick = () => {
+    onClick('govbr')
   }
 
   return (
-    <button type="button" className={componentClass} {...props}>
-      {renderContent()}
-    </button>
+    <GovBRButton
+      color="primary"
+      variant="contained"
+      strictgovbr={strictgovbr}
+      loading={!!loading} // Garante que loading seja boolean ou undefined
+      onClick={handleClick}
+      {...rest}
+    >
+      Entrar com gov.br
+    </GovBRButton>
   )
 }
-
-GovBRSignIn.displayName = 'GovBRSignIn'
