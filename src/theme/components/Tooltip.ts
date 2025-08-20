@@ -1,98 +1,84 @@
-// src/theme/components/Tooltip.ts
-import { Components } from '@mui/material/styles'
+import type { Components } from '@mui/material/styles'
 
 /**
- * Overrides para o componente Tooltip do MUI
- * Baseado nos padrões de tooltip do GovBR Design System
+ * Overrides para MuiTooltip seguindo Gov.br Design System
+ *
+ * Aplica tokens CSS do Gov.br DS para consistência visual:
+ * - Cores de fundo e texto
+ * - Sombras e bordas
+ * - Tipografia padronizada
+ * - Espaçamentos e padding
  */
 export const MuiTooltipOverrides: Components['MuiTooltip'] = {
   styleOverrides: {
     tooltip: {
-      backgroundColor: 'var(--blue-cool-vivid-60, #074b69)', // Azul escuro para contraste
-      borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
-      boxShadow: 'var(--shadow-level-4, 0px 12px 24px rgba(0, 0, 0, 0.18))', // Sombra média
-      color: 'var(--color-lightest, #ffffff)', // Branco
-      fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem
-      fontWeight: 'var(--font-weight-medium, 500)', // 500
+      // Usar tokens CSS do Gov.br DS com fallbacks
+      backgroundColor: 'var(--gray-80, #636363)',
+      color: 'var(--background, #FFFFFF)',
+      fontSize: 'var(--font-size-scale-down-01, 12px)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      maxWidth: '240px',
-      padding: 'var(--spacing-scale-2x, 2rem)', // 16px
-      lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
+      fontWeight: 'var(--font-weight-regular, 400)',
+      lineHeight: 'var(--line-height-medium, 1.5)',
+      padding: 'var(--spacing-scale-2x, 8px) var(--spacing-scale-3x, 12px)',
+      borderRadius: 'var(--surface-rounder-sm, 4px)',
+      boxShadow: 'var(--shadow-md, 0px 4px 8px rgba(0, 0, 0, 0.1))',
+
+      // Transições suaves
+      transition: 'opacity var(--duration-base, 250ms) ease-out',
+
+      // Limitar largura máxima
+      maxWidth: 'var(--container-sm, 320px)',
+
+      // Melhor quebra de linha
+      wordWrap: 'break-word',
+      textAlign: 'center',
     },
 
-    // Seta do tooltip
     arrow: {
-      color: 'var(--blue-cool-vivid-60, #074b69)', // Mesma cor do fundo
+      color: 'var(--gray-80, #636363)',
     },
 
-    // Posicionamentos
+    // Tooltip com variantes baseadas no Gov.br DS
     tooltipPlacementTop: {
-      margin: 'var(--spacing-scale-base, 1rem) 0', // 8px 0
+      marginBottom: 'var(--spacing-scale-1x, 4px) !important',
     },
 
     tooltipPlacementBottom: {
-      margin: 'var(--spacing-scale-base, 1rem) 0', // 8px 0
+      marginTop: 'var(--spacing-scale-1x, 4px) !important',
     },
 
     tooltipPlacementLeft: {
-      margin: '0 var(--spacing-scale-base, 1rem)', // 0 8px
+      marginRight: 'var(--spacing-scale-1x, 4px) !important',
     },
 
     tooltipPlacementRight: {
-      margin: '0 var(--spacing-scale-base, 1rem)', // 0 8px
+      marginLeft: 'var(--spacing-scale-1x, 4px) !important',
     },
   },
 
+  // Variantes personalizadas se necessário
   variants: [
-    // Tooltip de erro
+    {
+      props: { color: 'primary' },
+      style: {
+        '& .MuiTooltip-tooltip': {
+          backgroundColor: 'var(--interactive, #1351B4)',
+          color: 'var(--background, #FFFFFF)',
+        },
+        '& .MuiTooltip-arrow': {
+          color: 'var(--interactive, #1351B4)',
+        },
+      },
+    },
     {
       props: { color: 'error' },
       style: {
         '& .MuiTooltip-tooltip': {
-          backgroundColor: 'var(--feedback-error-vivid, #D04F4F)',
+          backgroundColor: 'var(--danger, #D93026)',
+          color: 'var(--background, #FFFFFF)',
         },
         '& .MuiTooltip-arrow': {
-          color: 'var(--feedback-error-vivid, #D04F4F)',
-        },
-      },
-    },
-
-    // Tooltip de sucesso
-    {
-      props: { color: 'success' },
-      style: {
-        '& .MuiTooltip-tooltip': {
-          backgroundColor: 'var(--feedback-success-vivid, #168821)',
-        },
-        '& .MuiTooltip-arrow': {
-          color: 'var(--feedback-success-vivid, #168821)',
-        },
-      },
-    },
-
-    // Tooltip de aviso
-    {
-      props: { color: 'warning' },
-      style: {
-        '& .MuiTooltip-tooltip': {
-          backgroundColor: 'var(--feedback-warning-vivid, #F29F05)',
-          color: 'var(--color-dark, #000000)', // Texto escuro em fundo amarelo
-        },
-        '& .MuiTooltip-arrow': {
-          color: 'var(--feedback-warning-vivid, #F29F05)',
-        },
-      },
-    },
-
-    // Tooltip de informação
-    {
-      props: { color: 'info' },
-      style: {
-        '& .MuiTooltip-tooltip': {
-          backgroundColor: 'var(--blue-cool-vivid-50, #007FA3)',
-        },
-        '& .MuiTooltip-arrow': {
-          color: 'var(--blue-cool-vivid-50, #007FA3)',
+          color: 'var(--danger, #D93026)',
         },
       },
     },
