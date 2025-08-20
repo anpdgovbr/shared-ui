@@ -25,6 +25,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       // Bordas e cantos
       borderRadius: 'var(--button-radius, 100em)', // 100em
       border: '1px solid transparent',
+      outline: 'none',
 
       // Transições
       transition: 'all 0.2s ease-in-out',
@@ -36,7 +37,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
 
       '&:focus': {
-        outline: '2px solid var(--focus, #1351B4)',
+        outline: 'none',
         outlineOffset: '2px',
       },
 
