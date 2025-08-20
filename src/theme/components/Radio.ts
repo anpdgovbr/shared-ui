@@ -12,7 +12,7 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
       padding: 'var(--spacing-scale-base, 1rem)', // 8px
 
       '&:hover': {
-        backgroundColor: 'var(--interactive-rgb), #5992ed)',
+        backgroundColor: 'var(--interactive-rgb, #5992ed)',
         borderRadius: '50%',
       },
 
