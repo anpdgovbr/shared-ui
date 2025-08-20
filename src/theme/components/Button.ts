@@ -11,7 +11,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
   styleOverrides: {
     root: {
       // Tipografia
-      fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem
+      fontSize: 'var(--font-size-scale-up-01, 16.8px)', // 1.2rem
       fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
@@ -19,10 +19,11 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
 
       // Espaçamento
       padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2xh, 1.714rem)', // 12px 24px
-      minHeight: 'var(--spacing-scale-5x, 5rem)', // 40px
+      height: 'var(--button-medium, 40px)',
+      // minHeight: 'var(--spacing-scale-5x, 5rem)', // 40px
 
       // Bordas e cantos
-      borderRadius: 'var(--surface-rounder-md, 8px)', // 8px
+      borderRadius: 'var(--button-radius, 100em)', // 100em
       border: '1px solid transparent',
 
       // Transições
@@ -31,7 +32,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       // Estados de hover e focus
       '&:hover': {
         boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
-        transform: 'translateY(-1px)',
+        // transform: 'translateY(-1px)',
       },
 
       '&:focus': {
