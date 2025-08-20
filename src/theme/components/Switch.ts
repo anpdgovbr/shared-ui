@@ -52,7 +52,7 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
           transform: 'translateX(22px)', // Move para direita
         },
         '& .MuiSwitch-track': {
-          backgroundColor: 'var(--interactive-rgb), #5992ed)', // Fundo azul claro
+          backgroundColor: 'var(--interactive-rgb, #5992ed)', // Fundo azul claro
           borderColor: 'var(--interactive, #1351B4)',
         },
       },
