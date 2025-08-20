@@ -139,7 +139,7 @@ export function AutoSync<T = unknown>({
       case 'critical-error':
         return theme.palette.grey[600] // GovBR gray-30
       default:
-        return 'theme.palette.primary.main' // GovBR blue-warm-vivid-70
+        return theme.palette.primary.main // GovBR blue-warm-vivid-70
     }
   }
 
