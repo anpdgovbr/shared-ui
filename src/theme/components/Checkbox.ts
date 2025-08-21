@@ -12,7 +12,7 @@ export const MuiCheckboxOverrides: Components['MuiCheckbox'] = {
       padding: 'var(--spacing-scale-base, 1rem)', // 8px
 
       '&:hover': {
-        backgroundColor: 'var(--interactive-light, #5992ed)',
+        backgroundColor: 'var(--interactive-rgb, #5992ed)',
         borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
       },
 
@@ -20,7 +20,7 @@ export const MuiCheckboxOverrides: Components['MuiCheckbox'] = {
         color: 'var(--interactive, #1351B4)', // Azul GovBR quando marcado
 
         '&:hover': {
-          backgroundColor: 'var(--interactive-light, #5992ed)',
+          backgroundColor: 'var(--interactive-rgb, #5992ed)',
         },
       },
 

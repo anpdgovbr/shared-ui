@@ -8,7 +8,8 @@ import { Components } from '@mui/material/styles'
 export const MuiIconButtonOverrides: Components['MuiIconButton'] = {
   styleOverrides: {
     root: {
-      borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
+      // Formato oficial do gov, porem, como não há componente Icon, está desativado
+      // borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
       transition: 'all 0.2s ease-in-out',
 
       // Estado de foco acessível
@@ -19,7 +20,7 @@ export const MuiIconButtonOverrides: Components['MuiIconButton'] = {
 
       // Hover effect
       '&:hover:not(:disabled)': {
-        backgroundColor: 'var(--interactive-light, #5992ed)',
+        backgroundColor: 'var(--interactive-rgb, #5992ed)',
       },
 
       // Estado ativo
