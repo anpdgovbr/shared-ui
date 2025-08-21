@@ -35,10 +35,17 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
         boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
         // transform: 'translateY(-1px)',
       },
-
+      //TODO: verificar problema de acessibilidade, quando tem foco com tab
       '&:focus': {
         outline: 'none',
+        // outlineOffset: '2px',
+      },
+      '&:focus-visible': {
+        outlineStyle: 'dashed',
+        outlineWidth: '2px',
+        outlineColor: 'var(--feedback-warning-vivid, #F29F05)',
         outlineOffset: '2px',
+        boxShadow: 'none',
       },
 
       '&:active': {
@@ -71,6 +78,11 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
         boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
       },
 
+      '&:focus': {
+        backgroundColor: muiPalette.primary.main, // Reseta para a cor padrão
+        boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))', // Reseta para a sombra padrão
+      },
+
       '&:active': {
         backgroundColor: '#0a2756', // Interactive darker
       },
@@ -88,6 +100,10 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
         color: muiPalette.primary.dark, // #0c326f
       },
 
+      '&:focus': {
+        backgroundColor: 'transparent', // Reseta para a cor padrão
+      },
+
       '&:active': {
         backgroundColor: muiPalette.primary.main, // #1351B4
         color: '#ffffff',
@@ -103,6 +119,10 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       '&:hover': {
         backgroundColor: muiPalette.primary.light, // #5992ed
         color: muiPalette.primary.dark, // #0c326f
+      },
+
+      '&:focus': {
+        backgroundColor: 'transparent', // Reseta para a cor padrão
       },
 
       '&:active': {
