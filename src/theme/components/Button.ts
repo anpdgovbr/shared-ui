@@ -42,9 +42,9 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
       '&:focus-visible': {
         outlineStyle: 'dashed',
-        outlineWidth: '2px',
-        outlineColor: 'var(--feedback-warning-vivid, #F29F05)',
-        outlineOffset: '2px',
+        outlineWidth: '4px',
+        outlineColor: 'var(--feedback-warning-vivid, #b38c00)',
+        outlineOffset: '4px',
         boxShadow: 'none',
       },
 
