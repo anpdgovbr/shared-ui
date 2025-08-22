@@ -84,7 +84,8 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
 
       '&:active': {
-        backgroundColor: '#0a2756', // Interactive darker
+        backgroundColor: muiPalette.primary.dark,
+        boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
       },
     },
 

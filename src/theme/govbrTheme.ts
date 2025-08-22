@@ -111,6 +111,13 @@ export const govbrTheme: Theme = createTheme({
 
   // ===== COMPONENTS =====
   components: {
+    // Base components
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true, // Desabilita o efeito ripple globalmente
+      },
+    },
+
     // Form Controls
     MuiButton: MuiButtonOverrides,
     MuiTextField: MuiTextFieldOverrides,
