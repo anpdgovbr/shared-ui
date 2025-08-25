@@ -91,7 +91,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
 
     // Variante outlined (secundária)
     outlined: {
-      backgroundColor: 'transparent',
+      backgroundColor: '#FFFFFF',
       color: muiPalette.primary.main, // #1351B4
       borderColor: muiPalette.primary.main, // #1351B4
 
