@@ -291,3 +291,78 @@ export const FormExample: Story = {
     },
   },
 }
+
+export const AlignmentTest: Story = {
+  name: 'Teste de Alinhamento',
+  render: () => (
+    <Stack spacing={3}>
+      <Typography variant="h6" gutterBottom>
+        Teste de Alinhamento de Labels
+      </Typography>
+
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Modo Padrão (MUI)
+        </Typography>
+        <Stack spacing={1}>
+          <GovBRCheckbox label="Texto curto" checked={true} />
+          <GovBRCheckbox
+            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha"
+            checked={true}
+          />
+          <GovBRCheckbox
+            label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
+            checked={false}
+          />
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Modo Estrito (Gov.br DS)
+        </Typography>
+        <Stack spacing={1}>
+          <GovBRCheckbox strictgovbr id="strict-short" label="Texto curto" checked={true} />
+          <GovBRCheckbox
+            strictgovbr
+            id="strict-long"
+            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha"
+            checked={true}
+          />
+          <GovBRCheckbox
+            strictgovbr
+            id="strict-very-long"
+            label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
+            checked={false}
+          />
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Checkbox com Props Específicas
+        </Typography>
+        <Stack spacing={1}>
+          <GovBRCheckbox
+            checkboxProps={{ size: 'small' }}
+            label="Checkbox pequeno - texto curto"
+            checked={true}
+          />
+          <GovBRCheckbox
+            checkboxProps={{ size: 'small' }}
+            label="Checkbox pequeno - Este é um texto mais longo para testar o alinhamento"
+            checked={false}
+          />
+        </Stack>
+      </Box>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstração específica do alinhamento de labels com textos de diferentes tamanhos em ambos os modos (MUI e Gov.br DS estrito)',
+      },
+    },
+  },
+}

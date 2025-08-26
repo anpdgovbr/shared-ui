@@ -24,10 +24,11 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
     root: {
       gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre checkbox/radio e label
       alignItems: 'flex-start', // alinhamento superior para textos multi-linha
+      margin: 0, // Remove margem padrão
+      cursor: 'pointer', // indicação de clicável
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
       // margin: '0 0 var(--spacing-scale-base, 1rem) 0', // espaçamento entre controles
-      // cursor: 'pointer', // indicação de clicável
 
       // Hover state
       // '&:hover': {
@@ -45,15 +46,15 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
     },
     label: {
       fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-      fontWeight: 'var(--font-weight-regular, 400)', // 400 - peso normal
+      fontWeight: 'var(--font-weight-medium, 500)', // Seguindo padrão Gov.br
       color: 'var(--color, #333333)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       lineHeight: 'var(--font-line-height-medium, 1.45)', // 1.45 - legibilidade
-      paddingTop: 'var(--spacing-scale-2xh, 0.25rem)', // 4px - alinhamento com control
+      paddingTop: '2px', // Alinhamento visual com checkbox (24px)
+      cursor: 'pointer', // clicável
+      userSelect: 'none', // não selecionável
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
-      // cursor: 'pointer', // clicável
-      // userSelect: 'none', // não selecionável
       // letterSpacing: 'var(--font-letter-spacing-normal, 0)',
 
       // Para links no label
@@ -68,7 +69,7 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
     disabled: {
       '& .MuiFormControlLabel-label': {
         color: 'var(--gray-60, #888888)',
-        // FALTANDO: cursor: 'not-allowed',
+        cursor: 'not-allowed',
       },
     },
 
