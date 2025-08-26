@@ -5,17 +5,18 @@ import type { Components } from '@mui/material/styles'
  *
  * PROPRIEDADES IMPLEMENTADAS:
  * - ✅ gap entre control (checkbox/radio) e label
- * - ✅ alignItems para alinhamento vertical
+ * - ✅ alignItems centralizado verticalmente por padrão
  * - ✅ fontSize do label
  * - ✅ fontWeight e fontFamily
  * - ✅ color padrão e disabled
  * - ✅ lineHeight para legibilidade
  * - ✅ paddingTop para alinhamento fino
+ * - ✅ posicionamentos do label (start, top, bottom)
+ * - ✅ classe multiline para textos longos
  *
  * PROPRIEDADES COMUNS FALTANDO:
  * - ❌ margin para espaçamento entre múltiplos controles
  * - ❌ hover state no label
- * - ❌ cursor pointer no label clickável
  * - ❌ text-decoration para links no label
  * - ❌ estados focus/active
  */
@@ -23,9 +24,14 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
   styleOverrides: {
     root: {
       gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre checkbox/radio e label
-      alignItems: 'flex-start', // alinhamento superior para textos multi-linha
+      alignItems: 'center', // centraliza verticalmente por padrão
       margin: 0, // Remove margem padrão
       cursor: 'pointer', // indicação de clicável
+
+      // Para textos multi-linha, permite override para flex-start
+      '&.MuiFormControlLabel-multiline': {
+        alignItems: 'flex-start',
+      },
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
       // margin: '0 0 var(--spacing-scale-base, 1rem) 0', // espaçamento entre controles
@@ -73,19 +79,19 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
       },
     },
 
-    // SLOTS FALTANDO - Implementar se necessário:
-    // labelPlacementStart: {
-    //   flexDirection: 'row-reverse',
-    //   marginLeft: 0,
-    //   marginRight: 'var(--spacing-scale-base, 1rem)',
-    // },
-    // labelPlacementTop: {
-    //   flexDirection: 'column-reverse',
-    //   alignItems: 'center',
-    // },
-    // labelPlacementBottom: {
-    //   flexDirection: 'column',
-    //   alignItems: 'center',
-    // },
+    // Posicionamentos do label
+    labelPlacementStart: {
+      flexDirection: 'row-reverse',
+      marginLeft: 0,
+      marginRight: 'var(--spacing-scale-base, 1rem)',
+    },
+    labelPlacementTop: {
+      flexDirection: 'column-reverse',
+      alignItems: 'center',
+    },
+    labelPlacementBottom: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
 }
