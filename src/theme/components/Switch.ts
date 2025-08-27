@@ -3,145 +3,124 @@ import { Components } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Switch do MUI
- * Baseado nos padrões de switch do GovBR Design System
+ * Baseado exatamente nos padrões CSS do GovBR Design System (.br-switch)
+ * Replicando a estrutura e comportamento do modo strictgovbr
  */
 export const MuiSwitchOverrides: Components['MuiSwitch'] = {
   styleOverrides: {
     root: {
-      // Configurações base do switch
-      padding: 'var(--spacing-scale-base, 1rem)', // 8px
+      // Dimensões do switch baseadas no GovBR medium (padrão)
+      '--switch-height': '24px', // Ajustado para ficar menor
+      '--switch-width': '44px', // Ajustado para ficar menor
+      '--switch-toggle-size': '18px', // Ajustado para ficar menor
 
-      // Tamanho pequeno
-      '&.MuiSwitch-sizeSmall': {
-        '& .MuiSwitch-track': {
-          height: '24px',
-          width: '40px',
-          borderRadius: '12px',
-        },
+      display: 'inline-flex',
+      minHeight: 'var(--switch-height)',
+      width: 'auto',
+      height: 'auto',
+      padding: 0,
+      margin: 0,
+      overflow: 'visible',
+    },
+
+    switchBase: {
+      padding: 0,
+      margin: 0,
+      color: 'transparent',
+
+      // Estado padrão (não marcado) - thumb à esquerda
+      '&:not(.Mui-checked)': {
+        transform: 'translateX(0)',
+
         '& .MuiSwitch-thumb': {
-          height: '16px',
-          width: '16px',
+          // Posição à esquerda: 4px do início
+          transform: 'translateX(4px)',
+          backgroundColor: 'var(--gray-80, #333333)', // --off
         },
       },
 
-      // Tamanho médio (padrão)
-      '&.MuiSwitch-sizeMedium': {
-        '& .MuiSwitch-track': {
-          height: '30px',
-          width: '52px',
-          borderRadius: '15px',
-        },
-        '& .MuiSwitch-thumb': {
-          height: '22px',
-          width: '22px',
-        },
-      },
-
-      // Estado de foco acessível
-      '&.Mui-focusVisible': {
-        '& .MuiSwitch-track': {
-          outline: '2px solid var(--focus, #1351B4)',
-          outlineOffset: '2px',
-        },
-      },
-
-      // Estado marcado/ligado
+      // Estado marcado/ligado - thumb à direita
       '&.Mui-checked': {
+        transform: 'translateX(0)',
+        color: 'transparent',
+
         '& .MuiSwitch-thumb': {
-          backgroundColor: 'var(--interactive, #1351B4)', // Azul quando ligado
-          transform: 'translateX(22px)', // Move para direita
+          // Posição à direita: calc(44px - 18px - 4px) = 22px
+          transform: 'translateX(22px)',
+          backgroundColor: 'var(--blue-warm-vivid-70, #1351B4)', // --on
         },
-        '& .MuiSwitch-track': {
-          backgroundColor: 'var(--interactive-rgb, #5992ed)', // Fundo azul claro
-          borderColor: 'var(--interactive, #1351B4)',
+
+        '& + .MuiSwitch-track': {
+          backgroundColor: 'var(--blue-warm-vivid-20, #adcdff)', // Background quando ligado
+          borderColor: 'var(--blue-warm-vivid-70, #1351B4)',
+          opacity: 1,
         },
       },
 
       // Estado desabilitado
       '&.Mui-disabled': {
-        cursor: 'not-allowed',
         opacity: 0.6,
 
         '& .MuiSwitch-thumb': {
           backgroundColor: 'var(--gray-40, #999999)',
         },
 
-        '& .MuiSwitch-track': {
+        '& + .MuiSwitch-track': {
           backgroundColor: 'var(--gray-20, #cccccc)',
           borderColor: 'var(--gray-30, #bbbbbb)',
         },
       },
 
-      // Hover effect
-      '&:hover:not(.Mui-disabled)': {
-        '& .MuiSwitch-track': {
-          backgroundColor: 'var(--gray-10, #eeeeee)',
+      // Estado de foco (replicando o GovBR)
+      '&.Mui-focusVisible': {
+        '& + .MuiSwitch-track': {
+          borderColor: 'var(--focus, #FFCD07) !important',
+          boxShadow: '0 0 0 2px var(--focus, #FFCD07)',
+          outline: 'none',
         },
+      },
 
-        '&.Mui-checked .MuiSwitch-track': {
-          backgroundColor: 'var(--interactive, #1351B4)',
+      // Hover states (replicando o GovBR)
+      '&:hover:not(.Mui-disabled):not(.Mui-checked)': {
+        '& + .MuiSwitch-track': {
+          backgroundImage: 'linear-gradient(rgba(51, 51, 51, 0.08), rgba(51, 51, 51, 0.08))', // --off-rgb hover
+        },
+      },
+
+      '&:hover:not(.Mui-disabled).Mui-checked': {
+        '& + .MuiSwitch-track': {
+          backgroundImage: 'linear-gradient(rgba(19, 81, 180, 0.08), rgba(19, 81, 180, 0.08))', // --on-rgb hover
         },
       },
     },
 
-    // Thumb (bolinha que desliza)
     thumb: {
-      backgroundColor: 'var(--gray-60, #777777)', // Cinza quando desligado
-      height: '22px',
-      width: '22px',
+      width: 'var(--switch-toggle-size)',
+      height: 'var(--switch-toggle-size)',
       borderRadius: '50%',
-      transition: 'all 0.3s ease-in-out',
-      boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
+      backgroundColor: 'var(--gray-80, #333333)', // --off
+      boxShadow: 'none',
+      transition: 'all 0.3s ease-in-out', // Mesmo timing do GovBR
+      marginTop: '3px', // Move a bolinha para baixo
 
-      // Ícone dentro do thumb (opcional)
+      // Remove estilos padrão do MUI
       '&::before': {
-        content: '""',
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        left: 0,
-        top: 0,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: '60%',
-      },
-    },
-
-    // Track (trilha de fundo)
-    track: {
-      backgroundColor: 'var(--gray-20, #cccccc)', // Fundo cinza quando desligado
-      border: '1px solid var(--gray-40, #999999)',
-      borderRadius: '15px',
-      height: '30px',
-      width: '52px',
-      opacity: 1, // Remove opacidade padrão do MUI
-      transition: 'all 0.3s ease-in-out',
-
-      // Remove sombra interna padrão do MUI
-      '&::before, &::after': {
         display: 'none',
       },
     },
 
-    // Configuração do input (hidden)
-    switchBase: {
-      padding: '4px',
-      margin: 0,
+    track: {
+      width: 'var(--switch-width)',
+      height: 'var(--switch-height)',
+      borderRadius: '100em', // border-radius: 100em do GovBR
+      backgroundColor: 'var(--gray-20, #E6E6E6)', // --background-light
+      border: '1px solid var(--gray-60, #777777)', // --border-color
+      opacity: 1,
+      transition: 'all 0.3s ease-in-out',
 
-      '&.Mui-checked': {
-        transform: 'translateX(22px)',
-
-        '& + .MuiSwitch-track': {
-          backgroundColor: 'var(--interactive-rgb, #5992ed)',
-          borderColor: 'var(--interactive, #1351B4)',
-        },
-      },
-
-      '&.Mui-disabled': {
-        '& + .MuiSwitch-track': {
-          backgroundColor: 'var(--gray-20, #cccccc)',
-          borderColor: 'var(--gray-30, #bbbbbb)',
-        },
+      // Remove estilos padrão do MUI
+      '&::before, &::after': {
+        display: 'none',
       },
     },
   },
@@ -151,13 +130,13 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
     {
       props: { color: 'success' },
       style: {
-        '&.Mui-checked': {
+        '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--feedback-success-vivid, #168821)',
+            backgroundColor: 'var(--green-vivid-50, #168821)',
           },
-          '& .MuiSwitch-track': {
-            backgroundColor: 'var(--feedback-success-light, #7ED788)',
-            borderColor: 'var(--feedback-success-vivid, #168821)',
+          '& + .MuiSwitch-track': {
+            backgroundColor: 'var(--green-cool-20, #7ED788)',
+            borderColor: 'var(--green-vivid-50, #168821)',
           },
         },
       },
@@ -167,13 +146,13 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
     {
       props: { color: 'error' },
       style: {
-        '&.Mui-checked': {
+        '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--feedback-error-vivid, #D04F4F)',
+            backgroundColor: 'var(--red-vivid-50, #D54309)',
           },
-          '& .MuiSwitch-track': {
-            backgroundColor: 'var(--feedback-error-light, #F8A8A8)',
-            borderColor: 'var(--feedback-error-vivid, #D04F4F)',
+          '& + .MuiSwitch-track': {
+            backgroundColor: 'var(--red-cool-20, #F8A8A8)',
+            borderColor: 'var(--red-vivid-50, #D54309)',
           },
         },
       },
@@ -183,13 +162,13 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
     {
       props: { color: 'warning' },
       style: {
-        '&.Mui-checked': {
+        '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--feedback-warning-vivid, #F29F05)',
+            backgroundColor: 'var(--yellow-vivid-60, #F29F05)',
           },
-          '& .MuiSwitch-track': {
-            backgroundColor: 'var(--feedback-warning-light, #FFD966)',
-            borderColor: 'var(--feedback-warning-vivid, #F29F05)',
+          '& + .MuiSwitch-track': {
+            backgroundColor: 'var(--yellow-20, #FFD966)',
+            borderColor: 'var(--yellow-vivid-60, #F29F05)',
           },
         },
       },

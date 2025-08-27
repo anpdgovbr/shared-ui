@@ -9,7 +9,7 @@ export const MuiCheckboxOverrides: Components['MuiCheckbox'] = {
   styleOverrides: {
     root: {
       color: 'var(--gray-40, #999999)', // Cor da borda não marcada
-      padding: 'var(--spacing-scale-base, 1rem)', // 8px
+      padding: '2px 8px 2px 2px',
 
       '&:hover': {
         backgroundColor: 'var(--interactive-rgb, #5992ed)',
@@ -45,7 +45,7 @@ export const MuiCheckboxOverrides: Components['MuiCheckbox'] = {
 
       // Tamanhos
       '&.MuiCheckbox-sizeSmall': {
-        padding: 'var(--spacing-scale-half, 0.5rem)', // 4px
+        padding: '1px 4px 1px 1px', // Padding otimizado para tamanho pequeno
 
         '& .MuiSvgIcon-root': {
           fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem

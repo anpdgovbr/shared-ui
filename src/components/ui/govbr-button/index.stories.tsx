@@ -6,7 +6,6 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
-import React from 'react'
 
 import { GovBRButton } from './index'
 
@@ -150,7 +149,9 @@ export const SemanticColors: Story = {
   render: () => (
     <Stack spacing={2}>
       <Stack spacing={1} direction="row">
-        <GovBRButton color="primary">Primary</GovBRButton>
+        <GovBRButton variant="contained" color="primary">
+          Primary
+        </GovBRButton>
         <GovBRButton color="secondary">Secondary</GovBRButton>
         <GovBRButton color="success">Success</GovBRButton>
       </Stack>
@@ -213,6 +214,7 @@ export const BlockButton: Story = {
     children: 'Botão de Largura Completa',
     fullWidth: true,
     color: 'primary',
+    variant: 'contained',
   },
   parameters: {
     docs: {
