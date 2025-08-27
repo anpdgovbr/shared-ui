@@ -36,18 +36,20 @@ export const MuiFormLabelOverrides: Components['MuiFormLabel'] = {
       //   content: '" *"',
       //   color: 'var(--feedback-error-vivid, #D04F4F)',
       // },
-    },
-    focused: {
-      color: 'var(--interactive, #1351B4)',
-      // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // mais destaque no foco
-    },
-    error: {
-      color: 'var(--feedback-error-vivid, #D04F4F)',
-      // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // destaque no erro
-    },
-    disabled: {
-      color: 'var(--gray-60, #888888)',
-      // FALTANDO: cursor: 'not-allowed', // indicação visual
+
+      // Estados movidos para dentro de root para evitar warnings do MUI sobre especificidade
+      '&.Mui-focused': {
+        color: 'var(--interactive, #1351B4)',
+        // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // mais destaque no foco
+      },
+      '&.Mui-error': {
+        color: 'var(--feedback-error-vivid, #D04F4F)',
+        // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // destaque no erro
+      },
+      '&.Mui-disabled': {
+        color: 'var(--gray-60, #888888)',
+        // FALTANDO: cursor: 'not-allowed', // indicação visual
+      },
     },
 
     // SLOTS FALTANDO - Implementar se necessário:

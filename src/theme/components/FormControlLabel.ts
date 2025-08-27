@@ -49,6 +49,13 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
       //     color: 'var(--interactive, #1351B4)',
       //   },
       // },
+
+      '&.Mui-disabled': {
+        '& .MuiFormControlLabel-label': {
+          color: 'var(--gray-60, #888888)',
+          cursor: 'not-allowed',
+        },
+      },
     },
     label: {
       fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
@@ -72,12 +79,10 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
       //   },
       // },
     },
-    disabled: {
-      '& .MuiFormControlLabel-label': {
-        color: 'var(--gray-60, #888888)',
-        cursor: 'not-allowed',
-      },
-    },
+    // disabled state merged into root to avoid top-level state keys
+    // mantém o slot label intacto para regras diretas
+    // Caso seja necessário comportamento específico do root para disabled,
+    // pode-se usar '&.Mui-disabled' dentro do root acima.
 
     // Posicionamentos do label
     labelPlacementStart: {
