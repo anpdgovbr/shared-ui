@@ -64,8 +64,9 @@ export function GovBRButton(props: Readonly<GovBRButtonProps>) {
     )
   } else {
     // MODO PADRÃO: Renderiza um Button do MUI e deixa o tema cuidar do estilo.
+    const mergedClassName = classNames(className)
     return (
-      <Button className={className} {...props}>
+      <Button {...rest} className={mergedClassName}>
         {children}
       </Button>
     )
