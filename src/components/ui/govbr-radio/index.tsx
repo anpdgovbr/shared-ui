@@ -14,10 +14,18 @@ import type { GovBRRadioProps } from './types'
 export function GovBRRadio(props: Readonly<GovBRRadioProps>) {
   // --- MODO ESTRITO ---
   if (props.strictgovbr) {
-    const { id, label, className, ...rest } = props
+    const { id, label, className, style, ...rest } = props
 
     return (
-      <div className={classNames('br-radio', className)}>
+      <div
+        className={classNames('br-radio', className)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--spacing-scale-half, 0.5rem)',
+          ...style,
+        }}
+      >
         <input id={id} type="radio" {...rest} />
         <label htmlFor={id}>{label}</label>
       </div>

@@ -306,3 +306,19 @@ import '@govbr-ds/core/dist/core-tokens.min.css'
 - 🎨 **[Gov.br DS](https://gov.br/ds)** - Design System oficial
 - 📝 **[ADICIONAR_COMPONENTE.md](./ADICIONAR_COMPONENTE.md)** - Como criar novos componentes
 - 🔧 **[MUI Theme](https://mui.com/material-ui/customization/theming/)** - Documentação de temas MUI
+
+## 🧪 Validação rápida de overrides do tema
+
+Se você editar `src/theme/components/*` e ajustar `styleOverrides`, valide manualmente que não há warnings do MUI sobre especificidade (ex.: mensagens que indicam para usar `&.Mui-focused` em vez de `focused` no nível superior):
+
+1. Rode localmente `npm run check` (lint + typecheck) e `npm run build`.
+2. Abra a aplicação de exemplo ou Storybook; inspecione o console do navegador ao montar componentes de formulário (TextField, InputLabel, FormLabel, FormHelperText).
+3. Procure por warnings como: "The MuiFormLabel component increases the CSS specificity of the focused internal state... use '&.Mui-focused' syntax." Se não aparecerem, o override está correto.
+
+Esta nota é especialmente importante ao mover chaves de estado (focused, error, disabled, filled) para dentro de `styleOverrides.root` usando os seletores:
+
+- focused -> `&.Mui-focused`
+- error -> `&.Mui-error`
+- disabled -> `&.Mui-disabled`
+- filled -> `&.Mui-filled`
+
