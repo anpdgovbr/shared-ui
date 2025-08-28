@@ -19,7 +19,7 @@
     "a11y"
   ],
   "author": {
-    "name": "Luciano Édipo",
+    "name": "Luciano Édipo Pereira da Silva",
     "email": "luciano.psilva@anpd.gov.br",
     "url": "https://github.com/lucianoedipo"
   },
@@ -27,6 +27,14 @@
     {
       "name": "Equipe ANPD",
       "url": "https://github.com/orgs/anpdgovbr/people"
+    },
+    {
+      "name": "Eduardo Henrique Anjos",
+      "url": "https://github.com/eduHanjos0411"
+    },
+    {
+      "name": "Gustavo Fernandes Lima",
+      "url": "https://github.com/gustavolimaf"
     }
   ],
   "license": "MIT",
