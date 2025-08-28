@@ -105,3 +105,40 @@ export const StrictDefault: Story = {
     id: 'form-checkbox-strict',
   },
 }
+
+export const AlignmentTest: Story = {
+  name: 'Teste de Alinhamento',
+  render: () => (
+    <GovBRThemeProvider>
+      <div style={{ maxWidth: 600, padding: '2rem' }}>
+        <h3>Teste de Alinhamento - Form Checkbox</h3>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h4>Modo Padrão (MUI)</h4>
+          <FormWrapper label="Texto curto" strictgovbr={false} />
+          <FormWrapper
+            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários"
+            strictgovbr={false}
+          />
+        </div>
+
+        <div>
+          <h4>Modo Estrito (Gov.br DS)</h4>
+          <FormWrapper label="Texto curto" strictgovbr={true} />
+          <FormWrapper
+            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários utilizando o modo estrito"
+            strictgovbr={true}
+          />
+        </div>
+      </div>
+    </GovBRThemeProvider>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstração específica do alinhamento de labels em FormCheckbox com textos de diferentes tamanhos',
+      },
+    },
+  },
+}

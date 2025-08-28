@@ -36,32 +36,26 @@ export const MuiFormHelperTextOverrides: Components['MuiFormHelperText'] = {
       // Animação de entrada
       // transition: 'opacity 0.2s ease-in-out',
       // opacity: 1,
-    },
-    filled: {
-      marginLeft: 0, // consistência com root
-      paddingBottom: 'var(--spacing-scale-2xh, 0.25rem)', // 4px - espaçamento inferior
 
-      // FALTANDO: paddingLeft: 'var(--spacing-scale-1xh, 0.75rem)', // alinhamento com filled input
-    },
-    error: {
-      fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem - ligeiramente menor
-      marginTop: 'var(--spacing-scale-2xh, 0.25rem)', // 4px
-      marginLeft: 'var(--spacing-scale-half, 0.5rem)', // 8px - pequena indentação para destaque
-      fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      color: 'var(--feedback-error-vivid, #D04F4F)',
+      // filled variant adjustments moved into root with selector
+      '&.Mui-filled': {
+        marginLeft: 0, // consistência com root
+        paddingBottom: 'var(--spacing-scale-2xh, 0.25rem)', // 4px - espaçamento inferior
+      },
 
-      // PROPRIEDADES FALTANDO - Implementar se necessário:
-      // fontWeight: 'var(--font-weight-medium, 500)', // destaque para erro
-      // '&::before': {
-      //   content: '"⚠ "', // ícone de alerta
-      //   fontWeight: 'bold',
-      // },
-      // animation: 'shake 0.3s ease-in-out', // animação de entrada
-    },
-    disabled: {
-      color: 'var(--gray-60, #888888)', // cor mais clara para desabilitado
+      // error state moved into root
+      '&.Mui-error': {
+        fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem - ligeiramente menor
+        marginTop: 'var(--spacing-scale-2xh, 0.25rem)', // 4px
+        marginLeft: 'var(--spacing-scale-half, 0.5rem)', // 8px - pequena indentação para destaque
+        fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
+        color: 'var(--feedback-error-vivid, #D04F4F)',
+      },
 
-      // FALTANDO: opacity: 0.7, // redução de opacidade
+      // disabled state moved into root
+      '&.Mui-disabled': {
+        color: 'var(--gray-60, #888888)', // cor mais clara para desabilitado
+      },
     },
 
     // SLOTS FALTANDO - Implementar se necessário:

@@ -1,6 +1,7 @@
 'use client'
 import Button from '@mui/material/Button'
 import classNames from 'classnames'
+import type { ButtonHTMLAttributes } from 'react'
 
 import type { GovBRButtonProps } from './types'
 
@@ -12,30 +13,47 @@ import type { GovBRButtonProps } from './types'
  *     `@govbr-ds/core` diretamente. Garante fidelidade visual máxima ao GovBR-DS.
  */
 export function GovBRButton(props: Readonly<GovBRButtonProps>) {
-  const { strictgovbr, className, children, ...rest } = props
+  const {
+    strictgovbr,
+    className,
+    children,
+    // props que mapeamos para classes GovBR no modo estrito
+    variant,
+    color,
+    size,
+    fullWidth,
+    inverted,
+    circle,
+    loading,
+    // resto pode incluir aria-*/on* e outros atributos que queremos repassar ao <button>
+    ...rest
+  } = props
 
   if (strictgovbr) {
-    // MODO ESTRITO: Renderiza um <button> padrão com classes CSS do GovBR-DS.
-    const {
-      color,
-      //variant, TODO: descobrir senão é necessário ou se o componente está mal desenvolvido
-      size,
-      fullWidth,
-      inverted,
-      circle,
-      loading,
-      //clearBlock, TODO: descobrir senão é necessário ou se o componente está mal desenvolvido
-      ...nativeButtonProps
-    } = rest
+    // Converter rest para atributos nativos de button de forma tipada
+    const nativeButtonProps: ButtonHTMLAttributes<HTMLButtonElement> =
+      rest as unknown as ButtonHTMLAttributes<HTMLButtonElement>
+
+    // mapear variant -> classes GovBR: contained -> primary, outlined -> secondary, text/undefined -> terciário (sem classe)
+    let colorClass = ''
+    if (variant === 'contained') colorClass = 'primary'
+    else if (variant === 'outlined') colorClass = 'secondary'
+    else if (variant === 'text' || variant == null) colorClass = '' // terciário = sem classe
+
+    // se não veio variant, aceitar color direto (ex: success, warning, info, primary, secondary...)
+    if (!variant && color) {
+      const allowed = ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'danger']
+      if (allowed.includes(String(color))) colorClass = String(color)
+    }
 
     const govbrClasses = classNames(
       'br-button',
-      { [color || '']: !!color },
-      { inverted: inverted },
-      { circle: circle },
-      { block: fullWidth },
+      colorClass || null,
+      { block: !!fullWidth },
+      { inverted: !!inverted },
+      { circle: !!circle },
+      { loading: !!loading },
       { [size || '']: !!size },
-      { loading: loading },
       className,
     )
 
@@ -46,8 +64,9 @@ export function GovBRButton(props: Readonly<GovBRButtonProps>) {
     )
   } else {
     // MODO PADRÃO: Renderiza um Button do MUI e deixa o tema cuidar do estilo.
+    const mergedClassName = classNames(className)
     return (
-      <Button className={className} {...rest}>
+      <Button {...rest} className={mergedClassName}>
         {children}
       </Button>
     )
