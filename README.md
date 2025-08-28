@@ -1,10 +1,14 @@
 # 📦 ANPD Shared UI
 
-> Biblioteca de componentes React com MUI e padrão Gov.br para a ANPD.
+> Biblioteca de componentes React com MUI e padrão Gov.BR para a ANPD.
 
 ![CI](https://github.com/anpdgovbr/shared-ui/actions/workflows/ci.yml/badge.svg)
-![License](https://img.shields.io/badge/license-ISC-blue.svg)
-![Node Version](https://img.shields.io/badge/node-20%2B-brightgreen)
+![npm](https://img.shields.io/npm/v/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
+![downloads (week)](https://img.shields.io/npm/dw/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-%3E%3D4.9-blue.svg?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-^19-61DAFB.svg?logo=react&logoColor=white)
+![MUI](https://img.shields.io/badge/MUI-^7-007FFF.svg?logo=mui&logoColor=white)
+![GovBR DS](https://img.shields.io/badge/Gov.BR-@govbr--ds/core-4F8A10.svg?logo=government&logoColor=white)
 
 ---
 
@@ -80,8 +84,6 @@ Agora você pode usar os componentes em qualquer lugar da sua aplicação.
 
 **Exemplo 1: Modo Padrão (Recomendado)**
 
-Este é o modo principal de uso. O componente renderiza um componente MUI estilizado pelo `govbrTheme.ts` para seguir os padrões do Gov.br DS.
-
 ```tsx
 import { GovBRButton } from '@anpdgovbr/shared-ui'
 
@@ -96,8 +98,6 @@ function MeuComponente() {
 
 **Exemplo 2: Modo Estrito (Quando Necessário)**
 
-Use `strictgovbr={true}` quando precisar de 100% de fidelidade visual ao CSS oficial do Gov.br DS.
-
 ```tsx
 import { GovBRButton } from '@anpdgovbr/shared-ui'
 
@@ -109,14 +109,6 @@ function MeuComponente() {
   )
 }
 ```
-
----
-
-## Nossa Arquitetura
-
-Para entender em profundidade _por que_ a biblioteca funciona dessa maneira e como contribuir com novos componentes, hooks e layouts, consulte nosso guia de arquitetura completo.
-
-- **📖 [Guia de Arquitetura Didático](./ARQUITETURA.md)**
 
 ---
 
