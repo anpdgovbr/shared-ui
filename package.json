@@ -1,6 +1,6 @@
 {
   "name": "@anpdgovbr/shared-ui",
-  "version": "0.3.3-beta.1",
+  "version": "0.3.4-beta.0",
   "description": "Biblioteca de componentes React com MUI v7 e padrão govbr-ds para ANPD",
   "keywords": [
     "react",
@@ -119,6 +119,7 @@
     "dayjs": "^1.11.18"
   },
   "devDependencies": {
+    "react-lgpd-consent": "0.3.6",
     "@chromatic-com/storybook": "^4.1.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
