@@ -112,6 +112,7 @@ export const WithStrictGovBr: Story = {
     color: 'primary',
     variant: 'contained',
     strictgovbr: true,
+    inverted: true,
   },
   parameters: {
     docs: {
@@ -133,6 +134,9 @@ export const AllVariants: Story = {
       </GovBRButton>
       <GovBRButton variant="text" color="primary">
         Text
+      </GovBRButton>
+      <GovBRButton variant="inverted" color="primary">
+        Inverted (MUI)
       </GovBRButton>
     </Stack>
   ),

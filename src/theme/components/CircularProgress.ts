@@ -32,6 +32,30 @@ export const MuiCircularProgressOverrides: Components['MuiCircularProgress'] = {
       '&.MuiCircularProgress-colorInfo': {
         color: '#0d7ea2', // Info color
       },
+      // Keyframes necessários para animação indeterminada do spinner
+      '@keyframes circular-rotate': {
+        '0%': {
+          transform: 'rotate(0deg)',
+        },
+        '100%': {
+          transform: 'rotate(360deg)',
+        },
+      },
+
+      '@keyframes circular-dash': {
+        '0%': {
+          strokeDasharray: '1, 200',
+          strokeDashoffset: '0',
+        },
+        '50%': {
+          strokeDasharray: '89, 200',
+          strokeDashoffset: '-35px',
+        },
+        '100%': {
+          strokeDasharray: '89, 200',
+          strokeDashoffset: '-124px',
+        },
+      },
     },
 
     circle: {

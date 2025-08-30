@@ -209,5 +209,41 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
         },
       },
     },
+
+    // Variante invertida (cores invertidas) — usa tokens GovBR quando disponíveis
+    {
+      props: { variant: 'inverted' },
+      style: {
+        backgroundColor: 'var(--color-lightest, #ffffff)',
+        color: 'var(--interactive, ' + muiPalette.primary.main + ')',
+        border: `1px solid var(--interactive, ${muiPalette.primary.main})`,
+
+        '&:hover': {
+          // hover inverte parcialmente: usa token de light para fundos quando disponível
+          backgroundColor: 'var(--interactive-light, ' + muiPalette.primary.light + ')',
+          color: 'var(--interactive-dark, ' + muiPalette.primary.dark + ')',
+        },
+
+        '&:active': {
+          backgroundColor: 'var(--interactive, ' + muiPalette.primary.main + ')',
+          color: 'var(--color-lightest, #ffffff)',
+        },
+      },
+    },
+
+    // Variante circular: reduz padding e aplica tamanho circular
+    {
+      props: { variant: 'circle' },
+      style: {
+        borderRadius: '50%',
+        minWidth: 'var(--button-medium, 40px)',
+        width: 'var(--button-medium, 40px)',
+        height: 'var(--button-medium, 40px)',
+        padding: 0,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+    },
   ],
 }
