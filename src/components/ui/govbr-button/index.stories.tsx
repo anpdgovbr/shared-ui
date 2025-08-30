@@ -98,6 +98,9 @@ Componente de botão padronizado que segue as diretrizes visuais do GovBR Design
 export default meta
 type Story = StoryObj<typeof GovBRButton>
 
+type ColorKey = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'error'
+type VariantKey = 'contained' | 'outlined' | 'text' | 'circle' | 'inverted'
+
 export const Default: Story = {
   args: {
     children: 'Botão Padrão',
@@ -135,6 +138,9 @@ export const AllVariants: Story = {
       <GovBRButton variant="text" color="primary">
         Text
       </GovBRButton>
+      <GovBRButton variant="circle" color="primary" size="medium">
+        <AddIcon />
+      </GovBRButton>
       <GovBRButton variant="inverted" color="primary">
         Inverted (MUI)
       </GovBRButton>
@@ -143,29 +149,69 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstração das três variantes visuais disponíveis',
+        story:
+          'Demonstração das variantes visuais disponíveis: contained, outlined, text, circle, inverted',
       },
     },
   },
 }
 
 export const SemanticColors: Story = {
-  render: () => (
-    <Stack spacing={2}>
-      <Stack spacing={1} direction="row">
-        <GovBRButton variant="contained" color="primary">
-          Primary
-        </GovBRButton>
-        <GovBRButton color="secondary">Secondary</GovBRButton>
-        <GovBRButton color="success">Success</GovBRButton>
-      </Stack>
-      <Stack spacing={1} direction="row">
-        <GovBRButton color="warning">Warning</GovBRButton>
-        <GovBRButton color="info">Info</GovBRButton>
-        <GovBRButton color="error">Error</GovBRButton>
-      </Stack>
-    </Stack>
-  ),
+  render: () => {
+    const colors: ColorKey[] = ['primary', 'secondary', 'success', 'warning', 'info', 'error']
+    const label = (c: string) => c.charAt(0).toUpperCase() + c.slice(1)
+    type VariantKey = 'contained' | 'outlined' | 'text' | 'circle' | 'inverted'
+
+    const variants: { key: VariantKey; label: string }[] = [
+      { key: 'contained', label: 'Contained (omit)' },
+      { key: 'outlined', label: 'Outlined' },
+      { key: 'text', label: 'Text' },
+      { key: 'circle', label: 'Circle' },
+      { key: 'inverted', label: 'Inverted' },
+    ]
+
+    return (
+      <Box sx={{ display: 'grid', gap: 1 }}>
+        {/* Grid wrapper */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: `160px repeat(${colors.length}, minmax(96px, 1fr))`,
+            gap: 1,
+            alignItems: 'center',
+          }}
+        >
+          {/* header row */}
+          <Box />
+          {colors.map((c) => (
+            <Box key={`hdr-${c}`} sx={{ px: 1 }}>
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                {label(c)}
+              </Typography>
+            </Box>
+          ))}
+
+          {/* rows - one per variant */}
+          {variants.map((v) => (
+            <>
+              <Box key={`label-${v.key}`} sx={{ px: 1 }}>
+                <Typography variant="body2">{v.label}</Typography>
+              </Box>
+
+              {colors.map((c) => {
+                const key = `${v.key}-${c}`
+                return (
+                  <Box key={key} sx={{ p: 0.5 }}>
+                    {renderCell(v.key, c)}
+                  </Box>
+                )
+              })}
+            </>
+          ))}
+        </Box>
+      </Box>
+    )
+  },
   parameters: {
     docs: {
       description: {
@@ -173,6 +219,51 @@ export const SemanticColors: Story = {
       },
     },
   },
+}
+
+function renderCell(variant: VariantKey, color: ColorKey) {
+  const label = (c: string) => c.charAt(0).toUpperCase() + c.slice(1)
+  const cellMaxWidth = variant === 'circle' ? 56 : 160
+
+  let content: React.ReactNode
+  if (variant === 'circle') {
+    content = (
+      <GovBRButton variant="circle" color={color} size="medium">
+        <AddIcon />
+      </GovBRButton>
+    )
+  } else if (variant === 'outlined') {
+    content = (
+      <GovBRButton variant="outlined" color={color} fullWidth>
+        {label(color)}
+      </GovBRButton>
+    )
+  } else if (variant === 'text') {
+    content = (
+      <GovBRButton variant="text" color={color} fullWidth>
+        {label(color)}
+      </GovBRButton>
+    )
+  } else if (variant === 'inverted') {
+    content = (
+      <GovBRButton variant="inverted" color={color} fullWidth>
+        {label(color)}
+      </GovBRButton>
+    )
+  } else {
+    // contained
+    content = (
+      <GovBRButton color={color} fullWidth>
+        {label(color)}
+      </GovBRButton>
+    )
+  }
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ width: '100%', maxWidth: cellMaxWidth }}>{content}</Box>
+    </Box>
+  )
 }
 
 export const WithIcons: Story = {
@@ -269,16 +360,45 @@ export const AllSizes: Story = {
 
 export const CircularButtons: Story = {
   render: () => (
-    <Stack spacing={2} direction="row" alignItems="center">
-      <GovBRButton variant="circle" color="primary" size="small">
-        <AddIcon />
-      </GovBRButton>
-      <GovBRButton variant="circle" color="secondary" size="medium">
-        <SaveIcon />
-      </GovBRButton>
-      <GovBRButton variant="circle" color="error" size="large">
-        <DeleteIcon />
-      </GovBRButton>
+    <Stack spacing={2} direction="column">
+      {/* linha de small */}
+      <Stack spacing={2} direction="row" alignItems="center">
+        <GovBRButton variant="circle" color="primary" size="small">
+          <AddIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="secondary" size="small">
+          <SaveIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="error" size="small">
+          <DeleteIcon />
+        </GovBRButton>
+      </Stack>
+
+      {/* linha existente - medium */}
+      <Stack spacing={2} direction="row" alignItems="center">
+        <GovBRButton variant="circle" color="primary" size="medium">
+          <AddIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="secondary" size="medium">
+          <SaveIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="error" size="medium">
+          <DeleteIcon />
+        </GovBRButton>
+      </Stack>
+
+      {/* linha de large */}
+      <Stack spacing={2} direction="row" alignItems="center">
+        <GovBRButton variant="circle" color="primary" size="large">
+          <AddIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="secondary" size="large">
+          <SaveIcon />
+        </GovBRButton>
+        <GovBRButton variant="circle" color="error" size="large">
+          <DeleteIcon />
+        </GovBRButton>
+      </Stack>
     </Stack>
   ),
   parameters: {

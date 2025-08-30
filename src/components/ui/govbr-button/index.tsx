@@ -107,13 +107,28 @@ export function GovBRButton(props: Readonly<GovBRButtonProps>) {
     const restAsMui = rest as Partial<MuiButtonProps>
     const { startIcon, endIcon, disabled } = restAsMui
 
+    // Se não veio `variant` e a cor for 'secondary', mapear para 'outlined' por convenção GovBR
+    const effectiveVariant =
+      variant ??
+      (String(color) === 'secondary'
+        ? ('outlined' as MuiButtonProps['variant'])
+        : ('contained' as MuiButtonProps['variant']))
+
+    // mapear tamanho do spinner conforme size do botão
+    const getSpinnerSize = (s?: MuiButtonProps['size']) => {
+      if (s === 'small') return 14
+      if (s === 'large') return 20
+      return 16
+    }
+    const spinnerSize = getSpinnerSize(size)
+
     const muiProps: Partial<MuiButtonProps> = {
-      variant,
+      variant: effectiveVariant,
       color,
       size,
       fullWidth,
       // se estiver em loading, mostrar spinner e desabilitar
-      startIcon: loading ? <CircularProgress size={16} color="inherit" /> : startIcon,
+      startIcon: loading ? <CircularProgress size={spinnerSize} color="inherit" /> : startIcon,
       endIcon: endIcon,
       disabled: disabled || loading,
       ...rest,
