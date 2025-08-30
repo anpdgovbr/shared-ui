@@ -112,7 +112,7 @@ export const WithStrictGovBr: Story = {
     color: 'primary',
     variant: 'contained',
     strictgovbr: true,
-    inverted: true,
+    inverted: false,
   },
   parameters: {
     docs: {
