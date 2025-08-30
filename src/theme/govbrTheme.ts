@@ -89,7 +89,7 @@ export const govbrTheme: Theme = createTheme({
     // então usamos um fallback numérico. Para aplicar tokens do Gov.br DS use
     // 'var(--surface-rounder-*)' dentro dos styleOverrides dos componentes.
     // Usamos 1 porque o --surface-rounder-md é 8px;
-    borderRadius: 1,
+    borderRadius: '8px',
   },
 
   transitions: {
