@@ -114,9 +114,11 @@ export const govbrTheme: Theme = createTheme({
   components: {
     // Form Controls
     MuiButton: {
-      //Ripple: efeito de onda que aparece ao clicar
+      // Ripple: efeito de onda que aparece ao clicar
       ...MuiButtonOverrides,
       defaultProps: {
+        // Definimos variante padrão como 'contained' para alinhar com o visual GovBR
+        variant: 'contained',
         // TEMPORÁRIO: Desabilita ripple apenas no Button por enquanto
         // TODO: Avaliar se deve ser aplicado globalmente ou mantido específico
         disableRipple: true,
