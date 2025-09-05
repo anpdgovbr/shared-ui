@@ -41,7 +41,7 @@ export {
   shadowColors,
   shadows,
 } from './shadows'
-export { createSpacing, govbrSpacing, spacingBreakpoints } from './spacing'
+export { createSpacing, govbrSpacing, spacingBreakpoints, spacingUtils } from './spacing'
 export {
   dragStates,
   focusStates,

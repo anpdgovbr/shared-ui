@@ -21,144 +21,150 @@ export const typography: TypographyVariantsOptions & {
   fontWeightBold: string | number
 } = {
   // Família de fonte padrão do GovBR-DS
-  fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)', // "Rawline", "Raleway", sans-serif
+  fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
 
-  // Tamanho base de fonte
-  fontSize: 14, // Base para cálculos relativos (--font-size-scale-base = 1rem = 14px)
+  // Tamanho base de fonte - alinhado com padrões web (16px)
+  fontSize: 16, // Base para cálculos relativos
 
   // Pesos de fonte do GovBR-DS
-  fontWeightLight: 'var(--font-weight-light, 300)', // 300
-  fontWeightRegular: 'var(--font-weight-regular, 400)', // 400
-  fontWeightMedium: 'var(--font-weight-medium, 500)', // 500
-  fontWeightBold: 'var(--font-weight-bold, 700)', // 700
+  fontWeightLight: 'var(--font-weight-light, 300)',
+  fontWeightRegular: 'var(--font-weight-regular, 400)',
+  fontWeightMedium: 'var(--font-weight-medium, 500)',
+  fontWeightBold: 'var(--font-weight-bold, 700)',
 
-  // Hierarquia tipográfica completa baseada no GovBR-DS
+  // Hierarquia tipográfica otimizada para composições
+  // MARGENS REDUZIDAS para melhor composabilidade
   h1: {
-    fontSize: 'var(--font-size-scale-up-04, 2.036rem)', // 2.036rem (29.036px)
-    fontWeight: 'var(--font-weight-medium, 500)', // 500
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem (24px)
+    fontSize: 'var(--font-size-scale-up-04, 2.074rem)', // ~33px
+    fontWeight: 'var(--font-weight-bold, 700)',
+    lineHeight: 'var(--font-line-height-low, 1.15)',
+    letterSpacing: 'var(--font-letter-spacing-tight, -0.02em)',
+    // Margens menores para melhor composabilidade
+    marginBottom: 'var(--spacing-scale-2x, 1rem)', // 16px (era 24px)
+    marginTop: 0, // Remove margin-top para controle manual
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    // Responsive design - maior em breakpoints maiores
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-06, 2.986rem)', // 2.986rem (41.804px)
-      fontWeight: 'var(--font-weight-light, 300)', // 300
-      marginBottom: 'var(--spacing-scale-4x, 2.857rem)', // 2.857rem (40px)
+    // Responsive - mais conservador
+    '@media (max-width: 768px)': {
+      fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // ~28px em mobile
     },
   },
   h2: {
-    fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // 1.728rem (24.192px)
-    fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
-    marginTop: 'var(--spacing-scale-3xh, 2rem)', // 2rem (28px)
-    paddingBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
+    fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // ~28px
+    fontWeight: 'var(--font-weight-bold, 700)',
+    lineHeight: 'var(--font-line-height-medium, 1.25)',
+    letterSpacing: 'var(--font-letter-spacing-tight, -0.01em)',
+    // Margens otimizadas
+    marginBottom: 'var(--spacing-scale-1xh, 0.75rem)', // 12px (era 24px)
+    marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-05, 2.488rem)', // 2.488rem (34.832px)
-      fontWeight: 'var(--font-weight-regular, 400)', // 400
+    '@media (max-width: 768px)': {
+      fontSize: 'var(--font-size-scale-up-02, 1.44rem)', // ~23px em mobile
     },
   },
   h3: {
-    fontSize: 'var(--font-size-scale-up-02, 1.44rem)', // 1.44rem (20.16px)
-    fontWeight: 'var(--font-weight-bold, 700)', // 700
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
-    marginTop: 'var(--spacing-scale-3xh, 2rem)', // 2rem
+    fontSize: 'var(--font-size-scale-up-02, 1.44rem)', // ~23px
+    fontWeight: 'var(--font-weight-semi-bold, 600)',
+    lineHeight: 'var(--font-line-height-medium, 1.25)',
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
+    // Margens balanceadas
+    marginBottom: 'var(--spacing-scale-base, 0.5rem)', // 8px (era 24px)
+    marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-04, 2.036rem)', // 2.036rem
-      fontWeight: 'var(--font-weight-medium, 500)', // 500
+    '@media (max-width: 768px)': {
+      fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // ~19px em mobile
     },
   },
   h4: {
-    fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem (16.8px)
-    fontWeight: 'var(--font-weight-bold, 700)', // 700
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem
-    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem (16px)
+    fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // ~19px
+    fontWeight: 'var(--font-weight-semi-bold, 600)',
+    lineHeight: 'var(--font-line-height-medium, 1.25)',
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
+    // Margens mínimas para máxima flexibilidade
+    marginBottom: 'var(--spacing-scale-base, 0.5rem)', // 8px (era 24px)
+    marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-03, 1.728rem)', // 1.728rem
-      fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
-      marginTop: 'var(--spacing-scale-3xh, 2rem)', // 2rem
-    },
   },
   h5: {
-    fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-    fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
-    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
-    paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem (8px)
-    textTransform: 'uppercase',
+    fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+    fontWeight: 'var(--font-weight-semi-bold, 600)',
+    lineHeight: 'var(--font-line-height-medium, 1.25)',
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
+    // Sem margens - controle total pelos containers
+    marginBottom: 'var(--spacing-scale-half, 0.25rem)', // 4px
+    marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-02, 1.44rem)', // 1.44rem
-      fontWeight: 'var(--font-weight-bold, 700)', // 700
-      marginTop: 'var(--spacing-scale-3xh, 2rem)', // 2rem
-    },
   },
   h6: {
-    fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem (11.662px)
-    fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
-    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
-    marginTop: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
-    paddingBottom: 'var(--spacing-scale-base, 0.571rem)', // 0.571rem
+    fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+    fontWeight: 'var(--font-weight-medium, 500)',
+    lineHeight: 'var(--font-line-height-medium, 1.25)',
+    letterSpacing: 'var(--font-letter-spacing-wide, 0.05em)',
     textTransform: 'uppercase',
+    // Margens mínimas
+    marginBottom: 'var(--spacing-scale-half, 0.25rem)', // 4px
+    marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-    '@media (min-width:576px)': {
-      fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem
-      fontWeight: 'var(--font-weight-extra-bold, 800)', // 800
-      marginTop: 'var(--spacing-scale-3xh, 2rem)', // 2rem
-    },
   },
   body1: {
-    fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-    fontWeight: 'var(--font-weight-regular, 400)', // 400
-    lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
-    marginBottom: 'var(--spacing-scale-2x, 1.142rem)', // 1.142rem
+    fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+    fontWeight: 'var(--font-weight-regular, 400)',
+    lineHeight: 'var(--font-line-height-high, 1.6)', // Melhor legibilidade
+    // Sem margin-bottom padrão - controle pelos containers
+    marginBottom: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   body2: {
-    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem
-    fontWeight: 'var(--font-weight-regular, 400)', // 400
-    lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
-    marginBottom: 'var(--spacing-scale-base, 1rem)', // 0.571rem
+    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px
+    fontWeight: 'var(--font-weight-regular, 400)',
+    lineHeight: 'var(--font-line-height-high, 1.6)',
+    // Sem margin-bottom padrão
+    marginBottom: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   subtitle1: {
-    fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem
-    fontWeight: 'var(--font-weight-medium, 500)', // 500
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
+    fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 19px
+    fontWeight: 'var(--font-weight-medium, 500)',
+    lineHeight: 'var(--font-line-height-medium, 1.45)',
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
+    // Margens mínimas para flexibilidade
+    marginBottom: 'var(--spacing-scale-half, 0.25rem)', // 4px
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   subtitle2: {
-    fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-    fontWeight: 'var(--font-weight-medium, 500)', // 500
-    lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
+    fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+    fontWeight: 'var(--font-weight-medium, 500)',
+    lineHeight: 'var(--font-line-height-medium, 1.45)',
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
+    // Sem margins por padrão
+    marginBottom: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   caption: {
-    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem
-    fontWeight: 'var(--font-weight-regular, 400)', // 400
-    lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
+    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px
+    fontWeight: 'var(--font-weight-regular, 400)',
+    lineHeight: 'var(--font-line-height-medium, 1.45)',
+    color: 'var(--gray-60, #777777)', // Cor mais suave para caption
+    // Sem margins
+    marginBottom: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   overline: {
-    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem
-    fontWeight: 'var(--font-weight-bold, 700)', // 700
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
+    fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px
+    fontWeight: 'var(--font-weight-medium, 500)',
+    lineHeight: 'var(--font-line-height-low, 1.15)',
     textTransform: 'uppercase',
-    letterSpacing: '0.1em',
+    letterSpacing: 'var(--font-letter-spacing-wide, 0.05em)', // Menos espaçamento que o original
+    color: 'var(--gray-70, #666666)', // Cor mais suave para overline
+    // Sem margins
+    marginBottom: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
   button: {
-    fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem (para botões)
-    fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
-    lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
+    fontSize: 'var(--font-size-scale-base, 1rem)', // 16px (era 19px)
+    fontWeight: 'var(--font-weight-semi-bold, 600)',
+    lineHeight: 'var(--font-line-height-low, 1.15)',
     textTransform: 'none', // Remove uppercase padrão do MUI
+    letterSpacing: 'var(--font-letter-spacing-normal, 0)',
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
   },
 }

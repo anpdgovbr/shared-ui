@@ -9,27 +9,39 @@
  * - --spacing-gutter (margens de contêiner)
  */
 
+/**
+ * Sistema de espaçamentos otimizado baseado nos tokens do GovBR Design System
+ * Referência: @govbr-ds/core/dist/core-tokens.min.css
+ *
+ * OTIMIZAÇÕES:
+ * - Escala mais granular para composições flexíveis
+ * - Tokens organizados por uso (layout, componentes, micro-spacing)
+ * - Fallbacks mais consistentes
+ */
+
 // Função para customizar espaçamento usando tokens GovBR
 export const createSpacing = () => {
-  // Mapeamento de valores usando tokens CSS do GovBR-DS
+  // Mapeamento expandido com mais granularidade
   const spacingMap = {
+    // Micro spacing
     0: 0,
-    0.5: 'var(--spacing-scale-half, 0.5rem)', // 0.286rem (4px)
-    1: 'var(--spacing-scale-base, 1rem)', // 0.571rem (8px)
-    1.5: 'var(--spacing-scale-1xh, 0.75rem)', // 0.857rem (12px)
-    2: 'var(--spacing-scale-2x, 2rem)', // 1.142rem (16px)
-    2.5: 'var(--spacing-scale-2xh, 1.714rem)', // 1.714rem (24px)
-    3: 'var(--spacing-scale-3x, 1.714rem)', // 1.714rem (24px) - mesmo valor que 2xh
-    3.5: 'var(--spacing-scale-3xh, 2rem)', // 2rem (28px)
-    4: 'var(--spacing-scale-4x, 2.857rem)', // 2.286rem (32px)
-    5: 'var(--spacing-scale-5x, 2.857rem)', // 2.857rem (40px)
-    6: 'var(--spacing-scale-6x, 6rem)', // 3.428rem (48px)
-    7: 'var(--spacing-scale-7x, 7rem)', // 4rem (56px)
-    8: 'var(--spacing-scale-8x, 8rem)', // 4.571rem (64px)
-    9: 'var(--spacing-scale-9x, 9rem)', // 5.142rem (72px)
-    10: 'var(--spacing-scale-10x, 10rem)', // 5.714rem (80px)
-    11: 'var(--spacing-scale-11x, 11rem)', // 6.285rem (88px)
-    12: 'var(--spacing-scale-12x, 12rem)', // 6.857rem (96px)
+    0.25: 'var(--spacing-scale-quarter, 0.25rem)', // 4px
+    0.5: 'var(--spacing-scale-half, 0.5rem)', // 8px
+    0.75: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
+
+    // Base spacing - mais consistente
+    1: 'var(--spacing-scale-base, 1rem)', // 16px (mudou de 8px para 16px)
+    1.5: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+    2: 'var(--spacing-scale-2x, 2rem)', // 32px
+    2.5: 'var(--spacing-scale-2xh, 2.5rem)', // 40px
+    3: 'var(--spacing-scale-3x, 3rem)', // 48px
+    3.5: 'var(--spacing-scale-3xh, 3.5rem)', // 56px
+    4: 'var(--spacing-scale-4x, 4rem)', // 64px
+    5: 'var(--spacing-scale-5x, 5rem)', // 80px
+    6: 'var(--spacing-scale-6x, 6rem)', // 96px
+    8: 'var(--spacing-scale-8x, 8rem)', // 128px
+    10: 'var(--spacing-scale-10x, 10rem)', // 160px
+    12: 'var(--spacing-scale-12x, 12rem)', // 192px
   }
 
   return (factor: number | string): string => {
@@ -43,107 +55,181 @@ export const createSpacing = () => {
       return typeof value === 'number' ? `${value}px` : value
     }
 
-    // Para valores não mapeados, usa cálculo baseado no token base
-    // 1 unidade = 8px (--spacing-scale-base)
-    return `calc(${factor} * var(--spacing-scale-base, 1rem))`
+    // Para valores não mapeados, usa cálculo baseado no rem (16px base)
+    return `${factor}rem`
   }
 }
 
 /**
- * Valores de spacing específicos do GovBR para uso direto
+ * Valores de spacing específicos do GovBR otimizados para composições
  */
 export const govbrSpacing = {
-  // Spacing padrão da escala
+  // Spacing micro - para ajustes finos
   none: 0,
-  xs: 'var(--spacing-scale-half, 0.5rem)', // 4px
-  sm: 'var(--spacing-scale-base, 1rem)', // 8px
-  md: 'var(--spacing-scale-2x, 2rem)', // 16px
-  lg: 'var(--spacing-scale-3xh, 2rem)', // 28px
-  xl: 'var(--spacing-scale-5x, 5rem)', // 40px
-  '2xl': 'var(--spacing-scale-8x, 8rem)', // 64px
-  '3xl': 'var(--spacing-scale-12x, 12rem)', // 96px
+  micro: 'var(--spacing-scale-quarter, 0.25rem)', // 4px
+  xs: 'var(--spacing-scale-half, 0.5rem)', // 8px
+  sm: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
+  md: 'var(--spacing-scale-base, 1rem)', // 16px
+  lg: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+  xl: 'var(--spacing-scale-2x, 2rem)', // 32px
+  '2xl': 'var(--spacing-scale-3x, 3rem)', // 48px
+  '3xl': 'var(--spacing-scale-4x, 4rem)', // 64px
 
-  // Spacing específico para componentes
+  // Spacing específico para diferentes contextos
+  layout: {
+    // Para containers principais
+    section: {
+      mobile: 'var(--spacing-scale-2x, 2rem)', // 32px
+      tablet: 'var(--spacing-scale-3x, 3rem)', // 48px
+      desktop: 'var(--spacing-scale-4x, 4rem)', // 64px
+    },
+    // Para margens de página
+    page: {
+      mobile: 'var(--spacing-scale-base, 1rem)', // 16px
+      tablet: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+      desktop: 'var(--spacing-scale-2x, 2rem)', // 32px
+    },
+  },
+
   component: {
+    // Paddings internos de componentes
     padding: {
-      sm: 'var(--spacing-scale-base, 1rem)', // 8px
-      md: 'var(--spacing-scale-2x, 2rem)', // 16px
-      lg: 'var(--spacing-scale-3xh, 2rem)', // 28px
+      tight: 'var(--spacing-scale-half, 0.5rem)', // 8px
+      cozy: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
+      comfortable: 'var(--spacing-scale-base, 1rem)', // 16px
+      spacious: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
     },
+    // Margins entre componentes
     margin: {
-      sm: 'var(--spacing-scale-2x, 2rem)', // 16px
-      md: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
-      lg: 'var(--spacing-scale-4x, 2.857rem)', // 32px
+      tight: 'var(--spacing-scale-half, 0.5rem)', // 8px
+      default: 'var(--spacing-scale-base, 1rem)', // 16px
+      loose: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+      spacious: 'var(--spacing-scale-2x, 2rem)', // 32px
     },
+    // Gaps em layouts flex/grid
     gap: {
-      sm: 'var(--spacing-scale-base, 1rem)', // 8px
-      md: 'var(--spacing-scale-2x, 2rem)', // 16px
-      lg: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
+      tight: 'var(--spacing-scale-half, 0.5rem)', // 8px
+      default: 'var(--spacing-scale-base, 1rem)', // 16px
+      loose: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
     },
   },
 
-  // Container gutters
-  gutter: {
-    mobile: 'var(--spacing-gutter, 1rem)', // 16px em mobile
-    desktop: 'var(--spacing-gutter, 1.5rem)', // 24px em desktop (breakpoint dependente)
+  // Typography spacing - separado do spacing de layout
+  typography: {
+    // Spacing entre elementos tipográficos
+    paragraph: 'var(--spacing-scale-base, 1rem)', // 16px entre parágrafos
+    section: 'var(--spacing-scale-1xh, 1.5rem)', // 24px entre seções
+    heading: {
+      // Margins após headings
+      micro: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (h6)
+      small: 'var(--spacing-scale-half, 0.5rem)', // 8px (h4, h5)
+      medium: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px (h3)
+      large: 'var(--spacing-scale-base, 1rem)', // 16px (h1, h2)
+    },
   },
 
-  // Spacing para formulários
+  // Formulários - spacing específico
   form: {
-    fieldGap: 'var(--spacing-scale-2xh, 1.714rem)', // 24px entre campos
-    labelGap: 'var(--spacing-scale-base, 1rem)', // 8px entre label e input
-    helperGap: 'var(--spacing-scale-half, 0.5rem)', // 4px entre input e helper
-    groupGap: 'var(--spacing-scale-4x, 2.857rem)', // 32px entre grupos
+    fieldGap: 'var(--spacing-scale-base, 1rem)', // 16px entre campos (era 24px)
+    labelGap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre label e input
+    helperGap: 'var(--spacing-scale-quarter, 0.25rem)', // 4px entre input e helper
+    groupGap: 'var(--spacing-scale-1xh, 1.5rem)', // 24px entre grupos (era 32px)
+    buttonGap: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px entre botões
   },
 
-  // Spacing para cards e containers
+  // Cards e containers
   card: {
-    padding: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
-    gap: 'var(--spacing-scale-2x, 2rem)', // 16px
-    margin: 'var(--spacing-scale-3xh, 2rem)', // 28px
+    padding: 'var(--spacing-scale-base, 1rem)', // 16px (era 24px)
+    gap: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px (era 16px)
+    margin: 'var(--spacing-scale-base, 1rem)', // 16px (era 28px)
   },
 
-  // Spacing para botões
+  // Botões
   button: {
     padding: {
-      horizontal: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
-      vertical: 'var(--spacing-scale-1xh, 0.75rem)', // 12px
+      horizontal: 'var(--spacing-scale-base, 1rem)', // 16px (era 24px)
+      vertical: 'var(--spacing-scale-half, 0.5rem)', // 8px (era 12px)
     },
-    gap: 'var(--spacing-scale-base, 1rem)', // 8px entre ícone e texto
-    group: 'var(--spacing-scale-1xh, 0.75rem)', // 12px entre botões
+    gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre ícone e texto
+    group: 'var(--spacing-scale-half, 0.5rem)', // 8px entre botões (era 12px)
   },
 
-  // Spacing para navegação
+  // Navegação
   navigation: {
-    itemGap: 'var(--spacing-scale-2x, 2rem)', // 16px
-    sectionGap: 'var(--spacing-scale-4x, 2.857rem)', // 32px
-    indent: 'var(--spacing-scale-2xh, 1.714rem)', // 24px para subníveis
+    itemGap: 'var(--spacing-scale-half, 0.5rem)', // 8px (era 16px)
+    sectionGap: 'var(--spacing-scale-base, 1rem)', // 16px (era 32px)
+    indent: 'var(--spacing-scale-base, 1rem)', // 16px para subníveis (era 24px)
   },
 }
 
 /**
- * Breakpoints de spacing específicos para diferentes tamanhos de tela
- * Baseado nos breakpoints do GovBR-DS
+ * Breakpoints de spacing otimizados para diferentes tamanhos de tela
+ * Valores mais conservadores e práticos para uso real
  */
 export const spacingBreakpoints = {
-  // Mobile first - valores padrão
+  // Mobile first - valores menores
   mobile: {
-    container: 'var(--spacing-scale-2x, 2rem)', // 16px
-    section: 'var(--spacing-scale-3xh, 2rem)', // 28px
-    component: 'var(--spacing-scale-2x, 2rem)', // 16px
+    container: 'var(--spacing-scale-base, 1rem)', // 16px
+    section: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+    component: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
   },
 
-  // Tablet
+  // Tablet - valores moderados
   tablet: {
-    container: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
-    section: 'var(--spacing-scale-4x, 2.857rem)', // 32px
-    component: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
+    container: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+    section: 'var(--spacing-scale-2x, 2rem)', // 32px
+    component: 'var(--spacing-scale-base, 1rem)', // 16px
   },
 
-  // Desktop
+  // Desktop - valores mais espaçosos
   desktop: {
-    container: 'var(--spacing-scale-4x, 2.857rem)', // 32px
-    section: 'var(--spacing-scale-5x, 5rem)', // 40px
-    component: 'var(--spacing-scale-3xh, 2rem)', // 28px
+    container: 'var(--spacing-scale-2x, 2rem)', // 32px
+    section: 'var(--spacing-scale-3x, 3rem)', // 48px
+    component: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+  },
+}
+
+/**
+ * Utilitários para espaçamentos compostos
+ * Facilita uso em componentes que precisam de spacing inteligente
+ */
+export const spacingUtils = {
+  // Stack spacing - para elementos empilhados verticalmente
+  stack: {
+    tight: 'var(--spacing-scale-quarter, 0.25rem)', // 4px
+    default: 'var(--spacing-scale-half, 0.5rem)', // 8px
+    loose: 'var(--spacing-scale-base, 1rem)', // 16px
+    spacious: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+  },
+
+  // Inline spacing - para elementos lado a lado
+  inline: {
+    tight: 'var(--spacing-scale-quarter, 0.25rem)', // 4px
+    default: 'var(--spacing-scale-half, 0.5rem)', // 8px
+    loose: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
+  },
+
+  // Padding responsivo baseado em containers
+  responsive: {
+    // xs: mobile, sm: tablet, md: desktop
+    padding: {
+      xs: 'var(--spacing-scale-half, 0.5rem)',
+      sm: 'var(--spacing-scale-3quarter, 0.75rem)',
+      md: 'var(--spacing-scale-base, 1rem)',
+      lg: 'var(--spacing-scale-1xh, 1.5rem)',
+      xl: 'var(--spacing-scale-2x, 2rem)',
+    },
+  },
+
+  // Margins para diferentes contextos semânticos
+  semantic: {
+    // Após headers
+    afterHeader: 'var(--spacing-scale-base, 1rem)', // 16px
+    // Antes de footers
+    beforeFooter: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
+    // Entre seções principais
+    betweenSections: 'var(--spacing-scale-2x, 2rem)', // 32px
+    // Para separar grupos relacionados
+    groupSeparation: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
   },
 }

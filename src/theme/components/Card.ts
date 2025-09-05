@@ -87,10 +87,6 @@ export const MuiCardContentOverrides: Components['MuiCardContent'] = {
     root: {
       padding: 'var(--spacing-scale-3x, 3rem)', // 24px
 
-      '&:last-child': {
-        paddingBottom: 'var(--spacing-scale-3x, 3rem)', // Mantém padding no último elemento
-      },
-
       // Primeiro parágrafo sem margin-top
       '& > p:first-of-type': {
         marginTop: 0,
@@ -132,18 +128,16 @@ export const MuiCardMediaOverrides: Components['MuiCardMedia'] = {
     root: {
       borderRadius: 'var(--surface-rounder-md, 8px) var(--surface-rounder-md, 8px) 0 0', // Arredonda só o topo
 
-      // Se for a primeira child, remove border-radius inferior
-      '.MuiCard-root > &:first-child': {
+      // Classes SSR-safe para posicionamento
+      '&.card-media-first': {
         borderRadius: 'var(--surface-rounder-md, 8px) var(--surface-rounder-md, 8px) 0 0',
       },
 
-      // Se for a última child, remove border-radius superior
-      '.MuiCard-root > &:last-child': {
+      '&.card-media-last': {
         borderRadius: '0 0 var(--surface-rounder-md, 8px) var(--surface-rounder-md, 8px)',
       },
 
-      // Se for o único elemento, mantém border-radius completo
-      '.MuiCard-root > &:only-child': {
+      '&.card-media-only': {
         borderRadius: 'var(--surface-rounder-md, 8px)',
       },
     },
