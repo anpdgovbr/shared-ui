@@ -5,12 +5,14 @@
 Os pseudo-seletores `:first-child` e `:last-child` podem causar **inconsistências de hidratação** em ambientes de Server-Side Rendering (SSR), como Next.js, Nuxt, etc.
 
 ### ❌ **Sintomas do Problema:**
+
 ```
-Warning: The pseudo class ":first-child" is potentially unsafe when doing server-side rendering. 
+Warning: The pseudo class ":first-child" is potentially unsafe when doing server-side rendering.
 Try changing it to ":first-of-type".
 ```
 
 ### 🔍 **Causa Raiz:**
+
 - Durante o SSR, o servidor pode renderizar a estrutura DOM de forma diferente do cliente
 - `:first-child` e `:last-child` dependem da posição exata no DOM
 - Se houver diferenças na hidratação, os estilos podem não ser aplicados consistentemente
@@ -20,6 +22,7 @@ Try changing it to ":first-of-type".
 ### 1. **Typography Component - Classes SSR-Safe**
 
 **❌ ANTES (Problemático para SSR):**
+
 ```typescript
 root: {
   '&:first-child': { marginTop: 0 },
@@ -28,30 +31,33 @@ root: {
 ```
 
 **✅ DEPOIS (SSR-Safe):**
+
 ```typescript
 // Removidos os pseudo-seletores problemáticos
 // Adicionadas classes específicas para controle manual
 variants: [
   {
     props: { className: 'first-element' },
-    style: { marginTop: '0 !important' }
+    style: { marginTop: '0 !important' },
   },
   {
-    props: { className: 'last-element' },  
-    style: { marginBottom: '0 !important' }
-  }
+    props: { className: 'last-element' },
+    style: { marginBottom: '0 !important' },
+  },
 ]
 ```
 
 ### 2. **Card Components - Classes Específicas**
 
 **❌ ANTES:**
+
 ```typescript
 '.MuiCard-root > &:first-child': { ... },
 '.MuiCard-root > &:last-child': { ... },
 ```
 
 **✅ DEPOIS:**
+
 ```typescript
 '&.card-media-first': { ... },
 '&.card-media-last': { ... },
@@ -61,11 +67,13 @@ variants: [
 ### 3. **Breadcrumbs - Classe para Estado Atual**
 
 **❌ ANTES:**
+
 ```typescript
 '&:last-child': { fontWeight: 600 }
 ```
 
 **✅ DEPOIS:**
+
 ```typescript
 '&.breadcrumb-current': { fontWeight: 600 }
 ```
@@ -76,9 +84,15 @@ Novo arquivo: `src/theme/utilities/spacing.css`
 
 ```css
 /* Classes SSR-safe para controle de spacing */
-.typography-first-element { margin-top: 0 !important; }
-.typography-last-element { margin-bottom: 0 !important; }
-.typography-container-reset > * { margin-top: 0; }
+.typography-first-element {
+  margin-top: 0 !important;
+}
+.typography-last-element {
+  margin-bottom: 0 !important;
+}
+.typography-container-reset > * {
+  margin-top: 0;
+}
 ```
 
 ## 🛠️ **Como Usar as Correções**
@@ -150,6 +164,7 @@ A **melhor prática** para controle de spacing continua sendo o uso de component
 ## 📋 **Compatibilidade e Migração**
 
 ### ✅ **Mudanças Não-Disruptivas:**
+
 - **API pública** mantida intacta
 - **Componentes existentes** continuam funcionando
 - **Visual** permanece idêntico
@@ -164,7 +179,7 @@ A **melhor prática** para controle de spacing continua sendo o uso de component
 ### 📊 **Checklist de Verificação:**
 
 - ✅ Warnings de SSR eliminados
-- ✅ Build funcionando normalmente  
+- ✅ Build funcionando normalmente
 - ✅ Hidratação consistente
 - ✅ Visual idêntico em client e server
 - ✅ Componentes responsivos mantidos
@@ -180,7 +195,7 @@ Alguns pseudo-seletores foram **mantidos** por serem seguros:
 '& > p:first-of-type': { marginTop: 0 },
 '& > p:last-of-type': { marginBottom: 0 },
 
-// ✅ SEGURO - Aplicado em elementos filhos, não no próprio elemento  
+// ✅ SEGURO - Aplicado em elementos filhos, não no próprio elemento
 '&:last-child td': { borderBottom: 'none' },
 ```
 

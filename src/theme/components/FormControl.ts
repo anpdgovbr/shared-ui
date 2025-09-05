@@ -25,8 +25,8 @@ export const MuiFormControlOverrides: Components['MuiFormControl'] = {
         borderRadius: 'var(--surface-rounder-lg, 1rem)', // 16px
       },
 
-      // Espaçamento entre grupos de campos
-      marginBottom: 'var(--spacing-scale-2xh, 1.5rem)', // 24px
+      // Espaçamento entre grupos de campos - reduzido
+      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px (era 24px - mais compacto)
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
       // padding: 'var(--spacing-scale-base, 1rem)', // padding interno

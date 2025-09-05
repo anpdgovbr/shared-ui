@@ -18,76 +18,75 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
       textTransform: 'none', // Remove uppercase padrão do MUI
 
-      // Espaçamento
-      padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2xh, 1.714rem)', // 12px 24px
+      // Espaçamento - reduzido para ser mais compacto
+      padding: 'var(--spacing-scale-half, 0.5rem) var(--spacing-scale-base, 1rem)', // 8px 16px (era 12px 24px)
       // Usar minHeight em vez de height para permitir que sizeSmall/sizeLarge
       // sobreponham o tamanho quando necessário.
-      minHeight: 'var(--button-medium, 40px)',
-      // minHeight: 'var(--spacing-scale-5x, 5rem)', // 40px
+      minHeight: '2.5rem', // 40px → 2.5rem (consistente com inputs)
 
-      // Bordas e cantos
-      borderRadius: 'var(--button-radius, 100em)', // 100em
+      // Bordas e cantos - mais modernos
+      borderRadius: 'var(--surface-rounder-sm, 0.25rem)', // 4px (era 100em/pill)
       border: '1px solid transparent',
       outline: 'none',
 
-      // Transições
+      // Transições - mais suaves
       transition: 'all 0.2s ease-in-out',
 
-      // Estados de hover e focus
+      // Estados de hover e focus - mais sutis
       '&:hover': {
-        boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
+        transform: 'translateY(-1px)', // Elevação sutil
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)', // Sombra mais suave
       },
-      //TODO: verificar problema de acessibilidade, quando tem foco com tab
+      // Focus melhorado para acessibilidade
       '&:focus': {
         outline: 'none',
-        // outlineOffset: '2px',
       },
       '&:focus-visible': {
         outlineStyle: 'dashed',
-        outlineWidth: '4px',
-        outlineColor: 'var(--feedback-warning-vivid, #b38c00)',
-        outlineOffset: '4px',
+        outlineWidth: '2px', // Reduzido de 4px → 2px
+        outlineColor: 'var(--feedback-warning-vivid, #F29F05)', // Amarelo acessível
+        outlineOffset: '2px', // Reduzido de 4px → 2px
         boxShadow: 'none',
       },
 
       '&:active': {
-        transform: 'translateY(0)',
-        boxShadow: 'var(--shadow-level-1, 0px 2px 4px rgba(0, 0, 0, 0.1))',
+        transform: 'translateY(0)', // Remove elevação
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)', // Sombra mais sutil
       },
 
       '&:disabled': {
-        backgroundColor: '#cccccc',
-        color: '#757575',
+        backgroundColor: 'var(--gray-20, #e9ecef)', // Cor mais moderna
+        color: 'var(--gray-60, #6c757d)', // Contraste adequado
         cursor: 'not-allowed',
         boxShadow: 'none',
+        transform: 'none', // Remove qualquer transformação
 
         '&:hover': {
-          backgroundColor: '#cccccc',
+          backgroundColor: 'var(--gray-20, #e9ecef)',
           transform: 'none',
           boxShadow: 'none',
         },
       },
     },
 
-    // Variante contained (primária)
+    // Variante contained (primária) - otimizada
     contained: {
       backgroundColor: muiPalette.primary.main, // #1351B4
       color: '#ffffff', // Branco
-      boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)', // Sombra mais sutil
 
       '&:hover': {
         backgroundColor: muiPalette.primary.dark, // #0c326f
-        boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
+        // Herda transform e box-shadow do root
       },
 
       '&:focus': {
         backgroundColor: muiPalette.primary.main, // Reseta para a cor padrão
-        boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))', // Reseta para a sombra padrão
       },
 
       '&:active': {
         backgroundColor: muiPalette.primary.dark,
-        boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
+        // Herda transform do root
       },
     },
 
@@ -114,33 +113,33 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
     },
 
-    // Variante text (terciária)
+    // Variante text (terciária) - padding reduzido
     text: {
       backgroundColor: 'transparent',
-      padding: 'var(--spacing-scale-base, 1rem) var(--spacing-scale-2x, 2rem)', // 8px 16px
+      padding: 'var(--spacing-scale-half, 0.5rem) var(--spacing-scale-base, 1rem)', // 8px 16px (era 8px 32px)
       '&:focus': {
         backgroundColor: 'transparent', // Reseta para a cor padrão
       },
     },
 
-    // Tamanhos
+    // Tamanhos - otimizados
     sizeSmall: {
       fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-      // menor padding e minHeight para small (32px)
-      padding: 'var(--spacing-scale-small, 0.5rem) var(--spacing-scale-2x, 1rem)', // 8px 16px fallback
-      minHeight: 'var(--button-small, 32px)', // 32px
+      // menor padding e minHeight para small
+      padding: 'var(--spacing-scale-quarter, 0.25rem) var(--spacing-scale-3quarter, 0.75rem)', // 4px 12px (era 8px 16px)
+      minHeight: '2rem', // 32px (era var token)
     },
 
     sizeLarge: {
-      fontSize: 'var(--font-size-scale-up-02, 1.44rem)', // 1.44rem
-      // maior padding e minHeight para large (48px)
-      padding: 'var(--spacing-scale-large, 1rem) var(--spacing-scale-4x, 2rem)', // 16px 32px fallback
-      minHeight: 'var(--button-large, 48px)', // 48px
+      fontSize: 'var(--font-size-scale-up-01, 1.125rem)', // 18px (era 1.44rem)
+      // maior padding e minHeight para large
+      padding: 'var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-1-5x, 1.5rem)', // 12px 24px (era 16px 32px)
+      minHeight: '3rem', // 48px (era var token)
     },
 
-    // Ícones
+    // Ícones - espaçamento otimizado
     startIcon: {
-      marginRight: 'var(--spacing-scale-base, 1rem)', // 8px
+      marginRight: 'var(--spacing-scale-half, 0.5rem)', // 8px (reduzido de 1rem)
       marginLeft: 0,
       // Fazer com que o ícone herde o font-size do botão
       '& > *': {
@@ -150,7 +149,7 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
     },
 
     endIcon: {
-      marginLeft: 'var(--spacing-scale-base, 1rem)', // 8px
+      marginLeft: 'var(--spacing-scale-half, 0.5rem)', // 8px (reduzido de 1rem)
       marginRight: 0,
       '& > *': {
         fontSize: 'inherit',

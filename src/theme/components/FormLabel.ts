@@ -20,11 +20,12 @@ import type { Components } from '@mui/material/styles'
 export const MuiFormLabelOverrides: Components['MuiFormLabel'] = {
   styleOverrides: {
     root: {
-      fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-      fontWeight: 'var(--font-weight-medium, 500)', // 500 - destaque do label
+      fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+      fontWeight: 'var(--font-weight-medium, 500)', // 500 - destaque moderado
       color: 'var(--color, #333333)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      marginBottom: 'var(--spacing-scale-half, 0.5rem)', // 8px
+      marginBottom: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (reduzido de 8px - mais compacto)
+      lineHeight: 1.4, // Melhor legibilidade
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
       // lineHeight: 'var(--font-line-height-medium, 1.45)', // melhor legibilidade
@@ -37,18 +38,18 @@ export const MuiFormLabelOverrides: Components['MuiFormLabel'] = {
       //   color: 'var(--feedback-error-vivid, #D04F4F)',
       // },
 
-      // Estados movidos para dentro de root para evitar warnings do MUI sobre especificidade
+      // Estados - com melhorias
       '&.Mui-focused': {
         color: 'var(--interactive, #1351B4)',
-        // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // mais destaque no foco
+        fontWeight: 'var(--font-weight-semi-bold, 600)', // Mais destaque no foco
       },
       '&.Mui-error': {
         color: 'var(--feedback-error-vivid, #D04F4F)',
-        // FALTANDO: fontWeight: 'var(--font-weight-semi-bold, 600)', // destaque no erro
+        fontWeight: 'var(--font-weight-semi-bold, 600)', // Destaque no erro
       },
       '&.Mui-disabled': {
-        color: 'var(--gray-60, #888888)',
-        // FALTANDO: cursor: 'not-allowed', // indicação visual
+        color: 'var(--gray-60, #6c757d)', // Cor mais moderna
+        cursor: 'not-allowed', // Indicação visual
       },
     },
 

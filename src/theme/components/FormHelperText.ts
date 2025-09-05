@@ -22,10 +22,11 @@ export const MuiFormHelperTextOverrides: Components['MuiFormHelperText'] = {
   styleOverrides: {
     root: {
       marginLeft: 0, // remove indentação padrão do MUI
-      marginTop: 'var(--spacing-scale-2xh, 0.25rem)', // 4px - espaçamento do input
-      fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.875rem - menor que input
+      marginTop: 'var(--spacing-scale-quarter, 0.25rem)', // 4px - espaçamento do input (consistente com TextField)
+      fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px (consistente)
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      color: 'var(--gray-70, #666666)', // cor sutil para texto auxiliar
+      color: 'var(--gray-70, #6c757d)', // Cor moderna (consistente com TextField)
+      lineHeight: 1.4, // Melhor legibilidade
 
       // PROPRIEDADES FALTANDO - Implementar se necessário:
       // lineHeight: 'var(--font-line-height-medium, 1.45)', // legibilidade
@@ -37,17 +38,17 @@ export const MuiFormHelperTextOverrides: Components['MuiFormHelperText'] = {
       // transition: 'opacity 0.2s ease-in-out',
       // opacity: 1,
 
-      // filled variant adjustments moved into root with selector
+      // filled variant adjustments - espaçamento otimizado
       '&.Mui-filled': {
         marginLeft: 0, // consistência com root
-        paddingBottom: 'var(--spacing-scale-2xh, 0.25rem)', // 4px - espaçamento inferior
+        paddingBottom: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (consistente)
       },
 
-      // error state moved into root
+      // error state - consistente com TextField
       '&.Mui-error': {
-        fontSize: 'var(--font-size-scale-down-01, 0.833rem)', // 0.833rem - ligeiramente menor
-        marginTop: 'var(--spacing-scale-2xh, 0.25rem)', // 4px
-        marginLeft: 'var(--spacing-scale-half, 0.5rem)', // 8px - pequena indentação para destaque
+        fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px (mesmo tamanho)
+        marginTop: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (consistente)
+        marginLeft: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (reduzido de 8px)
         fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
         color: 'var(--feedback-error-vivid, #D04F4F)',
       },
