@@ -19,7 +19,7 @@ export const MuiInputLabelOverrides: Components['MuiInputLabel'] = {
       fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
       fontWeight: 'var(--font-weight-medium, 500)', // 500 (era 600, mais leve)
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      marginBottom: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (era 0.5rem/8px)
+      marginBottom: 'var(--spacing-scale-half, 0.5rem)', // 4px (era 0.5rem/8px)
       position: 'static', // Remove posicionamento absoluto para outlined
       transform: 'none',
       lineHeight: 1.5,
@@ -53,7 +53,7 @@ export const MuiInputLabelOverrides: Components['MuiInputLabel'] = {
     // Label outlined (flutuante) - posicionamento otimizado
     outlined: {
       position: 'absolute',
-      transform: 'translate(12px, 14px) scale(1)', // Posicionamento mais centrado
+      transform: 'translate(12px, 8px) scale(1)', // Posicionamento mais centrado
       transformOrigin: 'top left',
       transition: 'transform 0.2s ease-in-out, color 0.2s ease-in-out',
 

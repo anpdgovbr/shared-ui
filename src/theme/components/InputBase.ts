@@ -43,7 +43,7 @@ export const MuiInputBaseOverrides: Components['MuiInputBase'] = {
       fontWeight: 'var(--font-weight-regular, 400)', // 400 (era 500, mais leve)
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       // Altura otimizada para UX moderna
-      height: 'var(--spacing-scale-2xh, 2.5rem)', // 40px (era 5rem/80px)
+      height: 'var(--spacing-scale-4x, 2.5rem)', // 40px (era 5rem/80px)
       // Padding balanceado para melhor proporção
       padding: '0 var(--spacing-scale-base, 1rem)', // 0 16px (era 2rem/32px)
       lineHeight: 1.5, // Melhor legibilidade
