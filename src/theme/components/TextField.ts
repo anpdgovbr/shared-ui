@@ -4,8 +4,25 @@ import { Components } from '@mui/material/styles'
 import { muiPalette } from '../foundations/paletteValues'
 
 /**
- * Overrides para o componente TextField do MUI
- * Baseado nos padrões de formulário do GovBR Design System
+ * Overrides de tema para o componente TextField do MUI usados no govbrTheme.
+ *
+ * Este objeto implementa a tipagem Components['MuiTextField'] e centraliza:
+ * - Propriedades padrão (defaultProps) para campos de formulário (outlined, medium).
+ * - Regras de estilo (styleOverrides) que mapeiam tokens CSS do Gov.br DS para os slots do MUI.
+ * - Variantes (variants) específicas como tamanho pequeno, campo de busca, senha e obrigatório.
+ *
+ * Observações:
+ * - Utilize tokens CSS via var(--token-name) em vez de valores fixos para garantir compatibilidade com o Gov.br DS.
+ * - Este objeto deve ser mesclado no campo `components` do theme do MUI (govbrTheme).
+ *
+ * Exemplo de uso:
+ * import { MuiTextFieldOverrides } from '@theme/components/TextField'
+ * const theme = createTheme({ components: { MuiTextField: MuiTextFieldOverrides } })
+ *
+ * @remarks
+ * Mantém a consistência visual e acessibilidade dos campos seguindo o padrão ANPD / Gov.br.
+ *
+ * @public
  */
 export const MuiTextFieldOverrides: Components['MuiTextField'] = {
   defaultProps: {
@@ -56,11 +73,11 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
           borderColor: 'var(--gray-60, #777777)',
         },
 
-        // Estado focado
+        // Estado focado: priorizar token GovBR --focus (fallback amarelo)
         '&.Mui-focused fieldset': {
-          borderColor: muiPalette.primary.main, // #1351B4
+          borderColor: 'var(--focus, #ffd200)',
           borderWidth: '2px',
-          boxShadow: `0 0 0 1px ${muiPalette.primary.main}`, // #1351B4
+          boxShadow: 'none',
         },
 
         // Estado de erro
