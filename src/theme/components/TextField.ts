@@ -11,13 +11,6 @@ import { muiPalette } from '../foundations/paletteValues'
  * - Regras de estilo (styleOverrides) que mapeiam tokens CSS do Gov.br DS para os slots do MUI.
  * - Variantes (variants) específicas como tamanho pequeno, campo de busca, senha e obrigatório.
  *
- * OTIMIZAÇÕES APLICADAS (Setembro 2025):
- * - Margem entre campos reduzida para melhor composição
- * - Paddings otimizados para proporções modernas
- * - Border-width consistente (não aumenta no focus)
- * - Transições suaves adicionadas
- * - Estados hover/focus mais sutis
- *
  * Observações:
  * - Utilize tokens CSS via var(--token-name) em vez de valores fixos para garantir compatibilidade com o Gov.br DS.
  * - Este objeto deve ser mesclado no campo `components` do theme do MUI (govbrTheme).
@@ -39,21 +32,20 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
   styleOverrides: {
     root: {
-      // Margem entre campos otimizada (era 1.714rem/24px)
-      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px
+      // Margem entre campos
+      marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
 
-      // Labels flutuantes - peso reduzido
+      // Labels flutuantes
       '& .MuiInputLabel-root': {
-        fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
+        fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
         fontWeight: 'var(--font-weight-medium, 500)', // 500
         color: 'var(--color, #333333)',
         fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-        transition: 'color 0.2s ease-in-out, font-weight 0.2s ease-in-out',
 
-        // Label focada - sem aumento de peso excessivo
+        // Label focada
         '&.Mui-focused': {
           color: muiPalette.primary.main, // #1351B4
-          fontWeight: 'var(--font-weight-medium, 500)', // Mantém 500 (era 600)
+          fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
         },
 
         // Label com erro
@@ -62,75 +54,67 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
         },
       },
 
-      // Input base - proporções otimizadas
+      // Input base
       '& .MuiOutlinedInput-root': {
         fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-        fontSize: 'var(--font-size-scale-base, 1rem)', // 16px
-        lineHeight: 1.5, // Legibilidade otimizada
-        borderRadius: 'var(--surface-rounder-sm, 0.25rem)', // 4px (era 8px, mais sutil)
+        fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
+        lineHeight: 'var(--font-line-height-medium, 1.5)', // 1.45
+        borderRadius: 'var(--surface-rounder-md, 8px)', // 8px
         backgroundColor: 'var(--background, #ffffff)',
-        transition: 'border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
 
         // Bordas padrão
         '& fieldset': {
           borderColor: 'var(--gray-40, #999999)',
           borderWidth: '1px',
-          transition: 'border-color 0.2s ease-in-out',
         },
 
-        // Estado de hover - mais sutil
-        '&:hover:not(.Mui-focused):not(.Mui-error) fieldset': {
+        // Estado de hover
+        '&:hover fieldset': {
           borderColor: 'var(--gray-60, #777777)',
         },
 
-        // Estado focado - consistente, sem aumento de borda
+        // Estado focado: priorizar token GovBR --focus (fallback amarelo)
         '&.Mui-focused fieldset': {
-          borderColor: 'var(--interactive, #1351B4)', // Azul GovBR (não amarelo)
-          borderWidth: '1px', // Mantém espessura (era 2px)
-          boxShadow: '0 0 0 2px rgba(19, 81, 180, 0.2)', // Sombra sutil
+          borderColor: 'var(--focus, #ffd200)',
+          borderWidth: '2px',
+          boxShadow: 'none',
         },
 
-        // Estado de erro - consistente
+        // Estado de erro
         '&.Mui-error fieldset': {
           borderColor: 'var(--feedback-error-vivid, #D04F4F)',
-          borderWidth: '1px', // Mantém espessura (era 2px)
-
-          '&:focus, .Mui-focused': {
-            boxShadow: '0 0 0 2px rgba(208, 79, 79, 0.2)',
-          },
+          borderWidth: '2px',
         },
 
-        // Estado desabilitado - cores mais modernas
+        // Estado desabilitado
         '&.Mui-disabled': {
-          backgroundColor: 'var(--gray-10, #f8f9fa)',
+          backgroundColor: 'var(--gray-10, #eeeeee)',
 
           '& fieldset': {
-            borderColor: 'var(--gray-20, #e9ecef)',
+            borderColor: 'var(--gray-20, #cccccc)',
           },
 
           '& .MuiOutlinedInput-input': {
-            color: 'var(--gray-60, #6c757d)',
-            WebkitTextFillColor: 'var(--gray-60, #6c757d)',
+            color: 'var(--gray-60, #777777)',
+            WebkitTextFillColor: 'var(--gray-60, #777777)',
           },
         },
 
-        // Input interno - padding otimizado
+        // Input interno
         '& .MuiOutlinedInput-input': {
-          padding: 'var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-base, 1rem)', // 12px 16px (era 2rem/32px)
+          padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2x, 2rem)', // 12px 16px
           color: 'var(--color, #333333)',
-          minHeight: '1.5rem', // Altura mínima para o texto
 
-          // Placeholder - cor mais sutil
+          // Placeholder
           '&::placeholder': {
-            color: 'var(--gray-60, #6c757d)',
+            color: 'var(--gray-60, #777777)',
             opacity: 1,
           },
         },
 
-        // Ícones - transições suaves
+        // Ícones
         '& .MuiInputAdornment-root': {
-          color: 'var(--gray-60, #6c757d)',
-          transition: 'color 0.2s ease-in-out',
+          color: 'var(--gray-60, #777777)',
 
           // Ícone no estado focado
           '.Mui-focused &': {
@@ -144,14 +128,13 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
         },
       },
 
-      // Helper text - otimizado
+      // Helper text
       '& .MuiFormHelperText-root': {
-        fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px
-        marginTop: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (era 0.5rem)
-        marginLeft: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (era 1rem)
+        fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem
+        marginTop: 'var(--spacing-scale-half, 0.5rem)', // 4px
+        marginLeft: 'var(--spacing-scale-base, 1rem)', // 8px
         fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-        color: 'var(--gray-70, #6c757d)',
-        lineHeight: 1.4,
+        color: 'var(--gray-70, #666666)',
 
         // Helper text de erro
         '&.Mui-error': {

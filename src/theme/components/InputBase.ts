@@ -8,13 +8,6 @@ import { Components } from '@mui/material/styles'
  * do Material-UI, servindo como base para todos os inputs da biblioteca
  * (por exemplo: TextField, Select, OutlinedInput, FilledInput).
  *
- * OTIMIZAÇÕES APLICADAS (Setembro 2025):
- * - Altura reduzida para padrões modernos de UX (40px base, era 80px)
- * - Paddings otimizados para melhor proporção visual
- * - Font-size alinhado com padrões web (16px base)
- * - Responsividade melhorada para mobile
- * - Tokens CSS mantidos com fallbacks mais apropriados
- *
  * Principais responsabilidades:
  * - Centralizar tokens CSS do Gov.br DS via `var(--token-name)` em vez de valores fixos.
  * - Normalizar comportamento visual entre variantes (outlined, filled, multiline, small).
@@ -38,19 +31,11 @@ export const MuiInputBaseOverrides: Components['MuiInputBase'] = {
     root: {
       backgroundColor: 'var(--background, #ffffff)', // Fundo dos inputs
       color: 'var(--color, #333333)', // Texto do input
-      // Font-size otimizado para padrão web moderno
-      fontSize: 'var(--font-size-scale-base, 1rem)', // 16px (era 1.2rem)
-      fontWeight: 'var(--font-weight-regular, 400)', // 400 (era 500, mais leve)
+      fontSize: 'var(--font-size-scale-up-01, 1.2rem)', // 1.2rem
+      fontWeight: 'var(--font-weight-medium, 500)', // 500
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      // Altura otimizada para UX moderna
-      height: 'var(--spacing-scale-4x, 2.5rem)', // 40px (era 5rem/80px)
-      // Padding balanceado para melhor proporção
-      padding: '0 var(--spacing-scale-base, 1rem)', // 0 16px (era 2rem/32px)
-      lineHeight: 1.5, // Melhor legibilidade
-
-      // Transição suave para interações
-      transition:
-        'border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out',
+      height: 'var(--spacing-scale-5x, 5rem)', // 40px
+      padding: '0 var(--spacing-scale-2x, 2rem)', // 0 16px
 
       // Quando for OutlinedInput, não aplicar borda nem sombra no root.
       // O fieldset do OutlinedInput deve ser a única fonte da borda.
@@ -62,74 +47,67 @@ export const MuiInputBaseOverrides: Components['MuiInputBase'] = {
       // Aplicar bordas apenas para inputs que NÃO são outlined (ex.: filled/base)
       '&:not(.MuiOutlinedInput-root)': {
         borderColor: 'var(--gray-40, #999999)', // Borda padrão
-        borderRadius: 'var(--surface-rounder-sm, 0.25rem)', // 4px
+        borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
         borderStyle: 'solid',
         borderWidth: '1px',
 
-        '&:hover:not(.Mui-disabled)': {
+        '&:hover': {
           borderColor: 'var(--gray-60, #777777)',
-          backgroundColor: 'var(--background-light, #f8f9fa)', // Hover mais sutil
+          backgroundColor: 'var(--background-light, #f8f8f8)',
         },
 
         '&.Mui-focused': {
           borderColor: 'var(--interactive, #1351B4)', // Azul GovBR
-          boxShadow: '0 0 0 2px rgba(19, 81, 180, 0.2)', // Sombra mais suave
+          boxShadow: '0 0 0 2px var(--focus, #1351B4)', // Sombra de foco
           outline: 'none',
         },
 
         '&.Mui-error': {
           borderColor: 'var(--feedback-error-vivid, #D04F4F)',
-          borderWidth: '1px', // Mantém espessura padrão (era 2px)
+          borderWidth: '2px',
 
           '&:focus, &.Mui-focused': {
-            boxShadow: '0 0 0 2px rgba(208, 79, 79, 0.2)', // Sombra de erro mais suave
+            boxShadow: '0 0 0 2px var(--feedback-error-light, #F8A8A8)',
           },
         },
 
         '&.Mui-disabled': {
-          backgroundColor: 'var(--gray-10, #f8f9fa)',
-          borderColor: 'var(--gray-20, #e9ecef)',
-          color: 'var(--gray-60, #6c757d)',
+          backgroundColor: 'var(--gray-10, #eeeeee)',
+          borderColor: 'var(--gray-20, #cccccc)',
+          color: 'var(--gray-60, #777777)',
           cursor: 'not-allowed',
           opacity: 1, // Remove opacidade, controle via cores
-
-          '&::placeholder': {
-            color: 'var(--gray-40, #adb5bd)',
-          },
         },
       },
     },
 
-    // Tamanhos otimizados
+    // Tamanhos
     sizeSmall: {
-      height: 'var(--spacing-scale-2x, 2rem)', // 32px (era 2.857rem)
-      fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 14px (era 1rem)
-      padding: '0 var(--spacing-scale-3quarter, 0.75rem)', // 0 12px
+      height: 'var(--spacing-scale-4x, 2.857rem)', // 32px
+      fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
+      padding: '0 var(--spacing-scale-1xh, 0.75rem)', // 0 12px
     },
 
-    // Input multiline (textarea) - proporções melhoradas
+    // Input multiline (textarea)
     multiline: {
       height: 'auto',
-      minHeight: 'var(--spacing-scale-5x, 5rem)', // 80px (era 8rem/128px)
-      padding: 'var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-base, 1rem)', // 12px 16px
+      minHeight: 'var(--spacing-scale-8x, 8rem)', // 64px
+      padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2x, 2rem)', // 12px 16px
       alignItems: 'flex-start',
-      lineHeight: 1.6, // Melhor legibilidade em textarea
 
       '& textarea': {
         resize: 'vertical',
-        minHeight: 'var(--spacing-scale-4x, 4rem)', // 64px (era 6rem/96px)
-        fontFamily: 'inherit', // Herda fonte do pai
-        fontSize: 'inherit',
+        minHeight: 'var(--spacing-scale-6x, 6rem)', // 48px
       },
     },
 
-    // Input para adornments (ícones) - espaçamento otimizado
+    // Input para adornments (ícones)
     adornedStart: {
-      paddingLeft: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (era 0.5rem)
+      paddingLeft: 'var(--spacing-scale-half, 0.5rem)', // 4px
     },
 
     adornedEnd: {
-      paddingRight: 'var(--spacing-scale-quarter, 0.25rem)', // 4px (era 0.5rem)
+      paddingRight: 'var(--spacing-scale-half, 0.5rem)', // 4px
     },
   },
 }

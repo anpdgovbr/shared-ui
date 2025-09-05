@@ -47,8 +47,8 @@ export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
         },
       },
 
-      // Página atual (última) - usar classe em vez de :last-child
-      '&.breadcrumb-current': {
+      // Último item (página atual) - destaque visual
+      '&:last-child': {
         fontWeight: 600, // Destaque para página atual
 
         '& .MuiTypography-root': {
