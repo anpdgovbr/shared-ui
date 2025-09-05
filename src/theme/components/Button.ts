@@ -19,13 +19,12 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       textTransform: 'none', // Remove uppercase padrão do MUI
 
       // Espaçamento - reduzido para ser mais compacto
-      padding: 'var(--spacing-scale-half, 0.5rem) var(--spacing-scale-base, 1rem)', // 8px 16px (era 12px 24px)
-      // Usar minHeight em vez de height para permitir que sizeSmall/sizeLarge
+      padding: 'var(--spacing-scale-half, 0.5rem) 18px', // 8px      // Usar minHeight em vez de height para permitir que sizeSmall/sizeLarge
       // sobreponham o tamanho quando necessário.
       minHeight: '2.5rem', // 40px → 2.5rem (consistente com inputs)
 
       // Bordas e cantos - mais modernos
-      borderRadius: 'var(--surface-rounder-sm, 0.25rem)', // 4px (era 100em/pill)
+      borderRadius: 'var(--button-radius, 100em)',
       border: '1px solid transparent',
       outline: 'none',
 
