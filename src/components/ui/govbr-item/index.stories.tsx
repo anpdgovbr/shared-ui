@@ -42,6 +42,7 @@ type Story = StoryObj<typeof GovBRItem>
 
 export const Default: Story = {
   args: {
+    strictgovbr: true,
     children: <GovBRButton>Botão dentro do Item</GovBRButton>,
   },
 }
@@ -50,13 +51,13 @@ export const WithEstado: Story = {
   render: function allStates() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <GovBRItem>
+        <GovBRItem strictgovbr>
           <GovBRButton>Item Ativo</GovBRButton>
         </GovBRItem>
-        <GovBRItem estado="disabled">
+        <GovBRItem estado="disabled" strictgovbr>
           <GovBRButton disabled>Item Desabilitado</GovBRButton>
         </GovBRItem>
-        <GovBRItem estado="selected">
+        <GovBRItem estado="selected" strictgovbr>
           <GovBRButton>Item Selecionado</GovBRButton>
         </GovBRItem>
       </div>
@@ -66,6 +67,7 @@ export const WithEstado: Story = {
 
 export const WithDivider: Story = {
   args: {
+    strictgovbr: true,
     divider: true,
     children: <GovBRButton>Botão dentro do Item</GovBRButton>,
   },
@@ -74,6 +76,7 @@ export const WithDivider: Story = {
 export const WithEstadoAndDivider: Story = {
   args: {
     estado: 'selected',
+    strictgovbr: true,
     divider: true,
     children: <GovBRButton>Botão dentro do Item</GovBRButton>,
   },
@@ -84,18 +87,28 @@ export const WithCheckbox: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <GovBRItem>
-          <GovBRCheckbox label="Opção 1" />
+          <GovBRCheckbox label="Opção sem strictgov" />
         </GovBRItem>
         <GovBRItem estado="disabled">
-          <GovBRCheckbox label="Opção 2" disabled />
+          <GovBRCheckbox label="Opção sem strictgov desativada" disabled />
         </GovBRItem>
         <GovBRItem estado="selected">
-          <GovBRCheckbox label="Opção 3" defaultChecked />
+          <GovBRCheckbox label="Opção com strictgov marcada" defaultChecked strictgovbr />
         </GovBRItem>
         <GovBRItem>
-          <GovBRCheckbox label="Opção com ds govBR" strictgovbr />
+          <GovBRCheckbox label="Opção com strictgov" strictgovbr />
         </GovBRItem>
       </div>
+    )
+  },
+}
+
+export const WithMui: Story = {
+  render: function withMui() {
+    return (
+      <GovBRItem>
+        <GovBRButton variant="contained">Botão MUI dentro do Item</GovBRButton>
+      </GovBRItem>
     )
   },
 }
