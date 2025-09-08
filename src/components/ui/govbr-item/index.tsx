@@ -1,19 +1,36 @@
 'use client'
 
+import { Divider, Stack } from '@mui/material'
+
 import { GovBRItemProps } from './types'
 
 export function GovBRItem(props: Readonly<GovBRItemProps>) {
   const { estado, divider, children } = props
 
+  if (props.strictgovbr) {
+    // --- MODO ESTRITO ---
+    return estado ? (
+      <>
+        <div className={`br-item ${estado}`}>{children}</div>
+        {divider && <hr />}
+      </>
+    ) : (
+      <>
+        <div className="br-item">{children}</div>
+        {divider && <hr />}
+      </>
+    )
+  }
+
+  // --- MODO PADRÃO (MUI) ---
+
   return estado ? (
-    <div className={`br-item ${estado}`}>
+    <Stack direction="column" spacing={0} divider={divider ? <Divider /> : undefined}>
       {children}
-      {divider && <hr />}
-    </div>
+    </Stack>
   ) : (
-    <div className="br-item">
+    <Stack direction="column" spacing={0} divider={divider ? <Divider /> : undefined}>
       {children}
-      {divider && <hr />}
-    </div>
+    </Stack>
   )
 }
