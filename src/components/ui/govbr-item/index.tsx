@@ -1,6 +1,6 @@
 'use client'
 
-import GovBRItemProps from './types'
+import { GovBRItemProps } from './types'
 
 export function GovBRItem(props: Readonly<GovBRItemProps>) {
   const { estado, divider, children } = props

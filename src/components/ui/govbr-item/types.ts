@@ -1,9 +1,9 @@
 import React from 'react'
 
-interface GovBRItemProps {
+interface GovBRItemBaseProps {
   estado?: 'active' | 'disabled' | 'selected'
   divider?: boolean
   children?: React.ReactNode
 }
 
-export default GovBRItemProps
+export type GovBRItemProps = GovBRItemBaseProps
