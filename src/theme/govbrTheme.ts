@@ -83,30 +83,29 @@ export const govbrTheme: Theme = createTheme({
   breakpoints,
   shadows: shadows as Theme['shadows'],
 
-  // Configurações adicionais
+  // Configurações adicionais otimizadas
   shape: {
-    // O Theme.shape.borderRadius espera um número. `surfaceRounders` não existe aqui,
-    // então usamos um fallback numérico. Para aplicar tokens do Gov.br DS use
-    // 'var(--surface-rounder-*)' dentro dos styleOverrides dos componentes.
-    // Usamos 1 porque o --surface-rounder-md é 8px;
-    borderRadius: '8px',
+    // Usando valor mais padrão para border-radius base
+    borderRadius: 6, // 6px (era 8px) - mais sutil
   },
 
   transitions: {
     easing: {
-      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
-      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
-      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
+      // Easing mais naturais baseados em padrões modernos
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)', // Material Design
+      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)', // Saída suave
+      easeIn: 'cubic-bezier(0.4, 0, 1, 1)', // Entrada suave
+      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)', // Movimento rápido
     },
     duration: {
-      shortest: 150,
-      shorter: 200,
-      short: 250,
-      standard: 300,
-      complex: 375,
-      enteringScreen: 225,
-      leavingScreen: 195,
+      // Durações otimizadas para melhor performance
+      shortest: 100, // 100ms (era 150ms)
+      shorter: 150, // 150ms (era 200ms)
+      short: 200, // 200ms (era 250ms)
+      standard: 250, // 250ms (era 300ms)
+      complex: 300, // 300ms (era 375ms)
+      enteringScreen: 200, // 200ms (era 225ms)
+      leavingScreen: 150, // 150ms (era 195ms)
     },
   },
 
@@ -119,9 +118,10 @@ export const govbrTheme: Theme = createTheme({
       defaultProps: {
         // Definimos variante padrão como 'contained' para alinhar com o visual GovBR
         variant: 'contained',
-        // TEMPORÁRIO: Desabilita ripple apenas no Button por enquanto
-        // TODO: Avaliar se deve ser aplicado globalmente ou mantido específico
+        // Ripple desabilitado por padrão para visual mais limpo
         disableRipple: true,
+        // Elevation reduzida para visual mais moderno
+        disableElevation: false,
       },
     },
     MuiTextField: MuiTextFieldOverrides,

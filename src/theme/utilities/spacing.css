@@ -1,0 +1,63 @@
+/**
+ * Utilitários de spacing SSR-safe para componentes Typography
+ * 
+ * PROBLEMA RESOLVIDO:
+ * - Pseudo-seletores :first-child e :last-child causam hidratação inconsistente em SSR
+ * - Classes específicas fornecem controle preciso sem problemas de SSR
+ * 
+ * USO:
+ * <Typography className="first-element">Primeiro elemento</Typography>
+ * <Typography className="last-element">Último elemento</Typography>
+ */
+
+/* Reset de margens SSR-safe */
+.typography-first-element {
+  margin-top: 0 !important;
+}
+
+.typography-last-element {
+  margin-bottom: 0 !important;
+}
+
+.typography-no-margin {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.typography-compact {
+  margin-bottom: 0.25rem !important;
+}
+
+/* Utilitários para containers que precisam controlar spacing de filhos */
+.typography-container-reset > * {
+  margin-top: 0;
+}
+
+.typography-container-reset > *:not(:last-child) {
+  margin-bottom: var(--spacing-scale-base, 1rem);
+}
+
+.typography-container-compact > * {
+  margin-bottom: var(--spacing-scale-quarter, 0.25rem);
+}
+
+.typography-container-comfortable > * {
+  margin-bottom: var(--spacing-scale-base, 1rem);
+}
+
+.typography-container-spacious > * {
+  margin-bottom: var(--spacing-scale-1xh, 1.5rem);
+}
+
+/* Variantes responsivas */
+@media (max-width: 768px) {
+  .typography-mobile-compact > * {
+    margin-bottom: var(--spacing-scale-quarter, 0.25rem);
+  }
+}
+
+@media (min-width: 769px) {
+  .typography-desktop-spacious > * {
+    margin-bottom: var(--spacing-scale-base, 1rem);
+  }
+}
