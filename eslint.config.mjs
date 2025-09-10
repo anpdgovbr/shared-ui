@@ -1,13 +1,12 @@
-// .eslintrc.mjs ou eslint.config.mjs
+// eslint.config.mjs
 import tseslint from '@typescript-eslint/eslint-plugin'
 import parser from '@typescript-eslint/parser'
 import pluginReact from 'eslint-plugin-react'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import storybook from 'eslint-plugin-storybook'
-import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 
-export default defineConfig([
+export default [
   {
     ignores: ['dist/**', 'storybook-static/**', 'node_modules/**', 'types/**', '.husky/**'],
   },
@@ -111,4 +110,4 @@ export default defineConfig([
     plugins: { storybook },
     rules: storybook.configs.recommended.rules,
   },
-])
+]
