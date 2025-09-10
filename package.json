@@ -61,7 +61,7 @@
     "build-storybook": "storybook build",
     "deploy-storybook": "NGINX_RELOAD=true ./deploy-storybook.sh",
     "test": "vitest",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "npx eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "prepare": "husky",
@@ -79,8 +79,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "npx eslint --fix",
+      "npx prettier --write"
     ]
   },
   "repository": {
@@ -97,7 +97,7 @@
     "url": "https://gov.br/anpd"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "npm": ">=10.0.0"
   },
   "peerDependencies": {
