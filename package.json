@@ -97,7 +97,7 @@
     "url": "https://gov.br/anpd"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22",
     "npm": ">=10.0.0"
   },
   "peerDependencies": {
