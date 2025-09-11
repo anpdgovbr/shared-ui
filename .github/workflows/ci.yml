@@ -12,7 +12,7 @@ on:
     branches: [main]
 
 env:
-  NODE_VERSION: 22
+  NODE_VERSION: 20
 
 jobs:
   lint:
@@ -20,16 +20,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm cache clean --force || true
+          rm -rf node_modules package-lock.json || true
+          npm install --no-audit --no-fund
 
       - name: Run lint
         run: npm run lint
@@ -42,14 +44,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm cache clean --force || true
+          rm -rf node_modules package-lock.json || true  
+          npm install --no-audit --no-fund
       - name: Run tests
         run: npm test
 
@@ -62,20 +66,19 @@ jobs:
       actions: write # needed for upload-artifact
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm cache clean --force || true
+          rm -rf node_modules package-lock.json || true
+          npm install --no-audit --no-fund
       - name: Build project
         run: npm run build
-
-      - name: Build Storybook
-        run: npm run build-storybook
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -84,5 +87,4 @@ jobs:
           path: |
             dist/
             types/
-            storybook-static/
           retention-days: 30

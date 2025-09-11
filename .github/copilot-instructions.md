@@ -46,7 +46,8 @@ Para atender aos objetivos da biblioteca, foi definida uma **arquitetura de modo
 src/components/ui/nome-componente/
 ├── index.tsx              # Implementação com modo duplo obrigatório
 ├── types.ts               # Interface estendendo SharedUIComponentProps
-└── index.stories.tsx      # Stories mostrando ambos os modos
+├── index.stories.tsx      # Stories mostrando ambos os modos
+└── hooks.ts               # Hooks específicos (opcional)
 ```
 
 ### Padrão de Implementação
@@ -54,7 +55,16 @@ src/components/ui/nome-componente/
 ```tsx
 'use client'
 
-export const GovBRComponente: React.FC<Props> = ({ strictgovbr, className, ...props }) => {
+import React from 'react'
+import MuiButton from '@mui/material/Button' // ✅ Import específico (tree-shaking)
+import classnames from 'classnames'
+import type { ComponentProps } from './types'
+
+export const GovBRComponente: React.FC<Readonly<ComponentProps>> = ({
+  strictgovbr,
+  className,
+  ...props
+}) => {
   // Modo Estrito: HTML puro com classes Gov.br DS
   if (strictgovbr) {
     const classes = classnames('br-component', className, {
@@ -70,6 +80,70 @@ export const GovBRComponente: React.FC<Props> = ({ strictgovbr, className, ...pr
       ...
     </MuiComponent>
   )
+}
+
+// ✅ SEMPRE exportar tipos
+export type { ComponentProps } from './types'
+```
+
+### Template de Tipos (types.ts)
+
+```typescript
+import type { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
+import type { ButtonProps } from '@mui/material/Button'
+
+export interface ComponentNameProps extends ButtonProps, SharedUIComponentProps {
+  // Props específicas do componente
+  customProp?: string
+  govbrSize?: 'small' | 'medium' | 'large'
+}
+```
+
+### Template de Stories (index.stories.tsx)
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import { ComponentName } from './index'
+
+const meta: Meta<typeof ComponentName> = {
+  title: 'Components/ComponentName',
+  component: ComponentName,
+  tags: ['autodocs'], // ✅ SEMPRE incluir
+  decorators: [
+    (Story) => (
+      <GovBRThemeProvider>
+        <div style={{ padding: '2rem' }}>
+          <Story />
+        </div>
+      </GovBRThemeProvider>
+    ),
+  ],
+  argTypes: {
+    strictgovbr: {
+      control: 'boolean',
+      description: 'Ativa modo estrito com renderização HTML puro e classes CSS oficiais do GovBR-DS',
+      table: {
+        category: 'Configuração',
+        defaultValue: { summary: 'false' },
+      },
+    },
+  },
+}
+
+export default meta
+type Story = StoryObj<typeof ComponentName>
+
+export const Default: Story = {
+  args: {
+    strictgovbr: false,
+  },
+}
+
+export const StrictMode: Story = {
+  args: {
+    strictgovbr: true,
+  },
 }
 ```
 
@@ -96,14 +170,63 @@ MuiButton: {
 
 ## 4. Convenções da Arquitetura
 
+### Regras Críticas (OBRIGATÓRIAS)
+
 - **Modo duplo obrigatório**: Todo componente GovBR deve implementar `strictgovbr` conforme definido na arquitetura
+- **SharedUIComponentProps**: Todos os componentes devem estender para ter `strictgovbr` automático
+- **Diretiva "use client"**: Obrigatória em `src/components/ui/**/*.tsx`
+- **Tree-shaking obrigatório**: Imports MUI específicos (`import Button from '@mui/material/Button'`) nunca desestruturados
+- **Stories obrigatórias**: Todo componente deve incluir `tags: ['autodocs']` e ambos os modos
+- **Readonly Props**: Use `React.FC<Readonly<Props>>` para definir componentes
+
+### Padrões de Nomenclatura
+
+- **Componentes**: `PascalCase` (GovBRButton)
+- **Diretórios**: `kebab-case` (govbr-button/)
+- **Props**: `camelCase`
+- **Classes CSS**: `kebab-case` com prefixo `br-` quando `strictgovbr`
+
+### Path Aliases Obrigatórios
+
+```typescript
+// ✅ USAR path aliases
+import { SharedUIComponentProps } from '@govbr-types/SharedUIComponentProps'
+import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import { IconMap } from '@helpers/IconMap'
+
+// ❌ NUNCA usar paths relativos longos
+import { SharedUIComponentProps } from '../../../types/SharedUIComponentProps'
+```
+
+### Tree-Shaking MUI (CRÍTICO)
+
+```typescript
+// ✅ SEMPRE imports específicos
+import MuiButton from '@mui/material/Button'
+import MuiTextField from '@mui/material/TextField'
+import AddIcon from '@mui/icons-material/Add'
+
+// ❌ NUNCA imports genéricos (quebra tree-shaking)
+import { Button, TextField } from '@mui/material'
+import { Add } from '@mui/icons-material'
+```
+
+### Exports Padrão
+
+```typescript
+// No final do index.tsx do componente
+export type { ComponentNameProps } from './types'
+
+// No src/index.ts principal
+export { ComponentName } from './components/ui/component-name'
+export type { ComponentNameProps } from './components/ui/component-name'
+```
+
+### Outras Convenções
+
 - **Componentes "burros"**: No modo padrão, apenas repassam props para MUI
 - **Tema centralizado**: Estilização MUI controlada exclusivamente pelo `govbrTheme.ts`
 - **Tokens CSS**: Use `var(--token-name)` para integração com Gov.br DS
-- **SharedUIComponentProps**: Todos os componentes devem estender para ter `strictgovbr` automático
-- **Diretiva "use client"**: Obrigatória em `src/components/ui/**/*.tsx`
-- **Imports específicos MUI**: `import Button from '@mui/material/Button'` (tree-shaking)
-- **Path aliases**: `@components/*`, `@theme/*`, `@helpers/*`, `@govbr-types/*`
 
 ## 5. Descobrindo Tokens CSS Gov.br DS
 
@@ -113,19 +236,42 @@ MuiButton: {
 
 ## 6. Workflows e comandos essenciais
 
-- Instalação: `npm install` (devs) — CI deve usar `npm ci` para instalação reproduzível.
-- Hooks: instale com `npm run prepare` (husky). Pre-commit executa `scripts/check-lock-commit.js` e `npx lint-staged`; pre-push roda `npm run check && npm test && npm run build`.
-- Testes: `npm run test` (Vitest + @testing-library/react). Build: `npm run build` (types + vite build).
+### Desenvolvimento Local
+
+- **Instalação**: `npm install` (devs) — CI deve usar `npm ci` para instalação reproduzível
+- **Storybook**: `npm run dev` ou `npm run storybook` (porta 6006) — ambiente principal de desenvolvimento
+- **Setup inicial**: `npm run prepare` (husky hooks)
+- **Testes**: `npm run test` (Vitest + @testing-library/react)
+- **Build**: `npm run build` (types + vite build)
+- **Qualidade**: `npm run check` (lint + type-check)
+- **Lint**: `npm run lint -- --fix` (corrigir erros automaticamente)
+
+### Git Hooks Automáticos
+
+- **Pre-commit**: executa `scripts/check-lock-commit.js` e `npx lint-staged`
+- **Pre-push**: roda `npm run check && npm test && npm run build`
+
+### Publicação Beta
+
+- `npm run version:beta` → `npm run publish:beta` ou `npm run release:beta` (combina ambos)
+- Versioning: `version:beta-patch`, `version:beta-minor`, `version:beta-major`
+
+### Comandos de Manutenção
+
+- `npm run clean` - Limpa arquivos temporários
+- `npm run reset` - Reset completo do projeto
 
 ## 7. Regras de dependências e lockfile
 
-- PeerDependencies: React, MUI, Emotion, GovBR core; o consumidor deve fornecer essas dependências. Ver `package.json` → `peerDependencies`.
+- PeerDependencies: React 19, MUI v7, Emotion, GovBR core; o consumidor deve fornecer essas dependências. Ver `package.json` → `peerDependencies`.
 - Política de lockfile: mantenha `package-lock.json` versionado para CI; há um hook (`scripts/check-lock-commit.js`) que bloqueia commits onde `package.json` muda nas dependências sem `package-lock.json` staged.
 
 ## 8. Padrões de qualidade do repositório
 
 - Antes de PR: `npm run check` (lint + type-check), `npm run test`, `npm run build`.
 - Lint: regras específicas em `eslint.config.mjs`. Atenção à regra customizada `use-client/required` para componentes UI.
+- **Tree-shaking obrigatório**: Imports MUI devem ser específicos (`import Button from '@mui/material/Button'`) nunca desestruturados.
+- **Stories obrigatórias**: Todo componente deve ter `index.stories.tsx` mostrando ambos os modos (`strictgovbr: true/false`).
 
 ## 9. Pontos de integração e risco
 
@@ -144,6 +290,8 @@ MuiButton: {
 
 - Para adicionar componente novo: crie `src/components/ui/nome-componente/index.tsx`, `types.ts`, `index.stories.tsx`; comece o arquivo com `"use client"`.
 - Para atualizar dependências: rode localmente `npm install`, valide `npm run check` e `npm run build`, commit `package.json` + `package-lock.json` juntos.
+- **Storybook local**: `npm run dev` para ver componentes interativamente durante desenvolvimento.
+- **Testar componente**: Sempre teste ambos os modos nos stories: `args: { strictgovbr: false }` e `args: { strictgovbr: true }`.
 
 ## 12. Quando pedir ajuda ao humano
 
@@ -151,3 +299,27 @@ MuiButton: {
 - Para mudanças de design tokens no tema, peça revisão de designer/UX.
 
 Se algo estiver ambíguo, peça contexto (feature branch, objetivo do PR, e se é breaking change na API pública) antes de qualquer refatoração ampla.
+
+## 📋 Referências e Documentação
+
+### Arquivos de Referência
+
+- **[ARQUITETURA.md](../ARQUITETURA.md)** - Guia completo da arquitetura híbrida
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Como contribuir com o projeto
+- **[docs/ADICIONAR_COMPONENTE.md](../docs/ADICIONAR_COMPONENTE.md)** - Tutorial para novos componentes
+- **[docs/GUIA_MIGRACAO.md](../docs/GUIA_MIGRACAO.md)** - Guia de migração entre versões
+- **[docs/COMO_USAR_TEMA.md](../docs/COMO_USAR_TEMA.md)** - Documentação do sistema de temas
+
+### Stack Tecnológico
+
+- **React 19+** com TypeScript
+- **MUI v7** (Material-UI)
+- **GovBR Design System** integration
+- **Storybook** para documentação
+- **Vite** como build tool
+- **Vitest** para testes
+- **ESLint** com regras customizadas
+
+---
+
+**Desenvolvido por:** Divisão de Desenvolvimento e Sustentação de Sistemas - ANPD

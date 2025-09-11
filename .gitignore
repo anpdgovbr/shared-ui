@@ -10,6 +10,8 @@ pnpm-debug.log*
 /dist/ 
 /types/
 storybook-static/
+storybook-stats.html
+deploy-storybook.sh
 
 # Vite
 .vite/

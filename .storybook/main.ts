@@ -2,37 +2,89 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 import path from 'path'
 
+// opcional: só gera o relatório se build local (não em CI)
+const isCi = process.env.CI === 'true'
+const basePath = '/shared-ui/'
+
+const aliases = {
+  '@components': path.resolve(__dirname, '../src/components'),
+  '@stories': path.resolve(__dirname, '../src/stories'),
+  '@theme': path.resolve(__dirname, '../src/theme'),
+  '@docs': path.resolve(__dirname, '../docs'),
+}
+
 const config: StorybookConfig = {
-  // Ajuste esta linha:
   stories: [
-    '../src/**/*.stories.@(ts|tsx)', // Histórias de componentes
-    '../docs/**/*.stories.@(ts|tsx)', // Documentação como stories
-    // '../docs/**/*.mdx', // MDX temporariamente desabilitado
+    '../src/**/*.stories.@(ts|tsx)',
+    '../docs/**/*.stories.@(ts|tsx)',
+    // '../docs/**/*.mdx',
   ],
-  addons: [
-    // Testes de acessibilidade
-    '@storybook/addon-a11y',
-    '@storybook/addon-docs',
-  ],
+  addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  // Opcional: Configuração docs para autodocs
   docs: {
     defaultName: 'Documentação',
-    docsMode: false, // Permite visualizar canvas e docs
+    docsMode: false,
   },
-  viteFinal(config) {
-    config.resolve = config.resolve || {}
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      '@components': path.resolve(__dirname, '../src/components'),
-      '@stories': path.resolve(__dirname, '../src/stories'),
-      '@theme': path.resolve(__dirname, '../src/theme'),
-      '@docs': path.resolve(__dirname, '../docs'),
+  async viteFinal(cfg, { configType }) {
+    // Publicação sob subdiretório
+    cfg.base = basePath
+
+    // Aliases
+    cfg.resolve = cfg.resolve || {}
+    cfg.resolve.alias = { ...(cfg.resolve.alias || {}), ...aliases }
+
+    // Pré-empacotar deps pesadas para dev mais rápido
+    cfg.optimizeDeps = {
+      ...(cfg.optimizeDeps ?? {}),
+      include: [
+        'react',
+        'react-dom',
+        '@emotion/react',
+        '@emotion/styled',
+        '@mui/material',
+        '@mui/system',
+        '@mui/utils',
+        'dayjs',
+      ],
     }
-    return config
+
+    // Ajustes de build
+    cfg.build = {
+      ...(cfg.build ?? {}),
+      sourcemap: false,
+      chunkSizeWarningLimit: 1500, // reduz ruído do warning
+      rollupOptions: {
+        ...(cfg.build?.rollupOptions ?? {}),
+        output: {
+          ...(cfg.build?.rollupOptions?.output ?? {}),
+          // Split explícito para reduzir um único mega-chunk
+          manualChunks: {
+            react: ['react', 'react-dom'],
+            emotion: ['@emotion/react', '@emotion/styled'],
+            mui: ['@mui/material', '@mui/system', '@mui/utils'],
+            dayjs: ['dayjs'],
+          },
+        },
+      },
+    }
+
+    // Relatório de bundle (opcional) — abra storybook-stats.html
+    if (configType === 'PRODUCTION' && !isCi) {
+      const { visualizer } = await import('rollup-plugin-visualizer')
+      cfg.plugins = [
+        ...(cfg.plugins || []),
+        visualizer({
+          filename: 'storybook-stats.html',
+          gzipSize: true,
+          brotliSize: true,
+        }),
+      ]
+    }
+
+    return cfg
   },
 }
 
