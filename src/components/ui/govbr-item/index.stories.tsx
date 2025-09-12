@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { GovBRButton } from 'src/components/ui/govbr-button'
 
-import { GovBRButton } from '../govbr-button'
-import { GovBRCheckbox } from '../govbr-checkbox'
 import { GovBRItem } from './index'
 
 const meta: Meta<typeof GovBRItem> = {
@@ -26,14 +25,27 @@ const meta: Meta<typeof GovBRItem> = {
         defaultValue: { summary: 'false' },
       },
     },
+    strictgovbr: {
+      control: { type: 'boolean' },
+      description: 'Se verdadeiro, aplica as classes CSS do padrão GovBR.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     children: {
       control: { type: 'text' },
-      description: 'Conteúdo interno do item. Pode ser texto ou outros componentes.',
+      description: 'Conteúdo do item. Pode ser texto ou outros componentes React.',
       table: {
         type: { summary: 'ReactNode' },
         defaultValue: { summary: 'undefined' },
       },
     },
+  },
+  args: {
+    estado: 'active',
+    divider: false,
+    strictgovbr: false,
   },
 }
 
@@ -41,74 +53,67 @@ export default meta
 type Story = StoryObj<typeof GovBRItem>
 
 export const Default: Story = {
-  args: {
-    strictgovbr: true,
-    children: <GovBRButton>Botão dentro do Item</GovBRButton>,
-  },
-}
-
-export const WithEstado: Story = {
-  render: function allStates() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <GovBRItem strictgovbr>
-          <GovBRButton>Item Ativo</GovBRButton>
-        </GovBRItem>
-        <GovBRItem estado="disabled" strictgovbr>
-          <GovBRButton disabled>Item Desabilitado</GovBRButton>
-        </GovBRItem>
-        <GovBRItem estado="selected" strictgovbr>
-          <GovBRButton>Item Selecionado</GovBRButton>
-        </GovBRItem>
-      </div>
-    )
-  },
+  render: (args) => (
+    <GovBRItem {...args}>
+      <GovBRButton variant="contained" color="primary">
+        Botão dentro do GovBRItem
+      </GovBRButton>
+    </GovBRItem>
+  ),
 }
 
 export const WithDivider: Story = {
-  args: {
-    strictgovbr: true,
-    divider: true,
-    children: <GovBRButton>Botão dentro do Item</GovBRButton>,
-  },
+  render: (args) => (
+    <GovBRItem {...args} divider>
+      Item com divisor
+    </GovBRItem>
+  ),
 }
 
-export const WithEstadoAndDivider: Story = {
-  args: {
-    estado: 'selected',
-    strictgovbr: true,
-    divider: true,
-    children: <GovBRButton>Botão dentro do Item</GovBRButton>,
-  },
+export const DisabledItem: Story = {
+  render: (args) => (
+    <GovBRItem {...args} estado="disabled">
+      Item desabilitado
+    </GovBRItem>
+  ),
 }
 
-export const WithCheckbox: Story = {
-  render: function withCheckbox() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <GovBRItem>
-          <GovBRCheckbox label="Opção sem strictgov" />
-        </GovBRItem>
-        <GovBRItem estado="disabled">
-          <GovBRCheckbox label="Opção sem strictgov desativada" disabled />
-        </GovBRItem>
-        <GovBRItem estado="selected">
-          <GovBRCheckbox label="Opção com strictgov marcada" defaultChecked strictgovbr />
-        </GovBRItem>
-        <GovBRItem>
-          <GovBRCheckbox label="Opção com strictgov" strictgovbr />
-        </GovBRItem>
-      </div>
-    )
-  },
+export const SelectedItem: Story = {
+  render: (args) => (
+    <GovBRItem {...args} estado="selected">
+      Item selecionado
+    </GovBRItem>
+  ),
 }
 
-export const WithMui: Story = {
-  render: function withMui() {
-    return (
-      <GovBRItem>
-        <GovBRButton variant="contained">Botão MUI dentro do Item</GovBRButton>
-      </GovBRItem>
-    )
-  },
+export const StrictGovBRMode: Story = {
+  render: (args) => (
+    <GovBRItem {...args} strictgovbr>
+      Item em modo estrito GovBR
+    </GovBRItem>
+  ),
+}
+
+export const StrictGovBRWithDivider: Story = {
+  render: (args) => (
+    <GovBRItem {...args} strictgovbr divider>
+      Item em modo estrito GovBR com divisor
+    </GovBRItem>
+  ),
+}
+
+export const StrictGovBRDisabled: Story = {
+  render: (args) => (
+    <GovBRItem {...args} strictgovbr estado="disabled">
+      Item desabilitado em modo estrito GovBR
+    </GovBRItem>
+  ),
+}
+
+export const StrictGovBRSelected: Story = {
+  render: (args) => (
+    <GovBRItem {...args} strictgovbr estado="selected">
+      Item selecionado em modo estrito GovBR
+    </GovBRItem>
+  ),
 }
