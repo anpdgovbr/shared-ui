@@ -1,4 +1,4 @@
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 
 interface GovBRDividerBaseProps {
   /**Define se o divisor é vertical ou horizontal

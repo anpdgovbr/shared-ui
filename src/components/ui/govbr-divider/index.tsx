@@ -1,6 +1,6 @@
 'use client'
 
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import classNames from 'classnames'
 import { GovBRDividerProps } from 'src/components/ui/govbr-divider/types'
 
