@@ -37,6 +37,8 @@ import { MuiInputBaseOverrides } from './components/InputBase'
 import { MuiInputLabelOverrides } from './components/InputLabel'
 import { MuiLinearProgressOverrides } from './components/LinearProgress'
 import { MuiLinkOverrides } from './components/Link'
+import { MuiMenuOverrides } from './components/Menu'
+import { MuiMenuItemOverrides } from './components/MenuItem'
 import { MuiRadioOverrides } from './components/Radio'
 import { MuiRadioGroupOverrides } from './components/RadioGroup'
 import { MuiSwitchOverrides } from './components/Switch'
@@ -153,6 +155,8 @@ export const govbrTheme: Theme = createTheme({
     MuiDivider: MuiDividerOverrides,
     MuiIconButton: MuiIconButtonOverrides,
     MuiLink: MuiLinkOverrides,
+    MuiMenu: MuiMenuOverrides,
+    MuiMenuItem: MuiMenuItemOverrides,
     MuiTooltip: MuiTooltipOverrides,
     MuiLinearProgress: MuiLinearProgressOverrides,
 
