@@ -46,3 +46,7 @@ export type { GovBRSignInProps } from './ui/govbr-sign-in/types'
 // GovBRSwitch
 export * from './ui/govbr-switch'
 export type { GovBRSwitchProps } from './ui/govbr-switch/types'
+
+// GovBRItem
+export * from './ui/govbr-item'
+export type { GovBRItemProps } from './ui/govbr-item/types'
