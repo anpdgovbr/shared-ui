@@ -35,7 +35,8 @@ export const MuiInputBaseOverrides: Components['MuiInputBase'] = {
       fontWeight: 'var(--font-weight-medium, 500)', // 500
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       height: 'var(--spacing-scale-5x, 5rem)', // 40px
-      padding: '0 var(--spacing-scale-2x, 2rem)', // 0 16px
+      // padding: '0 var(--spacing-scale-2x, 2rem)', // 0 16px
+      padding: '0',
 
       // Quando for OutlinedInput, não aplicar borda nem sombra no root.
       // O fieldset do OutlinedInput deve ser a única fonte da borda.
