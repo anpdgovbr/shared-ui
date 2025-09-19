@@ -1,23 +1,24 @@
 import type { Components } from '@mui/material/styles'
 
 /**
- * Overrides do MUI Avatar para GovBR Design System
+ * Overrides para o componente MUI Avatar integrando o GovBR Design System.
  *
- * PROPRIEDADES IMPLEMENTADAS:
- * - ✅ backgroundColor padrão com token GovBR
- * - ✅ color do texto/ícone
- * - ✅ fontWeight medium para iniciais
- * - ✅ fontFamily do design system
- * - ✅ colorDefault específico
+ * Este objeto fornece as customizações aplicadas ao slot `root` e ao slot
+ * `colorDefault` do `MuiAvatar` via `styleOverrides`. As regras usam tokens
+ * CSS do GovBR (ex.: `var(--...)`) para manter sincronização com o Design System.
  *
- * PROPRIEDADES COMUNS FALTANDO:
- * - ❌ diferentes tamanhos (small, medium, large)
- * - ❌ border/outline para contraste
- * - ❌ box-shadow para elevação
- * - ❌ hover effects
- * - ❌ estados online/offline
- * - ❌ grupo de avatares (overlap)
- * - ❌ fallback para imagens quebradas
+ * Principais características:
+ * - Aplica background e cores base usando variáveis CSS do GovBR.
+ * - Define família e peso de fonte para as iniciais.
+ * - Mantém extensibilidade: comentários no arquivo indicam slots e estados
+ *   adicionais que podem ser implementados futuramente (small/large, hover, img, fallback).
+ *
+ * @remarks
+ * - Não altera comportamento do componente MUI, apenas estilos via theme overrides.
+ * - Use `govbrTheme.ts` e `GovBRThemeProvider` para aplicar este tema globalmente.
+ *
+ * @public
+ * @see {@link ../docs/COMO_USAR_TEMA.md} — Guia de uso do tema GovBR na biblioteca
  */
 export const MuiAvatarOverrides: Components['MuiAvatar'] = {
   styleOverrides: {
