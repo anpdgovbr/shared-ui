@@ -89,13 +89,19 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
 
     // Se não há menu items, renderizar avatar simples
     if (!menuItems || menuItems.length === 0) {
+      // Renderização simples em modo estrito: sempre expor o conteúdo dentro de
+      // uma `.content` para manter consistência com as expectativas dos testes
+      // e com o markup usado no modo dropdown.
       return (
         <div
           className={classNames('br-avatar', { [`${density}`]: density }, strictClassName)}
           title={tooltip}
         >
-          {letter && <span className="letter">{letter}</span>}
-          {strictChildren && <span className="content">{strictChildren}</span>}
+          {strictChildren ? (
+            <span className="content">{strictChildren}</span>
+          ) : letter ? (
+            <span className="content">{letter}</span>
+          ) : null}
         </div>
       )
     }
@@ -115,6 +121,8 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           data-target={dropdownId}
           aria-label={`${greetingText}, ${name || 'Usuário'}`}
           onClick={handleButtonClick}
+          // Aplicamos estilo inline somente ao botão trigger; não espalhamos props
+          // vindas do componente para evitar leak de atributos DOM.
           style={{
             height: 'auto',
             padding: 'var(--spacing-scale-base)',
@@ -129,7 +137,9 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           </span>
           {name && (
             <span className="ml-2 text-gray-80 text-weight-regular">
-              {greetingText}, <span className="text-weight-semi-bold">{name}</span>
+              {/* Renderizar como uma única string evita que o texto seja fragmentado
+                  em múltiplos nós (o que atrapalha as buscas por texto nos testes). */}
+              {`${greetingText}, ${name}`}
             </span>
           )}
           <i className="fas fa-caret-down" aria-hidden="true" />
@@ -146,7 +156,8 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
             <a
               key={index}
               className={classNames('br-item', { disabled: item.disabled })}
-              href={item.href || 'javascript:void(0)'}
+              // Usamos um href seguro para evitar URLs javascript: que o React bloqueia
+              href={item.href || '#'}
               role="menuitem"
               onClick={(e) => {
                 if (item.disabled) return
@@ -217,7 +228,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
         </Avatar>
         {name && (
           <Typography variant="body2" component="span">
-            {greetingText}, <strong>{name}</strong>
+            {`${greetingText}, ${name}`}
           </Typography>
         )}
       </Button>
