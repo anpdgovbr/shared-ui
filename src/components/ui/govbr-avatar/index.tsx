@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import type { SxProps, Theme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import classNames from 'classnames'
 import React, { useRef, useState } from 'react'
@@ -75,19 +76,26 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
 
   // --- MODO ESTRITO ---
   if (strictgovbr) {
+    // No modo estrito NÃO espalhamos props arbitrárias para o DOM.
+    // Usamos explicitamente apenas as props necessárias.
     const strictProps = props as GovBRAvatarStrictProps
-    const { density, letter, tooltip, className, children, ...cleanRest } = strictProps
+    const {
+      density,
+      letter,
+      tooltip,
+      className: strictClassName,
+      children: strictChildren,
+    } = strictProps
 
     // Se não há menu items, renderizar avatar simples
     if (!menuItems || menuItems.length === 0) {
       return (
         <div
-          className={classNames('br-avatar', { [`${density}`]: density }, className)}
+          className={classNames('br-avatar', { [`${density}`]: density }, strictClassName)}
           title={tooltip}
-          {...cleanRest}
         >
           {letter && <span className="letter">{letter}</span>}
-          {children && <span className="content">{children}</span>}
+          {strictChildren && <span className="content">{strictChildren}</span>}
         </div>
       )
     }
@@ -117,7 +125,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
             title={tooltip || (name ?? undefined)}
           >
             {letter && <span className="content">{letter}</span>}
-            {children && <span className="content">{children}</span>}
+            {strictChildren && <span className="content">{strictChildren}</span>}
           </span>
           {name && (
             <span className="ml-2 text-gray-80 text-weight-regular">
@@ -156,41 +164,57 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   }
 
   // --- MODO PADRÃO (MUI) ---
-  const muiProps = props as GovBRAvatarMuiProps
-  const { children, sx, ...muiRest } = muiProps
+  // Não espalhar props custom para o Avatar. Passamos apenas props MUI explícitas.
+  // Cast seguro para o tipo MUI quando necessário.
+  const muiProps: GovBRAvatarMuiProps = props as GovBRAvatarMuiProps
+  const {
+    children: muiChildren,
+    sx: muiSx,
+    src: muiSrc,
+    alt: muiAlt,
+    className: muiClassName,
+  } = muiProps
 
   // Se não há menu items, renderizar avatar simples
   if (!menuItems || menuItems.length === 0) {
     return (
-      <Avatar sx={sx} {...muiRest}>
-        {children}
+      <Avatar src={muiSrc} alt={muiAlt} sx={muiSx} className={muiClassName}>
+        {muiChildren}
       </Avatar>
     )
   }
 
   // Renderizar com dropdown (MUI)
+  const baseSx = {
+    padding: 1,
+    minWidth: 'auto',
+    color: 'text.primary',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: 'action.hover',
+    },
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+  } as const
+
+  const combinedSx: SxProps<Theme> = Array.isArray(muiSx)
+    ? ([baseSx, ...muiSx] as SxProps<Theme>)
+    : muiSx
+      ? ([baseSx, muiSx] as SxProps<Theme>)
+      : (baseSx as SxProps<Theme>)
   return (
     <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
       <Button
         ref={anchorRef}
         onClick={handleOpen}
         variant="text"
-        sx={{
-          padding: 1,
-          minWidth: 'auto',
-          color: 'text.primary',
-          textTransform: 'none',
-          '&:hover': {
-            backgroundColor: 'action.hover',
-          },
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          ...sx,
-        }}
+        sx={combinedSx}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        <Avatar {...muiRest}>{children}</Avatar>
+        <Avatar src={muiSrc} alt={muiAlt} className={muiClassName}>
+          {muiChildren}
+        </Avatar>
         {name && (
           <Typography variant="body2" component="span">
             {greetingText}, <strong>{name}</strong>

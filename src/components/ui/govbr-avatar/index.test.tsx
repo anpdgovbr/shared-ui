@@ -40,7 +40,9 @@ describe('GovBRAvatar', () => {
         </GovBRAvatar>,
       )
 
-      expect(screen.getByText('Olá, João')).toBeInTheDocument()
+      // O texto pode ser fragmentado em múltiplos nós (Olá, <strong>João</strong>),
+      // então usamos regex para buscar de forma robusta.
+      expect(screen.getByText(/Olá,\s*João/)).toBeInTheDocument()
       expect(screen.getByRole('button')).toBeInTheDocument()
     })
 
@@ -94,8 +96,11 @@ describe('GovBRAvatar', () => {
 
     it('should render with letter', () => {
       render(<GovBRAvatar strictgovbr letter="A" />)
+      // Usar container.querySelector para checar a estrutura .content
       expect(screen.getByText('A')).toBeInTheDocument()
-      expect(screen.getByText('A').closest('.content')).toBeInTheDocument()
+      const content = document.querySelector('.content')
+      expect(content).toBeInTheDocument()
+      expect(content).toHaveTextContent('A')
     })
 
     it('should apply density class', () => {
@@ -112,7 +117,7 @@ describe('GovBRAvatar', () => {
       render(<GovBRAvatar strictgovbr letter="J" name="João" menuItems={mockMenuItems} />)
 
       expect(screen.getByRole('button')).toHaveClass('br-sign-in')
-      expect(screen.getByText('Olá, João')).toBeInTheDocument()
+      expect(screen.getByText(/Olá,\s*João/)).toBeInTheDocument()
     })
 
     it('should render br-list with menu items in strict mode', () => {
