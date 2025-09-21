@@ -134,7 +134,6 @@ function App() {
 import { Button } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { govbrTheme } from '@anpdgovbr/shared-ui'
-
 ;<ThemeProvider theme={govbrTheme}>
   <Button variant="contained" color="primary">
     {' '}

@@ -153,7 +153,7 @@
     "prettier": "^3.6.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-hook-form": "^7.62.0",
+    "react-hook-form": "^7.63.0",
     "react-lgpd-consent": "0.3.7",
     "rollup-plugin-visualizer": "^6.0.3",
     "storybook": "^9.1.7",
@@ -161,6 +161,6 @@
     "vite": "^7.1.6",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
-    "zod": "^4.1.9"
+    "zod": "^4.1.11"
   }
 }
