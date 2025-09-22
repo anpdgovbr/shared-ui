@@ -1,12 +1,17 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import HelpIcon from '@mui/icons-material/Help'
+import LogoutIcon from '@mui/icons-material/Logout'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import PersonIcon from '@mui/icons-material/Person'
+import SettingsIcon from '@mui/icons-material/Settings'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
-import React from 'react'
 
 import { GovBRAvatar } from './index'
+import type { GovBRAvatarMenuItem } from './types'
 
 const meta: Meta<typeof GovBRAvatar> = {
   title: 'Components/GovBRAvatar',
@@ -56,6 +61,22 @@ const meta: Meta<typeof GovBRAvatar> = {
       control: 'text',
       description: 'Tooltip exibido ao passar o mouse (modo estrito)',
     },
+    name: {
+      control: 'text',
+      description: 'Nome do usuário exibido no dropdown',
+    },
+    greetingText: {
+      control: 'text',
+      description: 'Texto de saudação personalizado (padrão: "Olá")',
+    },
+    menuItems: {
+      control: false,
+      description: 'Lista de itens do menu dropdown',
+    },
+    onNavigate: {
+      action: 'navigate',
+      description: 'Callback executado quando um item do menu é clicado',
+    },
   },
   parameters: {
     docs: {
@@ -69,9 +90,17 @@ Componente de avatar padronizado seguindo as diretrizes do GovBR Design System.
 - 🎨 **Modo Duplo**: MUI theme-based ou HTML puro com classes CSS do GovBR-DS  
 - 📷 **Tipos de Conteúdo**: Imagem, letra, ícone
 - 📏 **Tamanhos**: Small (32px), Medium (56px), Large (80px)
-- 🔔 **Notificação**: Indicador visual opcional
+- 🔔 **Dropdown Menu**: Sistema de navegação completo com menu de usuário
 - 🎭 **Formatos**: Circular, quadrado, arredondado (modo MUI)
 - 🏛️ **GovBR Strict Mode**: Aplicação rigorosa dos padrões governamentais
+- ⚡ **Performance**: Tree shaking otimizado e carregamento eficiente
+
+### Dropdown de Usuário
+O componente suporta dropdown completo para navegação do usuário:
+- **Modo MUI**: Utiliza Menu/MenuItem com estilização do tema GovBR
+- **Modo Estrito**: Usa classes nativas .br-sign-in, .br-list, .br-item
+- **Flexibilidade**: Suporte a ícones, callbacks e navegação por links
+- **Acessibilidade**: Navegação por teclado e leitores de tela
         `,
       },
     },
@@ -259,6 +288,142 @@ export const UserProfile: Story = {
     docs: {
       description: {
         story: 'Exemplo de uso em perfil de usuário governamental',
+      },
+    },
+  },
+}
+
+// Dados de exemplo para os menus dropdown
+const menuItems: GovBRAvatarMenuItem[] = [
+  {
+    label: 'Dados pessoais',
+    onClick: () => alert('Dados pessoais'),
+    icon: <PersonIcon />,
+  },
+  {
+    label: 'Privacidade',
+    onClick: () => alert('Privacidade'),
+    icon: <SettingsIcon />,
+  },
+  {
+    label: 'Notificações',
+    onClick: () => alert('Notificações'),
+    icon: <NotificationsIcon />,
+  },
+  {
+    label: 'Perguntas frequentes',
+    onClick: () => alert('Perguntas frequentes'),
+    icon: <HelpIcon />,
+  },
+  {
+    label: 'Sair',
+    onClick: () => alert('Logout'),
+    icon: <LogoutIcon />,
+  },
+]
+
+export const WithDropdownMUI: Story = {
+  args: {
+    children: 'F',
+    name: 'Fulano',
+    greetingText: 'Olá',
+    menuItems,
+    strictgovbr: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Avatar com dropdown usando componentes MUI (Menu/MenuItem) estilizados pelo tema GovBR',
+      },
+    },
+  },
+}
+
+export const WithDropdownStrict: Story = {
+  args: {
+    letter: 'F',
+    name: 'Fulano',
+    greetingText: 'Olá',
+    menuItems,
+    strictgovbr: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Avatar com dropdown usando HTML puro e classes CSS do GovBR-DS (.br-sign-in, .br-list, .br-item)',
+      },
+    },
+  },
+}
+
+export const DropdownComparison: Story = {
+  render: () => (
+    <Stack spacing={4}>
+      <Typography variant="h6">Comparação dos Modos de Dropdown</Typography>
+
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Modo MUI (Theme-based):
+        </Typography>
+        <GovBRAvatar name="João Silva" greetingText="Olá" menuItems={menuItems} strictgovbr={false}>
+          J
+        </GovBRAvatar>
+      </Box>
+
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Modo Estrito GovBR-DS:
+        </Typography>
+        <GovBRAvatar
+          letter="J"
+          name="João Silva"
+          greetingText="Olá"
+          menuItems={menuItems}
+          strictgovbr={true}
+        />
+      </Box>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparação lado a lado dos dois modos de renderização do dropdown',
+      },
+    },
+  },
+}
+
+export const SimpleDropdown: Story = {
+  args: {
+    children: 'U',
+    name: 'Usuário',
+    menuItems: [
+      { label: 'Perfil', onClick: () => alert('Perfil') },
+      { label: 'Configurações', onClick: () => alert('Configurações') },
+      { label: 'Sair', onClick: () => alert('Sair') },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Dropdown simples com menu básico sem ícones',
+      },
+    },
+  },
+}
+
+export const WithoutDropdown: Story = {
+  args: {
+    children: 'S',
+    name: 'Simples',
+    // Sem menuItems - renderiza avatar simples
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatar sem dropdown (quando menuItems não é fornecido)',
       },
     },
   },
