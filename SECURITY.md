@@ -1,6 +1,6 @@
 # 🔐 Política de Segurança
 
-Este repositório é mantido pela **Autoridade Nacional de Proteção de Dados (ANPD)** e segue diretrizes públicas de desenvolvimento seguro.
+Este repositório é mantido pela **Agência Nacional de Proteção de Dados (ANPD)** e segue diretrizes públicas de desenvolvimento seguro.
 
 Embora o projeto seja aberto, **o foco principal é o uso e manutenção por equipes internas da ANPD e parceiros governamentais**.
 
@@ -48,4 +48,4 @@ Agradecemos a qualquer colaborador que reporte falhas de forma responsável, aju
 
 **Divisão de Desenvolvimento e Sustentação de Sistemas (DDSS)**  
 **Coordenação-Geral de Tecnologia da Informação (CGTI)**  
-Autoridade Nacional de Proteção de Dados – ANPD
+Agência Nacional de Proteção de Dados – ANPD
