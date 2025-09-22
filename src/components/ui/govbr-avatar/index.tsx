@@ -286,14 +286,39 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
         ref={anchorRef}
         onClick={handleOpen}
         variant="text"
-        sx={combinedSx}
+        sx={{
+          ...combinedSx,
+          // Ajuste de alinhamento vertical dos ícones e avatar
+          '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+            marginTop: 0,
+            marginBottom: 0,
+          },
+          // Ajuste do Typography para alinhar com o Avatar
+          '& .MuiTypography-root': {
+            lineHeight: 1.2,
+            margin: 0,
+            display: 'flex',
+            alignItems: 'center',
+          },
+          // Garantir que o avatar esteja alinhado verticalmente
+          '& .MuiAvatar-root': {
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: 0,
+            marginBottom: 0,
+          },
+        }}
         endIcon={<KeyboardArrowDownIcon />}
       >
         <Avatar src={muiSrc} alt={muiAlt} className={muiClassName}>
           {muiChildren}
         </Avatar>
         {name && (
-          <Typography variant="body2" component="span">
+          <Typography
+            variant="body2"
+            component="span"
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
             {`${greetingText}, ${name}`}
           </Typography>
         )}
