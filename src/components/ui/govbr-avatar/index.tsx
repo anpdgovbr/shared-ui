@@ -18,10 +18,38 @@ import type {
 } from './types'
 
 /**
- * Componente de Avatar que implementa o Design System GovBR de duas formas:
- * 1.  **Modo Padrão (default):** Renderiza um `<Avatar>` do Material-UI com dropdown usando Menu/MenuItem, estilizado via `govbrTheme`.
- * 2.  **Modo Estrito (`strictgovbr`):** Renderiza um elemento `<button>` padrão e aplica as classes CSS do
- *     `@govbr-ds/core` diretamente com dropdown HTML nativo. Garante fidelidade visual máxima ao GovBR-DS.
+ * GovBRAvatar
+ *
+ * Componente de alto nível que representa um avatar com suporte a dropdown.
+ *
+ * Modo híbrido:
+ * - Modo padrão (strictgovbr = false): renderiza componentes MUI e delega a estilização
+ *   ao tema (govbrTheme). Ideal para uso padrão e compatível com props do MUI.
+ * - Modo estrito (strictgovbr = true): renderiza marcação HTML pura com classes
+ *   do Gov.br Design System para fidelidade visual 100%.
+ *
+ * Uso:
+ * - Recebe `menuItems` para exibir um menu dropdown opcional.
+ * - Pode ser controlado externamente via `open` e `onOpenChange`,
+ *   ou operar em modo controlado internamente.
+ *
+ * @public
+ * @since 1.0.0
+ * @param props - Propriedades do componente (Readonly<GovBRAvatarProps>)
+ * @returns JSX.Element - Elemento React representando o avatar (com ou sem menu)
+ * @example
+ * <GovBRAvatar
+ *   name="Maria"
+ *   greetingText="Olá"
+ *   menuItems={[
+ *     { label: 'Perfil', href: '/perfil' },
+ *     { label: 'Sair', onClick: handleLogout }
+ *   ]}
+ * />
+ *
+ * @remarks
+ * - Não espalha props arbitrárias no modo estrito (apenas props explícitas do tipo strict).
+ * - No modo padrão repassa apenas props compatíveis com MUI.
  */
 export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   const {
@@ -40,6 +68,16 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   // Estado do dropdown (controlado ou interno)
   const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen
 
+  /**
+   * Abre o dropdown do avatar.
+   *
+   * - Se o componente estiver em modo não-controlado (controlledOpen === undefined),
+   *   atualiza o estado interno para abrir o menu.
+   * - Sempre dispara o callback onOpenChange se fornecido.
+   *
+   * @remarks
+   * Utilizado tanto no modo MUI quanto no modo estrito para unificar o fluxo de abertura.
+   */
   const handleOpen = () => {
     const newOpen = true
     if (controlledOpen === undefined) {
@@ -48,6 +86,16 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     onOpenChange?.(newOpen)
   }
 
+  /**
+   * Fecha o dropdown do avatar.
+   *
+   * - Se o componente estiver em modo não-controlado (controlledOpen === undefined),
+   *   atualiza o estado interno para fechar o menu.
+   * - Sempre dispara o callback onOpenChange se fornecido.
+   *
+   * @remarks
+   * Mantém simetria com handleOpen para comportamento previsível ao controlar o estado.
+   */
   const handleClose = () => {
     const newOpen = false
     if (controlledOpen === undefined) {
@@ -56,6 +104,16 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     onOpenChange?.(newOpen)
   }
 
+  /**
+   * Trata o clique em um item do menu do avatar.
+   *
+   * - Fecha o menu ao iniciar a ação.
+   * - Se o item possuir onClick, invoca-o.
+   * - Caso contrário, se possuir href e houver onNavigate no componente,
+   *   delega a navegação para onNavigate com o item atual.
+   *
+   * @param item - Objeto que representa o item do menu (label, href, onClick, disabled, icon)
+   */
   const handleMenuItemClick = (item: GovBRAvatarMenuItem) => {
     handleClose()
     if (item.onClick) {
@@ -65,6 +123,14 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     }
   }
 
+  /**
+   * Handler do clique no botão trigger do avatar (modo estrito e MUI).
+   *
+   * - Prevém o comportamento padrão do evento.
+   * - Alterna entre abrir/fechar o dropdown de acordo com o estado atual.
+   *
+   * @param e - Evento de clique do botão
+   */
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (isOpen) {
