@@ -18,38 +18,21 @@ import type {
 } from './types'
 
 /**
- * GovBRAvatar
+ * GovBRAvatar - Componente Avatar com dropdown seguindo a arquitetura híbrida
  *
- * Componente de alto nível que representa um avatar com suporte a dropdown.
+ * Implementa dois modos de renderização:
+ * - **Modo Padrão** (strictgovbr=false): Componentes MUI estilizados pelo govbrTheme
+ * - **Modo Estrito** (strictgovbr=true): HTML puro com classes Gov.br Design System
  *
- * Modo híbrido:
- * - Modo padrão (strictgovbr = false): renderiza componentes MUI e delega a estilização
- *   ao tema (govbrTheme). Ideal para uso padrão e compatível com props do MUI.
- * - Modo estrito (strictgovbr = true): renderiza marcação HTML pura com classes
- *   do Gov.br Design System para fidelidade visual 100%.
+ * @param props - Propriedades do componente
+ * @returns JSX.Element - Avatar com dropdown opcional
  *
- * Uso:
- * - Recebe `menuItems` para exibir um menu dropdown opcional.
- * - Pode ser controlado externamente via `open` e `onOpenChange`,
- *   ou operar em modo controlado internamente.
- *
- * @public
- * @since 1.0.0
- * @param props - Propriedades do componente (Readonly<GovBRAvatarProps>)
- * @returns JSX.Element - Elemento React representando o avatar (com ou sem menu)
  * @example
- * <GovBRAvatar
- *   name="Maria"
- *   greetingText="Olá"
- *   menuItems={[
- *     { label: 'Perfil', href: '/perfil' },
- *     { label: 'Sair', onClick: handleLogout }
- *   ]}
- * />
+ * // Modo Padrão (MUI + tema)
+ * <GovBRAvatar name="João Silva" menuItems={menuItems} />
  *
- * @remarks
- * - Não espalha props arbitrárias no modo estrito (apenas props explícitas do tipo strict).
- * - No modo padrão repassa apenas props compatíveis com MUI.
+ * // Modo Estrito (Gov.br DS puro)
+ * <GovBRAvatar strictgovbr name="João Silva" letter="J" menuItems={menuItems} />
  */
 export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   const {
@@ -68,16 +51,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   // Estado do dropdown (controlado ou interno)
   const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen
 
-  /**
-   * Abre o dropdown do avatar.
-   *
-   * - Se o componente estiver em modo não-controlado (controlledOpen === undefined),
-   *   atualiza o estado interno para abrir o menu.
-   * - Sempre dispara o callback onOpenChange se fornecido.
-   *
-   * @remarks
-   * Utilizado tanto no modo MUI quanto no modo estrito para unificar o fluxo de abertura.
-   */
+  // Handlers para controle do dropdown
   const handleOpen = () => {
     const newOpen = true
     if (controlledOpen === undefined) {
@@ -86,16 +60,6 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     onOpenChange?.(newOpen)
   }
 
-  /**
-   * Fecha o dropdown do avatar.
-   *
-   * - Se o componente estiver em modo não-controlado (controlledOpen === undefined),
-   *   atualiza o estado interno para fechar o menu.
-   * - Sempre dispara o callback onOpenChange se fornecido.
-   *
-   * @remarks
-   * Mantém simetria com handleOpen para comportamento previsível ao controlar o estado.
-   */
   const handleClose = () => {
     const newOpen = false
     if (controlledOpen === undefined) {
@@ -104,16 +68,6 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     onOpenChange?.(newOpen)
   }
 
-  /**
-   * Trata o clique em um item do menu do avatar.
-   *
-   * - Fecha o menu ao iniciar a ação.
-   * - Se o item possuir onClick, invoca-o.
-   * - Caso contrário, se possuir href e houver onNavigate no componente,
-   *   delega a navegação para onNavigate com o item atual.
-   *
-   * @param item - Objeto que representa o item do menu (label, href, onClick, disabled, icon)
-   */
   const handleMenuItemClick = (item: GovBRAvatarMenuItem) => {
     handleClose()
     if (item.onClick) {
@@ -123,14 +77,6 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     }
   }
 
-  /**
-   * Handler do clique no botão trigger do avatar (modo estrito e MUI).
-   *
-   * - Prevém o comportamento padrão do evento.
-   * - Alterna entre abrir/fechar o dropdown de acordo com o estado atual.
-   *
-   * @param e - Evento de clique do botão
-   */
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (isOpen) {
@@ -140,10 +86,11 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     }
   }
 
-  // --- MODO ESTRITO ---
+  // ===================================================================
+  // MODO ESTRITO GOVBR-DS (strictgovbr=true)
+  // Renderiza HTML puro com classes CSS do Gov.br Design System
+  // ===================================================================
   if (strictgovbr) {
-    // No modo estrito NÃO espalhamos props arbitrárias para o DOM.
-    // Usamos explicitamente apenas as props necessárias.
     const strictProps = props as GovBRAvatarStrictProps
     const {
       density,
@@ -153,11 +100,8 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
       children: strictChildren,
     } = strictProps
 
-    // Se não há menu items, renderizar avatar simples
+    // Avatar simples sem dropdown
     if (!menuItems || menuItems.length === 0) {
-      // Renderização simples em modo estrito: sempre expor o conteúdo dentro de
-      // uma `.content` para manter consistência com as expectativas dos testes
-      // e com o markup usado no modo dropdown.
       return (
         <Box
           className={classNames('br-avatar', { [`${density}`]: density }, strictClassName)}
@@ -172,7 +116,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
       )
     }
 
-    // Renderizar com dropdown (Gov.br DS)
+    // Avatar com dropdown Gov.br DS
     const dropdownId = `avatar-menu-${Math.random().toString(36).substr(2, 9)}`
     const triggerId = `avatar-dropdown-trigger-${Math.random().toString(36).substr(2, 9)}`
 
@@ -187,8 +131,6 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           data-target={dropdownId}
           aria-label={`${greetingText}, ${name || 'Usuário'}`}
           onClick={handleButtonClick}
-          // Aplicamos estilo inline somente ao botão trigger; não espalhamos props
-          // vindas do componente para evitar leak de atributos DOM.
           style={{
             height: 'auto',
             padding: 'var(--spacing-scale-base)',
@@ -220,7 +162,6 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
             <a
               key={index}
               className={classNames('br-item', { disabled: item.disabled })}
-              // Usamos um href seguro para evitar URLs javascript: que o React bloqueia
               href={item.href || '#'}
               role="menuitem"
               onClick={(e) => {
@@ -236,10 +177,14 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
       </Box>
     )
   }
+  // ===================================================================
+  // FIM DO MODO ESTRITO GOVBR-DS
+  // ===================================================================
 
-  // --- MODO PADRÃO (MUI) ---
-  // Não espalhar props custom para o Avatar. Passamos apenas props MUI explícitas.
-  // Cast seguro para o tipo MUI quando necessário.
+  // ===================================================================
+  // MODO PADRÃO MUI (strictgovbr=false)
+  // Renderiza componentes MUI estilizados pelo govbrTheme
+  // ===================================================================
   const muiProps: GovBRAvatarMuiProps = props as GovBRAvatarMuiProps
   const {
     children: muiChildren,
@@ -249,7 +194,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     className: muiClassName,
   } = muiProps
 
-  // Se não há menu items, renderizar avatar simples
+  // Avatar simples sem dropdown
   if (!menuItems || menuItems.length === 0) {
     return (
       <Avatar src={muiSrc} alt={muiAlt} sx={muiSx} className={muiClassName}>
@@ -258,7 +203,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     )
   }
 
-  // Renderizar com dropdown (MUI)
+  // Avatar com dropdown MUI
   const baseSx = {
     padding: 1,
     minWidth: 'auto',
@@ -277,6 +222,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     : muiSx
       ? ([baseSx, muiSx] as SxProps<Theme>)
       : (baseSx as SxProps<Theme>)
+
   return (
     <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
       <Button
@@ -285,19 +231,17 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
         variant="text"
         sx={{
           ...combinedSx,
-          // Ajuste de alinhamento vertical dos ícones e avatar
+          // Ajustes de alinhamento vertical
           '& .MuiButton-startIcon, & .MuiButton-endIcon': {
             marginTop: 0,
             marginBottom: 0,
           },
-          // Ajuste do Typography para alinhar com o Avatar
           '& .MuiTypography-root': {
             lineHeight: 1.2,
             margin: 0,
             display: 'flex',
             alignItems: 'center',
           },
-          // Garantir que o avatar esteja alinhado verticalmente
           '& .MuiAvatar-root': {
             display: 'flex',
             alignItems: 'center',
@@ -317,9 +261,9 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              fontSize: 'var(--font-size-scale-base)', // Mesmo tamanho do modo estrito
-              color: 'var(--gray-80)', // Mesma cor do modo estrito
-              fontWeight: 'var(--font-weight-regular)', // Peso regular para a saudação
+              fontSize: 'var(--font-size-scale-base)',
+              color: 'var(--gray-80)',
+              fontWeight: 'var(--font-weight-regular)',
             }}
           >
             {greetingText},{' '}
@@ -352,4 +296,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
       </Menu>
     </Box>
   )
+  // ===================================================================
+  // FIM DO MODO PADRÃO MUI
+  // ===================================================================
 }
