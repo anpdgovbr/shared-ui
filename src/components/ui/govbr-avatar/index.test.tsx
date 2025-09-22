@@ -40,10 +40,13 @@ describe('GovBRAvatar', () => {
         </GovBRAvatar>,
       )
 
-      // O texto pode ser fragmentado em múltiplos nós (Olá, <strong>João</strong>),
-      // então usamos regex para buscar de forma robusta.
-      expect(screen.getByText(/Olá,\s*João/)).toBeInTheDocument()
-      expect(screen.getByRole('button')).toBeInTheDocument()
+      // Verifica se o botão está presente e contém o texto correto
+      const button = screen.getByRole('button')
+      expect(button).toBeInTheDocument()
+      expect(button).toHaveTextContent('Olá, João')
+
+      // Verifica se o avatar "J" está presente
+      expect(screen.getByText('J')).toBeInTheDocument()
     })
 
     it('should open menu when button is clicked', async () => {
@@ -116,8 +119,15 @@ describe('GovBRAvatar', () => {
     it('should render dropdown with br-sign-in class when menuItems provided', () => {
       render(<GovBRAvatar strictgovbr letter="J" name="João" menuItems={mockMenuItems} />)
 
-      expect(screen.getByRole('button')).toHaveClass('br-sign-in')
-      expect(screen.getByText(/Olá,\s*João/)).toBeInTheDocument()
+      // Verifica se o botão tem a classe correta
+      const button = screen.getByRole('button')
+      expect(button).toHaveClass('br-sign-in')
+
+      // Verifica se o conteúdo do botão está correto
+      expect(button).toHaveTextContent('Olá, João')
+
+      // Verifica se o avatar "J" está dentro do botão
+      expect(button.querySelector('.br-avatar .content')).toHaveTextContent('J')
     })
 
     it('should render br-list with menu items in strict mode', () => {
