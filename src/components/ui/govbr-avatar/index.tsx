@@ -159,7 +159,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
       // uma `.content` para manter consistência com as expectativas dos testes
       // e com o markup usado no modo dropdown.
       return (
-        <div
+        <Box
           className={classNames('br-avatar', { [`${density}`]: density }, strictClassName)}
           title={tooltip}
         >
@@ -168,7 +168,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           ) : letter ? (
             <span className="content">{letter}</span>
           ) : null}
-        </div>
+        </Box>
       )
     }
 
@@ -177,7 +177,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     const triggerId = `avatar-dropdown-trigger-${Math.random().toString(36).substr(2, 9)}`
 
     return (
-      <div>
+      <Box>
         <button
           ref={anchorRef}
           className="br-sign-in"
@@ -203,9 +203,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           </span>
           {name && (
             <span className="ml-2 text-gray-80 text-weight-regular">
-              {/* Renderizar como uma única string evita que o texto seja fragmentado
-                  em múltiplos nós (o que atrapalha as buscas por texto nos testes). */}
-              {`${greetingText}, ${name}`}
+              {greetingText}, <span className="text-weight-semi-bold">{name}</span>
             </span>
           )}
           <i className="fas fa-caret-down" aria-hidden="true" />
@@ -231,12 +229,11 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
                 handleMenuItemClick(item)
               }}
             >
-              {item.icon && <span className="mr-2">{item.icon}</span>}
               {item.label}
             </a>
           ))}
         </div>
-      </div>
+      </Box>
     )
   }
 
@@ -317,9 +314,18 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           <Typography
             variant="body2"
             component="span"
-            sx={{ display: 'flex', alignItems: 'center' }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--font-size-scale-base)', // Mesmo tamanho do modo estrito
+              color: 'var(--gray-80)', // Mesma cor do modo estrito
+              fontWeight: 'var(--font-weight-regular)', // Peso regular para a saudação
+            }}
           >
-            {`${greetingText}, ${name}`}
+            {greetingText},{' '}
+            <Box component="span" sx={{ fontWeight: 'var(--font-weight-semi-bold)' }}>
+              {name}
+            </Box>
           </Typography>
         )}
       </Button>
