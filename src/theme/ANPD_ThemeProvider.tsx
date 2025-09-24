@@ -17,17 +17,17 @@ const customTokens = {
 
 type Mode = 'theme' | 'css'
 
-interface anpdThemeContextType {
+interface ANPDThemeContextType {
   mode: Mode
   toggle: () => void
 }
 
-const anpdThemeContext = createContext<anpdThemeContextType>({
+const ANPDThemeContext = createContext<ANPDThemeContextType>({
   mode: 'theme',
   toggle: () => {},
 })
 
-export const useANPDThemeMode = () => useContext(anpdThemeContext)
+export const useANPDThemeMode = () => useContext(ANPDThemeContext)
 
 export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
   const [mode, setMode] = useState<Mode>('theme')
@@ -41,7 +41,7 @@ export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
   )
 
   return (
-    <anpdThemeContext.Provider value={contextValue}>
+    <ANPDThemeContext.Provider value={contextValue}>
       <ThemeProvider theme={anpdTheme}>
         <CssBaseline />
         <GlobalStyles
@@ -51,6 +51,6 @@ export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
         />
         {children}
       </ThemeProvider>
-    </anpdThemeContext.Provider>
+    </ANPDThemeContext.Provider>
   )
 }

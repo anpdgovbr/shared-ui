@@ -60,30 +60,6 @@ const baseTheme = createTheme({
     borderRadius: 8, // Bordas arredondadas padrão do GOV.BR DS
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          fontWeight: 600,
-          borderRadius: 8,
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'none',
-          borderRadius: 8,
-        },
-      },
-    },
-    MuiTable: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#FFFFFF',
-        },
-      },
-    },
     // Correção global do marginBottom em componentes de texto
     MuiTypography: {
       styleOverrides: {
