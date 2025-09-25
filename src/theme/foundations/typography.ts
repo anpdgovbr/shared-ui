@@ -67,7 +67,7 @@ export const typography: TypographyVariantsOptions & {
     lineHeight: 'var(--font-line-height-medium, 1.25)',
     letterSpacing: 'var(--font-letter-spacing-normal, 0)',
     // Margens balanceadas
-    marginBottom: 'var(--spacing-scale-base, 0.5rem)', // 8px (era 24px)
+    // marginBottom: 'var(--spacing-scale-base, 0.5rem)', // 8px (era 24px)
     marginTop: 0,
     fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
     '@media (max-width: 768px)': {
