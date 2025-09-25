@@ -10,6 +10,8 @@ export * from './helpers/iconMap'
 export * from './helpers/muiColorToGovbrClass'
 
 // ===== TEMA =====
+export { anpdTheme } from './theme/anpdTheme'
+export { ANPDThemeProvider } from './theme/ANPDThemeProvider'
 export { govbrTheme } from './theme/govbrTheme'
 export { GovBRThemeProvider } from './theme/GovBRThemeProvider'
 

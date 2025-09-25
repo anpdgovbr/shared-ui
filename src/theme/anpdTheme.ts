@@ -1,4 +1,6 @@
 import { createTheme } from '@mui/material/styles'
+import { deepmerge } from '@mui/utils'
+import { govbrTheme } from 'src/theme/govbrTheme'
 
 // Cores institucionais da ANPD
 export const anpdColors = {
@@ -77,8 +79,10 @@ const baseTheme = createTheme({
   },
 })
 
-// Deep merge do tema ANPD com extensões específicas
-const anpdTheme = createTheme(baseTheme, {
+// ANPD overrides (componentes e ajustes específicos)
+const anpdOverrides = {
+  palette: baseTheme.palette,
+  shape: baseTheme.shape,
   components: {
     MuiDataGrid: {
       defaultProps: {
@@ -127,7 +131,18 @@ const anpdTheme = createTheme(baseTheme, {
       },
     },
   },
-})
+}
 
-export { anpdTheme }
-export default anpdTheme
+/**
+ * Ordem de precedência explicada:
+ * - vamos mesclar `govbrTheme` com `anpdOverrides` usando `deepmerge` do MUI.
+ * - chamada: deepmerge(govbrTheme, anpdOverrides)
+ * - em caso de conflito, as chaves de `anpdOverrides` vencem (ANPD sobrescreve govbrTheme)
+ *
+ * Benefícios desta abordagem:
+ * - elimina chamadas repetidas a `createTheme`
+ * - deixa explícito qual tema tem prioridade
+ * - mantém merge profundo para objetos (styleOverrides, components, palette)
+ */
+const merged = deepmerge(govbrTheme, anpdOverrides)
+export const anpdTheme = createTheme(merged)

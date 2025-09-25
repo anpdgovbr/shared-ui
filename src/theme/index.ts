@@ -1,13 +1,19 @@
 // src/theme/index.ts
 // Exportações específicas do tema para facilitar importação granular
 
-export { govbrTheme } from './govbrTheme'
+// Types
+
+export type { useANPDThemeMode } from './ANPDThemeProvider'
 export type { useGovBRThemeMode } from './GovBRThemeProvider'
+
+// Theme values
+export { anpdTheme } from './anpdTheme'
+export { govbrTheme } from './govbrTheme'
+
+// Theme providers
+export { ANPDThemeProvider } from './ANPDThemeProvider'
 export { GovBRThemeProvider } from './GovBRThemeProvider'
 
-// Exportar foundations e components separadamente para uso granular
+// Theme-related utilities
 export * from './components'
 export * from './foundations'
-
-// Re-exportando tipos do MUI que podem ser úteis
-export type { Theme, ThemeOptions } from '@mui/material/styles'
