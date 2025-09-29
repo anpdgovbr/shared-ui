@@ -8,9 +8,22 @@ import { useEffect, useState } from 'react'
 
 import type { LoadingAnimationProps } from './types'
 
+/**
+ * Número máximo de tentativas de recarregamento automático
+ * antes de exibir a opção de retry manual.
+ */
 const MAX_RELOAD_ATTEMPTS = 3
 
 // Skeleton loading para modais - SE ADAPTA AO CONTAINER
+/**
+ * SkeletonLoading
+ *
+ * Skeleton usado para indicar carregamento dentro de contêineres/modais.
+ *
+ * @param props.text - Texto de descrição exibido abaixo do indicador
+ * @param props.progress - Progresso numérico (0-100). Quando fornecido, mostra estado determinate.
+ * @param props.showProgress - Se true, exibe a porcentagem central dentro do indicador.
+ */
 function SkeletonLoading({
   text,
   progress,
@@ -91,6 +104,18 @@ function SkeletonLoading({
 }
 
 // Strict Gov.br DS Loading - renderização HTML pura
+/**
+ * StrictGovBRLoading
+ *
+ * Versão que renderiza HTML puro com classes do Gov.br DS.
+ * Utilizar quando for necessária fidelidade 100% ao CSS do Gov.br.
+ *
+ * @param props.size - Tamanho do componente ('small' | 'medium' | 'large')
+ * @param props.progress - Progresso numérico (0-100) para barra de progresso
+ * @param props.progressLabel - Label alternativa para accessibility/aria
+ * @param props.className - Classes adicionais repassadas para o elemento
+ * @param props.text - Texto descritivo usado como fallback para aria-label
+ */
 function StrictGovBRLoading({
   size = 'medium',
   progress,
@@ -136,6 +161,16 @@ function StrictGovBRLoading({
 }
 
 // Componente de retry otimizado
+/**
+ * RetrySection
+ *
+ * Bloco de UI que apresenta o contador de tentativas e, quando aplicável,
+ * o botão manual de retry após atingir o limite de tentativas automáticas.
+ *
+ * @param attempts - Número atual de tentativas já realizadas
+ * @param autoRetry - Se true, indica que o retry é automático (sem botão manual)
+ * @param onManualRetry - Callback para executar retry manual (ex: recarregar a página)
+ */
 function RetrySection({
   attempts,
   autoRetry,
@@ -172,6 +207,21 @@ function RetrySection({
 }
 
 // Componente de loading otimizado
+/**
+ * LoadingContent
+ *
+ * Conteúdo principal do indicador de carregamento no modo padrão (MUI).
+ * Exibe CircularProgress (com ou sem progresso), texto descritivo e
+ * seção de retry quando configurada.
+ *
+ * @param props.text - Texto que descreve o estado de carregamento
+ * @param props.attempts - Número de tentativas de reload já ocorridas
+ * @param props.autoRetry - Se true, tentativa automática de reload está habilitada
+ * @param props.enableRetryFeedback - Se true, apresenta feedback visual de tentativas
+ * @param props.onManualRetry - Callback disparado ao acionar retry manual
+ * @param props.progress - Progresso numérico (0-100) opcional
+ * @param props.showProgress - Se true, exibe a porcentagem sobre o indicador
+ */
 function LoadingContent({
   text,
   attempts,
@@ -247,6 +297,37 @@ function LoadingContent({
   )
 }
 
+/**
+ * GovBRLoading
+ *
+ * Componente principal de carregamento da biblioteca shared-ui.
+ *
+ * Funcionalidades:
+ * - Suporta modo padrão (MUI) e modo estrito (HTML puro Gov.br DS) via `strictgovbr`.
+ * - Variantes: 'default' (centro da tela), 'modal' (overlay) e 'skeleton' (adaptável ao container).
+ * - Suporte a progresso determinístico (0-100), exibição de porcentagem e retries automáticos/manuais.
+ * - Opções de acessibilidade: aria-live, aria-modal e labels para progressbar.
+ * - Pode ser dismissible (fechar ao clicar no backdrop) e aceitar ESC para dismiss (configurável).
+ *
+ * @param props.text - Texto exibido abaixo do indicador (padrão: 'Carregando...')
+ * @param props.timeout - Tempo (ms) antes de disparar onTimeout ou tentativa de retry
+ * @param props.onTimeout - Callback executado quando o tempo expira e enableRetryFeedback=false
+ * @param props.isVisible - Controla visibilidade do componente
+ * @param props.autoRetry - Se true, tenta recarregar a página automaticamente ao timeout
+ * @param props.enableRetryFeedback - Se true, mostra contador de tentativas e comportamento incremental
+ * @param props.variant - 'default' | 'modal' | 'skeleton'
+ * @param props.dismissible - Se true, permite fechar clicando no backdrop (aplica-se à variante modal)
+ * @param props.onDismiss - Callback chamado quando o loading é dismissado
+ * @param props.disableEscapeKeyDown - Se true, desabilita fechar com tecla ESC
+ * @param props.strictgovbr - Se true, renderiza StrictGovBRLoading (HTML puro)
+ * @param props.size - Tamanho usado no modo strictgovbr ('small'|'medium'|'large')
+ * @param props.progress - Progresso atual (0-100) exibido quando aplicável
+ * @param props.showProgress - Se true, exibe porcentagem no indicador
+ * @param props.progressLabel - Texto alternativo para aria quando estiver usando progresso
+ * @param props.className - Classes adicionais repassadas ao modo strictgovbr
+ *
+ * @returns JSX.Element | null
+ */
 export function GovBRLoading({
   text = 'Carregando...',
   timeout = 4000,
