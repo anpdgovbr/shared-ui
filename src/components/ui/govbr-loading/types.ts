@@ -17,5 +17,9 @@ export interface LoadingAnimationProps extends SharedUIComponentProps {
 
   // Gov.br DS specific props for strict mode
   size?: 'small' | 'medium' | 'large' // Tamanhos do Gov.br DS
-  progress?: number // Progresso de 0 a 100 para loading com progresso
+
+  // Progress loading support (Gov.br DS)
+  progress?: number // Progresso de 0 a 100 para loading com porcentagem
+  showProgress?: boolean // Se deve exibir o texto da porcentagem
+  progressLabel?: string // Label customizada para acessibilidade (padrão: "carregando com {progress}%")
 }

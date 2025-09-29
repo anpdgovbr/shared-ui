@@ -11,7 +11,18 @@ import type { LoadingAnimationProps } from './types'
 const MAX_RELOAD_ATTEMPTS = 3
 
 // Skeleton loading para modais - SE ADAPTA AO CONTAINER
-function SkeletonLoading({ text }: { text: string }) {
+function SkeletonLoading({
+  text,
+  progress,
+  showProgress = true,
+}: {
+  text: string
+  progress?: number
+  showProgress?: boolean
+}) {
+  const hasProgress = typeof progress === 'number'
+  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress!))) : 0
+
   return (
     <Box
       sx={{
@@ -28,14 +39,41 @@ function SkeletonLoading({ text }: { text: string }) {
         minHeight: 120, // Altura mínima para não ficar muito pequeno
       }}
     >
-      <CircularProgress
-        size={48}
-        thickness={4}
-        sx={{
-          color: 'primary.main',
-          filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))',
-        }}
-      />
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+        <CircularProgress
+          variant={hasProgress ? 'determinate' : 'indeterminate'}
+          value={hasProgress ? clampedProgress : undefined}
+          size={48}
+          thickness={4}
+          sx={{
+            color: 'primary.main',
+            filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))',
+          }}
+        />
+        {hasProgress && showProgress && (
+          <Box
+            sx={{
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.primary"
+              sx={{ fontWeight: 'bold', fontSize: '0.7rem' }}
+            >
+              {clampedProgress}%
+            </Typography>
+          </Box>
+        )}
+      </Box>
       <Typography
         variant="body2"
         sx={{
@@ -54,34 +92,39 @@ function SkeletonLoading({ text }: { text: string }) {
 
 // Strict Gov.br DS Loading - renderização HTML pura
 function StrictGovBRLoading({
-  size,
+  size = 'medium',
   progress,
+  progressLabel,
   className,
   text,
 }: {
-  size: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   progress?: number
+  progressLabel?: string
   className?: string
   text?: string
 }) {
   const classes = `br-loading ${size !== 'medium' ? size : ''} ${className || ''}`.trim()
 
-  // Loading com progresso
+  // Loading com progresso (Gov.br DS)
   if (typeof progress === 'number') {
+    const clampedProgress = Math.max(0, Math.min(100, Math.round(progress)))
+    const ariaLabel = progressLabel || text || `carregando ${clampedProgress}%`
+
     return (
       <div
         className={classes}
-        data-progress={Math.max(0, Math.min(100, Math.round(progress)))}
+        data-progress={clampedProgress}
         role="progressbar"
-        aria-valuenow={progress}
+        aria-valuenow={clampedProgress}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={text || `carregando ${progress}%`}
+        aria-label={ariaLabel}
       >
-        <div className="br-loading-mask">
+        <div className="br-loading-mask full">
           <div className="br-loading-fill"></div>
         </div>
-        <div className="br-loading-mask full">
+        <div className="br-loading-mask">
           <div className="br-loading-fill"></div>
         </div>
       </div>
@@ -135,23 +178,57 @@ function LoadingContent({
   autoRetry,
   enableRetryFeedback,
   onManualRetry,
+  progress,
+  showProgress,
 }: {
   text: string
   attempts: number
   autoRetry: boolean
   enableRetryFeedback: boolean
   onManualRetry: () => void
+  progress?: number
+  showProgress?: boolean
 }) {
+  const hasProgress = typeof progress === 'number'
+  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress!))) : 0
+
   return (
     <>
-      <CircularProgress
-        size={60}
-        thickness={3.6}
-        sx={{
-          color: 'primary.main',
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
-        }}
-      />
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+        <CircularProgress
+          variant={hasProgress ? 'determinate' : 'indeterminate'}
+          value={hasProgress ? clampedProgress : undefined}
+          size={60}
+          thickness={3.6}
+          sx={{
+            color: 'primary.main',
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
+          }}
+        />
+        {hasProgress && showProgress && (
+          <Box
+            sx={{
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+              sx={{ fontWeight: 'bold', fontSize: '0.75rem' }}
+            >
+              {clampedProgress}%
+            </Typography>
+          </Box>
+        )}
+      </Box>
       <Typography
         variant="body2"
         sx={{
@@ -184,6 +261,8 @@ export function GovBRLoading({
   strictgovbr = false,
   size = 'medium',
   progress,
+  showProgress = true,
+  progressLabel,
   className,
 }: LoadingAnimationProps) {
   const [reloadAttempts, setReloadAttempts] = useState(0)
@@ -234,7 +313,15 @@ export function GovBRLoading({
 
   // Modo Estrito: Renderização HTML pura com classes Gov.br DS
   if (strictgovbr) {
-    return <StrictGovBRLoading size={size} progress={progress} className={className} text={text} />
+    return (
+      <StrictGovBRLoading
+        size={size}
+        progress={progress}
+        progressLabel={progressLabel}
+        className={className}
+        text={text}
+      />
+    )
   }
 
   // Handle backdrop click to dismiss modal
@@ -255,11 +342,13 @@ export function GovBRLoading({
     autoRetry,
     enableRetryFeedback,
     onManualRetry: handleManualRetry,
+    progress,
+    showProgress,
   }
 
   // Variante skeleton - se adapta ao container pai
   if (variant === 'skeleton') {
-    return <SkeletonLoading text={text} />
+    return <SkeletonLoading text={text} progress={progress} showProgress={showProgress} />
   }
 
   // Variante modal - overlay simples e elegante

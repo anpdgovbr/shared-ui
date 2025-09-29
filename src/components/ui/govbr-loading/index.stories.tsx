@@ -143,6 +143,30 @@ que **recarregará toda a página**. No Storybook, isso pode recarregar a própr
         defaultValue: { summary: 'false' },
       },
     },
+    progress: {
+      control: { type: 'range', min: 0, max: 100, step: 1 },
+      description: 'Progresso de 0 a 100 para loading com porcentagem (Gov.br DS)',
+      table: {
+        category: 'Progresso',
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    showProgress: {
+      control: 'boolean',
+      description: 'Se deve exibir o texto da porcentagem no centro do loading',
+      table: {
+        category: 'Progresso',
+        defaultValue: { summary: 'true' },
+      },
+    },
+    progressLabel: {
+      control: 'text',
+      description: 'Label customizada para acessibilidade (padrão: "carregando com {progress}%")',
+      table: {
+        category: 'Progresso',
+        defaultValue: { summary: 'undefined' },
+      },
+    },
   },
 }
 
@@ -982,6 +1006,500 @@ const handleTimeout = () => {
   autoRetry={false} // Recomendado
 />
 \`\`\`
+        `,
+      },
+    },
+  },
+}
+
+// Story para demonstrar loading com progresso (modo padrão)
+export const WithProgress: Story = {
+  args: {
+    text: 'Processando arquivo...',
+    progress: 45,
+    showProgress: true,
+    timeout: 15000,
+    isVisible: true,
+    variant: 'modal',
+  },
+  render: (args) => {
+    const [progress, setProgress] = useState(0)
+    const [isVisible, setIsVisible] = useState(false)
+
+    const startProgress = () => {
+      setProgress(0)
+      setIsVisible(true)
+
+      // Simula progresso de upload/processamento
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          const next = prev + Math.random() * 15
+          if (next >= 100) {
+            clearInterval(interval)
+            setTimeout(() => setIsVisible(false), 1000) // Mostra 100% por 1 segundo
+            return 100
+          }
+          return Math.min(next, 100)
+        })
+      }, 300)
+    }
+
+    return (
+      <GovBRThemeProvider>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+          <Box
+            sx={{
+              p: 2,
+              bgcolor: 'primary.light',
+              color: 'primary.contrastText',
+              borderRadius: 1,
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              📊 Loading com Progresso (Modo Padrão)
+            </Typography>
+            <Typography variant="body2">
+              Demonstra o loading determinado com porcentagem usando componentes Material-UI
+              estilizados pelo tema GovBR. Ideal para uploads, downloads e processamentos com
+              progresso conhecido.
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <Button variant="contained" onClick={startProgress} disabled={isVisible}>
+              Simular Upload com Progresso
+            </Button>
+            {!isVisible && progress > 0 && (
+              <Typography variant="body2" color="success.main">
+                ✅ Concluído! Último progresso: {Math.round(progress)}%
+              </Typography>
+            )}
+          </Box>
+
+          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+            💡 <strong>Características do Modo Padrão:</strong>
+            <br />
+            • CircularProgress MUI com variant=&quot;determinate&quot;
+            <br />
+            • Porcentagem centralizada usando Typography
+            <br />
+            • Estilizado pelo tema GovBR (cores, tamanhos, etc.)
+            <br />• Funciona em todas as variantes: default, modal e skeleton
+          </Typography>
+
+          <GovBRLoading
+            {...args}
+            progress={progress}
+            isVisible={isVisible}
+            onTimeout={() => setIsVisible(false)}
+          />
+        </Box>
+      </GovBRThemeProvider>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### 📊 Loading com Progresso - Modo Padrão (MUI)
+
+Demonstra o loading determinado usando **Material-UI estilizado pelo tema GovBR**.
+
+**🎯 Características:**
+- **CircularProgress MUI**: \`variant="determinate"\` com valor controlado
+- **Porcentagem centralizada**: Typography no centro do círculo 
+- **Tema GovBR**: Cores e estilos consistentes com o Design System
+- **Todas variantes**: Funciona em default, modal e skeleton
+- **Responsivo**: Adapta-se automaticamente a diferentes tamanhos
+
+**✅ Casos de Uso Ideais:**
+- **Uploads de arquivos**: Mostrar progresso de envio
+- **Downloads**: Progresso de baixar arquivos grandes  
+- **Processamento**: Operações com progresso conhecido
+- **Importação/Exportação**: Processos de dados em lote
+- **Sincronização**: Upload/download de dados
+
+**📱 Suporte Multi-Variante:**
+\`\`\`tsx
+// Modal com progresso
+<GovBRLoading variant="modal" progress={progress} />
+
+// Tela cheia com progresso  
+<GovBRLoading variant="default" progress={progress} />
+
+// Skeleton adaptável com progresso
+<GovBRLoading variant="skeleton" progress={progress} />
+\`\`\`
+
+**🎛️ Controles Disponíveis:**
+- \`progress\`: 0-100 (número do progresso)
+- \`showProgress\`: true/false (exibir porcentagem)
+- \`progressLabel\`: string (label customizada para acessibilidade)
+
+**🚀 Implementação Simples:**
+\`\`\`tsx
+const [progress, setProgress] = useState(0)
+
+// Atualizar progresso conforme a operação avança
+const handleProgress = (completedBytes, totalBytes) => {
+  const percent = (completedBytes / totalBytes) * 100
+  setProgress(percent)
+}
+
+<GovBRLoading 
+  progress={progress}
+  text="Enviando arquivo..."
+  variant="modal"
+/>
+\`\`\`
+        `,
+      },
+    },
+  },
+}
+
+// Story para demonstrar loading com progresso no modo estrito
+export const WithProgressStrict: Story = {
+  args: {
+    text: 'Carregando dados...',
+    progress: 75,
+    showProgress: true,
+    timeout: 15000,
+    isVisible: true,
+    strictgovbr: true,
+  },
+  render: (args) => {
+    const [progress, setProgress] = useState(0)
+    const [isVisible, setIsVisible] = useState(false)
+
+    const startProgress = () => {
+      setProgress(0)
+      setIsVisible(true)
+
+      // Simula progresso mais rápido para demonstração
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          const next = prev + Math.random() * 10
+          if (next >= 100) {
+            clearInterval(interval)
+            setTimeout(() => setIsVisible(false), 2000) // Mostra 100% por 2 segundos
+            return 100
+          }
+          return Math.min(next, 100)
+        })
+      }, 200)
+    }
+
+    return (
+      <GovBRThemeProvider>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+          <Box
+            sx={{
+              p: 2,
+              bgcolor: 'warning.light',
+              color: 'warning.contrastText',
+              borderRadius: 1,
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              🎯 Loading com Progresso (Modo Estrito Gov.br DS)
+            </Typography>
+            <Typography variant="body2">
+              Demonstra o loading determinado usando **HTML puro e classes CSS oficiais** do Gov.br
+              Design System. Renderização 100% fiel à especificação oficial.
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <Button variant="contained" onClick={startProgress} disabled={isVisible}>
+              Testar Progresso Oficial Gov.br DS
+            </Button>
+            {!isVisible && progress > 0 && (
+              <Typography variant="body2" color="success.main">
+                ✅ Processo finalizado! {Math.round(progress)}%
+              </Typography>
+            )}
+          </Box>
+
+          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+            💡 <strong>Características do Modo Estrito:</strong>
+            <br />
+            • HTML: \`&lt;div class=&quot;br-loading&quot; data-progress=&quot;75&quot;&gt;\`
+            <br />
+            • CSS: Classes e animações oficiais do Gov.br DS
+            <br />
+            • Máscaras: \`br-loading-mask\` e \`br-loading-fill\`
+            <br />
+            • Rotação: Transform baseada no progresso (3.6deg por %)
+            <br />• Porcentagem: \`::after\` com \`content: attr(data-progress) &quot;%&quot;\`
+          </Typography>
+
+          {isVisible && (
+            <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+              <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                HTML Renderizado:
+              </Typography>
+              <Box
+                component="pre"
+                sx={{
+                  fontSize: '0.75rem',
+                  color: 'text.secondary',
+                  bgcolor: 'grey.100',
+                  p: 1,
+                  borderRadius: 0.5,
+                  overflow: 'auto',
+                  fontFamily: 'monospace',
+                }}
+              >
+                {`<div class="br-loading medium" 
+     data-progress="${Math.round(progress)}"
+     role="progressbar"
+     aria-valuenow="${Math.round(progress)}"
+     aria-valuemin="0"
+     aria-valuemax="100">
+  <div class="br-loading-mask full">
+    <div class="br-loading-fill"></div>
+  </div>
+  <div class="br-loading-mask">
+    <div class="br-loading-fill"></div>
+  </div>
+</div>`}
+              </Box>
+            </Box>
+          )}
+
+          <GovBRLoading
+            {...args}
+            progress={progress}
+            isVisible={isVisible}
+            onTimeout={() => setIsVisible(false)}
+          />
+        </Box>
+      </GovBRThemeProvider>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### 🎯 Loading com Progresso - Modo Estrito (Gov.br DS Oficial)
+
+Demonstra o loading determinado usando **HTML puro e CSS oficial** do Gov.br Design System.
+
+**⚡ Renderização Oficial Gov.br DS:**
+- **HTML Puro**: \`<div class="br-loading" data-progress="75">\`
+- **CSS Oficial**: Classes e animações do pacote @govbr-ds/core
+- **Máscaras CSS**: Rotação controlada via transform para criar o arco
+- **Pseudo-elementos**: Porcentagem via \`::after\` com \`content: attr(data-progress) "%"\`
+
+**🔧 Estrutura HTML:**
+\`\`\`html
+<div class="br-loading" data-progress="75" 
+     role="progressbar" aria-valuenow="75"
+     aria-valuemin="0" aria-valuemax="100">
+  <div class="br-loading-mask full">
+    <div class="br-loading-fill"></div>
+  </div>
+  <div class="br-loading-mask">
+    <div class="br-loading-fill"></div>
+  </div>
+</div>
+\`\`\`
+
+**🎨 Como Funciona o CSS Gov.br:**
+1. **data-progress**: Define o valor e aparece como texto central
+2. **br-loading-mask**: Máscaras para clips circulares  
+3. **br-loading-fill**: Elementos que rotacionam para formar o arco
+4. **Transform**: Cada 1% = 3.6deg de rotação (360° / 100)
+5. **Animação**: \`animation: fill ease-in-out 2s\`
+
+**📏 Tamanhos Disponíveis:**
+- **small**: 24px (\`--loading-indetermined-diameter-sm\`)
+- **medium**: 44px (\`--loading-indetermined-diameter-md\`) - padrão
+- **large**: 84px (\`--loading-diameter\`)
+
+**✅ Quando Usar Modo Estrito:**
+- **Compliance total** com Gov.br Design System
+- **Projetos governamentais** que exigem aderência oficial
+- **Auditoria de acessibilidade** rigorosa
+- **Performance crítica** (CSS puro é mais leve)
+
+**🚀 Implementação:**
+\`\`\`tsx
+<GovBRLoading 
+  strictgovbr={true}
+  progress={progress}
+  size="large"
+  progressLabel="Carregando dados da LGPD"
+/>
+\`\`\`
+        `,
+      },
+    },
+  },
+}
+
+// Story comparativa entre os dois modos
+export const ProgressComparison: Story = {
+  args: {
+    progress: 60,
+    showProgress: true,
+    text: 'Processando...',
+    isVisible: true,
+  },
+  render: (args) => {
+    const [progress, setProgress] = useState(60)
+
+    const updateProgress = (newProgress: number) => {
+      setProgress(Math.max(0, Math.min(100, newProgress)))
+    }
+
+    return (
+      <GovBRThemeProvider>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, p: 3 }}>
+          <Typography variant="h5" gutterBottom>
+            ⚖️ Comparação: Modo Padrão vs Modo Estrito
+          </Typography>
+
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Typography variant="body2">Progresso:</Typography>
+            <Button size="small" onClick={() => updateProgress(0)}>
+              0%
+            </Button>
+            <Button size="small" onClick={() => updateProgress(25)}>
+              25%
+            </Button>
+            <Button size="small" onClick={() => updateProgress(50)}>
+              50%
+            </Button>
+            <Button size="small" onClick={() => updateProgress(75)}>
+              75%
+            </Button>
+            <Button size="small" onClick={() => updateProgress(100)}>
+              100%
+            </Button>
+            <Typography variant="body2" sx={{ ml: 2, fontWeight: 'bold' }}>
+              Atual: {progress}%
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+            {/* Modo Padrão */}
+            <Box sx={{ p: 3, border: 1, borderColor: 'primary.main', borderRadius: 2 }}>
+              <Typography variant="h6" color="primary.main" gutterBottom>
+                🎨 Modo Padrão (Material-UI)
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <strong>strictgovbr={'{false}'}</strong> - MUI + Tema GovBR
+              </Typography>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <GovBRLoading
+                  {...args}
+                  progress={progress}
+                  variant="modal"
+                  strictgovbr={false}
+                  isVisible={true}
+                />
+              </Box>
+
+              <Typography variant="caption" color="text.secondary">
+                ✅ <strong>Características:</strong>
+                <br />
+                • CircularProgress MUI determinado
+                <br />
+                • Typography para porcentagem
+                <br />
+                • Estilizado pelo govbrTheme.ts
+                <br />• Suporte a todas variantes
+              </Typography>
+            </Box>
+
+            {/* Modo Estrito */}
+            <Box sx={{ p: 3, border: 1, borderColor: 'warning.main', borderRadius: 2 }}>
+              <Typography variant="h6" color="warning.main" gutterBottom>
+                🎯 Modo Estrito (Gov.br DS)
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <strong>strictgovbr={'{true}'}</strong> - HTML + CSS Oficial
+              </Typography>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <GovBRLoading {...args} progress={progress} strictgovbr={true} isVisible={true} />
+              </Box>
+
+              <Typography variant="caption" color="text.secondary">
+                ✅ <strong>Características:</strong>
+                <br />
+                • HTML: \`&lt;div class=&quot;br-loading&quot;&gt;\`
+                <br />
+                • CSS: Classes oficiais Gov.br DS
+                <br />
+                • Máscaras e pseudo-elementos
+                <br />• 100% conforme especificação
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ p: 2, bgcolor: 'info.light', borderRadius: 1 }}>
+            <Typography variant="body2" color="info.contrastText">
+              <strong>💡 Dica:</strong> Ambos os modos suportam progresso, mas têm implementações
+              diferentes. O modo padrão oferece mais flexibilidade de estilo, enquanto o modo
+              estrito garante conformidade total com o Gov.br Design System.
+            </Typography>
+          </Box>
+        </Box>
+      </GovBRThemeProvider>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### ⚖️ Comparação Lado a Lado: Modo Padrão vs Estrito
+
+Esta story permite **comparar diretamente** as duas implementações de loading com progresso.
+
+**🔍 Principais Diferenças:**
+
+| Aspecto | Modo Padrão (MUI) | Modo Estrito (Gov.br DS) |
+|---------|------------------|---------------------------|
+| **HTML** | MUI Components | \`<div class="br-loading">\` |
+| **CSS** | Tema + MUI Styles | Classes oficiais Gov.br |
+| **Porcentagem** | Typography centralizada | \`::after\` com \`content: attr()\` |
+| **Animação** | MUI CircularProgress | CSS transforms + keyframes |
+| **Customização** | Alta (tema MUI) | Limitada (Gov.br oficial) |
+| **Performance** | Boa (React/MUI) | Melhor (CSS puro) |
+| **Compliance** | Boa (visual similar) | Total (implementação oficial) |
+
+**🎯 Quando Usar Cada Modo:**
+
+**Modo Padrão (recomendado para maioria):**
+- Projetos que já usam Material-UI
+- Necessidade de customização avançada
+- Integração com temas existentes
+- Prototipagem rápida
+
+**Modo Estrito (governamental/oficial):**
+- Projetos do setor público
+- Auditoria de compliance rigorosa  
+- Performance crítica
+- Aderência 100% ao Gov.br DS
+
+**🚀 Como escolher:**
+\`\`\`tsx
+// Para a maioria dos casos
+<GovBRLoading progress={progress} />
+
+// Para projetos governamentais oficiais  
+<GovBRLoading strictgovbr progress={progress} />
+\`\`\`
+
+**🔧 Props Comuns:**
+Ambos os modos suportam as mesmas props de progresso:
+- \`progress\`: 0-100
+- \`showProgress\`: boolean  
+- \`progressLabel\`: string (acessibilidade)
         `,
       },
     },
