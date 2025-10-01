@@ -35,6 +35,10 @@ export type { GovBRFormInputProps } from './ui/govbr-form-input/types'
 export * from './ui/govbr-input'
 export type { GovBRInputProps } from './ui/govbr-input/types'
 
+// GovBRLoading
+export * from './ui/govbr-loading'
+export type { LoadingAnimationProps } from './ui/govbr-loading/types'
+
 // GovBRRadio
 export * from './ui/govbr-radio'
 export type { GovBRRadioProps } from './ui/govbr-radio/types'

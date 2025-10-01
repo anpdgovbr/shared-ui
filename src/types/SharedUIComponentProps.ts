@@ -15,6 +15,16 @@ export interface SharedUIComponentProps {
    * @default false
    */
   strictgovbr?: boolean
+
+  /**
+   * Classes CSS adicionais para personalização
+   */
+  className?: string
+
+  /**
+   * Identificador único do componente
+   */
+  id?: string
 }
 
 /**
