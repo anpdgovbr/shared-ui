@@ -1,5 +1,5 @@
 // src/theme/components/Breadcrumbs.ts
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
   styleOverrides: {
@@ -14,7 +14,7 @@ export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
       },
     },
 
-    li: {
+    li: ({ theme }) => ({
       // Alinhamento e espaçamento consistente para todos os itens
       display: 'inline-flex',
       alignItems: 'baseline',
@@ -24,7 +24,7 @@ export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
       // Links intermediários - estilo gov.br
       '& a': {
         textDecoration: 'none',
-        color: '#1351b4', // Interactive color
+        color: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
         fontSize: 'inherit',
         fontWeight: 400,
         lineHeight: 'inherit',
@@ -33,17 +33,18 @@ export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
 
         '&:hover': {
           textDecoration: 'underline',
-          color: '#0c326f', // Interactive dark
+          color: (theme as Theme).palette.primary.dark, // Dinâmico: dark variant
+          backgroundColor: 'transparent',
         },
 
         '&:focus': {
-          outline: '2px solid #1351b4',
+          outline: `2px solid ${(theme as Theme).palette.primary.main}`,
           outlineOffset: '2px',
           borderRadius: '2px',
         },
 
         '&:visited': {
-          color: '#1351b4', // Manter cor consistente
+          color: (theme as Theme).palette.primary.main, // Manter cor consistente
         },
       },
 
@@ -62,7 +63,7 @@ export const MuiBreadcrumbsOverrides: Components['MuiBreadcrumbs'] = {
           verticalAlign: 'baseline',
         },
       },
-    },
+    }),
 
     separator: {
       // Separador com alinhamento otimizado

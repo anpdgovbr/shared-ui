@@ -2,7 +2,6 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useState } from 'react'
 
 import { GovBRLoading } from './index'
@@ -13,11 +12,9 @@ const meta: Meta<typeof GovBRLoading> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <div style={{ position: 'relative', minHeight: '400px' }}>
-          <Story />
-        </div>
-      </GovBRThemeProvider>
+      <div style={{ position: 'relative', minHeight: '400px' }}>
+        <Story />
+      </div>
     ),
   ],
   parameters: {
@@ -178,10 +175,22 @@ export const Default: Story = {
   args: {
     text: 'Carregando dados...',
     timeout: 10000, // Timeout longo para não interferir na demonstração
-    isVisible: true,
+    isVisible: false, // Inicia desabilitado para não esconder documentação
     autoRetry: false, // DESABILITADO para não recarregar o Storybook
     enableRetryFeedback: false,
     variant: 'default',
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading Padrão
+        </Button>
+        <GovBRLoading {...args} isVisible={isVisible} />
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -199,6 +208,8 @@ Variante principal que ocupa toda a altura da viewport. Ideal para:
 - Altura mínima de 100vh
 - Indicador circular de progresso
 - Suporte a acessibilidade com \`role="alert"\`
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
@@ -210,8 +221,20 @@ export const Modal: Story = {
   args: {
     text: 'Processando...',
     timeout: 6000,
-    isVisible: true,
+    isVisible: false,
     variant: 'modal',
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading Modal
+        </Button>
+        <GovBRLoading {...args} isVisible={isVisible} />
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -230,6 +253,8 @@ Overlay elegante com backdrop blur que não bloqueia completamente a interface. 
 - Card centralizado com sombra elegante
 - Animações suaves de entrada (fadeIn + slideUp)
 - Z-index otimizado para sobreposições
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
@@ -261,48 +286,46 @@ export const DismissibleModal: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'info.light',
-              color: 'info.contrastText',
-              borderRadius: 1,
-            }}
-          >
-            <Typography variant="h6" gutterBottom>
-              ✨ Modal Dismissible (Click Outside / ESC)
-            </Typography>
-            <Typography variant="body2">
-              Demonstra como permitir que o usuário cancele o loading clicando fora da área ou
-              pressionando a tecla ESC. Ideal para operações que podem ser canceladas.
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <Button variant="contained" onClick={handleShow} disabled={isVisible}>
-              Mostrar Loading Cancelável
-            </Button>
-            {dismissCount > 0 && (
-              <Typography variant="body2" color="success.main">
-                ✅ Cancelado {dismissCount} {dismissCount === 1 ? 'vez' : 'vezes'}
-              </Typography>
-            )}
-          </Box>
-
-          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            💡 <strong>Dica:</strong> Quando o loading aparecer, tente:
-            <br />
-            • Clicar fora da área do loading (backdrop)
-            <br />
-            • Pressionar a tecla ESC
-            <br />• Ambos irão cancelar o loading e chamar onDismiss()
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'info.light',
+            color: 'info.contrastText',
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            ✨ Modal Dismissible (Click Outside / ESC)
           </Typography>
-
-          <GovBRLoading {...args} isVisible={isVisible} onDismiss={handleDismiss} />
+          <Typography variant="body2">
+            Demonstra como permitir que o usuário cancele o loading clicando fora da área ou
+            pressionando a tecla ESC. Ideal para operações que podem ser canceladas.
+          </Typography>
         </Box>
-      </GovBRThemeProvider>
+
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Button variant="contained" onClick={handleShow} disabled={isVisible}>
+            Mostrar Loading Cancelável
+          </Button>
+          {dismissCount > 0 && (
+            <Typography variant="body2" color="success.main">
+              ✅ Cancelado {dismissCount} {dismissCount === 1 ? 'vez' : 'vezes'}
+            </Typography>
+          )}
+        </Box>
+
+        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+          💡 <strong>Dica:</strong> Quando o loading aparecer, tente:
+          <br />
+          • Clicar fora da área do loading (backdrop)
+          <br />
+          • Pressionar a tecla ESC
+          <br />• Ambos irão cancelar o loading e chamar onDismiss()
+        </Typography>
+
+        <GovBRLoading {...args} isVisible={isVisible} onDismiss={handleDismiss} />
+      </Box>
     )
   },
   parameters: {
@@ -372,36 +395,34 @@ export const BackdropOnlyDismiss: Story = {
     const [isVisible, setIsVisible] = useState(false)
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'warning.light',
-              color: 'warning.contrastText',
-              borderRadius: 1,
-            }}
-          >
-            <Typography variant="h6" gutterBottom>
-              🎯 Backdrop Only Dismiss
-            </Typography>
-            <Typography variant="body2">
-              Configuração onde apenas o clique fora (backdrop) cancela o loading. A tecla ESC está
-              desabilitada com <code>disableEscapeKeyDown=true</code>.
-            </Typography>
-          </Box>
-
-          <Button variant="contained" onClick={() => setIsVisible(true)} disabled={isVisible}>
-            Mostrar Loading (só backdrop funciona)
-          </Button>
-
-          <Typography variant="body2" color="text.secondary">
-            💡 Teste: ESC não funcionará, apenas clique fora da área do loading.
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'warning.light',
+            color: 'warning.contrastText',
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            🎯 Backdrop Only Dismiss
           </Typography>
-
-          <GovBRLoading {...args} isVisible={isVisible} onDismiss={() => setIsVisible(false)} />
+          <Typography variant="body2">
+            Configuração onde apenas o clique fora (backdrop) cancela o loading. A tecla ESC está
+            desabilitada com <code>disableEscapeKeyDown=true</code>.
+          </Typography>
         </Box>
-      </GovBRThemeProvider>
+
+        <Button variant="contained" onClick={() => setIsVisible(true)} disabled={isVisible}>
+          Mostrar Loading (só backdrop funciona)
+        </Button>
+
+        <Typography variant="body2" color="text.secondary">
+          💡 Teste: ESC não funcionará, apenas clique fora da área do loading.
+        </Typography>
+
+        <GovBRLoading {...args} isVisible={isVisible} onDismiss={() => setIsVisible(false)} />
+      </Box>
     )
   },
   parameters: {
@@ -437,8 +458,37 @@ export const Skeleton: Story = {
   args: {
     text: 'Carregando conteúdo...',
     timeout: 5000,
-    isVisible: true,
+    isVisible: false,
     variant: 'skeleton',
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading Skeleton
+        </Button>
+        <Box
+          sx={{
+            position: 'relative',
+            width: 400,
+            height: 200,
+            border: '1px solid #ddd',
+            borderRadius: 2,
+            backgroundColor: '#f5f5f5',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box sx={{ color: 'text.secondary', fontSize: '14px', fontStyle: 'italic' }}>
+            Container de demonstração
+          </Box>
+          <GovBRLoading {...args} isVisible={isVisible} />
+        </Box>
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -457,34 +507,12 @@ Loading que se adapta perfeitamente ao container pai. Ideal para:
 - Backdrop semi-transparente
 - Altura mínima configurável
 - Herda border-radius do container pai
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <GovBRThemeProvider>
-        <Box
-          sx={{
-            position: 'relative',
-            width: 400,
-            height: 200,
-            border: '1px solid #ddd',
-            borderRadius: 2,
-            backgroundColor: '#f5f5f5',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box sx={{ color: 'text.secondary', fontSize: '14px', fontStyle: 'italic' }}>
-            Container de demonstração
-          </Box>
-          <Story />
-        </Box>
-      </GovBRThemeProvider>
-    ),
-  ],
 }
 
 // Story com sistema de retry habilitado (SEM autoRetry para demonstração segura)
@@ -492,10 +520,22 @@ export const WithRetrySystem: Story = {
   args: {
     text: 'Conectando ao servidor...',
     timeout: 5000,
-    isVisible: true,
+    isVisible: false,
     autoRetry: false, // DESABILITADO para demonstração segura no Storybook
     enableRetryFeedback: true,
     variant: 'modal',
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading com Retry
+        </Button>
+        <GovBRLoading {...args} isVisible={isVisible} />
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -522,6 +562,8 @@ Na aplicação real, \`autoRetry=true\` executará \`window.location.reload()\`.
 3. Exibe contador "Tentativa X de 3"  
 4. Após 3 tentativas, mostra botão "Tentar novamente"
 5. ⚠️ **O botão manual irá recarregar a página do Storybook!**
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
@@ -557,51 +599,49 @@ export const AutoReloadDemo: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'error.light',
-              color: 'error.contrastText',
-              borderRadius: 1,
-              border: '2px solid',
-              borderColor: 'error.main',
-            }}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'error.light',
+            color: 'error.contrastText',
+            borderRadius: 1,
+            border: '2px solid',
+            borderColor: 'error.main',
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            ⚠️ DEMONSTRAÇÃO DE RELOAD REAL
+          </Typography>
+          <Typography variant="body2" paragraph>
+            Esta story demonstra o comportamento real do <code>autoRetry=true</code>.
+            <br />
+            <strong>ATENÇÃO:</strong> Ao ativar, a página será recarregada em 8 segundos!
+          </Typography>
+          <Typography variant="body2" color="error.dark">
+            Use apenas para testar o comportamento real do componente.
+          </Typography>
+        </Box>
+
+        {!isEnabled ? (
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleEnableReload}
+            sx={{ alignSelf: 'flex-start' }}
           >
-            <Typography variant="h6" gutterBottom>
-              ⚠️ DEMONSTRAÇÃO DE RELOAD REAL
-            </Typography>
-            <Typography variant="body2" paragraph>
-              Esta story demonstra o comportamento real do <code>autoRetry=true</code>.
-              <br />
-              <strong>ATENÇÃO:</strong> Ao ativar, a página será recarregada em 8 segundos!
-            </Typography>
-            <Typography variant="body2" color="error.dark">
-              Use apenas para testar o comportamento real do componente.
+            🚨 ATIVAR RELOAD AUTOMÁTICO
+          </Button>
+        ) : (
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" color="error">
+              Recarregando página em {countdown} segundos...
             </Typography>
           </Box>
+        )}
 
-          {!isEnabled ? (
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleEnableReload}
-              sx={{ alignSelf: 'flex-start' }}
-            >
-              🚨 ATIVAR RELOAD AUTOMÁTICO
-            </Button>
-          ) : (
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h6" color="error">
-                Recarregando página em {countdown} segundos...
-              </Typography>
-            </Box>
-          )}
-
-          <GovBRLoading {...args} isVisible={isEnabled} />
-        </Box>
-      </GovBRThemeProvider>
+        <GovBRLoading {...args} isVisible={isEnabled} />
+      </Box>
     )
   },
   parameters: {
@@ -649,116 +689,114 @@ export const InteractiveDemo: Story = {
     const [disableESC, setDisableESC] = useState(false)
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'warning.light',
-              color: 'warning.contrastText',
-              borderRadius: 1,
-              mb: 2,
-            }}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'warning.light',
+            color: 'warning.contrastText',
+            borderRadius: 1,
+            mb: 2,
+          }}
+        >
+          <Typography variant="body2">
+            <strong>Nota:</strong> Esta demo tem <code>autoRetry=false</code> para segurança. Para
+            testar reload automático, use a story &quot;AutoReloadDemo&quot; com cuidado.
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          <Button variant="contained" onClick={() => setIsVisible(!isVisible)} size="small">
+            {isVisible ? 'Ocultar' : 'Mostrar'} Loading
+          </Button>
+
+          <Button
+            variant="outlined"
+            onClick={() => setVariant('default')}
+            size="small"
+            disabled={variant === 'default'}
           >
-            <Typography variant="body2">
-              <strong>Nota:</strong> Esta demo tem <code>autoRetry=false</code> para segurança. Para
-              testar reload automático, use a story &quot;AutoReloadDemo&quot; com cuidado.
-            </Typography>
-          </Box>
+            Default
+          </Button>
+
+          <Button
+            variant="outlined"
+            onClick={() => setVariant('modal')}
+            size="small"
+            disabled={variant === 'modal'}
+          >
+            Modal
+          </Button>
+
+          <Button
+            variant="outlined"
+            onClick={() => setVariant('skeleton')}
+            size="small"
+            disabled={variant === 'skeleton'}
+          >
+            Skeleton
+          </Button>
+        </Box>
+
+        {/* Controles para dismiss - apenas no modal */}
+        {variant === 'modal' && (
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            <Button variant="contained" onClick={() => setIsVisible(!isVisible)} size="small">
-              {isVisible ? 'Ocultar' : 'Mostrar'} Loading
-            </Button>
-
             <Button
-              variant="outlined"
-              onClick={() => setVariant('default')}
+              variant={dismissible ? 'contained' : 'outlined'}
+              onClick={() => setDismissible(!dismissible)}
               size="small"
-              disabled={variant === 'default'}
+              color="secondary"
             >
-              Default
+              {dismissible ? 'Dismissible ON' : 'Dismissible OFF'}
             </Button>
 
-            <Button
-              variant="outlined"
-              onClick={() => setVariant('modal')}
-              size="small"
-              disabled={variant === 'modal'}
-            >
-              Modal
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={() => setVariant('skeleton')}
-              size="small"
-              disabled={variant === 'skeleton'}
-            >
-              Skeleton
-            </Button>
-          </Box>
-
-          {/* Controles para dismiss - apenas no modal */}
-          {variant === 'modal' && (
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            {dismissible && (
               <Button
-                variant={dismissible ? 'contained' : 'outlined'}
-                onClick={() => setDismissible(!dismissible)}
+                variant={disableESC ? 'contained' : 'outlined'}
+                onClick={() => setDisableESC(!disableESC)}
                 size="small"
-                color="secondary"
+                color="warning"
               >
-                {dismissible ? 'Dismissible ON' : 'Dismissible OFF'}
+                {disableESC ? 'ESC Desabilitado' : 'ESC Habilitado'}
               </Button>
+            )}
+          </Box>
+        )}
 
-              {dismissible && (
-                <Button
-                  variant={disableESC ? 'contained' : 'outlined'}
-                  onClick={() => setDisableESC(!disableESC)}
-                  size="small"
-                  color="warning"
-                >
-                  {disableESC ? 'ESC Desabilitado' : 'ESC Habilitado'}
-                </Button>
-              )}
+        <Box
+          sx={{
+            position: 'relative',
+            minHeight: variant === 'skeleton' ? 300 : 200,
+            border: variant === 'skeleton' ? '2px dashed #ccc' : 'none',
+            borderRadius: variant === 'skeleton' ? 2 : 0,
+            backgroundColor: variant === 'skeleton' ? '#f9f9f9' : 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {variant === 'skeleton' && !isVisible && (
+            <Box sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+              Container para demonstrar variante Skeleton
             </Box>
           )}
 
-          <Box
-            sx={{
-              position: 'relative',
-              minHeight: variant === 'skeleton' ? 300 : 200,
-              border: variant === 'skeleton' ? '2px dashed #ccc' : 'none',
-              borderRadius: variant === 'skeleton' ? 2 : 0,
-              backgroundColor: variant === 'skeleton' ? '#f9f9f9' : 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+          <GovBRLoading
+            {...args}
+            isVisible={isVisible}
+            variant={variant}
+            dismissible={variant === 'modal' ? dismissible : false}
+            disableEscapeKeyDown={disableESC}
+            onDismiss={() => {
+              setIsVisible(false)
+              console.log('Loading cancelado pelo usuário!')
             }}
-          >
-            {variant === 'skeleton' && !isVisible && (
-              <Box sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
-                Container para demonstrar variante Skeleton
-              </Box>
-            )}
-
-            <GovBRLoading
-              {...args}
-              isVisible={isVisible}
-              variant={variant}
-              dismissible={variant === 'modal' ? dismissible : false}
-              disableEscapeKeyDown={disableESC}
-              onDismiss={() => {
-                setIsVisible(false)
-                console.log('Loading cancelado pelo usuário!')
-              }}
-              onTimeout={() => {
-                console.log('Timeout atingido!')
-                // Na prática, aqui você faria algo como mostrar erro ou tentar novamente
-              }}
-            />
-          </Box>
+            onTimeout={() => {
+              console.log('Timeout atingido!')
+              // Na prática, aqui você faria algo como mostrar erro ou tentar novamente
+            }}
+          />
         </Box>
-      </GovBRThemeProvider>
+      </Box>
     )
   },
   parameters: {
@@ -801,10 +839,22 @@ export const CustomTimeout: Story = {
   args: {
     text: 'Operação demorada...',
     timeout: 2000, // Timeout menor para demonstração
-    isVisible: true,
+    isVisible: false,
     variant: 'modal',
     autoRetry: false,
     enableRetryFeedback: true,
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading com Timeout Curto
+        </Button>
+        <GovBRLoading {...args} isVisible={isVisible} />
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -824,6 +874,8 @@ Demonstra o uso de timeout customizado (2 segundos) com feedback de retry manual
 - Operações com tempo limite conhecido
 - Testes de timeout em desenvolvimento
 - Demonstração do sistema de retry
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
@@ -835,8 +887,20 @@ export const DifferentMessages: Story = {
   args: {
     text: 'Sincronizando dados com o servidor...',
     timeout: 10000,
-    isVisible: true,
+    isVisible: false,
     variant: 'default',
+  },
+  render: (args) => {
+    const [isVisible, setIsVisible] = useState(false)
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Button variant="contained" onClick={() => setIsVisible(!isVisible)}>
+          {isVisible ? 'Ocultar' : 'Mostrar'} Loading com Mensagem
+        </Button>
+        <GovBRLoading {...args} isVisible={isVisible} />
+      </Box>
+    )
   },
   parameters: {
     docs: {
@@ -860,6 +924,8 @@ Exemplos de diferentes textos para contextos específicos:
 - Seja específico sobre o que está acontecendo
 - Evite mensagens muito longas
 - Considere o contexto da operação
+
+**💡 Clique no botão acima para visualizar o loading**
         `,
       },
     },
@@ -871,7 +937,7 @@ export const RecommendedUsage: Story = {
   args: {
     text: 'Carregando dados...',
     timeout: 6000,
-    isVisible: true,
+    isVisible: false,
     autoRetry: false,
     enableRetryFeedback: false,
     variant: 'modal',
@@ -895,74 +961,72 @@ export const RecommendedUsage: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'info.light',
+            color: 'info.contrastText',
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            ✅ Uso Recomendado (Sem Reload Automático)
+          </Typography>
+          <Typography variant="body2">
+            Demonstra como usar o componente com <code>onTimeout</code> personalizado para controlar
+            o que acontece após o timeout, sem reload automático da página.
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          <Button variant="outlined" onClick={handleRetry} size="small">
+            Simular Loading
+          </Button>
+          <Button variant="outlined" onClick={handleSuccess} size="small">
+            Simular Sucesso
+          </Button>
+        </Box>
+
+        {status === 'loading' && <GovBRLoading {...args} onTimeout={handleTimeout} />}
+
+        {status === 'error' && (
           <Box
             sx={{
-              p: 2,
-              bgcolor: 'info.light',
-              color: 'info.contrastText',
+              p: 3,
+              textAlign: 'center',
+              bgcolor: 'error.light',
               borderRadius: 1,
             }}
           >
-            <Typography variant="h6" gutterBottom>
-              ✅ Uso Recomendado (Sem Reload Automático)
+            <Typography variant="h6" color="error.dark" gutterBottom>
+              Ops! Algo deu errado
             </Typography>
-            <Typography variant="body2">
-              Demonstra como usar o componente com <code>onTimeout</code> personalizado para
-              controlar o que acontece após o timeout, sem reload automático da página.
+            <Typography variant="body2" paragraph>
+              Não foi possível carregar os dados. Verifique sua conexão e tente novamente.
             </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            <Button variant="outlined" onClick={handleRetry} size="small">
-              Simular Loading
-            </Button>
-            <Button variant="outlined" onClick={handleSuccess} size="small">
-              Simular Sucesso
+            <Button variant="contained" onClick={handleRetry}>
+              Tentar Novamente
             </Button>
           </Box>
+        )}
 
-          {status === 'loading' && <GovBRLoading {...args} onTimeout={handleTimeout} />}
-
-          {status === 'error' && (
-            <Box
-              sx={{
-                p: 3,
-                textAlign: 'center',
-                bgcolor: 'error.light',
-                borderRadius: 1,
-              }}
-            >
-              <Typography variant="h6" color="error.dark" gutterBottom>
-                Ops! Algo deu errado
-              </Typography>
-              <Typography variant="body2" paragraph>
-                Não foi possível carregar os dados. Verifique sua conexão e tente novamente.
-              </Typography>
-              <Button variant="contained" onClick={handleRetry}>
-                Tentar Novamente
-              </Button>
-            </Box>
-          )}
-
-          {status === 'success' && (
-            <Box
-              sx={{
-                p: 3,
-                textAlign: 'center',
-                bgcolor: 'success.light',
-                borderRadius: 1,
-              }}
-            >
-              <Typography variant="h6" color="success.dark" gutterBottom>
-                ✅ Dados carregados com sucesso!
-              </Typography>
-              <Typography variant="body2">A operação foi concluída sem problemas.</Typography>
-            </Box>
-          )}
-        </Box>
-      </GovBRThemeProvider>
+        {status === 'success' && (
+          <Box
+            sx={{
+              p: 3,
+              textAlign: 'center',
+              bgcolor: 'success.light',
+              borderRadius: 1,
+            }}
+          >
+            <Typography variant="h6" color="success.dark" gutterBottom>
+              ✅ Dados carregados com sucesso!
+            </Typography>
+            <Typography variant="body2">A operação foi concluída sem problemas.</Typography>
+          </Box>
+        )}
+      </Box>
     )
   },
   parameters: {
@@ -1045,56 +1109,54 @@ export const WithProgress: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'primary.light',
-              color: 'primary.contrastText',
-              borderRadius: 1,
-            }}
-          >
-            <Typography variant="h6" gutterBottom>
-              📊 Loading com Progresso (Modo Padrão)
-            </Typography>
-            <Typography variant="body2">
-              Demonstra o loading determinado com porcentagem usando componentes Material-UI
-              estilizados pelo tema GovBR. Ideal para uploads, downloads e processamentos com
-              progresso conhecido.
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <Button variant="contained" onClick={startProgress} disabled={isVisible}>
-              Simular Upload com Progresso
-            </Button>
-            {!isVisible && progress > 0 && (
-              <Typography variant="body2" color="success.main">
-                ✅ Concluído! Último progresso: {Math.round(progress)}%
-              </Typography>
-            )}
-          </Box>
-
-          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            💡 <strong>Características do Modo Padrão:</strong>
-            <br />
-            • CircularProgress MUI com variant=&quot;determinate&quot;
-            <br />
-            • Porcentagem centralizada usando Typography
-            <br />
-            • Estilizado pelo tema GovBR (cores, tamanhos, etc.)
-            <br />• Funciona em todas as variantes: default, modal e skeleton
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'primary.light',
+            color: 'primary.contrastText',
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            📊 Loading com Progresso (Modo Padrão)
           </Typography>
-
-          <GovBRLoading
-            {...args}
-            progress={progress}
-            isVisible={isVisible}
-            onTimeout={() => setIsVisible(false)}
-          />
+          <Typography variant="body2">
+            Demonstra o loading determinado com porcentagem usando componentes Material-UI
+            estilizados pelo tema GovBR. Ideal para uploads, downloads e processamentos com
+            progresso conhecido.
+          </Typography>
         </Box>
-      </GovBRThemeProvider>
+
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Button variant="contained" onClick={startProgress} disabled={isVisible}>
+            Simular Upload com Progresso
+          </Button>
+          {!isVisible && progress > 0 && (
+            <Typography variant="body2" color="success.main">
+              ✅ Concluído! Último progresso: {Math.round(progress)}%
+            </Typography>
+          )}
+        </Box>
+
+        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+          💡 <strong>Características do Modo Padrão:</strong>
+          <br />
+          • CircularProgress MUI com variant=&quot;determinate&quot;
+          <br />
+          • Porcentagem centralizada usando Typography
+          <br />
+          • Estilizado pelo tema GovBR (cores, tamanhos, etc.)
+          <br />• Funciona em todas as variantes: default, modal e skeleton
+        </Typography>
+
+        <GovBRLoading
+          {...args}
+          progress={progress}
+          isVisible={isVisible}
+          onTimeout={() => setIsVisible(false)}
+        />
+      </Box>
     )
   },
   parameters: {
@@ -1165,7 +1227,7 @@ export const WithProgressStrict: Story = {
     progress: 75,
     showProgress: true,
     timeout: 15000,
-    isVisible: true,
+    isVisible: false,
     strictgovbr: true,
   },
   render: (args) => {
@@ -1191,67 +1253,66 @@ export const WithProgressStrict: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'warning.light',
-              color: 'warning.contrastText',
-              borderRadius: 1,
-            }}
-          >
-            <Typography variant="h6" gutterBottom>
-              🎯 Loading com Progresso (Modo Estrito Gov.br DS)
-            </Typography>
-            <Typography variant="body2">
-              Demonstra o loading determinado usando **HTML puro e classes CSS oficiais** do Gov.br
-              Design System. Renderização 100% fiel à especificação oficial.
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <Button variant="contained" onClick={startProgress} disabled={isVisible}>
-              Testar Progresso Oficial Gov.br DS
-            </Button>
-            {!isVisible && progress > 0 && (
-              <Typography variant="body2" color="success.main">
-                ✅ Processo finalizado! {Math.round(progress)}%
-              </Typography>
-            )}
-          </Box>
-
-          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            💡 <strong>Características do Modo Estrito:</strong>
-            <br />
-            • HTML: \`&lt;div class=&quot;br-loading&quot; data-progress=&quot;75&quot;&gt;\`
-            <br />
-            • CSS: Classes e animações oficiais do Gov.br DS
-            <br />
-            • Máscaras: \`br-loading-mask\` e \`br-loading-fill\`
-            <br />
-            • Rotação: Transform baseada no progresso (3.6deg por %)
-            <br />• Porcentagem: \`::after\` com \`content: attr(data-progress) &quot;%&quot;\`
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'warning.light',
+            color: 'warning.contrastText',
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            🎯 Loading com Progresso (Modo Estrito Gov.br DS)
           </Typography>
+          <Typography variant="body2">
+            Demonstra o loading determinado usando **HTML puro e classes CSS oficiais** do Gov.br
+            Design System. Renderização 100% fiel à especificação oficial.
+          </Typography>
+        </Box>
 
-          {isVisible && (
-            <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-              <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
-                HTML Renderizado:
-              </Typography>
-              <Box
-                component="pre"
-                sx={{
-                  fontSize: '0.75rem',
-                  color: 'text.secondary',
-                  bgcolor: 'grey.100',
-                  p: 1,
-                  borderRadius: 0.5,
-                  overflow: 'auto',
-                  fontFamily: 'monospace',
-                }}
-              >
-                {`<div class="br-loading medium" 
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Button variant="contained" onClick={startProgress} disabled={isVisible}>
+            Testar Progresso Oficial Gov.br DS
+          </Button>
+          {!isVisible && progress > 0 && (
+            <Typography variant="body2" color="success.main">
+              ✅ Processo finalizado! {Math.round(progress)}%
+            </Typography>
+          )}
+        </Box>
+
+        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+          💡 <strong>Características do Modo Estrito:</strong>
+          <br />
+          • HTML: \`&lt;div class=&quot;br-loading&quot; data-progress=&quot;75&quot;&gt;\`
+          <br />
+          • CSS: Classes e animações oficiais do Gov.br DS
+          <br />
+          • Máscaras: \`br-loading-mask\` e \`br-loading-fill\`
+          <br />
+          • Rotação: Transform baseada no progresso (3.6deg por %)
+          <br />• Porcentagem: \`::after\` com \`content: attr(data-progress) &quot;%&quot;\`
+        </Typography>
+
+        {isVisible && (
+          <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+            <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+              HTML Renderizado:
+            </Typography>
+            <Box
+              component="pre"
+              sx={{
+                fontSize: '0.75rem',
+                color: 'text.secondary',
+                bgcolor: 'grey.100',
+                p: 1,
+                borderRadius: 0.5,
+                overflow: 'auto',
+                fontFamily: 'monospace',
+              }}
+            >
+              {`<div class="br-loading medium" 
      data-progress="${Math.round(progress)}"
      role="progressbar"
      aria-valuenow="${Math.round(progress)}"
@@ -1264,18 +1325,17 @@ export const WithProgressStrict: Story = {
     <div class="br-loading-fill"></div>
   </div>
 </div>`}
-              </Box>
             </Box>
-          )}
+          </Box>
+        )}
 
-          <GovBRLoading
-            {...args}
-            progress={progress}
-            isVisible={isVisible}
-            onTimeout={() => setIsVisible(false)}
-          />
-        </Box>
-      </GovBRThemeProvider>
+        <GovBRLoading
+          {...args}
+          progress={progress}
+          isVisible={isVisible}
+          onTimeout={() => setIsVisible(false)}
+        />
+      </Box>
     )
   },
   parameters: {
@@ -1345,7 +1405,7 @@ export const ProgressComparison: Story = {
     progress: 60,
     showProgress: true,
     text: 'Processando...',
-    isVisible: true,
+    isVisible: false,
   },
   render: (args) => {
     const [progress, setProgress] = useState(60)
@@ -1355,101 +1415,99 @@ export const ProgressComparison: Story = {
     }
 
     return (
-      <GovBRThemeProvider>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, p: 3 }}>
-          <Typography variant="h5" gutterBottom>
-            ⚖️ Comparação: Modo Padrão vs Modo Estrito
-          </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, p: 3 }}>
+        <Typography variant="h5" gutterBottom>
+          ⚖️ Comparação: Modo Padrão vs Modo Estrito
+        </Typography>
 
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-            <Typography variant="body2">Progresso:</Typography>
-            <Button size="small" onClick={() => updateProgress(0)}>
-              0%
-            </Button>
-            <Button size="small" onClick={() => updateProgress(25)}>
-              25%
-            </Button>
-            <Button size="small" onClick={() => updateProgress(50)}>
-              50%
-            </Button>
-            <Button size="small" onClick={() => updateProgress(75)}>
-              75%
-            </Button>
-            <Button size="small" onClick={() => updateProgress(100)}>
-              100%
-            </Button>
-            <Typography variant="body2" sx={{ ml: 2, fontWeight: 'bold' }}>
-              Atual: {progress}%
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+          <Typography variant="body2">Progresso:</Typography>
+          <Button size="small" onClick={() => updateProgress(0)}>
+            0%
+          </Button>
+          <Button size="small" onClick={() => updateProgress(25)}>
+            25%
+          </Button>
+          <Button size="small" onClick={() => updateProgress(50)}>
+            50%
+          </Button>
+          <Button size="small" onClick={() => updateProgress(75)}>
+            75%
+          </Button>
+          <Button size="small" onClick={() => updateProgress(100)}>
+            100%
+          </Button>
+          <Typography variant="body2" sx={{ ml: 2, fontWeight: 'bold' }}>
+            Atual: {progress}%
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+          {/* Modo Padrão */}
+          <Box sx={{ p: 3, border: 1, borderColor: 'primary.main', borderRadius: 2 }}>
+            <Typography variant="h6" color="primary.main" gutterBottom>
+              🎨 Modo Padrão (Material-UI)
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <strong>strictgovbr={'{false}'}</strong> - MUI + Tema GovBR
+            </Typography>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <GovBRLoading
+                {...args}
+                progress={progress}
+                variant="modal"
+                strictgovbr={false}
+                isVisible={true}
+              />
+            </Box>
+
+            <Typography variant="caption" color="text.secondary">
+              ✅ <strong>Características:</strong>
+              <br />
+              • CircularProgress MUI determinado
+              <br />
+              • Typography para porcentagem
+              <br />
+              • Estilizado pelo govbrTheme.ts
+              <br />• Suporte a todas variantes
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
-            {/* Modo Padrão */}
-            <Box sx={{ p: 3, border: 1, borderColor: 'primary.main', borderRadius: 2 }}>
-              <Typography variant="h6" color="primary.main" gutterBottom>
-                🎨 Modo Padrão (Material-UI)
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                <strong>strictgovbr={'{false}'}</strong> - MUI + Tema GovBR
-              </Typography>
+          {/* Modo Estrito */}
+          <Box sx={{ p: 3, border: 1, borderColor: 'warning.main', borderRadius: 2 }}>
+            <Typography variant="h6" color="warning.main" gutterBottom>
+              🎯 Modo Estrito (Gov.br DS)
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <strong>strictgovbr={'{true}'}</strong> - HTML + CSS Oficial
+            </Typography>
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <GovBRLoading
-                  {...args}
-                  progress={progress}
-                  variant="modal"
-                  strictgovbr={false}
-                  isVisible={true}
-                />
-              </Box>
-
-              <Typography variant="caption" color="text.secondary">
-                ✅ <strong>Características:</strong>
-                <br />
-                • CircularProgress MUI determinado
-                <br />
-                • Typography para porcentagem
-                <br />
-                • Estilizado pelo govbrTheme.ts
-                <br />• Suporte a todas variantes
-              </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <GovBRLoading {...args} progress={progress} strictgovbr={true} isVisible={true} />
             </Box>
 
-            {/* Modo Estrito */}
-            <Box sx={{ p: 3, border: 1, borderColor: 'warning.main', borderRadius: 2 }}>
-              <Typography variant="h6" color="warning.main" gutterBottom>
-                🎯 Modo Estrito (Gov.br DS)
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                <strong>strictgovbr={'{true}'}</strong> - HTML + CSS Oficial
-              </Typography>
-
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <GovBRLoading {...args} progress={progress} strictgovbr={true} isVisible={true} />
-              </Box>
-
-              <Typography variant="caption" color="text.secondary">
-                ✅ <strong>Características:</strong>
-                <br />
-                • HTML: \`&lt;div class=&quot;br-loading&quot;&gt;\`
-                <br />
-                • CSS: Classes oficiais Gov.br DS
-                <br />
-                • Máscaras e pseudo-elementos
-                <br />• 100% conforme especificação
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box sx={{ p: 2, bgcolor: 'info.light', borderRadius: 1 }}>
-            <Typography variant="body2" color="info.contrastText">
-              <strong>💡 Dica:</strong> Ambos os modos suportam progresso, mas têm implementações
-              diferentes. O modo padrão oferece mais flexibilidade de estilo, enquanto o modo
-              estrito garante conformidade total com o Gov.br Design System.
+            <Typography variant="caption" color="text.secondary">
+              ✅ <strong>Características:</strong>
+              <br />
+              • HTML: \`&lt;div class=&quot;br-loading&quot;&gt;\`
+              <br />
+              • CSS: Classes oficiais Gov.br DS
+              <br />
+              • Máscaras e pseudo-elementos
+              <br />• 100% conforme especificação
             </Typography>
           </Box>
         </Box>
-      </GovBRThemeProvider>
+
+        <Box sx={{ p: 2, bgcolor: 'info.light', borderRadius: 1 }}>
+          <Typography variant="body2" color="info.contrastText">
+            <strong>💡 Dica:</strong> Ambos os modos suportam progresso, mas têm implementações
+            diferentes. O modo padrão oferece mais flexibilidade de estilo, enquanto o modo estrito
+            garante conformidade total com o Gov.br Design System.
+          </Typography>
+        </Box>
+      </Box>
     )
   },
   parameters: {

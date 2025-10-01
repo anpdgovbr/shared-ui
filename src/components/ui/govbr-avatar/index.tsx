@@ -49,7 +49,7 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
   const anchorRef = useRef<HTMLButtonElement>(null)
 
   // Estado do dropdown (controlado ou interno)
-  const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen
+  const isOpen = controlledOpen ?? internalOpen
 
   // Handlers para controle do dropdown
   const handleOpen = () => {
@@ -102,23 +102,30 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
 
     // Avatar simples sem dropdown
     if (!menuItems || menuItems.length === 0) {
+      // Extrai lógica complexa para uma variável, evitando ternário aninhado
+      let avatarContent: React.ReactNode = null
+      if (strictChildren) {
+        avatarContent = <span className="content">{strictChildren}</span>
+      } else if (letter) {
+        avatarContent = <span className="content">{letter}</span>
+      }
+
       return (
         <Box
           className={classNames('br-avatar', { [`${density}`]: density }, strictClassName)}
           title={tooltip}
         >
-          {strictChildren ? (
-            <span className="content">{strictChildren}</span>
-          ) : letter ? (
-            <span className="content">{letter}</span>
-          ) : null}
+          {avatarContent}
         </Box>
       )
     }
 
     // Avatar com dropdown Gov.br DS
-    const dropdownId = `avatar-menu-${Math.random().toString(36).substr(2, 9)}`
-    const triggerId = `avatar-dropdown-trigger-${Math.random().toString(36).substr(2, 9)}`
+    // Gerar dois sufixos randômicos distintos usando slice em vez de substr (substr está depreciado)
+    const randSuffix1 = Math.random().toString(36).slice(2, 11) // 9 caracteres
+    const randSuffix2 = Math.random().toString(36).slice(2, 11) // 9 caracteres
+    const dropdownId = `avatar-menu-${randSuffix1}`
+    const triggerId = `avatar-dropdown-trigger-${randSuffix2}`
 
     return (
       <Box>
@@ -217,11 +224,15 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
     gap: 1,
   } as const
 
-  const combinedSx: SxProps<Theme> = Array.isArray(muiSx)
-    ? ([baseSx, ...muiSx] as SxProps<Theme>)
-    : muiSx
-      ? ([baseSx, muiSx] as SxProps<Theme>)
-      : (baseSx as SxProps<Theme>)
+  // Substitui o ternário aninhado por uma declaração if/else clara
+  let combinedSx: SxProps<Theme>
+  if (Array.isArray(muiSx)) {
+    combinedSx = [baseSx, ...muiSx] as SxProps<Theme>
+  } else if (muiSx) {
+    combinedSx = [baseSx, muiSx] as SxProps<Theme>
+  } else {
+    combinedSx = baseSx as SxProps<Theme>
+  }
 
   return (
     <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
@@ -286,10 +297,18 @@ export function GovBRAvatar(props: Readonly<GovBRAvatarProps>) {
           vertical: 'top',
           horizontal: 'right',
         }}
+        sx={{
+          p: 1,
+        }}
       >
         {menuItems.map((item, index) => (
-          <MenuItem key={index} onClick={() => handleMenuItemClick(item)} disabled={item.disabled}>
-            {item.icon && <Box sx={{ mr: 1, display: 'flex' }}>{item.icon}</Box>}
+          <MenuItem
+            sx={{ p: 1 }}
+            key={index}
+            onClick={() => handleMenuItemClick(item)}
+            disabled={item.disabled}
+          >
+            {item.icon && <Box sx={{ mr: 0, display: 'flex' }}>{item.icon}</Box>}
             {item.label}
           </MenuItem>
         ))}

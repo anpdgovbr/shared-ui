@@ -3,8 +3,9 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
+import Dialog from '@mui/material/Dialog'
 import Typography from '@mui/material/Typography'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import type { LoadingAnimationProps } from './types'
 
@@ -28,13 +29,13 @@ function SkeletonLoading({
   text,
   progress,
   showProgress = true,
-}: {
+}: Readonly<{
   text: string
   progress?: number
   showProgress?: boolean
-}) {
+}>) {
   const hasProgress = typeof progress === 'number'
-  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress!))) : 0
+  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress))) : 0
 
   return (
     <Box
@@ -122,13 +123,13 @@ function StrictGovBRLoading({
   progressLabel,
   className,
   text,
-}: {
+}: Readonly<{
   size?: 'small' | 'medium' | 'large'
   progress?: number
   progressLabel?: string
   className?: string
   text?: string
-}) {
+}>) {
   const classes = `br-loading ${size !== 'medium' ? size : ''} ${className || ''}`.trim()
 
   // Loading com progresso (Gov.br DS)
@@ -137,10 +138,9 @@ function StrictGovBRLoading({
     const ariaLabel = progressLabel || text || `carregando ${clampedProgress}%`
 
     return (
-      <div
+      <progress
         className={classes}
         data-progress={clampedProgress}
-        role="progressbar"
         aria-valuenow={clampedProgress}
         aria-valuemin={0}
         aria-valuemax={100}
@@ -152,12 +152,12 @@ function StrictGovBRLoading({
         <div className="br-loading-mask">
           <div className="br-loading-fill"></div>
         </div>
-      </div>
+      </progress>
     )
   }
 
   // Loading indeterminado
-  return <div className={classes} role="progressbar" aria-label={text || 'carregando'} />
+  return <progress className={classes} aria-label={text || 'carregando'} />
 }
 
 // Componente de retry otimizado
@@ -175,11 +175,11 @@ function RetrySection({
   attempts,
   autoRetry,
   onManualRetry,
-}: {
+}: Readonly<{
   attempts: number
   autoRetry: boolean
   onManualRetry: () => void
-}) {
+}>) {
   if (attempts === 0) return null
 
   return (
@@ -230,7 +230,7 @@ function LoadingContent({
   onManualRetry,
   progress,
   showProgress,
-}: {
+}: Readonly<{
   text: string
   attempts: number
   autoRetry: boolean
@@ -238,9 +238,9 @@ function LoadingContent({
   onManualRetry: () => void
   progress?: number
   showProgress?: boolean
-}) {
+}>) {
   const hasProgress = typeof progress === 'number'
-  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress!))) : 0
+  const clampedProgress = hasProgress ? Math.max(0, Math.min(100, Math.round(progress))) : 0
 
   return (
     <>
@@ -345,18 +345,25 @@ export function GovBRLoading({
   showProgress = true,
   progressLabel,
   className,
-}: LoadingAnimationProps) {
+}: Readonly<LoadingAnimationProps>) {
   const [reloadAttempts, setReloadAttempts] = useState(0)
 
-  function handleManualRetry() {
+  const handleManualRetry = useCallback(() => {
     window.location.reload()
-  }
+  }, [])
+
+  // Handle backdrop click to dismiss modal (memoized)
+  const handleBackdropClick = useCallback(() => {
+    if (dismissible && onDismiss) {
+      onDismiss()
+    }
+  }, [dismissible, onDismiss])
 
   useEffect(() => {
     if (!isVisible || reloadAttempts >= MAX_RELOAD_ATTEMPTS) return
 
     const timer = setTimeout(() => {
-      if (typeof window === 'undefined' || !navigator.onLine) return
+      if (!navigator.onLine) return
 
       if (enableRetryFeedback) {
         const next = reloadAttempts + 1
@@ -364,12 +371,10 @@ export function GovBRLoading({
         if (autoRetry && next <= MAX_RELOAD_ATTEMPTS) {
           setTimeout(() => window.location.reload(), 1000)
         }
-      } else {
-        if (onTimeout) {
-          onTimeout()
-        } else if (autoRetry) {
-          window.location.reload()
-        }
+      } else if (onTimeout) {
+        onTimeout()
+      } else if (autoRetry) {
+        window.location.reload()
       }
     }, timeout)
 
@@ -405,18 +410,6 @@ export function GovBRLoading({
     )
   }
 
-  // Handle backdrop click to dismiss modal
-  function handleBackdropClick(event: React.MouseEvent) {
-    if (dismissible && onDismiss && event.target === event.currentTarget) {
-      onDismiss()
-    }
-  }
-
-  // Handle content click to prevent event bubbling
-  function handleContentClick(event: React.MouseEvent) {
-    event.stopPropagation()
-  }
-
   const commonProps = {
     text,
     attempts: reloadAttempts,
@@ -435,54 +428,41 @@ export function GovBRLoading({
   // Variante modal - overlay simples e elegante
   if (variant === 'modal') {
     return (
-      <Box
-        onClick={handleBackdropClick}
-        sx={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 1300,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bgcolor: 'rgba(0,0,0,0.5)',
-          backdropFilter: 'blur(3px)',
-          animation: 'fadeIn 0.2s ease-out',
-          cursor: dismissible ? 'pointer' : 'default',
-          '@keyframes fadeIn': {
-            from: { opacity: 0 },
-            to: { opacity: 1 },
-          },
-        }}
-        role="alert"
-        aria-live="assertive"
+      <Dialog
+        open={isVisible}
+        onClose={dismissible ? handleBackdropClick : undefined}
+        disableEscapeKeyDown={!dismissible || disableEscapeKeyDown}
         aria-modal="true"
         aria-label={dismissible ? 'Clique fora para cancelar' : undefined}
-      >
-        <Box
-          onClick={handleContentClick}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            p: 3,
-            bgcolor: 'background.paper',
-            borderRadius: 2,
-            boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
-            minWidth: 200,
-            maxWidth: '300px',
-            border: '1px solid',
-            borderColor: 'divider',
-            cursor: 'default',
-            animation: 'slideUp 0.3s ease-out',
-            '@keyframes slideUp': {
-              from: { opacity: 0, transform: 'translateY(20px)' },
-              to: { opacity: 1, transform: 'translateY(0)' },
+        slotProps={{
+          backdrop: {
+            sx: {
+              bgcolor: 'rgba(0,0,0,0.5)',
+              backdropFilter: 'blur(3px)',
+              cursor: dismissible ? 'pointer' : 'default',
             },
-          }}
-        >
-          <LoadingContent {...commonProps} />
-        </Box>
-      </Box>
+          },
+          paper: {
+            sx: {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              p: 3,
+              borderRadius: 2,
+              boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
+              minWidth: 200,
+              maxWidth: '300px',
+              animation: 'slideUp 0.3s ease-out',
+              '@keyframes slideUp': {
+                from: { opacity: 0, transform: 'translateY(10px)' },
+                to: { opacity: 1, transform: 'translateY(0)' },
+              },
+            },
+          },
+        }}
+      >
+        <LoadingContent {...commonProps} />
+      </Dialog>
     )
   }
 

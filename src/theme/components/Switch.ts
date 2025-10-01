@@ -1,5 +1,5 @@
 // src/theme/components/Switch.ts
-import { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Switch do MUI
@@ -23,7 +23,7 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
       overflow: 'visible',
     },
 
-    switchBase: {
+    switchBase: ({ theme }) => ({
       padding: 0,
       margin: 0,
       color: 'transparent',
@@ -47,12 +47,12 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
         '& .MuiSwitch-thumb': {
           // Posição à direita: calc(44px - 18px - 4px) = 22px
           transform: 'translateX(22px)',
-          backgroundColor: 'var(--blue-warm-vivid-70, #1351B4)', // --on
+          backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
         },
 
         '& + .MuiSwitch-track': {
-          backgroundColor: 'var(--blue-warm-vivid-20, #adcdff)', // Background quando ligado
-          borderColor: 'var(--blue-warm-vivid-70, #1351B4)',
+          backgroundColor: (theme as Theme).palette.primary.light, // Dinâmico: light variant
+          borderColor: (theme as Theme).palette.primary.main, // Dinâmico
           opacity: 1,
         },
       },
@@ -89,10 +89,11 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
 
       '&:hover:not(.Mui-disabled).Mui-checked': {
         '& + .MuiSwitch-track': {
-          backgroundImage: 'linear-gradient(rgba(19, 81, 180, 0.08), rgba(19, 81, 180, 0.08))', // --on-rgb hover
+          // Hover usa uma layer de cor, mantém o token mas adiciona overlay
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08))',
         },
       },
-    },
+    }),
 
     thumb: {
       width: 'var(--switch-toggle-size)',
@@ -129,49 +130,49 @@ export const MuiSwitchOverrides: Components['MuiSwitch'] = {
     // Variante de sucesso
     {
       props: { color: 'success' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--green-vivid-50, #168821)',
+            backgroundColor: (theme as Theme).palette.success.main, // Dinâmico
           },
           '& + .MuiSwitch-track': {
-            backgroundColor: 'var(--green-cool-20, #7ED788)',
-            borderColor: 'var(--green-vivid-50, #168821)',
+            backgroundColor: (theme as Theme).palette.success.light, // Dinâmico
+            borderColor: (theme as Theme).palette.success.main, // Dinâmico
           },
         },
-      },
+      }),
     },
 
     // Variante de erro
     {
       props: { color: 'error' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--red-vivid-50, #D54309)',
+            backgroundColor: (theme as Theme).palette.error.main, // Dinâmico
           },
           '& + .MuiSwitch-track': {
-            backgroundColor: 'var(--red-cool-20, #F8A8A8)',
-            borderColor: 'var(--red-vivid-50, #D54309)',
+            backgroundColor: (theme as Theme).palette.error.light, // Dinâmico
+            borderColor: (theme as Theme).palette.error.main, // Dinâmico
           },
         },
-      },
+      }),
     },
 
     // Variante de aviso
     {
       props: { color: 'warning' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiSwitch-switchBase.Mui-checked': {
           '& .MuiSwitch-thumb': {
-            backgroundColor: 'var(--yellow-vivid-60, #F29F05)',
+            backgroundColor: (theme as Theme).palette.warning.main, // Dinâmico
           },
           '& + .MuiSwitch-track': {
-            backgroundColor: 'var(--yellow-20, #FFD966)',
-            borderColor: 'var(--yellow-vivid-60, #F29F05)',
+            backgroundColor: (theme as Theme).palette.warning.light, // Dinâmico
+            borderColor: (theme as Theme).palette.warning.main, // Dinâmico
           },
         },
-      },
+      }),
     },
   ],
 }

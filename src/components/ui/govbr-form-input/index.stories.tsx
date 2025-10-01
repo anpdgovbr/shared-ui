@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -31,22 +30,20 @@ const FormWrapper = (props: Partial<ComponentProps<typeof GovBRFormInput>>) => {
   }
 
   return (
-    <GovBRThemeProvider>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
-        <GovBRFormInput
-          name="nome"
-          control={control}
-          label={props.label}
-          strictgovbr={props.strictgovbr} // Passa strictgovbr diretamente
-          disabled={props.disabled} // Passa disabled diretamente
-          placeholder={props.placeholder} // Passa placeholder diretamente
-          errorMessage={errors.nome?.message}
-        />
-        <GovBRButton type="submit" style={{ marginTop: '1rem' }}>
-          Enviar
-        </GovBRButton>
-      </form>
-    </GovBRThemeProvider>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
+      <GovBRFormInput
+        name="nome"
+        control={control}
+        label={props.label}
+        strictgovbr={props.strictgovbr} // Passa strictgovbr diretamente
+        disabled={props.disabled} // Passa disabled diretamente
+        placeholder={props.placeholder} // Passa placeholder diretamente
+        errorMessage={errors.nome?.message}
+      />
+      <GovBRButton type="submit" style={{ marginTop: '1rem' }}>
+        Enviar
+      </GovBRButton>
+    </form>
   )
 }
 

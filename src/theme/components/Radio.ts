@@ -1,26 +1,28 @@
 // src/theme/components/Radio.ts
-import { Components } from '@mui/material/styles'
+import { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Radio do MUI
  * Baseado nos padrões de formulário do GovBR Design System
+ *
+ * ✨ Migrado para cores dinâmicas do tema (theme.palette.primary)
  */
-export const MuiRadioOverrides: Components['MuiRadio'] = {
+export const MuiRadioOverrides: Components<Theme>['MuiRadio'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       color: 'var(--gray-40, #999999)', // Cor da borda não marcada
       padding: 'var(--spacing-scale-base, 1rem)', // 8px
 
       '&:hover': {
-        backgroundColor: 'var(--interactive-rgb, #5992ed)',
+        backgroundColor: 'var(--interactive-rgb, rgba(89, 146, 237, 0.1))',
         borderRadius: '50%',
       },
 
       '&.Mui-checked': {
-        color: 'var(--interactive, #1351B4)', // Azul GovBR quando marcado
+        color: (theme as Theme).palette.primary.main, // ✅ Cor dinâmica do tema
 
         '&:hover': {
-          backgroundColor: 'var(--interactive-rgb, #5992ed)',
+          backgroundColor: 'var(--interactive-rgb, rgba(89, 146, 237, 0.1))',
         },
       },
 
@@ -35,7 +37,7 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
 
       // Estados de foco para acessibilidade
       '&.Mui-focusVisible': {
-        outline: '2px solid var(--focus, #1351B4)',
+        outline: `2px solid ${(theme as Theme).palette.primary.main}`, // ✅ Cor dinâmica do tema
         outlineOffset: '2px',
       },
 
@@ -58,6 +60,6 @@ export const MuiRadioOverrides: Components['MuiRadio'] = {
       '& .MuiSvgIcon-root': {
         borderRadius: '50%',
       },
-    },
+    }),
   },
 }

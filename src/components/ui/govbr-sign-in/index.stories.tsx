@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
 import { GovBRSignIn } from './index'
 
@@ -9,11 +8,9 @@ const meta: Meta<typeof GovBRSignIn> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <div style={{ padding: '2rem' }}>
-          <Story />
-        </div>
-      </GovBRThemeProvider>
+      <div style={{ padding: '2rem' }}>
+        <Story />
+      </div>
     ),
   ],
   argTypes: {

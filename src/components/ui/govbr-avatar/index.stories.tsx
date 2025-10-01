@@ -8,7 +8,6 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
 import { GovBRAvatar } from './index'
 import type { GovBRAvatarMenuItem } from './types'
@@ -19,11 +18,9 @@ const meta: Meta<typeof GovBRAvatar> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <Box sx={{ padding: 3, maxWidth: '800px' }}>
-          <Story />
-        </Box>
-      </GovBRThemeProvider>
+      <Box sx={{ padding: 3, maxWidth: '800px' }}>
+        <Story />
+      </Box>
     ),
   ],
   argTypes: {

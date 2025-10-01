@@ -5,7 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import React from 'react'
 
 import { GovBRRadio } from './index'
@@ -16,11 +15,9 @@ const meta: Meta<typeof GovBRRadio> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <Box sx={{ padding: 3, maxWidth: '600px' }}>
-          <Story />
-        </Box>
-      </GovBRThemeProvider>
+      <Box sx={{ padding: 3, maxWidth: '600px' }}>
+        <Story />
+      </Box>
     ),
   ],
   argTypes: {

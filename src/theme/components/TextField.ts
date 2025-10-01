@@ -1,7 +1,5 @@
 // src/theme/components/TextField.ts
-import { Components } from '@mui/material/styles'
-
-import { muiPalette } from '../foundations/paletteValues'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides de tema para o componente TextField do MUI usados no govbrTheme.
@@ -31,7 +29,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
   },
 
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       // Margem entre campos
       marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
 
@@ -44,7 +42,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
         // Label focada
         '&.Mui-focused': {
-          color: muiPalette.primary.main, // #1351B4
+          color: (theme as Theme).palette.primary.main,
           fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
         },
 
@@ -118,7 +116,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
           // Ícone no estado focado
           '.Mui-focused &': {
-            color: muiPalette.primary.main, // #1351B4
+            color: (theme as Theme).palette.primary.main,
           },
 
           // Ícone no estado de erro
@@ -141,7 +139,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
           color: 'var(--feedback-error-vivid, #D04F4F)',
         },
       },
-    },
+    }),
   },
 
   variants: [
@@ -175,7 +173,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
     // Campo de senha
     {
       props: { type: 'password' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiOutlinedInput-root': {
           '& .MuiInputAdornment-positionEnd': {
             '& .MuiIconButton-root': {
@@ -183,12 +181,12 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
               '&:hover': {
                 backgroundColor: 'var(--gray-10, #eeeeee)',
-                color: muiPalette.primary.main, // #1351B4
+                color: (theme as Theme).palette.primary.main,
               },
             },
           },
         },
-      },
+      }),
     },
 
     // Campo obrigatório

@@ -136,8 +136,8 @@ describe('GovBRLoading', () => {
       )
 
       expect(screen.getByText('Loading modal')).toBeInTheDocument()
-      // Verifica se o modal tem aria-modal
-      const modal = screen.getByRole('alert')
+      // Verifica se o modal tem aria-modal (Dialog usa role="dialog", não "alert")
+      const modal = screen.getByRole('dialog')
       expect(modal).toHaveAttribute('aria-modal', 'true')
     })
 
@@ -287,7 +287,7 @@ describe('GovBRLoading', () => {
       )
 
       expect(screen.getByText('Modal dismissible')).toBeInTheDocument()
-      const modal = screen.getByRole('alert')
+      const modal = screen.getByRole('dialog')
       expect(modal).toHaveAttribute('aria-modal', 'true')
     })
 
@@ -363,7 +363,7 @@ describe('GovBRLoading', () => {
         </ThemeWrapper>,
       )
 
-      const modal = screen.getByRole('alert')
+      const modal = screen.getByRole('dialog')
       expect(modal).toHaveAttribute('aria-modal', 'true')
     })
 
@@ -428,7 +428,7 @@ describe('GovBRLoading', () => {
 
       expect(screen.getByText('Loading completo')).toBeInTheDocument()
       expect(screen.getByText('80%')).toBeInTheDocument()
-      expect(screen.getByRole('alert')).toHaveAttribute('aria-modal', 'true')
+      expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true')
     })
   })
 })

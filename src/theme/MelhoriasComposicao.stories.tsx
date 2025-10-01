@@ -6,8 +6,6 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { GovBRThemeProvider } from '../theme'
-
 const meta: Meta = {
   title: '📋 Theme/Melhorias de Composição',
   parameters: {
@@ -44,13 +42,7 @@ resolvendo problemas de espaçamento excessivo e melhorando a flexibilidade para
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <GovBRThemeProvider>
-        <Story />
-      </GovBRThemeProvider>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 }
 
 export default meta

@@ -5,7 +5,6 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
 import { GovBRButton } from './index'
 
@@ -15,11 +14,9 @@ const meta: Meta<typeof GovBRButton> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <Box sx={{ padding: 3, maxWidth: '800px' }}>
-          <Story />
-        </Box>
-      </GovBRThemeProvider>
+      <Box sx={{ padding: 3, maxWidth: '800px' }}>
+        <Story />
+      </Box>
     ),
   ],
   argTypes: {

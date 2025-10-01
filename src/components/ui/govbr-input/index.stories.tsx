@@ -1,6 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search' // Import SearchIcon
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
 import { GovBRInput } from './index'
 
@@ -10,11 +9,9 @@ const meta: Meta<typeof GovBRInput> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <div style={{ padding: '2rem', maxWidth: '600px' }}>
-          <Story />
-        </div>
-      </GovBRThemeProvider>
+      <div style={{ padding: '2rem', maxWidth: '600px' }}>
+        <Story />
+      </div>
     ),
   ],
   argTypes: {

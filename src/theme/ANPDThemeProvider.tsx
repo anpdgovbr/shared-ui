@@ -1,12 +1,20 @@
 'use client'
 // src/theme/anpdThemeProvider.tsx
+import 'dayjs/locale/pt-br'
+
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
 import { ThemeProvider } from '@mui/material/styles'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from 'dayjs'
 import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
 
 import { anpdTheme } from './anpdTheme'
 import { animationTokens, stateTokens, surfaceTokens, zIndexTokens } from './foundations'
+
+// Configura dayjs para pt-BR globalmente
+dayjs.locale('pt-br')
 
 /**
  * Tokens combinados usados para injetar variáveis CSS globais via GlobalStyles.
@@ -85,13 +93,15 @@ export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
   return (
     <ANPDThemeContext.Provider value={contextValue}>
       <ThemeProvider theme={anpdTheme}>
-        <CssBaseline />
-        <GlobalStyles
-          styles={{
-            ':root': customTokens,
-          }}
-        />
-        {children}
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+          <CssBaseline />
+          <GlobalStyles
+            styles={{
+              ':root': customTokens,
+            }}
+          />
+          {children}
+        </LocalizationProvider>
       </ThemeProvider>
     </ANPDThemeContext.Provider>
   )

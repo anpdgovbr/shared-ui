@@ -1,7 +1,5 @@
 // src/theme/components/Link.ts
-import { Components } from '@mui/material/styles'
-
-import { muiPalette } from '../foundations/paletteValues'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Link do MUI
@@ -9,8 +7,8 @@ import { muiPalette } from '../foundations/paletteValues'
  */
 export const MuiLinkOverrides: Components['MuiLink'] = {
   styleOverrides: {
-    root: {
-      color: muiPalette.primary.main, // #1351B4 - Azul GovBR para links
+    root: ({ theme }) => ({
+      color: (theme as Theme).palette.primary.main, // Azul do tema ativo para links
       textDecoration: 'underline',
       textDecorationColor: 'transparent', // Inicia sem sublinhado visível
       textDecorationThickness: '2px',
@@ -22,9 +20,9 @@ export const MuiLinkOverrides: Components['MuiLink'] = {
 
       // Hover effect
       '&:hover': {
-        color: muiPalette.primary.dark, // #0c326f
-        textDecorationColor: muiPalette.primary.dark, // #0c326f
-        backgroundColor: muiPalette.primary.light, // #5992ed
+        color: (theme as Theme).palette.primary.dark,
+        textDecorationColor: (theme as Theme).palette.primary.dark,
+        backgroundColor: (theme as Theme).palette.primary.light,
       },
 
       // Estado de foco acessível
@@ -37,14 +35,14 @@ export const MuiLinkOverrides: Components['MuiLink'] = {
       // Estado ativo
       '&:active': {
         color: '#0a2756', // Interactive darker
-        backgroundColor: muiPalette.primary.main, // #1351B4
+        backgroundColor: (theme as Theme).palette.primary.main,
       },
 
       // Estado visitado
       '&:visited': {
         color: 'var(--blue-cool-vivid-70, #074b69)', // Azul mais escuro para visitado
       },
-    },
+    }),
 
     // Variantes de sublinhado
     underlineNone: {

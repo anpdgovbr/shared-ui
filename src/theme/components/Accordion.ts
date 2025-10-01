@@ -1,5 +1,5 @@
 // src/theme/components/Accordion.ts
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 export const MuiAccordionOverrides: Components['MuiAccordion'] = {
   styleOverrides: {
@@ -44,16 +44,16 @@ export const MuiAccordionSummaryOverrides: Components['MuiAccordionSummary'] = {
       },
     },
 
-    expandIconWrapper: {
+    expandIconWrapper: ({ theme }) => ({
       // Ícone de expansão
-      color: '#1351b4', // Interactive color
+      color: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
       transform: 'rotate(0deg)',
       transition: 'transform 0.2s ease',
 
       '&.Mui-expanded': {
         transform: 'rotate(180deg)',
       },
-    },
+    }),
 
     content: {
       // Conteúdo do header
@@ -75,7 +75,7 @@ export const MuiAccordionSummaryOverrides: Components['MuiAccordionSummary'] = {
 
 export const MuiAccordionDetailsOverrides: Components['MuiAccordionDetails'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       // Conteúdo expandido
       padding: '1rem',
       backgroundColor: '#ffffff',
@@ -89,20 +89,20 @@ export const MuiAccordionDetailsOverrides: Components['MuiAccordionDetails'] = {
 
       // Links dentro do conteúdo
       '& a': {
-        color: '#1351b4',
+        color: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
         textDecoration: 'none',
 
         '&:hover': {
           textDecoration: 'underline',
-          color: '#0c326f',
+          color: (theme as Theme).palette.primary.dark, // Dinâmico: dark variant
         },
 
         '&:focus': {
-          outline: '2px solid #1351b4',
+          outline: `2px solid ${(theme as Theme).palette.primary.main}`,
           outlineOffset: '2px',
           borderRadius: '2px',
         },
       },
-    },
+    }),
   },
 }

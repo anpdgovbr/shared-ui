@@ -1,4 +1,4 @@
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides do MUI MenuItem para adequação visual ao GovBR Design System.
@@ -27,7 +27,7 @@ import type { Components } from '@mui/material/styles'
  */
 export const MuiMenuItemOverrides: Components['MuiMenuItem'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       padding: 'var(--spacing-scale-2x, 0.5rem) var(--spacing-scale-3x, 0.75rem)',
       fontSize: 'var(--font-size-scale-base, 1rem)',
       lineHeight: 'var(--line-height-medium, 1.5)',
@@ -36,7 +36,7 @@ export const MuiMenuItemOverrides: Components['MuiMenuItem'] = {
 
       '&:hover': {
         backgroundColor: 'var(--hover, rgba(19, 81, 180, 0.04))',
-        color: 'var(--interactive, #1351B4)',
+        color: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
       },
 
       '&:focus': {
@@ -46,7 +46,7 @@ export const MuiMenuItemOverrides: Components['MuiMenuItem'] = {
 
       '&.Mui-focusVisible': {
         backgroundColor: 'var(--hover, rgba(19, 81, 180, 0.04))',
-        outline: '2px solid var(--focus-color, #FFD200)',
+        outline: `2px solid ${(theme as Theme).palette.secondary.main}`, // Dinâmico: amarelo GovBR ou azul ANPD
         outlineOffset: '-2px',
       },
 
@@ -67,6 +67,6 @@ export const MuiMenuItemOverrides: Components['MuiMenuItem'] = {
         padding: 'var(--spacing-scale-2x, 0.5rem) var(--spacing-scale-2x, 0.5rem)',
         minHeight: '44px',
       },
-    },
+    }),
   },
 }

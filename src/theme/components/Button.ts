@@ -1,12 +1,15 @@
 // src/theme/components/Button.ts
 
+import type { Theme } from '@mui/material/styles'
 import { alpha, Components } from '@mui/material/styles'
-
-import { muiPalette } from '../foundations/paletteValues'
 
 /**
  * Overrides para o componente Button do MUI
  * Baseado nos tokens e padrões do GovBR Design System
+ *
+ * IMPORTANTE: Usa callbacks `({ theme }) => ({ ... })` para permitir que
+ * temas derivados (como anpdTheme) sobrescrevam as cores dinamicamente.
+ * Nunca use valores fixos de paletteValues.ts nos styleOverrides.
  */
 export const MuiButtonOverrides: Components['MuiButton'] = {
   styleOverrides: {
@@ -70,49 +73,48 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
     },
 
     // Variante contained (primária)
-    contained: {
-      backgroundColor: muiPalette.primary.main, // #1351B4
-      color: '#ffffff', // Branco
+    contained: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.primary.main,
+      color: (theme as Theme).palette.primary.contrastText,
       boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
 
       '&:hover': {
-        backgroundColor: muiPalette.primary.dark, // #0c326f
+        backgroundColor: (theme as Theme).palette.primary.dark,
         boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
       },
 
       '&:focus': {
-        backgroundColor: muiPalette.primary.main, // Reseta para a cor padrão
-        boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))', // Reseta para a sombra padrão
+        backgroundColor: (theme as Theme).palette.primary.main,
+        boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
       },
 
       '&:active': {
-        backgroundColor: muiPalette.primary.dark,
+        backgroundColor: (theme as Theme).palette.primary.dark,
         boxShadow: 'var(--shadow-level-3, 0px 8px 16px rgba(0, 0, 0, 0.15))',
       },
-    },
+    }),
 
     // Variante outlined (secundária)
-    outlined: {
+    outlined: ({ theme }) => ({
       backgroundColor: 'var(--background-light, #FFFFFF)',
-      color: muiPalette.primary.main, // #1351B4
-      border: `1px solid ${muiPalette.primary.main}`, // #1351B4
+      color: (theme as Theme).palette.primary.main,
+      border: `1px solid ${(theme as Theme).palette.primary.main}`,
 
       '&:hover': {
-        // usar overlay sutil baseado na cor principal para hover
-        backgroundColor: alpha(muiPalette.primary.main, 0.08),
-        border: `1px solid ${muiPalette.primary.dark}`, // #0c326f
-        color: muiPalette.primary.dark, // #0c326f
+        backgroundColor: alpha((theme as Theme).palette.primary.main, 0.08),
+        border: `1px solid ${(theme as Theme).palette.primary.dark}`,
+        color: (theme as Theme).palette.primary.dark,
       },
 
       '&:focus': {
-        backgroundColor: 'transparent', // Reseta para a cor padrão
+        backgroundColor: 'transparent',
       },
 
       '&:active': {
-        backgroundColor: muiPalette.primary.main, // #1351B4
-        color: '#ffffff',
+        backgroundColor: (theme as Theme).palette.primary.main,
+        color: (theme as Theme).palette.primary.contrastText,
       },
-    },
+    }),
 
     // Variante text (terciária)
     text: {
@@ -248,281 +250,295 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
     // Variante outlined para cores semânticas: garante que a borda siga a prop `color`
     {
       props: { variant: 'outlined', color: 'primary' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.primary.main,
-        border: `1px solid ${muiPalette.primary.main}`,
+        color: (theme as Theme).palette.primary.main,
+        border: `1px solid ${(theme as Theme).palette.primary.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.primary.main, 0.08),
-          border: `1px solid ${muiPalette.primary.dark}`,
-          color: muiPalette.primary.dark,
+          backgroundColor: alpha((theme as Theme).palette.primary.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.primary.dark}`,
+          color: (theme as Theme).palette.primary.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.primary.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.primary.main,
+          color: (theme as Theme).palette.primary.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'outlined', color: 'secondary' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.secondary.main,
-        border: `1px solid ${muiPalette.secondary.main}`,
+        color: (theme as Theme).palette.secondary.main,
+        border: `1px solid ${(theme as Theme).palette.secondary.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.secondary.main, 0.08),
-          border: `1px solid ${muiPalette.secondary.dark}`,
-          color: muiPalette.secondary.dark,
+          backgroundColor: alpha((theme as Theme).palette.secondary.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.secondary.dark}`,
+          color: (theme as Theme).palette.secondary.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.secondary.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.secondary.main,
+          color: (theme as Theme).palette.secondary.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'outlined', color: 'success' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.success.main,
-        border: `1px solid ${muiPalette.success.main}`,
+        color: (theme as Theme).palette.success.main,
+        border: `1px solid ${(theme as Theme).palette.success.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.success.main, 0.08),
-          border: `1px solid ${muiPalette.success.dark}`,
-          color: muiPalette.success.dark,
+          backgroundColor: alpha((theme as Theme).palette.success.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.success.dark}`,
+          color: (theme as Theme).palette.success.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.success.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.success.main,
+          color: (theme as Theme).palette.success.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'outlined', color: 'warning' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.warning.main,
-        border: `1px solid ${muiPalette.warning.main}`,
+        color: (theme as Theme).palette.warning.main,
+        border: `1px solid ${(theme as Theme).palette.warning.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.warning.main, 0.08),
-          border: `1px solid ${muiPalette.warning.dark}`,
-          color: muiPalette.warning.dark,
+          backgroundColor: alpha((theme as Theme).palette.warning.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.warning.dark}`,
+          color: (theme as Theme).palette.warning.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.warning.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.warning.main,
+          color: (theme as Theme).palette.warning.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'outlined', color: 'info' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.info.main,
-        border: `1px solid ${muiPalette.info.main}`,
+        color: (theme as Theme).palette.info.main,
+        border: `1px solid ${(theme as Theme).palette.info.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.info.main, 0.08),
-          border: `1px solid ${muiPalette.info.dark}`,
-          color: muiPalette.info.dark,
+          backgroundColor: alpha((theme as Theme).palette.info.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.info.dark}`,
+          color: (theme as Theme).palette.info.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.info.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.info.main,
+          color: (theme as Theme).palette.info.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'outlined', color: 'error' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--background-light, #FFFFFF)',
-        color: muiPalette.error.main,
-        border: `1px solid ${muiPalette.error.main}`,
+        color: (theme as Theme).palette.error.main,
+        border: `1px solid ${(theme as Theme).palette.error.main}`,
 
         '&:hover': {
-          backgroundColor: alpha(muiPalette.error.main, 0.08),
-          border: `1px solid ${muiPalette.error.dark}`,
-          color: muiPalette.error.dark,
+          backgroundColor: alpha((theme as Theme).palette.error.main, 0.08),
+          border: `1px solid ${(theme as Theme).palette.error.dark}`,
+          color: (theme as Theme).palette.error.dark,
         },
 
         '&:active': {
-          backgroundColor: muiPalette.error.main,
-          color: '#ffffff',
+          backgroundColor: (theme as Theme).palette.error.main,
+          color: (theme as Theme).palette.error.contrastText,
         },
-      },
+      }),
     },
 
     // Variantes text por cor semântica
     {
       props: { variant: 'text', color: 'primary' },
-      style: {
-        color: muiPalette.primary.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.primary.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.primary.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.primary.main,
+        '&:hover': { backgroundColor: alpha((theme as Theme).palette.primary.main, 0.06) },
+        '&:active': { backgroundColor: alpha((theme as Theme).palette.primary.main, 0.12) },
+      }),
     },
     {
       props: { variant: 'text', color: 'secondary' },
-      style: {
-        color: muiPalette.secondary.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.secondary.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.secondary.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.secondary.main,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.secondary.main, 0.06),
+        },
+        '&:active': {
+          backgroundColor: alpha((theme as Theme).palette.secondary.main, 0.12),
+        },
+      }),
     },
     {
       props: { variant: 'text', color: 'success' },
-      style: {
-        color: muiPalette.success.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.success.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.success.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.success.main,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.success.main, 0.06),
+        },
+        '&:active': {
+          backgroundColor: alpha((theme as Theme).palette.success.main, 0.12),
+        },
+      }),
     },
     {
       props: { variant: 'text', color: 'warning' },
-      style: {
-        color: muiPalette.warning.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.warning.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.warning.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.warning.main,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.warning.main, 0.06),
+        },
+        '&:active': {
+          backgroundColor: alpha((theme as Theme).palette.warning.main, 0.12),
+        },
+      }),
     },
     {
       props: { variant: 'text', color: 'info' },
-      style: {
-        color: muiPalette.info.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.info.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.info.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.info.main,
+        '&:hover': { backgroundColor: alpha((theme as Theme).palette.info.main, 0.06) },
+        '&:active': { backgroundColor: alpha((theme as Theme).palette.info.main, 0.12) },
+      }),
     },
     {
       props: { variant: 'text', color: 'error' },
-      style: {
-        color: muiPalette.error.main,
-        '&:hover': { backgroundColor: alpha(muiPalette.error.main, 0.06) },
-        '&:active': { backgroundColor: alpha(muiPalette.error.main, 0.12) },
-      },
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.error.main,
+        '&:hover': { backgroundColor: alpha((theme as Theme).palette.error.main, 0.06) },
+        '&:active': {
+          backgroundColor: alpha((theme as Theme).palette.error.main, 0.12),
+        },
+      }),
     },
 
     // Variante invertida por cor: fundo claro + texto/borda na cor semântica
     {
       props: { variant: 'inverted', color: 'primary' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.primary.main,
-        border: `1px solid ${muiPalette.primary.main}`,
+        color: (theme as Theme).palette.primary.main,
+        border: `1px solid ${(theme as Theme).palette.primary.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.primary.main, 0.08),
-          color: muiPalette.primary.dark,
+          backgroundColor: alpha((theme as Theme).palette.primary.main, 0.08),
+          color: (theme as Theme).palette.primary.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.primary.main,
-          color: muiPalette.primary.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.primary.main,
+          color: (theme as Theme).palette.primary.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'inverted', color: 'secondary' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.secondary.main,
-        border: `1px solid ${muiPalette.secondary.main}`,
+        color: (theme as Theme).palette.secondary.main,
+        border: `1px solid ${(theme as Theme).palette.secondary.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.secondary.main, 0.08),
-          color: muiPalette.secondary.dark,
+          backgroundColor: alpha((theme as Theme).palette.secondary.main, 0.08),
+          color: (theme as Theme).palette.secondary.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.secondary.main,
-          color: muiPalette.secondary.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.secondary.main,
+          color: (theme as Theme).palette.secondary.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'inverted', color: 'success' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.success.main,
-        border: `1px solid ${muiPalette.success.main}`,
+        color: (theme as Theme).palette.success.main,
+        border: `1px solid ${(theme as Theme).palette.success.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.success.main, 0.08),
-          color: muiPalette.success.dark,
+          backgroundColor: alpha((theme as Theme).palette.success.main, 0.08),
+          color: (theme as Theme).palette.success.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.success.main,
-          color: muiPalette.success.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.success.main,
+          color: (theme as Theme).palette.success.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'inverted', color: 'warning' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.warning.main,
-        border: `1px solid ${muiPalette.warning.main}`,
+        color: (theme as Theme).palette.warning.main,
+        border: `1px solid ${(theme as Theme).palette.warning.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.warning.main, 0.08),
-          color: muiPalette.warning.dark,
+          backgroundColor: alpha((theme as Theme).palette.warning.main, 0.08),
+          color: (theme as Theme).palette.warning.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.warning.main,
-          color: muiPalette.warning.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.warning.main,
+          color: (theme as Theme).palette.warning.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'inverted', color: 'info' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.info.main,
-        border: `1px solid ${muiPalette.info.main}`,
+        color: (theme as Theme).palette.info.main,
+        border: `1px solid ${(theme as Theme).palette.info.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.info.main, 0.08),
-          color: muiPalette.info.dark,
+          backgroundColor: alpha((theme as Theme).palette.info.main, 0.08),
+          color: (theme as Theme).palette.info.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.info.main,
-          color: muiPalette.info.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.info.main,
+          color: (theme as Theme).palette.info.contrastText,
         },
-      },
+      }),
     },
 
     {
       props: { variant: 'inverted', color: 'error' },
-      style: {
+      style: ({ theme }) => ({
         backgroundColor: 'var(--color-lightest, #ffffff)',
-        color: muiPalette.error.main,
-        border: `1px solid ${muiPalette.error.main}`,
+        color: (theme as Theme).palette.error.main,
+        border: `1px solid ${(theme as Theme).palette.error.main}`,
         '&:hover': {
-          backgroundColor: alpha(muiPalette.error.main, 0.08),
-          color: muiPalette.error.dark,
+          backgroundColor: alpha((theme as Theme).palette.error.main, 0.08),
+          color: (theme as Theme).palette.error.dark,
         },
         '&:active': {
-          backgroundColor: muiPalette.error.main,
-          color: muiPalette.error.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.error.main,
+          color: (theme as Theme).palette.error.contrastText,
         },
-      },
+      }),
     },
 
     // Variante circular: reduz padding e aplica tamanho circular
     {
       props: { variant: 'circle' },
-      style: {
+      style: ({ theme }) => ({
         borderRadius: '50%',
         border: '1px solid transparent',
         // padrão (medium)
@@ -534,12 +550,11 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
         alignItems: 'center',
         justifyContent: 'center',
         '&:hover': {
-          // default hover uses primary overlay if no color specified
-          backgroundColor: alpha(muiPalette.primary.main, 0.08),
+          backgroundColor: alpha((theme as Theme).palette.primary.main, 0.08),
         },
         '&:active': {
-          backgroundColor: muiPalette.primary.main,
-          color: muiPalette.primary.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.primary.main,
+          color: (theme as Theme).palette.primary.contrastText,
         },
         // ajustar por classe de tamanho do MUI
         '&.MuiButton-sizeSmall': {
@@ -572,85 +587,93 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
           height: '1em',
           lineHeight: 1,
         },
-      },
+      }),
     },
 
     // Circle variants per color: ensure circle buttons have border matching color
     {
       props: { variant: 'circle', color: 'primary' },
-      style: {
-        border: `1px solid ${muiPalette.primary.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.primary.main, 0.08) },
-        '&:active': {
-          backgroundColor: muiPalette.primary.main,
-          color: muiPalette.primary.contrastText || '#ffffff',
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.primary.main}`,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.primary.main, 0.08),
         },
-      },
+        '&:active': {
+          backgroundColor: (theme as Theme).palette.primary.main,
+          color: (theme as Theme).palette.primary.contrastText,
+        },
+      }),
     },
     {
       props: { variant: 'circle', color: 'secondary' },
-      style: {
-        border: `1px solid ${muiPalette.secondary.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.secondary.main, 0.08) },
-        '&:active': {
-          backgroundColor: muiPalette.secondary.main,
-          color: muiPalette.secondary.contrastText || '#ffffff',
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.secondary.main}`,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.secondary.main, 0.08),
         },
-      },
+        '&:active': {
+          backgroundColor: (theme as Theme).palette.secondary.main,
+          color: (theme as Theme).palette.secondary.contrastText,
+        },
+      }),
     },
     {
       props: { variant: 'circle', color: 'success' },
-      style: {
-        border: `1px solid ${muiPalette.success.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.success.main, 0.08) },
-        '&:active': {
-          backgroundColor: muiPalette.success.main,
-          color: muiPalette.success.contrastText || '#ffffff',
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.success.main}`,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.success.main, 0.08),
         },
-      },
+        '&:active': {
+          backgroundColor: (theme as Theme).palette.success.main,
+          color: (theme as Theme).palette.success.contrastText,
+        },
+      }),
     },
     {
       props: { variant: 'circle', color: 'warning' },
-      style: {
-        border: `1px solid ${muiPalette.warning.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.warning.main, 0.08) },
-        '&:active': {
-          backgroundColor: muiPalette.warning.main,
-          color: muiPalette.warning.contrastText || '#ffffff',
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.warning.main}`,
+        '&:hover': {
+          backgroundColor: alpha((theme as Theme).palette.warning.main, 0.08),
         },
-      },
+        '&:active': {
+          backgroundColor: (theme as Theme).palette.warning.main,
+          color: (theme as Theme).palette.warning.contrastText,
+        },
+      }),
     },
     {
       props: { variant: 'circle', color: 'info' },
-      style: {
-        border: `1px solid ${muiPalette.info.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.info.main, 0.08) },
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.info.main}`,
+        '&:hover': { backgroundColor: alpha((theme as Theme).palette.info.main, 0.08) },
         '&:active': {
-          backgroundColor: muiPalette.info.main,
-          color: muiPalette.info.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.info.main,
+          color: (theme as Theme).palette.info.contrastText,
         },
-      },
+      }),
     },
     {
       props: { variant: 'circle', color: 'error' },
-      style: {
-        border: `1px solid ${muiPalette.error.main}`,
-        '&:hover': { backgroundColor: alpha(muiPalette.error.main, 0.08) },
+      style: ({ theme }) => ({
+        border: `1px solid ${(theme as Theme).palette.error.main}`,
+        '&:hover': { backgroundColor: alpha((theme as Theme).palette.error.main, 0.08) },
         '&:active': {
-          backgroundColor: muiPalette.error.main,
-          color: muiPalette.error.contrastText || '#ffffff',
+          backgroundColor: (theme as Theme).palette.error.main,
+          color: (theme as Theme).palette.error.contrastText,
         },
-      },
+      }),
     },
 
     // Ensure info color works for contained as well
     {
       props: { color: 'info', variant: 'contained' },
-      style: {
-        backgroundColor: muiPalette.info.main,
-        color: muiPalette.info.contrastText || '#ffffff',
-        '&:hover': { backgroundColor: muiPalette.info.dark },
-      },
+      style: ({ theme }) => ({
+        backgroundColor: (theme as Theme).palette.info.main,
+        color: (theme as Theme).palette.info.contrastText,
+        '&:hover': { backgroundColor: (theme as Theme).palette.info.dark },
+      }),
     },
   ],
 }

@@ -1,5 +1,5 @@
 // src/theme/components/Table.ts
-import { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para componentes de Table do MUI
@@ -8,7 +8,7 @@ import { Components } from '@mui/material/styles'
 
 export const MuiTableOverrides: Components['MuiTable'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       borderCollapse: 'collapse',
       width: '100%',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
@@ -41,7 +41,7 @@ export const MuiTableOverrides: Components['MuiTable'] = {
 
       // Linha selecionada
       '& tr.Mui-selected': {
-        backgroundColor: 'var(--interactive, #1351B4)',
+        backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
         color: 'var(--color-lightest, #ffffff)',
 
         '& td': {
@@ -49,7 +49,7 @@ export const MuiTableOverrides: Components['MuiTable'] = {
         },
 
         '&:hover td': {
-          backgroundColor: 'var(--interactive-dark, #0c326f)',
+          backgroundColor: (theme as Theme).palette.primary.dark, // Dinâmico: dark variant
         },
       },
 
@@ -57,7 +57,7 @@ export const MuiTableOverrides: Components['MuiTable'] = {
       '& tbody tr:nth-of-type(even)': {
         backgroundColor: 'var(--gray-2, #f8f8f8)',
       },
-    },
+    }),
   },
 }
 
@@ -87,7 +87,7 @@ export const MuiTableBodyOverrides: Components['MuiTableBody'] = {
 
 export const MuiTableRowOverrides: Components['MuiTableRow'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       '&:last-child td': {
         borderBottom: 'none',
       },
@@ -99,13 +99,13 @@ export const MuiTableRowOverrides: Components['MuiTableRow'] = {
 
       // Estado selecionado
       '&.Mui-selected': {
-        backgroundColor: 'var(--interactive-light, #5992ed)',
+        backgroundColor: (theme as Theme).palette.primary.light, // Dinâmico: light variant
 
         '&:hover': {
-          backgroundColor: 'var(--interactive, #1351B4)',
+          backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
         },
       },
-    },
+    }),
 
     // Cabeçalho
     head: {

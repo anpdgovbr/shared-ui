@@ -1,7 +1,7 @@
 // src/theme/foundations/index.ts
 
 /**
- * Exportações centralizadas de todas as foundations do tema GovBR
+ * Exportações centralizadas de todas as foundations do tema GovBR e ANPD
  *
  * Este arquivo centraliza todos os elementos base do Design System:
  * - Palette (cores e tokens)
@@ -33,7 +33,7 @@ export {
   zIndexTokens,
   zLayers,
 } from './motion'
-export { palette } from './palette'
+export { anpdColors, anpdPalette, govbrColors, govbrPalette } from './paletteValues'
 export {
   contextualShadows,
   createShadow,
@@ -73,4 +73,3 @@ export type {
   SurfaceRounder,
   SurfaceWidth,
 } from './surface'
-export type { PaletteOptions } from '@mui/material/styles'

@@ -1,7 +1,5 @@
 // src/theme/components/Typography.ts
-import { Components } from '@mui/material/styles'
-
-import { muiPalette } from '../foundations/paletteValues'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Typography do MUI
@@ -9,20 +7,20 @@ import { muiPalette } from '../foundations/paletteValues'
  */
 export const MuiTypographyOverrides: Components['MuiTypography'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       color: 'var(--color, #333333)',
 
       // Links dentro de typography
       '& a': {
-        color: muiPalette.primary.main, // #1351B4
+        color: (theme as Theme).palette.primary.main,
         textDecoration: 'underline',
 
         '&:hover': {
-          color: muiPalette.primary.dark, // #0c326f
+          color: (theme as Theme).palette.primary.dark,
         },
       },
-    },
+    }),
 
     // Display (títulos muito grandes)
     h1: {
@@ -164,10 +162,10 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
     // Variante de destaque
     {
       props: { variant: 'h1', color: 'primary' },
-      style: {
-        color: muiPalette.primary.main, // #1351B4
+      style: ({ theme }) => ({
+        color: (theme as Theme).palette.primary.main,
         fontWeight: 'var(--font-weight-bold, 700)', // 700
-      },
+      }),
     },
 
     // Variante de lead (texto de introdução)

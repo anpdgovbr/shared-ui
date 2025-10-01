@@ -1,36 +1,36 @@
 // src/theme/components/CircularProgress.ts
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 export const MuiCircularProgressOverrides: Components['MuiCircularProgress'] = {
   styleOverrides: {
-    root: {
-      // Cores base conforme Gov.br
-      color: '#1351b4', // Interactive color
+    root: ({ theme }) => ({
+      // Cores base conforme paleta do tema ativo
+      color: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
 
       // Tamanhos padronizados
       '&.MuiCircularProgress-colorPrimary': {
-        color: '#1351b4',
+        color: (theme as Theme).palette.primary.main, // Dinâmico
       },
 
       '&.MuiCircularProgress-colorSecondary': {
-        color: '#ffd200', // Yellow vivid
+        color: (theme as Theme).palette.secondary.main, // Dinâmico: amarelo GovBR ou azul ANPD
       },
 
       // Estados de feedback
       '&.MuiCircularProgress-colorSuccess': {
-        color: '#168821', // Success color
+        color: (theme as Theme).palette.success.main, // Dinâmico
       },
 
       '&.MuiCircularProgress-colorError': {
-        color: '#d04f4f', // Error color
+        color: (theme as Theme).palette.error.main, // Dinâmico
       },
 
       '&.MuiCircularProgress-colorWarning': {
-        color: '#f29f05', // Warning color
+        color: (theme as Theme).palette.warning.main, // Dinâmico
       },
 
       '&.MuiCircularProgress-colorInfo': {
-        color: '#0d7ea2', // Info color
+        color: (theme as Theme).palette.info.main, // Dinâmico
       },
       // Keyframes necessários para animação indeterminada do spinner
       '@keyframes circular-rotate': {
@@ -56,7 +56,7 @@ export const MuiCircularProgressOverrides: Components['MuiCircularProgress'] = {
           strokeDashoffset: '-124px',
         },
       },
-    },
+    }),
 
     circle: {
       // Customização do círculo

@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -39,22 +38,20 @@ const FormWrapper = (props: FormWrapperProps) => {
   }
 
   return (
-    <GovBRThemeProvider>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
-        <GovBRFormCheckbox
-          name="aceite"
-          control={control}
-          label={props.label}
-          strictgovbr={props.strictgovbr} // Passa strictgovbr diretamente
-          disabled={props.disabled} // Passa disabled diretamente
-          id={props.id} // Passa id diretamente
-        />
-        {errors.aceite && <p style={{ color: 'red', marginTop: '4px' }}>{errors.aceite.message}</p>}
-        <GovBRButton type="submit" style={{ marginTop: '1rem' }}>
-          Enviar
-        </GovBRButton>
-      </form>
-    </GovBRThemeProvider>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
+      <GovBRFormCheckbox
+        name="aceite"
+        control={control}
+        label={props.label}
+        strictgovbr={props.strictgovbr} // Passa strictgovbr diretamente
+        disabled={props.disabled} // Passa disabled diretamente
+        id={props.id} // Passa id diretamente
+      />
+      {errors.aceite && <p style={{ color: 'red', marginTop: '4px' }}>{errors.aceite.message}</p>}
+      <GovBRButton type="submit" style={{ marginTop: '1rem' }}>
+        Enviar
+      </GovBRButton>
+    </form>
   )
 }
 
@@ -109,29 +106,27 @@ export const StrictDefault: Story = {
 export const AlignmentTest: Story = {
   name: 'Teste de Alinhamento',
   render: () => (
-    <GovBRThemeProvider>
-      <div style={{ maxWidth: 600, padding: '2rem' }}>
-        <h3>Teste de Alinhamento - Form Checkbox</h3>
+    <div style={{ maxWidth: 600, padding: '2rem' }}>
+      <h3>Teste de Alinhamento - Form Checkbox</h3>
 
-        <div style={{ marginBottom: '2rem' }}>
-          <h4>Modo Padrão (MUI)</h4>
-          <FormWrapper label="Texto curto" strictgovbr={false} />
-          <FormWrapper
-            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários"
-            strictgovbr={false}
-          />
-        </div>
-
-        <div>
-          <h4>Modo Estrito (Gov.br DS)</h4>
-          <FormWrapper label="Texto curto" strictgovbr={true} />
-          <FormWrapper
-            label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários utilizando o modo estrito"
-            strictgovbr={true}
-          />
-        </div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h4>Modo Padrão (MUI)</h4>
+        <FormWrapper label="Texto curto" strictgovbr={false} />
+        <FormWrapper
+          label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários"
+          strictgovbr={false}
+        />
       </div>
-    </GovBRThemeProvider>
+
+      <div>
+        <h4>Modo Estrito (Gov.br DS)</h4>
+        <FormWrapper label="Texto curto" strictgovbr={true} />
+        <FormWrapper
+          label="Este é um texto mais longo para testar o alinhamento da label com o checkbox quando há quebra de linha em formulários utilizando o modo estrito"
+          strictgovbr={true}
+        />
+      </div>
+    </div>
   ),
   parameters: {
     docs: {

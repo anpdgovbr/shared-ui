@@ -54,7 +54,7 @@ import { MuiTooltipOverrides } from './components/Tooltip'
 import { MuiTypographyOverrides } from './components/Typography'
 import { breakpoints } from './foundations/breakpoints'
 // Importar todas as foundations
-import { palette } from './foundations/palette'
+import { govbrPalette } from './foundations/paletteValues'
 import { shadows } from './foundations/shadows'
 import { createSpacing } from './foundations/spacing'
 import { typography } from './foundations/typography'
@@ -79,7 +79,7 @@ import { typography } from './foundations/typography'
  */
 export const govbrTheme: Theme = createTheme({
   // ===== FOUNDATIONS =====
-  palette,
+  palette: govbrPalette,
   typography,
   spacing: createSpacing(),
   breakpoints,

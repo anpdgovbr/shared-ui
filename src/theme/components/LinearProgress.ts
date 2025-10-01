@@ -1,5 +1,5 @@
 // src/theme/components/LinearProgress.ts
-import { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
 /**
  * Overrides para o componente LinearProgress do MUI
@@ -24,19 +24,19 @@ export const MuiLinearProgressOverrides: Components['MuiLinearProgress'] = {
     },
 
     // Barra de progresso
-    bar: {
-      backgroundColor: 'var(--interactive, #1351B4)', // Azul GovBR
+    bar: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico: azul GovBR ou verde ANPD
       borderRadius: 'var(--surface-rounder-sm, 4px)', // 4px
 
       // Animação para progresso indeterminado
       '&.MuiLinearProgress-barColorPrimary': {
-        backgroundColor: 'var(--interactive, #1351B4)',
+        backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico
       },
 
       '&.MuiLinearProgress-barColorSecondary': {
-        backgroundColor: 'var(--yellow-vivid-20, #FFD200)',
+        backgroundColor: (theme as Theme).palette.secondary.main, // Dinâmico: amarelo GovBR ou azul ANPD
       },
-    },
+    }),
 
     // Barra 1 (para progresso indeterminado)
     bar1Indeterminate: {
@@ -55,9 +55,9 @@ export const MuiLinearProgressOverrides: Components['MuiLinearProgress'] = {
       backgroundPosition: '0 -23px',
     },
 
-    bar1Buffer: {
-      backgroundColor: 'var(--interactive, #1351B4)',
-    },
+    bar1Buffer: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.primary.main, // Dinâmico
+    }),
 
     bar2Buffer: {
       backgroundColor: 'var(--gray-10, #eeeeee)',
@@ -68,41 +68,41 @@ export const MuiLinearProgressOverrides: Components['MuiLinearProgress'] = {
     // Variante de sucesso
     {
       props: { color: 'success' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiLinearProgress-bar': {
-          backgroundColor: 'var(--feedback-success-vivid, #168821)',
+          backgroundColor: (theme as Theme).palette.success.main, // Dinâmico
         },
-      },
+      }),
     },
 
     // Variante de erro
     {
       props: { color: 'error' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiLinearProgress-bar': {
-          backgroundColor: 'var(--feedback-error-vivid, #D04F4F)',
+          backgroundColor: (theme as Theme).palette.error.main, // Dinâmico
         },
-      },
+      }),
     },
 
     // Variante de aviso
     {
       props: { color: 'warning' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiLinearProgress-bar': {
-          backgroundColor: 'var(--feedback-warning-vivid, #F29F05)',
+          backgroundColor: (theme as Theme).palette.warning.main, // Dinâmico
         },
-      },
+      }),
     },
 
     // Variante de informação
     {
       props: { color: 'info' },
-      style: {
+      style: ({ theme }) => ({
         '& .MuiLinearProgress-bar': {
-          backgroundColor: 'var(--blue-cool-vivid-50, #007FA3)',
+          backgroundColor: (theme as Theme).palette.info.main, // Dinâmico
         },
-      },
+      }),
     },
 
     // Variante fina
