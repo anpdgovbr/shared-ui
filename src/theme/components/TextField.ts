@@ -30,8 +30,17 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
   styleOverrides: {
     root: ({ theme }) => ({
-      // Margem entre campos
-      marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
+      // Remove margem padrão do MUI
+      margin: '0',
+
+      // Remove margin em elementos internos
+      '& .MuiInputBase-root': {
+        margin: '0',
+      },
+
+      '& .MuiFormLabel-root': {
+        margin: '0',
+      },
 
       // Labels flutuantes
       '& .MuiInputLabel-root': {
