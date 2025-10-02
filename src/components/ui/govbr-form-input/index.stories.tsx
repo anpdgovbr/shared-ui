@@ -32,21 +32,21 @@ const FormWrapper = (props: Partial<ComponentProps<typeof GovBRFormInput>>) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
-      <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 1 }}>
-        <Box sx={{ flex: 1 }}>
-          <GovBRFormInput
-            name="nome"
-            control={control}
-            label={props.label}
-            strictgovbr={props.strictgovbr}
-            disabled={props.disabled}
-            placeholder={props.placeholder}
-            errorMessage={errors.nome?.message}
-          />
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <GovBRFormInput
+          name="nome"
+          control={control}
+          label={props.label}
+          strictgovbr={props.strictgovbr}
+          disabled={props.disabled}
+          placeholder={props.placeholder}
+          errorMessage={errors.nome?.message}
+        />
+        <Box>
+          <GovBRButton type="submit" size="medium">
+            Enviar
+          </GovBRButton>
         </Box>
-        <GovBRButton type="submit" size="medium">
-          Enviar
-        </GovBRButton>
       </Box>
     </form>
   )
