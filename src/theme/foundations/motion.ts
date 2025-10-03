@@ -1,6 +1,9 @@
 /**
  * Sistema de Z-Index e Animações do GovBR Design System
  *
+ * @security Camadas z-index organizadas previnem conflitos de sobreposição
+ * @resilience Durações padronizadas garantem animações acessíveis (WCAG 2.1)
+ *
  * Define camadas organizadas de z-index e propriedades de animação
  * baseadas no design system oficial para consistência visual.
  */

@@ -1,34 +1,43 @@
 // src/theme/components/Dialog.ts
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
+
+/**
+ * Overrides para componentes Dialog (Modal) do MUI
+ * Baseado nos padrões do GovBR Design System
+ *
+ * @security Usa tokens CSS com fallbacks seguros
+ * @resilience Valores responsivos para prevenir overflow em dispositivos móveis
+ */
 
 export const MuiDialogOverrides: Components['MuiDialog'] = {
   styleOverrides: {
     root: {
-      // Backdrop com estilo Gov.br
+      // ✅ Backdrop com estilo Gov.br
       '& .MuiBackdrop-root': {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Scrim padrão
+        backgroundColor: 'var(--surface-overlay, rgba(0, 0, 0, 0.5))', // Scrim com token
+        transition: 'opacity var(--duration-base, 250ms) ease',
       },
     },
 
     paper: {
-      // Container do modal com estilo Gov.br
-      borderRadius: '8px',
-      boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.24)',
-      margin: '2rem',
-      maxWidth: 'calc(100vw - 4rem)',
+      // ✅ Container do modal com estilo Gov.br
+      borderRadius: 'var(--surface-rounder-md, 8px)',
+      boxShadow: 'var(--shadow-level-8, 0px 8px 32px rgba(0, 0, 0, 0.24))',
+      margin: 'var(--spacing-scale-2x, 2rem)',
+      maxWidth: 'calc(100vw - var(--spacing-scale-4x, 4rem))',
 
-      // Tamanhos responsivos
+      // ✅ Tamanhos responsivos
       '@media (max-width: 600px)': {
-        margin: '1rem',
-        maxWidth: 'calc(100vw - 2rem)',
+        margin: 'var(--spacing-scale-base, 1rem)',
+        maxWidth: 'calc(100vw - var(--spacing-scale-2x, 2rem))',
       },
     },
 
     paperScrollPaper: {
-      maxHeight: 'calc(100vh - 4rem)',
+      maxHeight: 'calc(100vh - var(--spacing-scale-4x, 4rem))',
 
       '@media (max-width: 600px)': {
-        maxHeight: 'calc(100vh - 2rem)',
+        maxHeight: 'calc(100vh - var(--spacing-scale-2x, 2rem))',
       },
     },
 
@@ -48,20 +57,22 @@ export const MuiDialogOverrides: Components['MuiDialog'] = {
 export const MuiDialogTitleOverrides: Components['MuiDialogTitle'] = {
   styleOverrides: {
     root: {
-      // Header do modal estilo Gov.br
-      padding: '1.5rem 1.5rem 1rem 1.5rem',
-      borderBottom: '1px solid #e6e7e8',
-      backgroundColor: '#ffffff',
+      // ✅ Header do modal estilo Gov.br
+      padding:
+        'var(--spacing-scale-1xh, 1.5rem) var(--spacing-scale-1xh, 1.5rem) var(--spacing-scale-base, 1rem) var(--spacing-scale-1xh, 1.5rem)',
+      borderBottom: '1px solid var(--gray-20, #e6e7e8)',
+      backgroundColor: 'var(--background, #ffffff)',
 
-      // Tipografia do título
-      fontSize: '1.25rem',
-      fontWeight: 600,
-      lineHeight: 1.4,
-      color: '#333333',
+      // ✅ Tipografia do título
+      fontSize: 'var(--font-size-scale-up-02, 1.25rem)', // 20px
+      fontWeight: 'var(--font-weight-semi-bold, 600)',
+      lineHeight: 'var(--font-line-height-low, 1.4)',
+      color: 'var(--color, #333333)',
+      fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
 
       // Com botão de fechar
       '&.MuiDialogTitle-withCloseButton': {
-        paddingRight: '3rem', // Espaço para o botão
+        paddingRight: 'var(--spacing-scale-3x, 3rem)', // Espaço para o botão
       },
     },
   },
@@ -69,16 +80,17 @@ export const MuiDialogTitleOverrides: Components['MuiDialogTitle'] = {
 
 export const MuiDialogContentOverrides: Components['MuiDialogContent'] = {
   styleOverrides: {
-    root: {
-      // Conteúdo do modal
-      padding: '1.5rem',
-      backgroundColor: '#ffffff',
+    root: ({ theme }) => ({
+      // ✅ Conteúdo do modal
+      padding: 'var(--spacing-scale-1xh, 1.5rem)',
+      backgroundColor: 'var(--background, #ffffff)',
 
-      // Tipografia do conteúdo
+      // ✅ Tipografia do conteúdo
       '& .MuiTypography-root': {
-        fontSize: '1rem',
-        lineHeight: 1.6,
-        color: '#333333',
+        fontSize: 'var(--font-size-scale-base, 1rem)',
+        lineHeight: 'var(--font-line-height-medium, 1.6)',
+        color: 'var(--color, #333333)',
+        fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
 
         '&:first-of-type': {
           marginTop: 0,
@@ -89,28 +101,29 @@ export const MuiDialogContentOverrides: Components['MuiDialogContent'] = {
         },
       },
 
-      // Links no conteúdo
+      // ✅ Links no conteúdo - dinâmico por tema
       '& a': {
-        color: '#1351b4',
+        color: (theme as Theme).palette.primary.main,
         textDecoration: 'none',
+        transition: 'all var(--duration-quick, 150ms) ease',
 
         '&:hover': {
           textDecoration: 'underline',
-          color: '#0c326f',
+          color: (theme as Theme).palette.primary.dark,
         },
 
-        '&:focus': {
-          outline: '2px solid #1351b4',
+        '&:focus-visible': {
+          outline: `2px dashed ${(theme as Theme).palette.primary.main}`,
           outlineOffset: '2px',
-          borderRadius: '2px',
+          borderRadius: 'var(--surface-rounder-sm, 2px)',
         },
       },
-    },
+    }),
 
     dividers: {
-      borderTop: '1px solid #e6e7e8',
-      borderBottom: '1px solid #e6e7e8',
-      padding: '1.5rem',
+      borderTop: '1px solid var(--gray-20, #e6e7e8)',
+      borderBottom: '1px solid var(--gray-20, #e6e7e8)',
+      padding: 'var(--spacing-scale-1xh, 1.5rem)',
     },
   },
 }
@@ -118,16 +131,17 @@ export const MuiDialogContentOverrides: Components['MuiDialogContent'] = {
 export const MuiDialogActionsOverrides: Components['MuiDialogActions'] = {
   styleOverrides: {
     root: {
-      // Footer com ações do modal
-      padding: '1rem 1.5rem 1.5rem 1.5rem',
-      borderTop: '1px solid #e6e7e8',
-      backgroundColor: '#ffffff',
-      gap: '0.75rem',
+      // ✅ Footer com ações do modal
+      padding:
+        'var(--spacing-scale-base, 1rem) var(--spacing-scale-1xh, 1.5rem) var(--spacing-scale-1xh, 1.5rem) var(--spacing-scale-1xh, 1.5rem)',
+      borderTop: '1px solid var(--gray-20, #e6e7e8)',
+      backgroundColor: 'var(--background, #ffffff)',
+      gap: 'var(--spacing-scale-3quarter, 0.75rem)',
 
       // Alinhamento das ações
       justifyContent: 'flex-end',
 
-      // Em mobile, empilhar botões
+      // ✅ Em mobile, empilhar botões para melhor UX
       '@media (max-width: 600px)': {
         flexDirection: 'column',
         alignItems: 'stretch',
@@ -140,11 +154,11 @@ export const MuiDialogActionsOverrides: Components['MuiDialogActions'] = {
 
     spacing: {
       '& > :not(:first-of-type)': {
-        marginLeft: '0.75rem',
+        marginLeft: 'var(--spacing-scale-3quarter, 0.75rem)',
 
         '@media (max-width: 600px)': {
           marginLeft: 0,
-          marginTop: '0.75rem',
+          marginTop: 'var(--spacing-scale-3quarter, 0.75rem)',
         },
       },
     },

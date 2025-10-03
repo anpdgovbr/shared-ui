@@ -4,6 +4,9 @@
  * Sistema de espaçamentos baseado nos tokens do GovBR Design System
  * Referência: @govbr-ds/core/dist/core-tokens.min.css
  *
+ * @security Escala granular com fallbacks previne valores inválidos
+ * @resilience Map structure evita ambiguidades de chaves numéricas em objetos
+ *
  * Tokens mapeados:
  * - --spacing-scale-* (escala de espaçamento padrão)
  * - --spacing-gutter (margens de contêiner)

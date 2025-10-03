@@ -1,6 +1,9 @@
 /**
  * Estados interativos avançados do GovBR Design System
  *
+ * @security Valores de opacidade controlados previnem vazamento visual
+ * @resilience Estados padronizados (hover, focus, pressed) garantem feedback acessível (WCAG 2.1)
+ *
  * Define estados como hover, pressed, focus, active, selected, disabled
  * baseados no design system oficial GovBR para melhor feedback visual.
  */

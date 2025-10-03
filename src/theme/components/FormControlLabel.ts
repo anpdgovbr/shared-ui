@@ -3,6 +3,9 @@ import type { Components } from '@mui/material/styles'
 /**
  * Overrides do MUI FormControlLabel para GovBR Design System
  *
+ * @security Usa tokens CSS com fallbacks seguros
+ * @resilience Implementa estados interativos para melhor UX
+ *
  * PROPRIEDADES IMPLEMENTADAS:
  * - ✅ gap entre control (checkbox/radio) e label
  * - ✅ alignItems centralizado verticalmente por padrão
@@ -13,19 +16,17 @@ import type { Components } from '@mui/material/styles'
  * - ✅ paddingTop para alinhamento fino
  * - ✅ posicionamentos do label (start, top, bottom)
  * - ✅ classe multiline para textos longos
- *
- * PROPRIEDADES COMUNS FALTANDO:
- * - ❌ margin para espaçamento entre múltiplos controles
- * - ❌ hover state no label
- * - ❌ text-decoration para links no label
- * - ❌ estados focus/active
+ * - ✅ margin para espaçamento entre múltiplos controles
+ * - ✅ hover state no label
+ * - ✅ text-decoration para links no label
+ * - ✅ estados focus/active
  */
 export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
   styleOverrides: {
     root: {
       gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre checkbox/radio e label
       alignItems: 'center', // centraliza verticalmente por padrão
-      margin: 0, // Remove margem padrão
+      margin: '0 0 var(--spacing-scale-base, 1rem) 0', // ✅ espaçamento entre controles
       cursor: 'pointer', // indicação de clicável
 
       // Para textos multi-linha, permite override para flex-start
@@ -33,22 +34,20 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
         alignItems: 'flex-start',
       },
 
-      // PROPRIEDADES FALTANDO - Implementar se necessário:
-      // margin: '0 0 var(--spacing-scale-base, 1rem) 0', // espaçamento entre controles
+      // ✅ Hover state
+      '&:hover': {
+        '& .MuiFormControlLabel-label': {
+          color: 'var(--interactive-light, #5992ed)',
+        },
+      },
 
-      // Hover state
-      // '&:hover': {
-      //   '& .MuiFormControlLabel-label': {
-      //     color: 'var(--interactive-light, #5992ed)',
-      //   },
-      // },
-
-      // Focus state (quando control interno tem focus)
-      // '&:focus-within': {
-      //   '& .MuiFormControlLabel-label': {
-      //     color: 'var(--interactive, #1351B4)',
-      //   },
-      // },
+      // ✅ Focus state (quando control interno tem focus)
+      '&:focus-within': {
+        '& .MuiFormControlLabel-label': {
+          color: 'var(--interactive, #1351B4)',
+          fontWeight: 'var(--font-weight-semi-bold, 600)',
+        },
+      },
 
       '&.Mui-disabled': {
         '& .MuiFormControlLabel-label': {
@@ -63,21 +62,19 @@ export const MuiFormControlLabelOverrides: Components['MuiFormControlLabel'] = {
       color: 'var(--color, #333333)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       lineHeight: 'var(--font-line-height-medium, 1.45)', // 1.45 - legibilidade
+      letterSpacing: 'var(--font-letter-spacing-normal, 0)', // ✅ espaçamento das letras
       paddingTop: '2px', // Alinhamento visual com checkbox (24px)
       cursor: 'pointer', // clicável
       userSelect: 'none', // não selecionável
 
-      // PROPRIEDADES FALTANDO - Implementar se necessário:
-      // letterSpacing: 'var(--font-letter-spacing-normal, 0)',
-
-      // Para links no label
-      // '& a': {
-      //   color: 'var(--interactive, #1351B4)',
-      //   textDecoration: 'none',
-      //   '&:hover': {
-      //     textDecoration: 'underline',
-      //   },
-      // },
+      // ✅ Para links no label
+      '& a': {
+        color: 'var(--interactive, #1351B4)',
+        textDecoration: 'none',
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+      },
     },
     // disabled state merged into root to avoid top-level state keys
     // mantém o slot label intacto para regras diretas

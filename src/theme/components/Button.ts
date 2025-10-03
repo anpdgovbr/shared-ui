@@ -50,9 +50,9 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       // Atende WCAG 2.1 SC 2.4.7 (Focus Visible) - Nível AA
       '&:focus-visible': {
         outlineStyle: 'dashed',
-        outlineWidth: '4px',
+        outlineWidth: 'var(--border-width-lg, 4px)',
         outlineColor: 'var(--feedback-warning-vivid, #b38c00)',
-        outlineOffset: '4px',
+        outlineOffset: 'var(--spacing-scale-quarter, 4px)',
         boxShadow: 'none',
       },
 
@@ -62,13 +62,13 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
 
       '&:disabled': {
-        backgroundColor: '#cccccc',
-        color: '#757575',
+        backgroundColor: 'var(--gray-20, #cccccc)',
+        color: 'var(--gray-60, #757575)',
         cursor: 'not-allowed',
         boxShadow: 'none',
 
         '&:hover': {
-          backgroundColor: '#cccccc',
+          backgroundColor: 'var(--gray-20, #cccccc)',
           transform: 'none',
           boxShadow: 'none',
         },
