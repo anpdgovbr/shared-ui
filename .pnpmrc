@@ -18,7 +18,8 @@ engine-strict=true
 # loglevel=info
 
 # Resoluções automáticas de peer dependencies
-
+auto-install-peers=true
+strict-peer-dependencies=false
 
 # Configurações de segurança
 # audit-level=moderate
