@@ -2,6 +2,10 @@
 
 /**
  * Sombras baseadas nos tokens do GovBR Design System
+ *
+ * @security Fallbacks robustos previnem erros de runtime
+ * @resilience Níveis de elevação padronizados para hierarquia visual consistente
+ *
  * Referência: @govbr-ds/core/dist/core-tokens.min.css
  *
  * Tokens mapeados:

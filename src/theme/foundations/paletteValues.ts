@@ -3,6 +3,9 @@
 /**
  * Valores de cores estáticos baseados no GovBR Design System
  *
+ * @security Valores HEX fixos previnem erros de runtime quando CSS variables falham
+ * @resilience Paleta completa com múltiplas tonalidades garante flexibilidade sem quebrar acessibilidade
+ *
  * Esta versão usa valores HEX diretos em vez de CSS variables
  * para evitar erros no Storybook e outras situações onde o MUI
  * precisa processar as cores com suas funções (alpha, lighten, etc.)

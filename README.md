@@ -41,7 +41,7 @@ Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 ### Passo 1: Instalar a Biblioteca
 
 ```bash
-npm install @anpdgovbr/shared-ui
+pnpm add @anpdgovbr/shared-ui
 ```
 
 ### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
@@ -49,7 +49,7 @@ npm install @anpdgovbr/shared-ui
 **Esta etapa é obrigatória.** A `shared-ui` espera que a sua aplicação forneça as seguintes bibliotecas. Instale-as no seu projeto:
 
 ```bash
-npm install @emotion/react @emotion/styled @govbr-ds/core @mui/icons-material @mui/material react react-dom
+pnpm add @emotion/react @emotion/styled @govbr-ds/core @mui/icons-material @mui/material react react-dom
 ```
 
 ### Passo 3: Configurar o Tema e CSS
@@ -117,11 +117,11 @@ function MeuComponente() {
 Para contribuir com o desenvolvimento da `shared-ui`:
 
 1.  Clone o repositório: `git clone git@github.com:anpdgovbr/shared-ui.git`
-2.  Instale as dependências: `npm install`
+2.  Instale as dependências: `pnpm install`
 3.  Execute o Storybook para ver os componentes em ação:
 
     ```bash
-    npm run dev
+    pnpm run dev
     ```
 
 ---

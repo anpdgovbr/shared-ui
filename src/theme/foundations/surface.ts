@@ -3,10 +3,14 @@
  *
  * Define propriedades de superfície como larguras de borda, raios de arredondamento,
  * opacidades, blur effects e offsets baseados no design system oficial.
+ *
+ * @security Todos os valores são readonly para prevenir mutação acidental
+ * @resilience Tipos exportados garantem type safety em componentes
  */
 
 /**
  * Larguras de borda padronizadas
+ * @readonly Valores fixos para consistência visual
  */
 export const surfaceWidths = {
   // Larguras de borda

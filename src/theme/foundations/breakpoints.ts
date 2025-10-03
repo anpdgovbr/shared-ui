@@ -2,6 +2,10 @@
 
 /**
  * Sistema de breakpoints baseado no GovBR Design System
+ *
+ * @security Valores fixos garantem consistência em ambientes diversos
+ * @resilience Abordagem mobile-first para acessibilidade em qualquer dispositivo
+ *
  * Referência: Especificações responsive do Gov.br DS
  *
  * O GovBR-DS segue uma abordagem mobile-first com breakpoints

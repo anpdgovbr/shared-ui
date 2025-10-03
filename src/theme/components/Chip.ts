@@ -1,34 +1,40 @@
 // src/theme/components/Chip.ts
-import type { Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
 
+/**
+ * Overrides para o componente Chip do MUI
+ *
+ * @security Usa tokens CSS com fallbacks seguros e tema dinâmico
+ * @resilience Estados visuais consistentes para tags e badges
+ */
 export const MuiChipOverrides: Components['MuiChip'] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       // Estilo base da tag Gov.br
-      borderRadius: '4px',
-      fontSize: '0.875rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
+      borderRadius: 'var(--surface-rounder-sm, 4px)',
+      fontSize: 'var(--font-size-scale-down-01, 0.875rem)',
+      fontWeight: 'var(--font-weight-medium, 500)',
+      lineHeight: 'var(--font-line-height-medium, 1.4)',
       height: 'auto',
-      minHeight: '32px',
-      padding: '0.25rem 0.75rem',
+      minHeight: 'var(--button-small, 32px)',
+      padding: 'var(--spacing-scale-quarter, 0.25rem) var(--spacing-scale-1xh, 0.75rem)',
 
       // Border e spacing
       border: '1px solid transparent',
 
       // Estilo padrão (filled)
       '&.MuiChip-filled': {
-        backgroundColor: '#e8f4fd', // Light blue
-        color: '#333333',
-        border: '1px solid #b3d9f7',
+        backgroundColor: 'var(--interactive-light, #e8f4fd)',
+        color: 'var(--color, #333333)',
+        border: '1px solid var(--interactive-lighter, #b3d9f7)',
 
         '&:hover': {
-          backgroundColor: '#d4e9fb',
+          backgroundColor: 'var(--interactive-lighter, #d4e9fb)',
         },
 
         '&:focus': {
-          backgroundColor: '#d4e9fb',
-          outline: '2px solid #1351b4',
+          backgroundColor: 'var(--interactive-lighter, #d4e9fb)',
+          outline: `2px solid ${(theme as Theme).palette.primary.main}`,
           outlineOffset: '2px',
         },
       },
@@ -36,165 +42,170 @@ export const MuiChipOverrides: Components['MuiChip'] = {
       // Estilo outlined
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#1351b4',
-        border: '1px solid #1351b4',
+        color: (theme as Theme).palette.primary.main,
+        border: `1px solid ${(theme as Theme).palette.primary.main}`,
 
         '&:hover': {
-          backgroundColor: '#e8f4fd',
+          backgroundColor: 'var(--interactive-light, #e8f4fd)',
         },
 
         '&:focus': {
-          backgroundColor: '#e8f4fd',
-          outline: '2px solid #1351b4',
+          backgroundColor: 'var(--interactive-light, #e8f4fd)',
+          outline: `2px solid ${(theme as Theme).palette.primary.main}`,
           outlineOffset: '2px',
         },
       },
 
       // Estados
       '&.Mui-disabled': {
-        backgroundColor: '#f0f0f0',
-        color: '#999999',
-        border: '1px solid #cccccc',
+        backgroundColor: 'var(--gray-10, #f0f0f0)',
+        color: 'var(--gray-40, #999999)',
+        border: '1px solid var(--gray-20, #cccccc)',
         opacity: 1,
       },
 
       // Chip clicável
       '&.MuiChip-clickable': {
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all var(--duration-quick, 0.2s) ease',
 
         '&:hover': {
           transform: 'translateY(-1px)',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          boxShadow: 'var(--shadow-level-1, 0px 2px 4px rgba(0, 0, 0, 0.1))',
         },
 
         '&:active': {
           transform: 'translateY(0)',
         },
       },
-    },
+    }),
 
-    // Variantes de cor
-    colorPrimary: {
-      backgroundColor: '#1351b4',
-      color: '#ffffff',
-      border: '1px solid #1351b4',
+    // Variantes de cor - usar tema dinâmico
+    colorPrimary: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.primary.main,
+      color: (theme as Theme).palette.primary.contrastText,
+      border: `1px solid ${(theme as Theme).palette.primary.main}`,
 
       '&:hover': {
-        backgroundColor: '#0c326f',
+        backgroundColor: (theme as Theme).palette.primary.dark,
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#1351b4',
-        border: '1px solid #1351b4',
+        color: (theme as Theme).palette.primary.main,
+        border: `1px solid ${(theme as Theme).palette.primary.main}`,
 
         '&:hover': {
-          backgroundColor: '#e8f4fd',
+          backgroundColor:
+            (theme as Theme).palette.primary.light || 'var(--interactive-light, #e8f4fd)',
         },
       },
-    },
+    }),
 
-    colorSecondary: {
-      backgroundColor: '#ffd200',
-      color: '#000000',
-      border: '1px solid #ffd200',
+    colorSecondary: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.secondary.main,
+      color: (theme as Theme).palette.secondary.contrastText,
+      border: `1px solid ${(theme as Theme).palette.secondary.main}`,
 
       '&:hover': {
-        backgroundColor: '#ddaa01',
+        backgroundColor: (theme as Theme).palette.secondary.dark,
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#ddaa01',
-        border: '1px solid #ddaa01',
+        color: (theme as Theme).palette.secondary.main,
+        border: `1px solid ${(theme as Theme).palette.secondary.main}`,
 
         '&:hover': {
-          backgroundColor: '#fef0c8',
+          backgroundColor:
+            (theme as Theme).palette.secondary.light || 'var(--yellow-vivid-5, #fef0c8)',
         },
       },
-    },
+    }),
 
-    colorSuccess: {
-      backgroundColor: '#168821',
-      color: '#ffffff',
-      border: '1px solid #168821',
+    colorSuccess: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.success.main,
+      color: (theme as Theme).palette.success.contrastText || 'var(--color-lightest, #ffffff)',
+      border: `1px solid ${(theme as Theme).palette.success.main}`,
 
       '&:hover': {
-        backgroundColor: '#154c21',
+        backgroundColor: (theme as Theme).palette.success.dark,
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#168821',
-        border: '1px solid #168821',
+        color: (theme as Theme).palette.success.main,
+        border: `1px solid ${(theme as Theme).palette.success.main}`,
 
         '&:hover': {
-          backgroundColor: '#e3f5e1',
+          backgroundColor:
+            (theme as Theme).palette.success.light || 'var(--green-cool-vivid-5, #e3f5e1)',
         },
       },
-    },
+    }),
 
-    colorError: {
-      backgroundColor: '#d04f4f',
-      color: '#ffffff',
-      border: '1px solid #d04f4f',
+    colorError: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.error.main,
+      color: (theme as Theme).palette.error.contrastText || 'var(--color-lightest, #ffffff)',
+      border: `1px solid ${(theme as Theme).palette.error.main}`,
 
       '&:hover': {
-        backgroundColor: '#800610',
+        backgroundColor: (theme as Theme).palette.error.dark,
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#d04f4f',
-        border: '1px solid #d04f4f',
+        color: (theme as Theme).palette.error.main,
+        border: `1px solid ${(theme as Theme).palette.error.main}`,
 
         '&:hover': {
-          backgroundColor: '#fef0f0',
+          backgroundColor: (theme as Theme).palette.error.light || 'var(--red-vivid-5, #fef0f0)',
         },
       },
-    },
+    }),
 
-    colorWarning: {
-      backgroundColor: '#f29f05',
-      color: '#000000',
-      border: '1px solid #f29f05',
+    colorWarning: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.warning.main,
+      color: (theme as Theme).palette.warning.contrastText || 'var(--gray-80, #000000)',
+      border: `1px solid ${(theme as Theme).palette.warning.main}`,
 
       '&:hover': {
-        backgroundColor: '#c05600',
-        color: '#ffffff',
+        backgroundColor: (theme as Theme).palette.warning.dark,
+        color: (theme as Theme).palette.warning.contrastText || 'var(--color-lightest, #ffffff)',
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#f29f05',
-        border: '1px solid #f29f05',
+        color: (theme as Theme).palette.warning.main,
+        border: `1px solid ${(theme as Theme).palette.warning.main}`,
 
         '&:hover': {
-          backgroundColor: '#fef2e4',
+          backgroundColor:
+            (theme as Theme).palette.warning.light || 'var(--orange-vivid-5, #fef2e4)',
         },
       },
-    },
+    }),
 
-    colorInfo: {
-      backgroundColor: '#0d7ea2',
-      color: '#ffffff',
-      border: '1px solid #0d7ea2',
+    colorInfo: ({ theme }) => ({
+      backgroundColor: (theme as Theme).palette.info.main,
+      color: (theme as Theme).palette.info.contrastText || 'var(--color-lightest, #ffffff)',
+      border: `1px solid ${(theme as Theme).palette.info.main}`,
 
       '&:hover': {
-        backgroundColor: '#074b69',
+        backgroundColor: (theme as Theme).palette.info.dark,
       },
 
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
-        color: '#0d7ea2',
-        border: '1px solid #0d7ea2',
+        color: (theme as Theme).palette.info.main,
+        border: `1px solid ${(theme as Theme).palette.info.main}`,
 
         '&:hover': {
-          backgroundColor: '#e1f3f8',
+          backgroundColor:
+            (theme as Theme).palette.info.light || 'var(--blue-cool-vivid-5, #e1f3f8)',
         },
       },
-    },
+    }),
 
     // Ícone
     icon: {

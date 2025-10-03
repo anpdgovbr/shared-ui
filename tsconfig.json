@@ -14,16 +14,15 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"],
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@ui/*": ["src/components/ui/*"],
-      "@stories/*": ["src/stories/*"],
-      "@theme/*": ["src/theme/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@govbr-types/*": ["src/types/*"]
+      "src/*": ["./src/*"],
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@ui/*": ["./src/components/ui/*"],
+      "@stories/*": ["./src/stories/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@govbr-types/*": ["./src/types/*"]
     }
   },
   "include": ["src", ".storybook", "*.config.*", "vite-env.d.ts"],

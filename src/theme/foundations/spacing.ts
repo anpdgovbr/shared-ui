@@ -4,6 +4,9 @@
  * Sistema de espaçamentos baseado nos tokens do GovBR Design System
  * Referência: @govbr-ds/core/dist/core-tokens.min.css
  *
+ * @security Escala granular com fallbacks previne valores inválidos
+ * @resilience Map structure evita ambiguidades de chaves numéricas em objetos
+ *
  * Tokens mapeados:
  * - --spacing-scale-* (escala de espaçamento padrão)
  * - --spacing-gutter (margens de contêiner)
@@ -21,41 +24,55 @@
 
 // Função para customizar espaçamento usando tokens GovBR
 export const createSpacing = () => {
-  // Mapeamento expandido com mais granularidade
-  const spacingMap = {
-    // Micro spacing
-    0: 0,
-    0.25: 'var(--spacing-scale-quarter, 0.25rem)', // 4px
-    0.5: 'var(--spacing-scale-half, 0.5rem)', // 8px
-    0.75: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
+  // Mapeamento explícito usando Map para evitar ambiguidades com chaves numéricas de objetos
+  const spacingEntries: Array<[number, string | number]> = [
+    [0, 0],
+    [0.25, 'var(--spacing-scale-quarter, 0.25rem)'],
+    [0.5, 'var(--spacing-scale-half, 0.5rem)'],
+    [0.75, 'var(--spacing-scale-3quarter, 0.75rem)'],
+    [1, 'var(--spacing-scale-base, 1rem)'],
+    [1.5, 'var(--spacing-scale-1xh, 1.5rem)'],
+    [2, 'var(--spacing-scale-2x, 2rem)'],
+    [2.5, 'var(--spacing-scale-2xh, 2.5rem)'],
+    [3, 'var(--spacing-scale-3x, 3rem)'],
+    [3.5, 'var(--spacing-scale-3xh, 3.5rem)'],
+    [4, 'var(--spacing-scale-4x, 4rem)'],
+    [5, 'var(--spacing-scale-5x, 5rem)'],
+    [6, 'var(--spacing-scale-6x, 6rem)'],
+    [8, 'var(--spacing-scale-8x, 8rem)'],
+    [10, 'var(--spacing-scale-10x, 10rem)'],
+    [12, 'var(--spacing-scale-12x, 12rem)'],
+  ]
 
-    // Base spacing - mais consistente
-    1: 'var(--spacing-scale-base, 1rem)', // 16px (mudou de 8px para 16px)
-    1.5: 'var(--spacing-scale-1xh, 1.5rem)', // 24px
-    2: 'var(--spacing-scale-2x, 2rem)', // 32px
-    2.5: 'var(--spacing-scale-2xh, 2.5rem)', // 40px
-    3: 'var(--spacing-scale-3x, 3rem)', // 48px
-    3.5: 'var(--spacing-scale-3xh, 3.5rem)', // 56px
-    4: 'var(--spacing-scale-4x, 4rem)', // 64px
-    5: 'var(--spacing-scale-5x, 5rem)', // 80px
-    6: 'var(--spacing-scale-6x, 6rem)', // 96px
-    8: 'var(--spacing-scale-8x, 8rem)', // 128px
-    10: 'var(--spacing-scale-10x, 10rem)', // 160px
-    12: 'var(--spacing-scale-12x, 12rem)', // 192px
-  }
+  const spacingMap = new Map<number, string | number>(spacingEntries)
 
   return (factor: number | string): string => {
+    // Se já passou uma string (ex: "8px" ou "1rem"), respeita e retorna
     if (typeof factor === 'string') {
       return factor
     }
 
-    // Se existe no mapeamento, usa o token
-    if (factor in spacingMap) {
-      const value = spacingMap[factor as keyof typeof spacingMap]
+    // Rejeita valores inválidos de forma defensiva
+    if (!Number.isFinite(factor)) {
+      // comportamento conservador: retorna 0rem para evitar quebras
+      return '0rem'
+    }
+
+    // Busca direta no Map
+    if (spacingMap.has(factor)) {
+      const value = spacingMap.get(factor)!
       return typeof value === 'number' ? `${value}px` : value
     }
 
-    // Para valores não mapeados, usa cálculo baseado no rem (16px base)
+    // Lida com imprecisão de ponto flutuante (ex: 0.30000000000000004)
+    const normalized = Number(Number(factor).toFixed(6))
+    if (spacingMap.has(normalized)) {
+      const value = spacingMap.get(normalized)!
+      return typeof value === 'number' ? `${value}px` : value
+    }
+
+    // Fallback: manter compatibilidade com implementação anterior
+    // Interpreta o número como valor em rem (sistema adotado no projeto)
     return `${factor}rem`
   }
 }
