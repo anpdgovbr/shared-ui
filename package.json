@@ -115,6 +115,7 @@
     "react-hook-form": "^7.0.0"
   },
   "dependencies": {
+    "@mui/utils": "^7.3.3",
     "@mui/x-date-pickers": "^8.12.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18"

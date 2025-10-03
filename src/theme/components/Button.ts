@@ -1,7 +1,8 @@
 // src/theme/components/Button.ts
 
 import type { Theme } from '@mui/material/styles'
-import { alpha, Components } from '@mui/material/styles'
+import type { Components } from '@mui/material/styles'
+import { alpha } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Button do MUI

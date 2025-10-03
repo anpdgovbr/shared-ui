@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import { deepmerge } from '@mui/utils'
 
 import { anpdPalette } from './foundations/paletteValues'
 import { govbrTheme } from './govbrTheme'
@@ -17,20 +18,13 @@ import { govbrTheme } from './govbrTheme'
  * Com createTheme(), os callbacks serão re-executados com o novo tema.
  */
 
-// Cria tema base com a palette ANPD, herdando configurações do govbrTheme
-const anpdThemeBase = createTheme({
-  // Herda configurações base
-  typography: govbrTheme.typography,
-  spacing: govbrTheme.spacing,
-  shape: govbrTheme.shape,
-  breakpoints: govbrTheme.breakpoints,
-  transitions: govbrTheme.transitions,
-
-  // Aplica a palette ANPD
+// Cria overrides específicos do ANPD (apenas palette diferente)
+const anpdOverrides = {
   palette: anpdPalette,
+}
 
-  // Herda os components (os callbacks serão re-executados com a nova palette)
-  components: govbrTheme.components,
-})
+// Mescla govbrTheme com anpdOverrides usando deepmerge
+const mergedTheme = deepmerge(govbrTheme, anpdOverrides)
 
-export const anpdTheme = anpdThemeBase
+// Cria tema final - createTheme() re-executa os callbacks com a nova palette
+export const anpdTheme = createTheme(mergedTheme)
