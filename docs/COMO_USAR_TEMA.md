@@ -16,7 +16,7 @@ O `govbrTheme` é parte fundamental da **biblioteca de componentes compartilháv
 ## 📦 Instalação
 
 ```bash
-npm install @anpdgovbr/shared-ui
+pnpm add @anpdgovbr/shared-ui
 ```
 
 ## 🚀 Uso Básico
@@ -311,7 +311,7 @@ import '@govbr-ds/core/dist/core-tokens.min.css'
 
 Se você editar `src/theme/components/*` e ajustar `styleOverrides`, valide manualmente que não há warnings do MUI sobre especificidade (ex.: mensagens que indicam para usar `&.Mui-focused` em vez de `focused` no nível superior):
 
-1. Rode localmente `npm run check` (lint + typecheck) e `npm run build`.
+1. Rode localmente `pnpm run check` (lint + typecheck) e `pnpm run build`.
 2. Abra a aplicação de exemplo ou Storybook; inspecione o console do navegador ao montar componentes de formulário (TextField, InputLabel, FormLabel, FormHelperText).
 3. Procure por warnings como: "The MuiFormLabel component increases the CSS specificity of the focused internal state... use '&.Mui-focused' syntax." Se não aparecerem, o override está correto.
 

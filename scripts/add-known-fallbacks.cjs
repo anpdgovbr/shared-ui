@@ -144,7 +144,7 @@ console.log(`📊 Total de ${totalModifications} fallbacks adicionados.`)
 
 if (totalModifications > 0) {
   console.log('\\n🎯 Próximos passos:')
-  console.log('1. Execute npm run build para verificar se não há erros')
-  console.log('2. Execute npm run test para garantir compatibilidade')
+  console.log('1. Execute pnpm run build para verificar se não há erros')
+  console.log('2. Execute pnpm run test para garantir compatibilidade')
   console.log('3. Revise tokens não-conhecidos manualmente se necessário')
 }

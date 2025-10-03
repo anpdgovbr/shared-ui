@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 /**
- * Script para adicionar fallbacks específicos identificados na análise
+ * Script para adicionar fallback  console.log('\n🎯 Próximo passo: Execute pnpm run build para verificar') específicos identificados na análise
  */
 
 const FALLBACKS_TO_ADD = {
