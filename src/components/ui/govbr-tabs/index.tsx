@@ -60,6 +60,11 @@ export function GovBRTabs(props: Readonly<GovBRTabsProps>) {
                   {tab.icon}
                   {tab.label}
                 </button>
+                {tab.counter !== undefined && (
+                  <span className="results" aria-label={`Contador: ${tab.counter}`}>
+                    ({tab.counter})
+                  </span>
+                )}
               </li>
             ))}
           </ul>

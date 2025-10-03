@@ -4,6 +4,7 @@ interface TabProps {
   id: number
   label?: string
   icon?: React.ReactElement
+  counter?: string | number
 }
 
 interface TabsProps {

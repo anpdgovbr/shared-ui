@@ -92,3 +92,26 @@ export const StrictGovBROverflow: Story = {
     )),
   },
 }
+
+export const WithCounter: Story = {
+  args: {
+    tabs: [
+      { id: 1, label: 'Aba 1', counter: 5 },
+      { id: 2, label: 'Aba 2', counter: 10 },
+      { id: 3, label: 'Aba 3', counter: 15 },
+    ],
+    variant: 'text',
+    strictgovbr: true,
+    children: [
+      <div key={1} style={{ padding: '16px' }}>
+        Conteúdo da Aba 1
+      </div>,
+      <div key={2} style={{ padding: '16px' }}>
+        Conteúdo da Aba 2
+      </div>,
+      <div key={3} style={{ padding: '16px' }}>
+        Conteúdo da Aba 3
+      </div>,
+    ],
+  },
+}
