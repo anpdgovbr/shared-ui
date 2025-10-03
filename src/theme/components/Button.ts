@@ -40,11 +40,14 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       '&:hover': {
         boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
       },
-      //TODO: verificar problema de acessibilidade, quando tem foco com tab
+
+      // ✅ Acessibilidade: focus básico sem outline (navegação por mouse)
       '&:focus': {
         outline: 'none',
-        // outlineOffset: '2px',
       },
+
+      // ✅ Acessibilidade: focus-visible para navegação por teclado (Tab)
+      // Atende WCAG 2.1 SC 2.4.7 (Focus Visible) - Nível AA
       '&:focus-visible': {
         outlineStyle: 'dashed',
         outlineWidth: '4px',

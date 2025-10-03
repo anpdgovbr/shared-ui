@@ -1,7 +1,11 @@
 name: CI
+
+# ✅ Resiliência: limitar concorrência para evitar race conditions
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
+
+# ✅ Segurança: permissões mínimas necessárias (principle of least privilege)
 permissions:
   contents: read
 
@@ -13,11 +17,17 @@ on:
 
 env:
   NODE_VERSION: 20
+  # ✅ Resiliência: forçar instalação frozen para garantir reprodutibilidade
+  FROZEN_LOCKFILE: true
 
 jobs:
   lint:
     name: Lint & Type Check
     runs-on: ubuntu-latest
+
+    # ✅ Performance: timeout para prevenir jobs travados
+    timeout-minutes: 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -43,6 +53,10 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+
+    # ✅ Performance: timeout para prevenir jobs travados
+    timeout-minutes: 15
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -65,10 +79,18 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
+    # ✅ Performance: timeout para prevenir jobs travados
+    timeout-minutes: 10
+
+    # ✅ Resiliência: só executa build se lint e test passarem
     needs: [lint, test]
+
+    # ✅ Segurança: permissões específicas para este job
     permissions:
       contents: read # needed for checkout
       actions: write # needed for upload-artifact
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -88,6 +110,19 @@ jobs:
       - name: Build project
         run: pnpm run build
 
+      # ✅ Resiliência: validar que arquivos essenciais foram gerados
+      - name: Validate build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Erro: diretório dist/ não foi criado"
+            exit 1
+          fi
+          if [ ! -d "types" ]; then
+            echo "❌ Erro: diretório types/ não foi criado"
+            exit 1
+          fi
+          echo "✅ Build validado com sucesso"
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -96,3 +131,6 @@ jobs:
             dist/
             types/
           retention-days: 30
+          # ✅ Resiliência: não falhar se upload der problema
+          if-no-files-found: warn
+

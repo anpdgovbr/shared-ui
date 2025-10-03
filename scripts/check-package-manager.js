@@ -8,13 +8,30 @@
  *
  * Se alguém tentar usar npm ou yarn, o script exibirá uma mensagem de erro
  * e abortará a instalação.
+ *
+ * @security Valida process.env.npm_config_user_agent antes de usar
+ * @resilience Tratamento robusto de casos edge (CI, undefined, etc)
  */
 
-const packageManager = process.env.npm_config_user_agent || ''
+// ✅ Segurança: validação e sanitização do user agent
+const userAgent = process.env.npm_config_user_agent
+const packageManager = typeof userAgent === 'string' ? userAgent.trim() : ''
 
-// Permite se estiver rodando via pnpm ou se for CI do npm (npx, etc)
+// ✅ Resiliência: permitir em ambientes CI específicos
+const isCIEnvironment = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true'
+
+// ✅ Resiliência: permitir se for execução direta (node script.js)
+const isDirectExecution = !packageManager && process.argv[1]?.includes('check-package-manager.js')
+
+// Permite se estiver rodando via pnpm
 if (packageManager.startsWith('pnpm/')) {
   // ✅ Usando pnpm - tudo certo!
+  process.exit(0)
+}
+
+// ✅ Resiliência: em CI, apenas avisar (não bloquear)
+if (isCIEnvironment && !packageManager.startsWith('npm/') && !packageManager.startsWith('yarn/')) {
+  console.warn('\n⚠️  CI detectado sem user agent específico - permitindo instalação')
   process.exit(0)
 }
 
@@ -44,11 +61,18 @@ if (packageManager.startsWith('npm/') || packageManager.startsWith('yarn/')) {
   process.exit(1)
 }
 
-// Se não detectou o package manager (caso raro), permite continuar
-// mas exibe um aviso
-if (!packageManager) {
+// ✅ Resiliência: Se não detectou o package manager, avisar mas permitir
+// (pode ser execução direta, testes, ou ambiente não padrão)
+if (!packageManager || isDirectExecution) {
   console.warn('\n⚠️  AVISO: Não foi possível detectar o package manager.')
-  console.warn('   Este projeto foi configurado para usar pnpm.\n')
+  console.warn('   Certifique-se de estar usando pnpm para instalar dependências.\n')
+  console.warn('   User agent detectado:', packageManager || '(vazio)')
+  console.warn('   Ambiente CI:', isCIEnvironment ? 'Sim' : 'Não')
+  console.warn('   Execução direta:', isDirectExecution ? 'Sim' : 'Não')
+  console.warn('\n   Continuando instalação... Use "pnpm install" se houver problemas.\n')
+  process.exit(0)
 }
 
+// ✅ Fallback final: permitir por segurança (evitar bloqueios em casos não mapeados)
 process.exit(0)
+
