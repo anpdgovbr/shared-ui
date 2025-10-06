@@ -295,25 +295,25 @@ git pull origin main --rebase
 2. **Execute o build para verificar tipos:**
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 3. **Visualize no Storybook:**
 
 ```bash
-npm run storybook
+pnpm run storybook
 ```
 
 4. **Execute o Linter e verifique tree shaking:**
 
 ```bash
-npm run lint -- --fix
+pnpm run lint -- --fix
 ```
 
 5. **Execute os Testes:**
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 6. **Confirme que os tipos `.d.ts` foram gerados corretamente** em `types/src`

@@ -1,7 +1,7 @@
 // src/theme/components/Button.ts
 
-import type { Theme } from '@mui/material/styles'
-import { alpha, Components } from '@mui/material/styles'
+import type { Components, Theme } from '@mui/material/styles'
+import { alpha } from '@mui/material/styles'
 
 /**
  * Overrides para o componente Button do MUI
@@ -40,16 +40,19 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       '&:hover': {
         boxShadow: 'var(--shadow-level-2, 0px 4px 8px rgba(0, 0, 0, 0.12))',
       },
-      //TODO: verificar problema de acessibilidade, quando tem foco com tab
+
+      // ✅ Acessibilidade: focus básico sem outline (navegação por mouse)
       '&:focus': {
         outline: 'none',
-        // outlineOffset: '2px',
       },
+
+      // ✅ Acessibilidade: focus-visible para navegação por teclado (Tab)
+      // Atende WCAG 2.1 SC 2.4.7 (Focus Visible) - Nível AA
       '&:focus-visible': {
         outlineStyle: 'dashed',
-        outlineWidth: '4px',
+        outlineWidth: 'var(--border-width-lg, 4px)',
         outlineColor: 'var(--feedback-warning-vivid, #b38c00)',
-        outlineOffset: '4px',
+        outlineOffset: 'var(--spacing-scale-quarter, 4px)',
         boxShadow: 'none',
       },
 
@@ -59,13 +62,13 @@ export const MuiButtonOverrides: Components['MuiButton'] = {
       },
 
       '&:disabled': {
-        backgroundColor: '#cccccc',
-        color: '#757575',
+        backgroundColor: 'var(--gray-20, #cccccc)',
+        color: 'var(--gray-60, #757575)',
         cursor: 'not-allowed',
         boxShadow: 'none',
 
         '&:hover': {
-          backgroundColor: '#cccccc',
+          backgroundColor: 'var(--gray-20, #cccccc)',
           transform: 'none',
           boxShadow: 'none',
         },
