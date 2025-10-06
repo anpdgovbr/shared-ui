@@ -36,6 +36,10 @@ export type { GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types'
 export * from './ui/govbr-button'
 export type { GovBRButtonProps } from './ui/govbr-button/types'
 
+// GovBRCard
+export * from './ui/govbr-card'
+export type { GovBRCardProps } from './ui/govbr-card/types'
+
 // GovBRCheckbox
 export * from './ui/govbr-checkbox'
 export type { GovBRCheckboxProps } from './ui/govbr-checkbox/types'
