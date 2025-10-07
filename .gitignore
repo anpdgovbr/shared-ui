@@ -4,10 +4,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+package-lock.json
 
 
 # Build
-/dist/ 
+/dist/
 /types/
 storybook-static/
 storybook-stats.html
@@ -45,3 +46,6 @@ Desktop.ini
 *.tgz
 
 *storybook.log
+
+# NPM lockfile (projeto usa pnpm)
+package-lock.json

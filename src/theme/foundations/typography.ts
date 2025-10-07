@@ -5,6 +5,9 @@ import { TypographyVariantsOptions } from '@mui/material/styles'
  * Sistema de tipografia baseado nos tokens do GovBR Design System
  * Referência: @govbr-ds/core/dist/core-tokens.min.css
  *
+ * @security Tokens de font-family com fallbacks previnem falhas de carregamento de fonte
+ * @resilience Hierarquia tipográfica padronizada garante acessibilidade e legibilidade (WCAG 2.1)
+ *
  * Tokens mapeados:
  * - --font-family-* para fontFamily
  * - --font-size-scale-* para fontSize

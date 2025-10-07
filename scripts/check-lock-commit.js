@@ -57,18 +57,16 @@ try {
 
   const dependencyChange = depsChanged(headPkg, stagedPkg)
 
-  // If dependencies changed, package-lock.json must be staged/updated as well
+  // If dependencies changed, pnpm-lock.yaml must be staged/updated as well
   if (dependencyChange) {
-    if (!staged.includes('package-lock.json')) {
+    if (!staged.includes('pnpm-lock.yaml')) {
       console.error(
-        '\nDetectadas alterações nas dependências em package.json, mas package-lock.json NÃO está staged.',
+        '\nDetectadas alterações nas dependências em package.json, mas pnpm-lock.yaml NÃO está staged.',
       )
-      console.error(
-        'Por favor rode `npm install` (ou `npm install --package-lock-only`) e adicione o package-lock.json ao commit.',
-      )
+      console.error('Por favor rode `pnpm install` e adicione o pnpm-lock.yaml ao commit.')
       console.error('Se a alteração de dependência foi intencional, faça:')
-      console.error('  npm install')
-      console.error('  git add package-lock.json')
+      console.error('  pnpm install')
+      console.error('  git add pnpm-lock.yaml')
       console.error('  git commit --amend --no-edit (ou refazer o commit)')
       process.exit(1)
     }

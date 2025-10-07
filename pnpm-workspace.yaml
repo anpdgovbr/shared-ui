@@ -1,0 +1,4 @@
+# pnpm workspace configuration
+# Este é um monorepo de pacote único, mas o arquivo é necessário para pnpm
+packages:
+  - '.'
