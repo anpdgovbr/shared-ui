@@ -1,11 +1,28 @@
+/**
+ * Módulo de re-exports dos componentes públicos da biblioteca shared-ui.
+ *
+ * Este arquivo centraliza as exportações nomeadas dos componentes UI e seus
+ * tipos correspondentes, permitindo imports como:
+ *
+ * ```ts
+ * import { GovBRButton } from '@anpdgovbr/shared-ui/components'
+ * import type { GovBRButtonProps } from '@anpdgovbr/shared-ui/components'
+ * ```
+ *
+ * Observações:
+ * - Mantém a convenção de pasta em kebab-case (src/components/ui/*).
+ * - Exportações favorencem tree-shaking (exports nomeados).
+ * - Tipos individuais são reexportados para facilitar consumo por bibliotecas externas.
+ *
+ * @packageDocumentation
+ */
+
 // ===== COMPONENTES REESTRUTURADOS (NOVO PADRÃO) =====
 // Usando kebab-case e estrutura shadcn/ui
 
 // AutoSync
 export { AutoSync } from './ui/auto-sync'
 export type { AutoSyncProps } from './ui/auto-sync/types'
-
-// GovBRAvatar
 
 // GovBRAvatar
 export * from './ui/govbr-avatar'

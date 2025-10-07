@@ -27,7 +27,13 @@ Os exemplos podem ser copiados diretamente para seus projetos. Certifique-se de:
 1. **Instalar dependências necessárias:**
 
 ```bash
-npm install @mui/material @mui/icons-material react-hook-form
+pnpm add @mui/material @mui/icons-material react-hook-form
+```
+
+Instale a biblioteca (quando publicada):
+
+```bash
+pnpm add @anpdgovbr/shared-ui
 ```
 
 2. **Importar a biblioteca:**

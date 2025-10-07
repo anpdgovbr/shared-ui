@@ -238,37 +238,37 @@ export type { ComponentNameProps } from './components/ui/component-name'
 
 ### Desenvolvimento Local
 
-- **Instalação**: `npm install` (devs) — CI deve usar `npm ci` para instalação reproduzível
-- **Storybook**: `npm run dev` ou `npm run storybook` (porta 6006) — ambiente principal de desenvolvimento
-- **Setup inicial**: `npm run prepare` (husky hooks)
-- **Testes**: `npm run test` (Vitest + @testing-library/react)
-- **Build**: `npm run build` (types + vite build)
-- **Qualidade**: `npm run check` (lint + type-check)
-- **Lint**: `npm run lint -- --fix` (corrigir erros automaticamente)
+- **Instalação**: `pnpm install` (devs) — CI deve usar `pnpm install --frozen-lockfile` para instalação reproduzível
+- **Storybook**: `pnpm run dev` ou `pnpm run storybook` (porta 6006) — ambiente principal de desenvolvimento
+- **Setup inicial**: `pnpm run prepare` (husky hooks)
+- **Testes**: `pnpm run test` (Vitest + @testing-library/react)
+- **Build**: `pnpm run build` (types + vite build)
+- **Qualidade**: `pnpm run check` (lint + type-check)
+- **Lint**: `pnpm run lint -- --fix` (corrigir erros automaticamente)
 
 ### Git Hooks Automáticos
 
 - **Pre-commit**: executa `scripts/check-lock-commit.js` e `npx lint-staged`
-- **Pre-push**: roda `npm run check && npm test && npm run build`
+- **Pre-push**: roda `pnpm run check && pnpm test && pnpm run build`
 
 ### Publicação Beta
 
-- `npm run version:beta` → `npm run publish:beta` ou `npm run release:beta` (combina ambos)
+- `pnpm run version:beta` → `pnpm run publish:beta` ou `pnpm run release:beta` (combina ambos)
 - Versioning: `version:beta-patch`, `version:beta-minor`, `version:beta-major`
 
 ### Comandos de Manutenção
 
-- `npm run clean` - Limpa arquivos temporários
-- `npm run reset` - Reset completo do projeto
+- `pnpm run clean` - Limpa arquivos temporários
+- `pnpm run reset` - Reset completo do projeto
 
 ## 7. Regras de dependências e lockfile
 
 - PeerDependencies: React 19, MUI v7, Emotion, GovBR core; o consumidor deve fornecer essas dependências. Ver `package.json` → `peerDependencies`.
-- Política de lockfile: mantenha `package-lock.json` versionado para CI; há um hook (`scripts/check-lock-commit.js`) que bloqueia commits onde `package.json` muda nas dependências sem `package-lock.json` staged.
+- Política de lockfile: mantenha `pnpm-lock.yaml` versionado para CI; há um hook (`scripts/check-lock-commit.js`) que bloqueia commits onde `package.json` muda nas dependências sem `pnpm-lock.yaml` staged.
 
 ## 8. Padrões de qualidade do repositório
 
-- Antes de PR: `npm run check` (lint + type-check), `npm run test`, `npm run build`.
+- Antes de PR: `pnpm run check` (lint + type-check), `pnpm run test`, `pnpm run build`.
 - Lint: regras específicas em `eslint.config.mjs`. Atenção à regra customizada `use-client/required` para componentes UI.
 - **Tree-shaking obrigatório**: Imports MUI devem ser específicos (`import Button from '@mui/material/Button'`) nunca desestruturados.
 - **Stories obrigatórias**: Todo componente deve ter `index.stories.tsx` mostrando ambos os modos (`strictgovbr: true/false`).
@@ -289,8 +289,8 @@ export type { ComponentNameProps } from './components/ui/component-name'
 ## 11. Exemplos rápidos
 
 - Para adicionar componente novo: crie `src/components/ui/nome-componente/index.tsx`, `types.ts`, `index.stories.tsx`; comece o arquivo com `"use client"`.
-- Para atualizar dependências: rode localmente `npm install`, valide `npm run check` e `npm run build`, commit `package.json` + `package-lock.json` juntos.
-- **Storybook local**: `npm run dev` para ver componentes interativamente durante desenvolvimento.
+- Para atualizar dependências: rode localmente `pnpm install`, valide `pnpm run check` e `pnpm run build`, commit `package.json` + `pnpm-lock.yaml` juntos.
+- **Storybook local**: `pnpm run dev` para ver componentes interativamente durante desenvolvimento.
 - **Testar componente**: Sempre teste ambos os modos nos stories: `args: { strictgovbr: false }` e `args: { strictgovbr: true }`.
 
 ## 12. Quando pedir ajuda ao humano

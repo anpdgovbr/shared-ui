@@ -1,0 +1,25 @@
+# Configuração pnpm para shared-ui
+
+# Força verificação estrita de engines (bloqueia npm se packageManager especificar pnpm)
+engine-strict=true
+
+# Configurações de performance e cache
+# Store global padrão (pode ser sobrescrito por variável de ambiente)
+# store-dir=~/.pnpm-store
+
+# Hoisting configurações (phantom dependencies prevention)
+# public-hoist-pattern[]=*eslint*
+# public-hoist-pattern[]=*prettier*
+
+# Instalação estrita - não instala se lockfile estiver desatualizado
+# frozen-lockfile=true
+
+# Logging
+# loglevel=info
+
+# Resoluções automáticas de peer dependencies
+auto-install-peers=true
+strict-peer-dependencies=false
+
+# Configurações de segurança
+# audit-level=moderate

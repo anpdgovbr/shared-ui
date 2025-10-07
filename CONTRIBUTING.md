@@ -2,7 +2,16 @@
 
 Obrigado pelo interesse em contribuir com a **biblioteca de componentes compartilháveis da ANPD**!
 
-Este projeto centraliza componentes React reutilizáveis, construídos com Material-UI e seguindo os padrões visuais do Gov.br Design System, para uso em todos os projetos da ANPD.
+Este projeto centraliza componente```bash
+pnpm add react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
+	@emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+```
+
+Se precisar forçar uma mudança no `pnpm-lock.yaml`, siga este processo:
+
+1. Atualize dependências localmente com `pnpm install`.
+2. Rode `pnpm run check` e `pnpm run build` para validar.
+3. Commit `package.json` e `pnpm-lock.yaml` juntos com uma mensagem clara (ex: `chore(deps): upgrade MUI to 7.x`).utilizáveis, construídos com Material-UI e seguindo os padrões visuais do Gov.br Design System, para uso em todos os projetos da ANPD.
 
 > 📖 **LEIA PRIMEIRO:** [ARQUITETURA.md](./ARQUITETURA.md) - Entenda a arquitetura híbrida da biblioteca
 
@@ -52,13 +61,13 @@ Antes de contribuir, consulte nossa documentação na seguinte ordem:
 2. Instale as dependências:
 
 ```bash
-npm install
+pnpm install
 ```
 
 3. Rode o Storybook para visualizar os componentes:
 
 ```bash
-npm run storybook
+pnpm run storybook
 ```
 
 4. Crie uma branch a partir da `main`:
@@ -138,10 +147,10 @@ export const GovBRComponente: React.FC<Props> = ({ strictgovbr, ...props }) => {
 ### 🧪 Qualidade
 
 - [ ] Branch está atualizada com a `main` (use `git pull --rebase`)
-- [ ] **Build** passa sem erros: `npm run build`
-- [ ] **Testes** executados com sucesso: `npm run test`
-- [ ] **Linter** passa sem erros: `npm run lint -- --fix`
-- [ ] **Verificação completa**: `npm run check`
+- [ ] **Build** passa sem erros: `pnpm run build`
+- [ ] **Testes** executados com sucesso: `pnpm run test`
+- [ ] **Linter** passa sem erros: `pnpm run lint -- --fix`
+- [ ] **Verificação completa**: `pnpm run check`
 
 ### 📋 Exports e Tipagem
 
@@ -155,8 +164,8 @@ export const GovBRComponente: React.FC<Props> = ({ strictgovbr, ...props }) => {
 
 Esta biblioteca declara dependências como _peerDependencies_ para que o projeto consumidor controle as versões principais de runtime (React, MUI e GovBR-DS). Antes de instalar/atualizar dependências, siga este fluxo:
 
-- Mantenha `package-lock.json` versionado — o CI usa `npm ci`.
-- Ao atualizar/instalar dependências localmente, atualize `package.json` e `package-lock.json` e commit ambos.
+- Mantenha `pnpm-lock.yaml` versionado — o CI usa `pnpm install --frozen-lockfile`.
+- Ao atualizar/instalar dependências localmente, atualize `package.json` e `pnpm-lock.yaml` e commit ambos.
 - Dependências recomendadas que o consumidor deve instalar:
   - `react@^19`
   - `react-dom@^19`
@@ -205,13 +214,13 @@ O projeto usa `eslint` e `prettier` para garantir a qualidade e a consistência 
 Para executar o linter manualmente, use o comando:
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 Para corrigir os erros de lint automaticamente, use o comando:
 
 ```bash
-npm run lint -- --fix
+pnpm run lint -- --fix
 ```
 
 ---
