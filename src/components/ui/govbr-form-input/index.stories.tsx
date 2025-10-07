@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import Box from '@mui/material/Box'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
@@ -31,18 +32,22 @@ const FormWrapper = (props: Partial<ComponentProps<typeof GovBRFormInput>>) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 600, padding: '2rem' }}>
-      <GovBRFormInput
-        name="nome"
-        control={control}
-        label={props.label}
-        strictgovbr={props.strictgovbr} // Passa strictgovbr diretamente
-        disabled={props.disabled} // Passa disabled diretamente
-        placeholder={props.placeholder} // Passa placeholder diretamente
-        errorMessage={errors.nome?.message}
-      />
-      <GovBRButton type="submit" style={{ marginTop: '1rem' }}>
-        Enviar
-      </GovBRButton>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <GovBRFormInput
+          name="nome"
+          control={control}
+          label={props.label}
+          strictgovbr={props.strictgovbr}
+          disabled={props.disabled}
+          placeholder={props.placeholder}
+          errorMessage={errors.nome?.message}
+        />
+        <Box>
+          <GovBRButton type="submit" size="medium">
+            Enviar
+          </GovBRButton>
+        </Box>
+      </Box>
     </form>
   )
 }
