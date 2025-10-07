@@ -214,8 +214,8 @@ export const Complete: Story = {
           <div>UX Designer</div>
         </div>
         <div className="ml-auto">
-          <button className="br-button circle" type="button" aria-label="Menu">
-            <i className="fas fa-ellipsis-v" aria-hidden="true"></i>
+          <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
+            <MoreVertIcon fontSize="small" />
           </button>
         </div>
       </div>
@@ -236,10 +236,10 @@ export const Complete: Story = {
         </div>
         <div className="ml-auto">
           <button className="br-button circle" type="button" aria-label="Favoritar">
-            <i className="fas fa-heart" aria-hidden="true"></i>
+            <FavoriteIcon fontSize="small" />
           </button>
           <button className="br-button circle" type="button" aria-label="Compartilhar">
-            <i className="fas fa-share-alt" aria-hidden="true"></i>
+            <ShareIcon fontSize="small" />
           </button>
         </div>
       </div>
