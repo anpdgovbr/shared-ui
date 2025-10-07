@@ -344,6 +344,78 @@ export const Draggable: Story = {
 }
 
 /**
+ * Card simples e completo lado a lado (exemplo oficial Gov.br DS)
+ */
+export const SimplesECompleto: Story = {
+  render: () => (
+    <div className="row">
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <GovBRCard
+          strictgovbr
+          image="https://picsum.photos/id/0/500"
+          imageAlt="Imagem de exemplo"
+        />
+      </div>
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <GovBRCard
+          strictgovbr
+          header={
+            <div className="d-flex">
+              <span className="br-avatar mt-1" title="Maria Amorim">
+                <span className="content">
+                  <img src="https://picsum.photos/id/823/400" alt="Avatar Maria Amorim" />
+                </span>
+              </span>
+              <div className="ml-3">
+                <div className="text-weight-semi-bold text-up-02">Maria Amorim</div>
+                <div>UX Designer</div>
+              </div>
+              <div className="ml-auto">
+                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
+                  <i className="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          }
+          cardContent={
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore perferendis nam
+              porro atque ex at, numquam non optio ab eveniet error vel ad exercitationem, earum et
+              fugiat recusandae harum? Assumenda.
+            </p>
+          }
+          footer={
+            <div className="d-flex">
+              <div>
+                <button className="br-button" type="button">
+                  Button
+                </button>
+              </div>
+              <div className="ml-auto">
+                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
+                  <i className="fas fa-heart" aria-hidden="true"></i>
+                </button>
+                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo 3">
+                  <i className="fas fa-share-alt" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          }
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Exemplo do Gov.br DS mostrando um card simples com imagem e um card completo com header, avatar, conteúdo e footer lado a lado.',
+      },
+    },
+  },
+}
+
+/**
  * Grid de cards - exemplo de integração
  */
 export const GridLayout: Story = {
