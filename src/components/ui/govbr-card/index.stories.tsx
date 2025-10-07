@@ -1,3 +1,6 @@
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import ShareIcon from '@mui/icons-material/Share'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
@@ -349,14 +352,14 @@ export const Draggable: Story = {
 export const SimplesECompleto: Story = {
   render: () => (
     <div className="row">
-      <div className="col-sm-6 col-md-4 col-lg-3">
+      <div className="col-sm-5 col-md-6 col-lg-3">
         <GovBRCard
           strictgovbr
           image="https://picsum.photos/id/0/500"
           imageAlt="Imagem de exemplo"
         />
       </div>
-      <div className="col-sm-6 col-md-4 col-lg-3">
+      <div className="col-sm-6 col-md-5 col-lg-3">
         <GovBRCard
           strictgovbr
           header={
@@ -372,7 +375,7 @@ export const SimplesECompleto: Story = {
               </div>
               <div className="ml-auto">
                 <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
-                  <i className="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  <MoreVertIcon fontSize="small" />
                 </button>
               </div>
             </div>
@@ -392,11 +395,11 @@ export const SimplesECompleto: Story = {
                 </button>
               </div>
               <div className="ml-auto">
-                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
-                  <i className="fas fa-heart" aria-hidden="true"></i>
+                <button className="br-button circle" type="button" aria-label="Favoritar">
+                  <FavoriteIcon fontSize="small" />
                 </button>
-                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo 3">
-                  <i className="fas fa-share-alt" aria-hidden="true"></i>
+                <button className="br-button circle" type="button" aria-label="Compartilhar">
+                  <ShareIcon fontSize="small" />
                 </button>
               </div>
             </div>
@@ -409,7 +412,7 @@ export const SimplesECompleto: Story = {
     docs: {
       description: {
         story:
-          'Exemplo do Gov.br DS mostrando um card simples com imagem e um card completo com header, avatar, conteúdo e footer lado a lado.',
+          'Exemplo oficial do Gov.br DS mostrando um card simples com imagem e um card completo com header, avatar, conteúdo e footer lado a lado. Usa ícones do Material-UI.',
       },
     },
   },
