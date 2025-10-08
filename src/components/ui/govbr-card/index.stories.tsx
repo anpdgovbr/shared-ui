@@ -5,6 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ShareIcon from '@mui/icons-material/Share'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
+import React from 'react'
 
 import { GovBRButton } from '../govbr-button'
 import { GovBRCard } from './index'
@@ -16,7 +17,12 @@ const meta: Meta<typeof GovBRCard> = {
   decorators: [
     (Story) => (
       <GovBRThemeProvider>
-        <div style={{ padding: '2rem', backgroundColor: '#f6f6f6' }}>
+        <div
+          style={{
+            padding: '2rem',
+            backgroundColor: '#f6f6f6',
+          }}
+        >
           <Story />
         </div>
       </GovBRThemeProvider>
@@ -529,74 +535,117 @@ export const GridLayout: Story = {
  * Card com expansão/colapso - baseado no exemplo oficial do Gov.br DS
  */
 export const WithCollapse: Story = {
-  args: {
-    strictgovbr: true,
-    header: (
-      <div className="d-flex">
-        <span className="br-avatar" title="Fulano da Silva">
-          <span className="content bg-orange-vivid-30 text-pure-0">F</span>
-        </span>
-        <div className="ml-3">
-          <div className="text-weight-semi-bold text-up-02">Fulano da Silva</div>
-          <div>Interlocutor</div>
-        </div>
-        <div className="ml-auto">
-          <GovBRButton strictgovbr circle size="small" className="default" aria-label="Mais opções">
-            <MoreVertIcon fontSize="small" />
-          </GovBRButton>
-        </div>
-      </div>
-    ),
-    cardContent: (
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in ipsum eu odio
-        consequat congue vitae vel lorem. Sed vulputate mi quis euismod venenatis.
-      </p>
-    ),
-    footer: (
-      <>
-        <div className="d-flex">
-          <div className="ml-auto">
-            <GovBRButton
-              strictgovbr
-              circle
-              size="small"
-              className="default"
-              data-toggle="collapse"
-              data-target="card-random"
-              aria-controls="card-random"
-              aria-label="Expandir"
-            >
-              <ExpandMoreIcon fontSize="small" />
-            </GovBRButton>
+  render: () => {
+    const [isExpanded, setIsExpanded] = React.useState(false)
+
+    const handleToggle = () => {
+      setIsExpanded(!isExpanded)
+    }
+
+    return (
+      <GovBRCard
+        strictgovbr
+        header={
+          <div className="d-flex">
+            <span className="br-avatar mt-1" title="Maria Amorim">
+              <span className="content">
+                <img src="https://picsum.photos/id/823/400" alt="Avatar Maria Amorim" />
+              </span>
+            </span>
+            <div className="ml-3">
+              <div className="text-weight-semi-bold text-up-02">Maria Amorim</div>
+              <div>UX Designer</div>
+            </div>
+            <div className="ml-auto">
+              <GovBRButton
+                strictgovbr
+                circle
+                size="small"
+                className="default"
+                aria-label="Mais opções"
+              >
+                <MoreVertIcon fontSize="small" />
+              </GovBRButton>
+            </div>
           </div>
-        </div>
-        <div id="card-random" hidden>
-          <div className="br-list">
-            <button className="br-item" type="button">
-              <FavoriteBorderIcon fontSize="small" />
-              Curtir
-            </button>
-            <span className="br-divider"></span>
-            <button className="br-item" type="button">
-              <ShareIcon fontSize="small" />
-              Compartilhar
-            </button>
-            <span className="br-divider"></span>
-            <button className="br-item" type="button">
-              <FavoriteIcon fontSize="small" />
-              Salvar
-            </button>
-          </div>
-        </div>
-      </>
-    ),
+        }
+        cardContent={
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit dolor exercitationem
+            asperiores voluptates tenetur consectetur error vero ut expedita, sapiente voluptate
+            nulla esse! Veritatis aliquam consectetur quod harum expedita!
+          </p>
+        }
+        footer={
+          <>
+            <div className="text-right">
+              <button
+                className="br-button circle"
+                type="button"
+                aria-label="Botão para expandir ou recolher conteúdos adicionais"
+                aria-expanded={isExpanded}
+                onClick={handleToggle}
+              >
+                {isExpanded ? (
+                  <ExpandMoreIcon fontSize="small" style={{ transform: 'rotate(180deg)' }} />
+                ) : (
+                  <ExpandMoreIcon fontSize="small" />
+                )}
+              </button>
+            </div>
+            {isExpanded && (
+              <div id="card-expanded">
+                <div className="br-list mt-3">
+                  <div className="br-item">
+                    <div className="row">
+                      <div className="col-auto">
+                        <FavoriteBorderIcon fontSize="small" aria-hidden="true" />
+                      </div>
+                      <div className="col">
+                        <p className="m-0">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="br-divider"></span>
+                  <div className="br-item">
+                    <div className="row">
+                      <div className="col-auto">
+                        <FavoriteBorderIcon fontSize="small" aria-hidden="true" />
+                      </div>
+                      <div className="col">
+                        <p className="m-0">
+                          Nesciunt, laudantium ea officiis hic tempora velit aperiam nemo accusamus
+                          nisi, eligendi ducimus! Incidunt ullam minima ratione amet sequi.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="br-divider"></span>
+                  <div className="br-item">
+                    <div className="row">
+                      <div className="col-auto">
+                        <FavoriteBorderIcon fontSize="small" aria-hidden="true" />
+                      </div>
+                      <div className="col">
+                        <p className="m-0">Voluptates, iste recusandae.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        }
+      />
+    )
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Card com funcionalidade de expansão/colapso no footer. Utiliza `data-toggle="collapse"` e `data-target` para controlar a visibilidade de conteúdo adicional com uma lista de ações (br-list). Os botões circulares usam o componente GovBRButton com as props `strictgovbr`, `circle` e `size="small"`.',
+          'Card com funcionalidade de expansão/colapso no footer implementada com React state. O botão circular no canto inferior direito expande/colapsa uma lista de itens. A seta gira 180° quando expandido. Esta implementação usa `useState` do React para gerenciar o estado de visibilidade, permitindo funcionar em ambientes onde o JavaScript do Gov.br DS não está disponível (como Storybook).',
       },
     },
   },
