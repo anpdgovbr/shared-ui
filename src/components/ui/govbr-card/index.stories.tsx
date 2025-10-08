@@ -1,9 +1,12 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ShareIcon from '@mui/icons-material/Share'
 import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 
+import { GovBRButton } from '../govbr-button'
 import { GovBRCard } from './index'
 
 const meta: Meta<typeof GovBRCard> = {
@@ -183,6 +186,14 @@ export const Default: Story = {
       </div>
     ),
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card básico com conteúdo simples. Demonstra o uso mínimo do componente sem header ou footer.',
+      },
+    },
+  },
 }
 
 /**
@@ -193,6 +204,14 @@ export const ImageOnly: Story = {
     strictgovbr: true,
     image: 'https://picsum.photos/id/0/500',
     imageAlt: 'Imagem de exemplo',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card contendo apenas uma imagem. Útil para galerias de fotos ou displays visuais minimalistas.',
+      },
+    },
   },
 }
 
@@ -206,7 +225,7 @@ export const Complete: Story = {
       <div className="d-flex">
         <span className="br-avatar mt-1" title="Maria Amorim">
           <span className="content">
-            <img src="https://picsum.photos/id/823/400" alt="Avatar" />
+            <img src="https://picsum.photos/id/823/400" alt="Avatar Maria Amorim" />
           </span>
         </span>
         <div className="ml-3">
@@ -214,9 +233,9 @@ export const Complete: Story = {
           <div>UX Designer</div>
         </div>
         <div className="ml-auto">
-          <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
+          <GovBRButton strictgovbr circle size="small" className="default" aria-label="Mais opções">
             <MoreVertIcon fontSize="small" />
-          </button>
+          </GovBRButton>
         </div>
       </div>
     ),
@@ -230,20 +249,32 @@ export const Complete: Story = {
     footer: (
       <div className="d-flex">
         <div>
-          <button className="br-button" type="button">
-            Button
-          </button>
+          <GovBRButton strictgovbr>Button</GovBRButton>
         </div>
         <div className="ml-auto">
-          <button className="br-button circle" type="button" aria-label="Favoritar">
+          <GovBRButton strictgovbr circle size="small" className="default" aria-label="Favoritar">
             <FavoriteIcon fontSize="small" />
-          </button>
-          <button className="br-button circle" type="button" aria-label="Compartilhar">
+          </GovBRButton>
+          <GovBRButton
+            strictgovbr
+            circle
+            size="small"
+            className="default"
+            aria-label="Compartilhar"
+          >
             <ShareIcon fontSize="small" />
-          </button>
+          </GovBRButton>
         </div>
       </div>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card completo demonstrando todas as seções (header com avatar, conteúdo e footer com ações). Usa componentes GovBRButton para interatividade.',
+      },
+    },
   },
 }
 
@@ -275,6 +306,14 @@ export const FixedHeight: Story = {
       </div>
     ),
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com altura fixa e scroll automático. Útil quando o conteúdo pode variar mas o card precisa manter altura consistente. A área de conteúdo recebe `tabindex="0"` para acessibilidade ao scroll via teclado.',
+      },
+    },
+  },
 }
 
 /**
@@ -291,6 +330,14 @@ export const WithHover: Story = {
       </div>
     ),
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com efeito visual ao passar o mouse. Útil para indicar que o card é clicável ou interativo.',
+      },
+    },
+  },
 }
 
 /**
@@ -302,11 +349,15 @@ export const Inverted: Story = {
     inverted: true,
     header: <h3>Card Invertido</h3>,
     cardContent: <p>Este card usa o modo escuro do Gov.br Design System.</p>,
-    footer: (
-      <button className="br-button" type="button">
-        Ação
-      </button>
-    ),
+    footer: <GovBRButton strictgovbr>Ação</GovBRButton>,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com aparência invertida (modo escuro). Útil para criar contraste visual ou destacar conteúdo específico.',
+      },
+    },
   },
 }
 
@@ -321,11 +372,17 @@ export const Disabled: Story = {
     cardContent: (
       <div>
         <p>Este card está desabilitado. Todos os elementos interativos são bloqueados.</p>
-        <button className="br-button" type="button">
-          Botão Desabilitado
-        </button>
+        <GovBRButton strictgovbr>Botão Desabilitado</GovBRButton>
       </div>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card no estado desabilitado. Bloqueia todas as interações e aplica opacidade reduzida. Elementos interativos recebem atributo `disabled` automaticamente.',
+      },
+    },
   },
 }
 
@@ -343,6 +400,14 @@ export const Draggable: Story = {
         <p>Você pode arrastar este card. Útil para interfaces de reorganização.</p>
       </div>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com funcionalidade de drag and drop habilitada. Permite arrastar e reorganizar cards em interfaces dinâmicas.',
+      },
+    },
   },
 }
 
@@ -374,9 +439,15 @@ export const SimplesECompleto: Story = {
                 <div>UX Designer</div>
               </div>
               <div className="ml-auto">
-                <button className="br-button circle" type="button" aria-label="Ícone ilustrativo">
+                <GovBRButton
+                  strictgovbr
+                  circle
+                  size="small"
+                  className="default"
+                  aria-label="Mais opções"
+                >
                   <MoreVertIcon fontSize="small" />
-                </button>
+                </GovBRButton>
               </div>
             </div>
           }
@@ -390,17 +461,27 @@ export const SimplesECompleto: Story = {
           footer={
             <div className="d-flex">
               <div>
-                <button className="br-button" type="button">
-                  Button
-                </button>
+                <GovBRButton strictgovbr>Button</GovBRButton>
               </div>
               <div className="ml-auto">
-                <button className="br-button circle" type="button" aria-label="Favoritar">
+                <GovBRButton
+                  strictgovbr
+                  circle
+                  size="small"
+                  className="default"
+                  aria-label="Favoritar"
+                >
                   <FavoriteIcon fontSize="small" />
-                </button>
-                <button className="br-button circle" type="button" aria-label="Compartilhar">
+                </GovBRButton>
+                <GovBRButton
+                  strictgovbr
+                  circle
+                  size="small"
+                  className="default"
+                  aria-label="Compartilhar"
+                >
                   <ShareIcon fontSize="small" />
-                </button>
+                </GovBRButton>
               </div>
             </div>
           }
@@ -412,7 +493,7 @@ export const SimplesECompleto: Story = {
     docs: {
       description: {
         story:
-          'Exemplo oficial do Gov.br DS mostrando um card simples com imagem e um card completo com header, avatar, conteúdo e footer lado a lado. Usa ícones do Material-UI.',
+          'Exemplo oficial do Gov.br DS mostrando um card simples com imagem e um card completo com header, avatar, conteúdo e footer lado a lado. Demonstra layout responsivo usando o sistema de grid (col-sm, col-md, col-lg) e componentes GovBRButton para ações interativas.',
       },
     },
   },
@@ -439,6 +520,83 @@ export const GridLayout: Story = {
     docs: {
       description: {
         story: 'Exemplo de grid com múltiplos cards usando o sistema de grid do Gov.br DS.',
+      },
+    },
+  },
+}
+
+/**
+ * Card com expansão/colapso - baseado no exemplo oficial do Gov.br DS
+ */
+export const WithCollapse: Story = {
+  args: {
+    strictgovbr: true,
+    header: (
+      <div className="d-flex">
+        <span className="br-avatar" title="Fulano da Silva">
+          <span className="content bg-orange-vivid-30 text-pure-0">F</span>
+        </span>
+        <div className="ml-3">
+          <div className="text-weight-semi-bold text-up-02">Fulano da Silva</div>
+          <div>Interlocutor</div>
+        </div>
+        <div className="ml-auto">
+          <GovBRButton strictgovbr circle size="small" className="default" aria-label="Mais opções">
+            <MoreVertIcon fontSize="small" />
+          </GovBRButton>
+        </div>
+      </div>
+    ),
+    cardContent: (
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in ipsum eu odio
+        consequat congue vitae vel lorem. Sed vulputate mi quis euismod venenatis.
+      </p>
+    ),
+    footer: (
+      <>
+        <div className="d-flex">
+          <div className="ml-auto">
+            <GovBRButton
+              strictgovbr
+              circle
+              size="small"
+              className="default"
+              data-toggle="collapse"
+              data-target="card-random"
+              aria-controls="card-random"
+              aria-label="Expandir"
+            >
+              <ExpandMoreIcon fontSize="small" />
+            </GovBRButton>
+          </div>
+        </div>
+        <div id="card-random" hidden>
+          <div className="br-list">
+            <button className="br-item" type="button">
+              <FavoriteBorderIcon fontSize="small" />
+              Curtir
+            </button>
+            <span className="br-divider"></span>
+            <button className="br-item" type="button">
+              <ShareIcon fontSize="small" />
+              Compartilhar
+            </button>
+            <span className="br-divider"></span>
+            <button className="br-item" type="button">
+              <FavoriteIcon fontSize="small" />
+              Salvar
+            </button>
+          </div>
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com funcionalidade de expansão/colapso no footer. Utiliza `data-toggle="collapse"` e `data-target` para controlar a visibilidade de conteúdo adicional com uma lista de ações (br-list). Os botões circulares usam o componente GovBRButton com as props `strictgovbr`, `circle` e `size="small"`.',
       },
     },
   },
