@@ -352,14 +352,14 @@ export const Draggable: Story = {
 export const SimplesECompleto: Story = {
   render: () => (
     <div className="row">
-      <div className="col-sm-5 col-md-6 col-lg-3">
+      <div className="col-sm-5 col-md-6 col-lg-4">
         <GovBRCard
           strictgovbr
           image="https://picsum.photos/id/0/500"
           imageAlt="Imagem de exemplo"
         />
       </div>
-      <div className="col-sm-6 col-md-5 col-lg-3">
+      <div className="col-sm-6 col-md-6 col-lg-5">
         <GovBRCard
           strictgovbr
           header={
