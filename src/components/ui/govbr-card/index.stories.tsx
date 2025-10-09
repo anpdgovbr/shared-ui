@@ -90,6 +90,14 @@ const meta: Meta<typeof GovBRCard> = {
         defaultValue: { summary: '250px' },
       },
     },
+    maxWidth: {
+      control: 'text',
+      description: 'Largura máxima do card (ex: 400px, 30rem, 100%)',
+      table: {
+        category: 'Aparência',
+        defaultValue: { summary: 'undefined' },
+      },
+    },
     hover: {
       control: 'boolean',
       description: 'Habilita efeito hover',
@@ -317,6 +325,33 @@ export const FixedHeight: Story = {
       description: {
         story:
           'Card com altura fixa e scroll automático. Útil quando o conteúdo pode variar mas o card precisa manter altura consistente. A área de conteúdo recebe `tabindex="0"` para acessibilidade ao scroll via teclado.',
+      },
+    },
+  },
+}
+
+/**
+ * Card com largura máxima definida
+ */
+export const WithMaxWidth: Story = {
+  args: {
+    strictgovbr: true,
+    maxWidth: '400px',
+    header: 'Card com Largura Máxima',
+    cardContent: (
+      <p>
+        Este card tem uma largura máxima de 400px definida através da prop <code>maxWidth</code>.
+        Experimente alterar o valor no painel de controles para testar diferentes larguras (ex:
+        30rem, 100%, 500px).
+      </p>
+    ),
+    footer: <GovBRButton strictgovbr>Ver mais</GovBRButton>,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Card com largura máxima controlada pela prop `maxWidth`. Aceita valores em px, rem, % ou outras unidades CSS. Útil para limitar a largura do card em layouts fluidos.',
       },
     },
   },

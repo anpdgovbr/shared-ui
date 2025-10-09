@@ -40,6 +40,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   inverted = false,
   draggable = false,
   disabled = false,
+  maxWidth,
   id,
   style,
   ...props
@@ -58,6 +59,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
     // Configurar altura customizada quando fixedHeight está ativo
     const cardStyle = {
       ...style,
+      ...(maxWidth && { maxWidth }),
       ...(fixedHeight &&
         customHeight !== '250px' &&
         ({

@@ -70,6 +70,12 @@ export interface GovBRCardProps extends Omit<CardProps, 'content'>, SharedUIComp
   disabled?: boolean
 
   /**
+   * Largura máxima do card
+   * @example '400px', '100%', '30rem'
+   */
+  maxWidth?: string | number
+
+  /**
    * ID do card para drag and drop
    */
   id?: string
