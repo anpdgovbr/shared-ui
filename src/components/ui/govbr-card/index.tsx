@@ -1,28 +1,56 @@
 'use client'
 
+import MuiCard from '@mui/material/Card'
+import MuiCardActions from '@mui/material/CardActions'
+import MuiCardContent from '@mui/material/CardContent'
+import MuiCardHeader from '@mui/material/CardHeader'
+import MuiCardMedia from '@mui/material/CardMedia'
+import MuiCollapse from '@mui/material/Collapse'
 import classnames from 'classnames'
 import React, { useEffect, useRef } from 'react'
 
 import type { GovBRCardProps } from './types'
 
 /**
- * Componente GovBRCard
+ * Componente GovBRCard - Arquitetura Híbrida
  *
- * Card seguindo padrões do Gov.br Design System
+ * Card que suporta dois modos de renderização:
+ *
+ * **Modo Padrão (strictgovbr=false)**: Componente MUI estilizado automaticamente
+ * pelo govbrTheme.ts usando tokens CSS do Gov.br Design System
+ *
+ * **Modo Estrito (strictgovbr=true)**: HTML puro com classes CSS oficiais
+ * do Gov.br Design System para máxima fidelidade
  *
  * @example
- * // Modo Estrito (HTML puro com classes Gov.br DS)
- * <GovBRCard strictgovbr>
- *   <div>Conteúdo do card</div>
- * </GovBRCard>
+ * // Modo Padrão - MUI com tema Gov.br
+ * <GovBRCard
+ *   header="Título"
+ *   cardContent={<p>Conteúdo</p>}
+ *   footer={<button>Ação</button>}
+ * />
  *
  * @example
- * // Card com header, content e footer
+ * // Modo Estrito - HTML puro Gov.br DS
  * <GovBRCard
  *   strictgovbr
  *   header={<div>Cabeçalho</div>}
  *   cardContent={<p>Conteúdo principal</p>}
  *   footer={<div>Rodapé</div>}
+ * />
+ *
+ * @example
+ * // Card com todas as funcionalidades
+ * <GovBRCard
+ *   image="https://example.com/image.jpg"
+ *   imageAlt="Descrição"
+ *   header="Título do Card"
+ *   cardContent={<p>Conteúdo rico</p>}
+ *   footer={<button>Saiba mais</button>}
+ *   fixedHeight
+ *   customHeight="300px"
+ *   hover
+ *   maxWidth="400px"
  * />
  */
 export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
@@ -30,10 +58,21 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   className,
   children,
   header,
+  title,
+  subheader,
+  avatar,
+  action,
+  headerProps,
   cardContent,
   footer,
+  footerProps,
+  expandableContent,
+  expanded: controlledExpanded,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onExpandChange, // Callback público para controle externo do estado de expansão
   image,
   imageAlt = 'Imagem do card',
+  imageHeight = 194,
   fixedHeight = false,
   customHeight = '250px',
   hover = false,
@@ -45,6 +84,10 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null)
+
+  // Determina se está controlado externamente ou usa estado interno
+  const isControlled = controlledExpanded !== undefined
+  const isExpanded = isControlled ? controlledExpanded : false
 
   // Modo Estrito: HTML puro com classes Gov.br DS
   if (strictgovbr) {
@@ -149,12 +192,72 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
     )
   }
 
-  // Modo Padrão: MUI (será implementado posteriormente)
+  // Modo Padrão: MUI estilizado pelo govbrTheme.ts
+  const cardStyle = {
+    ...style,
+    ...(maxWidth && { maxWidth }),
+    ...(fixedHeight && {
+      '& .MuiCardContent-root': {
+        maxHeight: customHeight,
+        overflowY: 'auto',
+      },
+    }),
+    ...(hover && {
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+      },
+    }),
+    ...(disabled && {
+      opacity: 0.6,
+      pointerEvents: 'none',
+    }),
+  }
+
+  // Determina se deve renderizar o CardHeader
+  const shouldRenderCardHeader = title || subheader || avatar || action || header
+
   return (
-    <div className={className} {...(props as React.HTMLAttributes<HTMLDivElement>)}>
-      <p>Modo padrão MUI será implementado em breve</p>
-      {children}
-    </div>
+    <MuiCard className={className} sx={cardStyle} id={id} {...props}>
+      {/* Imagem do card */}
+      {image && (
+        <MuiCardMedia
+          component="img"
+          image={image}
+          alt={imageAlt}
+          sx={{
+            height: imageHeight,
+            objectFit: 'cover',
+          }}
+        />
+      )}
+
+      {/* Header do card */}
+      {shouldRenderCardHeader && (
+        <MuiCardHeader
+          avatar={avatar}
+          action={action}
+          title={title || header}
+          subheader={subheader}
+          {...headerProps}
+        />
+      )}
+
+      {/* Conteúdo do card */}
+      {(cardContent || (!shouldRenderCardHeader && !footer && !image && children)) && (
+        <MuiCardContent>{cardContent || children}</MuiCardContent>
+      )}
+
+      {/* Footer do card */}
+      {footer && <MuiCardActions {...footerProps}>{footer}</MuiCardActions>}
+
+      {/* Conteúdo expansível */}
+      {expandableContent && (
+        <MuiCollapse in={isExpanded} timeout="auto" unmountOnExit>
+          <MuiCardContent>{expandableContent}</MuiCardContent>
+        </MuiCollapse>
+      )}
+    </MuiCard>
   )
 }
 

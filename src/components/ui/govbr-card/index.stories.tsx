@@ -666,3 +666,350 @@ export const WithCollapse: Story = {
     },
   },
 }
+
+/**
+ * ========================================
+ * MODO PADRÃO (MUI) - strictgovbr=false
+ * ========================================
+ */
+
+/**
+ * Card MUI básico
+ */
+export const MUIDefault: Story = {
+  args: {
+    strictgovbr: false,
+    children: (
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua.
+      </p>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card básico usando componentes Material-UI estilizados com o govbrTheme. A estilização é controlada automaticamente pelo tema.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI com imagem
+ */
+export const MUIImageOnly: Story = {
+  args: {
+    strictgovbr: false,
+    image: 'https://picsum.photos/id/0/500',
+    imageAlt: 'Imagem de exemplo',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card contendo apenas uma imagem usando MuiCardMedia. A imagem é responsiva e ocupa toda a largura do card.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI completo
+ */
+export const MUIComplete: Story = {
+  args: {
+    strictgovbr: false,
+    header: 'Título do Card',
+    cardContent: (
+      <div>
+        <p>
+          Este é um card completo no modo padrão MUI. A estilização é aplicada automaticamente
+          através do govbrTheme.ts.
+        </p>
+        <p>Todos os tokens CSS do Gov.br DS são aplicados via styleOverrides do tema.</p>
+      </div>
+    ),
+    footer: (
+      <>
+        <GovBRButton variant="contained" color="primary">
+          Ação Principal
+        </GovBRButton>
+        <GovBRButton variant="outlined" color="secondary">
+          Ação Secundária
+        </GovBRButton>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card completo com header, conteúdo e footer. Usa MuiCardHeader, MuiCardContent e MuiCardActions estilizados pelo tema.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI com altura fixa
+ */
+export const MUIFixedHeight: Story = {
+  args: {
+    strictgovbr: false,
+    fixedHeight: true,
+    customHeight: '200px',
+    header: 'Card com Scroll',
+    cardContent: (
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua.
+        </p>
+        <p>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat.
+        </p>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur.
+        </p>
+        <p>
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+          anim id est laborum.
+        </p>
+      </div>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card com altura fixa e scroll automático. A prop `fixedHeight` adiciona `maxHeight` e `overflowY: auto` no CardContent.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI com largura máxima
+ */
+export const MUIWithMaxWidth: Story = {
+  args: {
+    strictgovbr: false,
+    maxWidth: '400px',
+    header: 'Card com Largura Limitada',
+    cardContent: (
+      <p>Este card tem largura máxima de 400px. Útil para controlar o layout em telas grandes.</p>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card com largura máxima definida. A prop `maxWidth` é aplicada diretamente no MuiCard via sx.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI com hover
+ */
+export const MUIWithHover: Story = {
+  args: {
+    strictgovbr: false,
+    hover: true,
+    cardContent: (
+      <div>
+        <h3>Card Interativo</h3>
+        <p>Passe o mouse sobre este card para ver o efeito de elevação.</p>
+      </div>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card com efeito hover. Adiciona transform e box-shadow no hover para feedback visual.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI desabilitado
+ */
+export const MUIDisabled: Story = {
+  args: {
+    strictgovbr: false,
+    disabled: true,
+    header: 'Card Desabilitado',
+    cardContent: (
+      <div>
+        <p>Este card está desabilitado com opacidade reduzida e pointer-events bloqueados.</p>
+        <GovBRButton variant="contained">Botão Inativo</GovBRButton>
+      </div>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card desabilitado. Aplica `opacity: 0.6` e `pointerEvents: none` via sx.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI com imagem e conteúdo completo
+ */
+export const MUIWithImageAndContent: Story = {
+  args: {
+    strictgovbr: false,
+    image: 'https://picsum.photos/id/10/500/200',
+    imageAlt: 'Paisagem com montanhas',
+    header: 'Destino Turístico',
+    cardContent: (
+      <div>
+        <p>Explore paisagens deslumbrantes e experimente a natureza em seu estado mais puro.</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--gray-70, #666)' }}>
+          Última atualização: Janeiro 2025
+        </p>
+      </div>
+    ),
+    footer: (
+      <>
+        <GovBRButton variant="contained" color="primary">
+          Saiba Mais
+        </GovBRButton>
+        <GovBRButton variant="text">Compartilhar</GovBRButton>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**Modo Padrão (MUI)**: Card completo com todos os elementos: imagem, header, conteúdo e ações. Demonstra a composição completa do componente MUI.',
+      },
+    },
+  },
+}
+
+/**
+ * Card MUI avançado com Avatar, Actions e Collapse
+ */
+export const MUIAdvanced: Story = {
+  render: () => {
+    const [expanded, setExpanded] = React.useState(false)
+
+    return (
+      <GovBRCard
+        strictgovbr={false}
+        maxWidth={400}
+        image="https://picsum.photos/id/292/500/200"
+        imageAlt="Paella dish"
+        avatar={
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              backgroundColor: 'var(--red-vivid-50, #e52207)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
+            }}
+          >
+            R
+          </div>
+        }
+        action={
+          <GovBRButton variant="text" size="small">
+            •••
+          </GovBRButton>
+        }
+        title="Camarão e Chorizo Paella"
+        subheader="14 de setembro, 2016"
+        cardContent={
+          <p>
+            Esta impressionante paella é um prato perfeito para festas e uma refeição divertida para
+            cozinhar junto com seus convidados. Adicione 1 xícara de ervilhas congeladas junto com
+            os mexilhões, se desejar.
+          </p>
+        }
+        footer={
+          <>
+            <GovBRButton variant="text" size="small">
+              ❤️ Favoritar
+            </GovBRButton>
+            <GovBRButton variant="text" size="small">
+              📤 Compartilhar
+            </GovBRButton>
+            <GovBRButton
+              variant="text"
+              size="small"
+              onClick={() => setExpanded(!expanded)}
+              sx={{ marginLeft: 'auto' }}
+            >
+              {expanded ? '▲ Ocultar' : '▼ Mostrar Mais'}
+            </GovBRButton>
+          </>
+        }
+        footerProps={{ disableSpacing: true }}
+        expandableContent={
+          <div>
+            <h4 style={{ marginBottom: '1rem' }}>Modo de Preparo:</h4>
+
+            <p style={{ marginBottom: '1rem' }}>
+              Aqueça 1/2 xícara do caldo em uma panela até ferver, adicione açafrão e reserve por 10
+              minutos.
+            </p>
+
+            <p style={{ marginBottom: '1rem' }}>
+              Aqueça o óleo em uma paellera (14 a 16 polegadas) ou uma frigideira grande e funda em
+              fogo médio-alto. Adicione o frango, camarão e chorizo, mexendo ocasionalmente até
+              dourar levemente, 6 a 8 minutos.
+            </p>
+
+            <p style={{ marginBottom: '1rem' }}>
+              Adicione o arroz e mexa muito suavemente para distribuir. Cubra com alcachofras e
+              pimentões, e cozinhe sem mexer, até a maior parte do líquido ser absorvida, 15 a 18
+              minutos.
+            </p>
+
+            <p>Deixe descansar fora do fogo por 10 minutos e então sirva. Bom apetite!</p>
+          </div>
+        }
+        expanded={expanded}
+        onExpandChange={setExpanded}
+      />
+    )
+  },
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `
+**Modo Padrão (MUI) - Card Avançado**: Demonstração completa de todas as funcionalidades:
+
+- ✅ **Avatar customizado** no header
+- ✅ **Action button** (menu) no header  
+- ✅ **Title e Subheader** separados
+- ✅ **Imagem** com altura customizada
+- ✅ **CardContent** principal
+- ✅ **CardActions** com múltiplos botões
+- ✅ **Collapse expansível** com conteúdo adicional
+- ✅ **Controle de expansão** via estado React
+
+Este exemplo é inspirado no card de receita do Material-UI, adaptado para o tema Gov.br DS.
+        `,
+      },
+    },
+  },
+}
