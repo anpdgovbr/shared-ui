@@ -50,9 +50,15 @@ export const MuiCardOverrides: Components['MuiCard'] = {
 export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
   styleOverrides: {
     root: {
-      padding: 'var(--spacing-scale-3x, 3rem) var(--spacing-scale-3x, 3rem) 0', // 24px 24px 0
-      borderBottom: '1px solid var(--gray-20, #cccccc)',
-      marginBottom: 'var(--spacing-scale-2x, 2rem)', // 16px
+      padding:
+        'var(--spacing-scale-2x, 2rem) var(--spacing-scale-2x, 2rem) var(--spacing-scale-2x, 2rem)', // 16px em todos os lados
+      borderBottom: 'none', // Remove a linha inferior
+      marginBottom: 0, // Remove espaçamento inferior
+
+      // Remove espaçamento do subheader globalmente
+      '& .MuiCardHeader-subheader': {
+        marginTop: 0,
+      },
     },
 
     title: {
@@ -61,6 +67,7 @@ export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
       color: 'var(--color, #333333)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
+      marginBottom: 0, // Remove espaçamento inferior do título
     },
 
     subheader: {
@@ -68,7 +75,8 @@ export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
       fontWeight: 'var(--font-weight-regular, 400)', // 400
       color: 'var(--gray-70, #666666)',
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
-      marginTop: 'var(--spacing-scale-half, 0.5rem)', // 4px
+      marginTop: 0,
+      marginBottom: 0,
     },
 
     avatar: {
@@ -108,7 +116,7 @@ export const MuiCardActionsOverrides: Components['MuiCardActions'] = {
   styleOverrides: {
     root: {
       padding: '0 var(--spacing-scale-3x, 3rem) var(--spacing-scale-3x, 3rem)', // 0 24px 24px
-      borderTop: '1px solid var(--gray-20, #cccccc)',
+      borderTop: 'none', // Remove a linha superior
       marginTop: 'var(--spacing-scale-2x, 2rem)', // 16px
       gap: 'var(--spacing-scale-base, 1rem)', // 8px entre ações
 

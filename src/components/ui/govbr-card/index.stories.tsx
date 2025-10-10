@@ -912,6 +912,7 @@ export const MUIAdvanced: Story = {
         maxWidth={400}
         image="https://picsum.photos/id/292/500/200"
         imageAlt="Paella dish"
+        imageHeight={200}
         avatar={
           <div
             style={{
@@ -924,20 +925,21 @@ export const MUIAdvanced: Story = {
               justifyContent: 'center',
               color: 'white',
               fontWeight: 'bold',
+              fontSize: '1.25rem',
             }}
           >
             R
           </div>
         }
         action={
-          <GovBRButton variant="text" size="small">
-            •••
+          <GovBRButton variant="text" size="small" aria-label="Mais opções">
+            <MoreVertIcon fontSize="small" />
           </GovBRButton>
         }
         title="Camarão e Chorizo Paella"
         subheader="14 de setembro, 2016"
         cardContent={
-          <p>
+          <p style={{ margin: 0, color: 'var(--gray-80, #555)' }}>
             Esta impressionante paella é um prato perfeito para festas e uma refeição divertida para
             cozinhar junto com seus convidados. Adicione 1 xícara de ervilhas congeladas junto com
             os mexilhões, se desejar.
@@ -945,45 +947,57 @@ export const MUIAdvanced: Story = {
         }
         footer={
           <>
-            <GovBRButton variant="text" size="small">
-              ❤️ Favoritar
+            <GovBRButton variant="text" size="small" aria-label="Favoritar">
+              <FavoriteIcon fontSize="small" />
             </GovBRButton>
-            <GovBRButton variant="text" size="small">
-              📤 Compartilhar
+            <GovBRButton variant="text" size="small" aria-label="Compartilhar">
+              <ShareIcon fontSize="small" />
             </GovBRButton>
             <GovBRButton
               variant="text"
               size="small"
               onClick={() => setExpanded(!expanded)}
+              aria-label={expanded ? 'Ocultar detalhes' : 'Mostrar mais detalhes'}
+              aria-expanded={expanded}
               sx={{ marginLeft: 'auto' }}
             >
-              {expanded ? '▲ Ocultar' : '▼ Mostrar Mais'}
+              <ExpandMoreIcon
+                fontSize="small"
+                sx={{
+                  transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease',
+                }}
+              />
             </GovBRButton>
           </>
         }
         footerProps={{ disableSpacing: true }}
         expandableContent={
           <div>
-            <h4 style={{ marginBottom: '1rem' }}>Modo de Preparo:</h4>
+            <h4 style={{ marginTop: 0, marginBottom: '1rem', color: 'var(--color, #333)' }}>
+              Modo de Preparo:
+            </h4>
 
-            <p style={{ marginBottom: '1rem' }}>
+            <p style={{ marginBottom: '1rem', color: 'var(--gray-80, #555)' }}>
               Aqueça 1/2 xícara do caldo em uma panela até ferver, adicione açafrão e reserve por 10
               minutos.
             </p>
 
-            <p style={{ marginBottom: '1rem' }}>
+            <p style={{ marginBottom: '1rem', color: 'var(--gray-80, #555)' }}>
               Aqueça o óleo em uma paellera (14 a 16 polegadas) ou uma frigideira grande e funda em
               fogo médio-alto. Adicione o frango, camarão e chorizo, mexendo ocasionalmente até
               dourar levemente, 6 a 8 minutos.
             </p>
 
-            <p style={{ marginBottom: '1rem' }}>
+            <p style={{ marginBottom: '1rem', color: 'var(--gray-80, #555)' }}>
               Adicione o arroz e mexa muito suavemente para distribuir. Cubra com alcachofras e
               pimentões, e cozinhe sem mexer, até a maior parte do líquido ser absorvida, 15 a 18
               minutos.
             </p>
 
-            <p>Deixe descansar fora do fogo por 10 minutos e então sirva. Bom apetite!</p>
+            <p style={{ margin: 0, color: 'var(--gray-80, #555)' }}>
+              Deixe descansar fora do fogo por 10 minutos e então sirva. Bom apetite!
+            </p>
           </div>
         }
         expanded={expanded}
@@ -997,15 +1011,6 @@ export const MUIAdvanced: Story = {
       description: {
         story: `
 **Modo Padrão (MUI) - Card Avançado**: Demonstração completa de todas as funcionalidades:
-
-- ✅ **Avatar customizado** no header
-- ✅ **Action button** (menu) no header  
-- ✅ **Title e Subheader** separados
-- ✅ **Imagem** com altura customizada
-- ✅ **CardContent** principal
-- ✅ **CardActions** com múltiplos botões
-- ✅ **Collapse expansível** com conteúdo adicional
-- ✅ **Controle de expansão** via estado React
 
 Este exemplo é inspirado no card de receita do Material-UI, adaptado para o tema Gov.br DS.
         `,
