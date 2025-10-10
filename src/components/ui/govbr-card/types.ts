@@ -52,12 +52,6 @@ export interface GovBRCardProps extends Omit<CardProps, 'content'>, SharedUIComp
   hover?: boolean
 
   /**
-   * Modo invertido/escuro
-   * @default false
-   */
-  inverted?: boolean
-
-  /**
    * Habilita drag and drop
    * @default false
    */

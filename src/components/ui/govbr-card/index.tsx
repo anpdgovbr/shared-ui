@@ -37,7 +37,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   fixedHeight = false,
   customHeight = '250px',
   hover = false,
-  inverted = false,
   draggable = false,
   disabled = false,
   maxWidth,
@@ -52,7 +51,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
     const cardClasses = classnames('br-card', className, {
       'h-fixed': fixedHeight,
       hover: hover,
-      inverted: inverted,
       disabled: disabled,
     })
 

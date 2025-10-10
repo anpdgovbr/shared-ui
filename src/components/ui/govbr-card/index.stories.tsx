@@ -106,14 +106,6 @@ const meta: Meta<typeof GovBRCard> = {
         defaultValue: { summary: 'false' },
       },
     },
-    inverted: {
-      control: 'boolean',
-      description: 'Modo invertido/escuro',
-      table: {
-        category: 'Aparência',
-        defaultValue: { summary: 'false' },
-      },
-    },
     draggable: {
       control: 'boolean',
       description: 'Habilita drag and drop',
@@ -145,7 +137,6 @@ Card seguindo os padrões do **Gov.br Design System**.
 - 🎨 **Variantes**: Suporta header, content, footer e imagem
 - 🔄 **Interativo**: Suporte para hover, drag and drop
 - 📏 **Altura Fixa**: Scroll automático quando necessário
-- 🌗 **Modo Invertido**: Suporte para tema escuro
 - ♿ **Acessível**: Estados disabled com aria-hidden
 
 ### 📦 Importação
@@ -174,7 +165,6 @@ Quando \`draggable=true\`, o card pode ser arrastado
 
 #### Estados
 - \`hover\`: Efeito visual ao passar o mouse
-- \`inverted\`: Tema escuro
 - \`disabled\`: Desabilita interações
         `,
       },
@@ -382,27 +372,6 @@ export const WithHover: Story = {
 }
 
 /**
- * Card no modo invertido/escuro
- */
-export const Inverted: Story = {
-  args: {
-    strictgovbr: true,
-    inverted: true,
-    header: <h3>Card Invertido</h3>,
-    cardContent: <p>Este card usa o modo escuro do Gov.br Design System.</p>,
-    footer: <GovBRButton strictgovbr>Ação</GovBRButton>,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Card com aparência invertida (modo escuro). Útil para criar contraste visual ou destacar conteúdo específico.',
-      },
-    },
-  },
-}
-
-/**
  * Card desabilitado
  */
 export const Disabled: Story = {
@@ -456,6 +425,9 @@ export const Draggable: Story = {
  * Card simples e completo lado a lado (exemplo oficial Gov.br DS)
  */
 export const SimplesECompleto: Story = {
+  args: {
+    strictgovbr: true,
+  },
   render: () => (
     <div className="row">
       <div className="col-sm-5 col-md-6 col-lg-4">
@@ -531,6 +503,7 @@ export const SimplesECompleto: Story = {
     </div>
   ),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -544,6 +517,9 @@ export const SimplesECompleto: Story = {
  * Grid de cards - exemplo de integração
  */
 export const GridLayout: Story = {
+  args: {
+    strictgovbr: true,
+  },
   render: () => (
     <div className="row">
       <div className="col-sm-6 col-md-4">
@@ -558,6 +534,7 @@ export const GridLayout: Story = {
     </div>
   ),
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: 'Exemplo de grid com múltiplos cards usando o sistema de grid do Gov.br DS.',
@@ -570,6 +547,9 @@ export const GridLayout: Story = {
  * Card com expansão/colapso - baseado no exemplo oficial do Gov.br DS
  */
 export const WithCollapse: Story = {
+  args: {
+    strictgovbr: true,
+  },
   render: () => {
     const [isExpanded, setIsExpanded] = React.useState(false)
 
@@ -677,6 +657,7 @@ export const WithCollapse: Story = {
     )
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
