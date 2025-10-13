@@ -7,6 +7,35 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 
 ---
 
+## [0.3.7-beta.0] - 2025-10-13
+
+### 🚀 Adicionado
+
+- **Novos Componentes UI**:
+  - `GovBRDateTimePicker`: Componente para seleção de data e hora integrado com MUI X Date Pickers
+  - `GovBRDivider`: Componente de divisor visual seguindo padrões Gov.br DS
+  - `GovBRTabs`: Componente de abas/tabs com suporte aos dois modos (padrão e estrito)
+  - `GovBRItem`: Componente genérico para itens de lista e cards
+  - `GovBRLoading`: Componente de loading/carregamento com animações Gov.br DS
+
+- **Dependências Atualizadas**:
+  - `@mui/x-date-pickers@^8.14.0`: Suporte para componentes de data/hora
+  - `dayjs@^1.11.18`: Biblioteca de manipulação de datas leve e moderna
+  - `@mui/utils@^7.3.3`: Utilitários MUI atualizados
+
+### 🔧 Modificado
+
+- **Exports**: Adicionados novos componentes ao sistema de exports centralizado
+- **Stories**: Criadas documentações interativas completas para os novos componentes no Storybook
+- **Tipos**: Interfaces TypeScript completas para todos os novos componentes
+
+### 📚 Documentação
+
+- **Storybook**: Stories detalhadas para GovBRDateTimePicker, GovBRDivider, GovBRTabs, GovBRItem e GovBRLoading
+- **Types**: Documentação inline dos tipos e props dos novos componentes
+
+---
+
 ## [Não Lançado] - Em Desenvolvimento
 
 ### 🚀 Adicionado
