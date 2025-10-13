@@ -7,6 +7,15 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 
 ---
 
+## [0.3.7-beta.1] - 2025-10-13
+
+### 🐛 Corrigido
+
+- **Script preinstall**: Removido script que causava erro MODULE_NOT_FOUND em projetos consumidores
+- **Arquivos de publicação**: Criado `.npmignore` para garantir que apenas arquivos necessários sejam publicados
+
+---
+
 ## [0.3.7-beta.0] - 2025-10-13
 
 ### 🚀 Adicionado
@@ -29,7 +38,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 - **Stories**: Criadas documentações interativas completas para os novos componentes no Storybook
 - **Tipos**: Interfaces TypeScript completas para todos os novos componentes
 
-### 📚 Documentação
+### � Documentação
 
 - **Storybook**: Stories detalhadas para GovBRDateTimePicker, GovBRDivider, GovBRTabs, GovBRItem e GovBRLoading
 - **Types**: Documentação inline dos tipos e props dos novos componentes

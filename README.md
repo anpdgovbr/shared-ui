@@ -30,10 +30,10 @@ Centralizar e padronizar componentes de interface para todos os projetos da ANPD
 ### 🔧 Requisitos de Sistema
 
 - **Node.js**: >= 20.0.0
-- **pnpm**: >= 9.0.0 (gerenciador de pacotes obrigatório)
-- **TypeScript**: >= 5.9
 - **React**: ^19.0.0
 - **Material-UI (MUI)**: ^7.0.0
+
+> **Nota sobre gerenciadores de pacotes:** A biblioteca pode ser instalada com qualquer gerenciador (npm, yarn, pnpm, bun). O requisito de pnpm >= 9.0.0 é apenas para desenvolvimento da biblioteca.
 
 ### 🏛️ Arquitetura Híbrida
 
@@ -226,11 +226,14 @@ Para contribuir com o desenvolvimento da `shared-ui`:
 
 ---
 
-## 🎉 Novidades na v0.3.7-beta.0
+## 🎉 Novidades na v0.3.7-beta.1
 
-Esta versão traz novos componentes essenciais para aplicações modernas:
+### 🐛 Correções Importantes
 
-### 🆕 Novos Componentes
+- **Instalação corrigida**: Removido script `preinstall` que causava erro em projetos consumidores
+- **Pacote otimizado**: Adicionado `.npmignore` para publicar apenas arquivos necessários
+
+### 🆕 Novos Componentes (desde v0.3.7-beta.0)
 
 - **GovBRDateTimePicker** - Seletor de data e hora com suporte completo ao padrão brasileiro
 - **GovBRDivider** - Divisores visuais para organizar conteúdo
