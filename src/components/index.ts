@@ -20,58 +20,142 @@
 // ===== COMPONENTES REESTRUTURADOS (NOVO PADRÃO) =====
 // Usando kebab-case e estrutura shadcn/ui
 
-// AutoSync
+/**
+ * Componente AutoSync
+ *
+ * Componente utilitário que expõe funcionalidade de sincronização automática.
+ * Re-exporta o componente React e o tipo de suas props.
+ */
 export { AutoSync } from './ui/auto-sync'
 export type { AutoSyncProps } from './ui/auto-sync/types'
 
-// GovBRAvatar
+/**
+ * GovBRAvatar
+ *
+ * Avatar padronizado seguindo os tokens do Gov.br e integrações ANPD.
+ * Re-exporta o componente e seus tipos.
+ */
 export * from './ui/govbr-avatar'
 export type { GovBRAvatarProps } from './ui/govbr-avatar/types'
 
-// GovBRBreadcrumb
+/**
+ * GovBRBreadcrumb
+ *
+ * Componente de breadcrumb (trilha de navegação) conforme padrões Gov.br.
+ */
 export * from './ui/govbr-breadcrumb'
 export type { GovBRBreadcrumbProps } from './ui/govbr-breadcrumb/types'
 
-// GovBRButton
+/**
+ * GovBRButton
+ *
+ * Botão híbrido (modo MUI ou modo estrito Gov.br via `strictgovbr`).
+ * Suporta variantes e props do MUI além de `strictgovbr`.
+ */
 export * from './ui/govbr-button'
 export type { GovBRButtonProps } from './ui/govbr-button/types'
 
-// GovBRCard
+/**
+ * GovBRCard
+ *
+ * Card híbrido (modo MUI ou modo estrito Gov.br via `strictgovbr`).
+ * Suporta header, content, footer, actions e composições avançadas com MUI.
+ */
 export * from './ui/govbr-card'
 export type { GovBRCardProps } from './ui/govbr-card/types'
 
-// GovBRCheckbox
+/**
+ * GovBRCheckbox
+ *
+ * Checkbox compatível com Gov.br DS, com suporte ao tema MUI e modo estrito.
+ */
 export * from './ui/govbr-checkbox'
 export type { GovBRCheckboxProps } from './ui/govbr-checkbox/types'
 
-// GovBRFormCheckbox
+/**
+ * GovBRFormCheckbox
+ *
+ * Checkbox para uso em formulários, integrado com as convenções de validação.
+ */
 export * from './ui/govbr-form-checkbox'
 export type { GovBRFormCheckboxProps } from './ui/govbr-form-checkbox/types'
 
-// GovBRFormInput
+/**
+ * GovBRFormInput
+ *
+ * Campo de formulário (input) com integrações para validação e layout de formulário.
+ */
 export { GovBRFormInput } from './ui/govbr-form-input'
 export type { GovBRFormInputProps } from './ui/govbr-form-input/types'
 
-// GovBRInput
+/**
+ * GovBRInput
+ *
+ * Componente de input híbrido que mapeia para MUI ou para classes Gov.br no modo estrito.
+ */
 export * from './ui/govbr-input'
 export type { GovBRInputProps } from './ui/govbr-input/types'
 
-// GovBRLoading
+/**
+ * GovBRLoading
+ *
+ * Animação/indicador de carregamento padronizado para a biblioteca.
+ */
 export * from './ui/govbr-loading'
 export type { LoadingAnimationProps } from './ui/govbr-loading/types'
 
-// GovBRRadio
+/**
+ * GovBRRadio
+ *
+ * Radio button seguindo padrões Gov.br com suporte a tema e modo estrito.
+ */
 export * from './ui/govbr-radio'
 export type { GovBRRadioProps } from './ui/govbr-radio/types'
 
-// GovBRSignIn
+/**
+ * GovBRSignIn
+ *
+ * Componentes/fluxos para telas de autenticação seguindo as diretrizes ANPD/Gov.br.
+ */
 export * from './ui/govbr-sign-in'
 export type { GovBRSignInProps } from './ui/govbr-sign-in/types'
 
-// GovBRSwitch
+/**
+ * GovBRSwitch
+ *
+ * Interruptor (switch) padronizado, compatível com o tema GovBR e modo estrito.
+ */
 export * from './ui/govbr-switch'
 export type { GovBRSwitchProps } from './ui/govbr-switch/types'
 
-// GovBRItem
+/**
+ * GovBRItem
+ *
+ * Item genérico de lista/coleção com estilo padronizado.
+ */
 export * from './ui/govbr-item'
 export type { GovBRItemProps } from './ui/govbr-item/types'
+
+/**
+ * GovBRDateTimePicker
+ *
+ * Seletor de data e hora com integração ao tema e comportamento esperado da ANPD.
+ */
+export * from './ui/govbr-datetimepicker'
+export type { GovBRDateTimePickerProps } from './ui/govbr-datetimepicker/types'
+
+/**
+ * GovBRDivider
+ *
+ * Separador visual (divider) seguindo tokens de espaçamento e cor do Gov.br.
+ */
+export * from './ui/govbr-divider'
+export type { GovBRDividerProps } from './ui/govbr-divider/types'
+
+/**
+ * GovBRTabs
+ *
+ * Componente de abas (tabs) com implementação híbrida e conformidade visual.
+ */
+export * from './ui/govbr-tabs'
+export type { GovBRTabsProps } from './ui/govbr-tabs/types'

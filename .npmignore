@@ -1,0 +1,59 @@
+# Arquivos de desenvolvimento que não devem ser publicados no npm
+
+# Scripts internos
+scripts/
+
+# Configuração do Husky
+.husky/
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Testes
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+vitest.config.ts
+vitest.shims.d.ts
+
+# Configurações de desenvolvimento
+.vscode/
+.idea/
+*.log
+.DS_Store
+.env
+.env.local
+
+# Documentação interna
+docs/
+examples/
+
+# Arquivos de build intermediários
+src/
+tsconfig.json
+vite.config.ts
+vite-env.d.ts
+eslint.config.mjs
+.prettierrc
+.prettierignore
+
+# Git
+.git/
+.gitignore
+.github/
+
+# CI/CD
+.gitlab-ci.yml
+azure-pipelines.yml
+
+# Arquivos temporários
+*.swp
+*.swo
+*~
+.tmp/
+temp/
+
+# Arquivos do pnpm (para evitar publicar workspace config)
+pnpm-workspace.yaml

@@ -82,22 +82,6 @@ const meta: Meta<typeof GovBRCard> = {
         defaultValue: { summary: 'false' },
       },
     },
-    customHeight: {
-      control: 'text',
-      description: 'Altura customizada quando fixedHeight=true',
-      table: {
-        category: 'Aparência',
-        defaultValue: { summary: '250px' },
-      },
-    },
-    maxWidth: {
-      control: 'text',
-      description: 'Largura máxima do card (ex: 400px, 30rem, 100%)',
-      table: {
-        category: 'Aparência',
-        defaultValue: { summary: 'undefined' },
-      },
-    },
     hover: {
       control: 'boolean',
       description: 'Habilita efeito hover',
@@ -174,6 +158,62 @@ Quando \`draggable=true\`, o card pode ser arrastado
 
 export default meta
 type Story = StoryObj<typeof GovBRCard>
+
+/**
+ * 🎮 Playground - Teste ambos os modos
+ *
+ * Use o controle `strictgovbr` para alternar entre:
+ * - `false`: Modo Padrão (MUI) - Componentes Material-UI estilizados
+ * - `true`: Modo Estrito (Gov.br DS) - HTML puro com classes CSS oficiais
+ */
+export const Playground: Story = {
+  args: {
+    strictgovbr: false,
+    title: 'Título do Card',
+    subheader: 'Subtítulo ou descrição',
+    cardContent: (
+      <p>
+        Este é o playground do GovBRCard. Alterne o controle `strictgovbr` para ver a diferença
+        entre o modo padrão (MUI) e o modo estrito (Gov.br DS).
+      </p>
+    ),
+    footer: (
+      <>
+        <GovBRButton variant="contained" color="primary">
+          Ação Principal
+        </GovBRButton>
+        <GovBRButton variant="outlined">Ação Secundária</GovBRButton>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### 🎮 Playground Interativo
+
+Use os controles abaixo para testar o componente:
+
+**Modo Padrão (\`strictgovbr={false}\`):**
+- Componentes MUI (CardHeader, CardContent, CardActions)
+- Estilização automática via govbrTheme.ts
+- Props: \`title\`, \`subheader\`, \`avatar\`, \`action\`
+
+**Modo Estrito (\`strictgovbr={true}\`):**
+- HTML puro com classes CSS do Gov.br DS
+- Máxima fidelidade ao design system
+- Props: \`header\`, \`cardContent\`, \`footer\`
+        `,
+      },
+    },
+  },
+}
+
+/**
+ * ========================================
+ * MODO ESTRITO (strictgovbr=true)
+ * ========================================
+ */
 
 /**
  * Card básico apenas com conteúdo
