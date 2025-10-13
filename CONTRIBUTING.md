@@ -4,8 +4,9 @@ Obrigado pelo interesse em contribuir com a **biblioteca de componentes comparti
 
 Este projeto centraliza componente```bash
 pnpm add react@^19 react-dom@^19 @mui/material@^7 @mui/icons-material@^7 \
-	@emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
-```
+ @emotion/react@^11 @emotion/styled@^11 react-hook-form@^7 @govbr-ds/core@^3
+
+````
 
 Se precisar forçar uma mudança no `pnpm-lock.yaml`, siga este processo:
 
@@ -39,7 +40,7 @@ Para atender aos objetivos da biblioteca, utilizamos uma **arquitetura de modo d
 
 // Modo Estrito: Quando precisar de 100% fidelidade Gov.br DS
 <GovBRButton strictgovbr inverted>Botão</GovBRButton>
-```
+````
 
 ---
 

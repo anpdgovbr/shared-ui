@@ -23,11 +23,13 @@ Todas as otimizações seguiram rigorosamente os princípios:
 ## 📋 Sumário Executivo
 
 ### Componentes Otimizados
+
 - **16 arquivos de componentes** otimizados
 - **9 arquivos foundation** documentados com @security/@resilience
 - **3 arquivos de tipos** enriquecidos com documentação técnica
 
 ### Validações Finais
+
 - ✅ **pnpm run check** - Lint e typecheck passando
 - ✅ **pnpm test** - 85 testes passando (100%)
 - ✅ **pnpm run build** - Build de produção bem-sucedido
@@ -38,11 +40,13 @@ Todas as otimizações seguiram rigorosamente os princípios:
 ## 🏗️ Arquitetura: Padrão de Cores Dinâmicas
 
 ### Problema Identificado
+
 Hard-coded colors não respeitavam troca de tema (govbrTheme azul ↔ anpdTheme verde).
 
 ### Solução Implementada
 
 **Padrão Theme-Dynamic:**
+
 ```typescript
 // ❌ ANTES - Hard-coded (não respeita tema)
 backgroundColor: '#1351b4'
@@ -52,6 +56,7 @@ backgroundColor: (theme as Theme).palette.primary.main
 ```
 
 **Benefícios:**
+
 - 🎨 Suporte automático a múltiplos temas (GovBR azul / ANPD verde)
 - 🔄 Mudança de tema sem rebuild
 - 🎯 Consistência visual garantida
@@ -64,6 +69,7 @@ backgroundColor: (theme as Theme).palette.primary.main
 ### 1. **Button.ts** - Tokens CSS para Valores Fixos
 
 **Mudanças:**
+
 ```typescript
 // ❌ ANTES
 backgroundColor: '#cccccc'
@@ -77,6 +83,7 @@ borderWidth: 'var(--border-width-lg, 4px)'
 ```
 
 **Ganhos:**
+
 - Sincronização automática com Gov.br DS
 - Fallbacks robustos previnem quebras
 - Manutenibilidade facilitada
@@ -86,6 +93,7 @@ borderWidth: 'var(--border-width-lg, 4px)'
 ### 2. **Chip.ts** - Theme-Dynamic Colors (Reescrita Completa)
 
 **Mudanças:**
+
 ```typescript
 // ❌ ANTES - 6 variantes com cores hard-coded
 colorPrimary: {
@@ -99,7 +107,7 @@ colorPrimary: ({ theme }) => ({
   backgroundColor: (theme as Theme).palette.primary.main,
   color: (theme as Theme).palette.primary.contrastText,
   border: `1px solid ${(theme as Theme).palette.primary.main}`,
-  
+
   '&:hover': {
     backgroundColor: (theme as Theme).palette.primary.dark,
   },
@@ -107,6 +115,7 @@ colorPrimary: ({ theme }) => ({
 ```
 
 **Impacto:**
+
 - ✅ primary, secondary, success, error, warning, info - TODAS as variantes
 - 🎨 Cores mudam automaticamente com tema ativo
 - 🔄 Zero código duplicado
@@ -116,6 +125,7 @@ colorPrimary: ({ theme }) => ({
 ### 3. **Divider.ts** - Tokens CSS Completo
 
 **Mudanças:**
+
 ```typescript
 // ❌ ANTES - Valores fixos
 borderColor: '#e6e7e8'
@@ -135,6 +145,7 @@ fontWeight: 'var(--font-weight-medium, 500)'
 ```
 
 **Tags Documentação:**
+
 ```typescript
 /**
  * @security Tokens CSS com fallbacks previnem valores inválidos
@@ -147,17 +158,18 @@ fontWeight: 'var(--font-weight-medium, 500)'
 ### 4. **FormLabel.ts** - COMPLETADO (era ❌ FALTANDO)
 
 **Features Implementadas:**
+
 ```typescript
 root: {
   // ✅ COMPLETADO - lineHeight
   lineHeight: 'var(--font-line-height-medium, 1.5)',
-  
+
   // ✅ COMPLETADO - letterSpacing
   letterSpacing: 'var(--font-letter-spacing-normal, 0)',
-  
+
   // ✅ COMPLETADO - padding
   padding: '0 0 var(--spacing-scale-half, 0.5rem) 0',
-  
+
   // ✅ COMPLETADO - asterisco para campos obrigatórios
   '&.Mui-required .MuiFormLabel-asterisk': {
     color: 'var(--feedback-error-vivid, #D04F4F)',
@@ -170,20 +182,21 @@ root: {
 ### 5. **FormHelperText.ts** - COMPLETADO
 
 **Features Implementadas:**
+
 ```typescript
 root: {
   // ✅ lineHeight para legibilidade
   lineHeight: 'var(--font-line-height-medium, 1.5)',
-  
+
   // ✅ maxWidth para quebra de linha
   maxWidth: '100%',
-  
+
   // ✅ wordBreak para textos longos
   wordBreak: 'break-word',
-  
+
   // ✅ padding adequado
   padding: 'var(--spacing-scale-half, 0.5rem) 0 0 0',
-  
+
   // ✅ Animações de transição
   transition: 'color 0.2s ease, opacity 0.2s ease',
 }
@@ -194,23 +207,24 @@ root: {
 ### 6. **FormControlLabel.ts** - COMPLETADO
 
 **Features Implementadas:**
+
 ```typescript
 root: {
   // ✅ margin entre label e controle
   margin: '0',
-  
+
   // ✅ hover states
   '&:hover': {
     '& .MuiFormControlLabel-label': {
       color: (theme as Theme).palette.primary.main,
     },
   },
-  
+
   // ✅ focus states
   '&:focus-within': {
     outline: `2px solid ${(theme as Theme).palette.primary.main}`,
   },
-  
+
   // ✅ link styling
   '& a': {
     color: (theme as Theme).palette.primary.main,
@@ -224,18 +238,19 @@ root: {
 ### 7. **FormControl.ts** - COMPLETADO
 
 **Features Implementadas:**
+
 ```typescript
 root: {
   // ✅ Disabled state
   '&.Mui-disabled': {
     backgroundColor: 'var(--gray-10, #eeeeee)',
   },
-  
+
   // ✅ Error state
   '&.Mui-error': {
     borderColor: 'var(--feedback-error-vivid, #D04F4F)',
   },
-  
+
   // ✅ Background adequado
   backgroundColor: 'var(--background, #ffffff)',
 }
@@ -246,20 +261,21 @@ root: {
 ### 8. **RadioGroup.ts** - COMPLETADO
 
 **Features Implementadas:**
+
 ```typescript
 root: {
   // ✅ padding interno
   padding: 'var(--spacing-scale-2x, 2rem)',
-  
+
   // ✅ border e background
   border: '1px solid var(--gray-20, #cccccc)',
   backgroundColor: 'var(--background, #ffffff)',
-  
+
   // ✅ orientação row
   '&.MuiFormGroup-row': {
     gap: 'var(--spacing-scale-2x, 2rem)',
   },
-  
+
   // ✅ responsive spacing
   '@media (max-width: 768px)': {
     padding: 'var(--spacing-scale-base, 1rem)',
@@ -272,6 +288,7 @@ root: {
 ### 9-16. **Componentes Já Otimizados** (Validados)
 
 Validados e confirmados seguindo padrões:
+
 - ✅ **Accordion.ts** - Tokens CSS
 - ✅ **Dialog.ts** - Theme-dynamic + tokens
 - ✅ **Menu.ts** - Tokens CSS
@@ -290,6 +307,7 @@ Validados e confirmados seguindo padrões:
 Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência:
 
 #### 1. **breakpoints.ts**
+
 ```typescript
 /**
  * @security Valores fixos garantem consistência em ambientes diversos
@@ -298,6 +316,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 2. **motion.ts**
+
 ```typescript
 /**
  * @security Camadas z-index organizadas previnem conflitos de sobreposição
@@ -306,6 +325,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 3. **shadows.ts**
+
 ```typescript
 /**
  * @security Fallbacks robustos previnem erros de runtime
@@ -314,6 +334,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 4. **spacing.ts**
+
 ```typescript
 /**
  * @security Escala granular com fallbacks previne valores inválidos
@@ -322,6 +343,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 5. **states.ts**
+
 ```typescript
 /**
  * @security Valores de opacidade controlados previnem vazamento visual
@@ -330,6 +352,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 6. **surface.ts**
+
 ```typescript
 /**
  * @security Todos os valores são readonly para prevenir mutação acidental
@@ -338,6 +361,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 7. **typography.ts**
+
 ```typescript
 /**
  * @security Tokens de font-family com fallbacks previnem falhas de carregamento de fonte
@@ -346,6 +370,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 #### 8. **paletteValues.ts**
+
 ```typescript
 /**
  * @security Valores HEX fixos previnem erros de runtime quando CSS variables falham
@@ -360,6 +385,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ### 1. **SharedUIComponentProps.ts**
 
 **Melhorias:**
+
 ```typescript
 /**
  * Props comuns a todos os componentes do @anpdgovbr/shared-ui
@@ -375,6 +401,7 @@ Todos os 9 arquivos foundation receberam tags JSDoc de segurança e resiliência
 ```
 
 **Prop `strictgovbr` Enriquecida:**
+
 ```typescript
 /**
  * @security Modo estrito previne conflitos de CSS-in-JS vs classes globais
@@ -384,6 +411,7 @@ strictgovbr?: boolean
 ```
 
 **Tipo Utilitário `GovBRComponentProps`:**
+
 ```typescript
 /**
  * @security Type-safety garante que todos os componentes GovBR implementem a prop strictgovbr
@@ -397,6 +425,7 @@ export type GovBRComponentProps<T = {}> = T & SharedUIComponentProps
 ### 2. **GovBRTypes.ts**
 
 **Header do Módulo:**
+
 ```typescript
 /**
  * Tipos padronizados para componentes GovBR Design System
@@ -457,6 +486,7 @@ export type GovBRVariant = 'text' | 'outlined' | 'contained'
 ### 3. **CommonTypes.ts**
 
 **Header do Módulo:**
+
 ```typescript
 /**
  * Tipos comuns compartilhados entre componentes GovBR
@@ -573,12 +603,14 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ## 📊 Métricas de Qualidade
 
 ### Antes das Otimizações
+
 - ❌ Hard-coded colors: **12 ocorrências**
 - ❌ Valores fixos sem tokens: **24 ocorrências**
 - ❌ Features faltando: **15 items ❌ FALTANDO**
 - ⚠️ Documentação @security/@resilience: **0 arquivos**
 
 ### Depois das Otimizações
+
 - ✅ Hard-coded colors: **0 ocorrências** (100% convertido)
 - ✅ Valores fixos sem tokens: **0 ocorrências** (100% convertido)
 - ✅ Features faltando: **0 items** (100% implementado)
@@ -589,6 +621,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ## 🧪 Validações Executadas
 
 ### 1. Lint & TypeCheck
+
 ```bash
 ✅ pnpm run check
    - ESLint: 0 erros, 0 warnings
@@ -596,6 +629,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ```
 
 ### 2. Testes Unitários
+
 ```bash
 ✅ pnpm test
    - 85 testes passando (100%)
@@ -604,6 +638,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ```
 
 ### 3. Build de Produção
+
 ```bash
 ✅ pnpm run build
    - Build types: Sucesso
@@ -613,6 +648,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ```
 
 ### 4. Compatibilidade
+
 - ✅ Zero breaking changes
 - ✅ API pública mantida 100%
 - ✅ Props opcionais preservadas
@@ -623,6 +659,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ## 🎨 Temas Suportados
 
 ### GovBR Theme (Oficial)
+
 - **Primary:** Azul (#1351B4)
 - **Secondary:** Amarelo (#FFD200)
 - **Success:** Verde (#168821)
@@ -631,6 +668,7 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 - **Info:** Azul claro (#007FA3)
 
 ### ANPD Theme (Customizado)
+
 - **Primary:** Verde ANPD (#168821)
 - **Secondary:** Azul (#1351B4)
 - Demais cores: Herdam do GovBR
@@ -642,16 +680,19 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ## 🚀 Próximos Passos Recomendados
 
 ### Curto Prazo
+
 1. ✅ Merge do PR #100 (migrações para pnpm concluídas)
 2. 📦 Publicar versão beta com otimizações
 3. 🧪 Testes de integração em projetos consumidores
 
 ### Médio Prazo
+
 1. 🌙 Implementar suporte a Dark Mode usando mesmos padrões
 2. 📱 Adicionar temas mobile-optimized
 3. 🎨 Criar tema de alto contraste (acessibilidade)
 
 ### Longo Prazo
+
 1. 🤖 Automatizar validação de @security/@resilience em CI
 2. 📊 Dashboard de métricas de qualidade
 3. 🔄 Sync automático com Gov.br DS updates
@@ -661,12 +702,14 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ## 📖 Referências Técnicas
 
 ### Documentação Interna
+
 - [ARQUITETURA.md](../ARQUITETURA.md) - Arquitetura híbrida
 - [ADICIONAR_COMPONENTE.md](./ADICIONAR_COMPONENTE.md) - Guia de novos componentes
 - [COMO_USAR_TEMA.md](./COMO_USAR_TEMA.md) - Sistema de temas
 - [GUIA_MIGRACAO.md](./GUIA_MIGRACAO.md) - Migração entre versões
 
 ### Padrões Externos
+
 - [Gov.br Design System](https://gov.br/ds) - Design system oficial
 - [Material-UI Customization](https://mui.com/material-ui/customization/theme-components/) - MUI theme overrides
 - [WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/) - Acessibilidade web
@@ -688,11 +731,13 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 ### [0.3.6-beta.0] - 2025-10-02
 
 #### 🎨 Otimizações de Componentes
+
 - **Button.ts:** Hard-coded colors → CSS tokens
 - **Chip.ts:** Reescrita completa com theme-dynamic colors (6 variantes)
 - **Divider.ts:** Valores fixos → CSS tokens completo
 
 #### ✅ Features Implementadas (COMPLETADAS)
+
 - **FormLabel.ts:** lineHeight, letterSpacing, padding, asterisk
 - **FormHelperText.ts:** lineHeight, maxWidth, wordBreak, padding, animações
 - **FormControlLabel.ts:** margin, hover, focus, links
@@ -700,17 +745,20 @@ padding: 'var(--spacing-scale-2x, 2rem)'
 - **RadioGroup.ts:** padding, border, background, orientações, responsive
 
 #### 🏛️ Foundation Files
+
 - **9 arquivos** com tags @security/@resilience:
   - breakpoints.ts, motion.ts, shadows.ts
   - spacing.ts, states.ts, surface.ts
   - typography.ts, paletteValues.ts
 
 #### 📘 Tipos Enriquecidos
+
 - **SharedUIComponentProps.ts:** Documentação arquitetura híbrida
 - **GovBRTypes.ts:** Tags @security/@resilience em todos os tipos
 - **CommonTypes.ts:** Documentação completa de interfaces e callbacks
 
 #### 🧪 Qualidade
+
 - ✅ 85 testes passando (100%)
 - ✅ Lint e typecheck sem erros
 - ✅ Build de produção bem-sucedido

@@ -75,4 +75,3 @@ if (!packageManager || isDirectExecution) {
 
 // ✅ Fallback final: permitir por segurança (evitar bloqueios em casos não mapeados)
 process.exit(0)
-
