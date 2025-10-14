@@ -8,6 +8,7 @@ import {
   MuiAccordionOverrides,
   MuiAccordionSummaryOverrides,
 } from './components/Accordion'
+import { MuiAutocompleteOverrides } from './components/Autocomplete'
 import { MuiAvatarOverrides } from './components/Avatar'
 import { MuiBreadcrumbsOverrides } from './components/Breadcrumbs'
 import { MuiButtonOverrides } from './components/Button'
@@ -37,6 +38,7 @@ import { MuiInputBaseOverrides } from './components/InputBase'
 import { MuiInputLabelOverrides } from './components/InputLabel'
 import { MuiLinearProgressOverrides } from './components/LinearProgress'
 import { MuiLinkOverrides } from './components/Link'
+import { MuiListItemOverrides } from './components/ListItem'
 import { MuiMenuOverrides } from './components/Menu'
 import { MuiMenuItemOverrides } from './components/MenuItem'
 import { MuiRadioOverrides } from './components/Radio'
@@ -126,6 +128,7 @@ export const govbrTheme: Theme = createTheme({
         disableElevation: false,
       },
     },
+    MuiAutocomplete: MuiAutocompleteOverrides,
     MuiTextField: MuiTextFieldOverrides,
     MuiInputBase: MuiInputBaseOverrides,
     MuiInputLabel: MuiInputLabelOverrides,
@@ -157,10 +160,16 @@ export const govbrTheme: Theme = createTheme({
     MuiLink: MuiLinkOverrides,
     MuiMenu: MuiMenuOverrides,
     MuiMenuItem: MuiMenuItemOverrides,
+    MuiListItem: MuiListItemOverrides,
     MuiTooltip: MuiTooltipOverrides,
     MuiLinearProgress: MuiLinearProgressOverrides,
 
     // Layout & Structure
+    MuiGrid: {
+      defaultProps: {
+        spacing: 1,
+      },
+    },
     MuiCard: MuiCardOverrides,
     MuiCardHeader: MuiCardHeaderOverrides,
     MuiCardContent: MuiCardContentOverrides,

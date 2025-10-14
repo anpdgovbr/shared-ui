@@ -98,6 +98,54 @@ export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
           <GlobalStyles
             styles={{
               ':root': customTokens,
+              html: {
+                height: '100%',
+                scrollBehavior: 'smooth',
+              },
+              body: {
+                height: '100%',
+              },
+              '#__next': {
+                height: '100%',
+              },
+              '::-webkit-scrollbar': {
+                width: '8px',
+                height: '8px',
+              },
+              '::-webkit-scrollbar-track': {
+                background: 'transparent',
+              },
+              '::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderRadius: '4px',
+                transition: 'background-color 0.2s ease',
+              },
+              '::-webkit-scrollbar-thumb:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              },
+              '::-webkit-scrollbar-corner': {
+                background: 'transparent',
+              },
+              '@media (prefers-color-scheme: dark)': {
+                '::-webkit-scrollbar-thumb': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                },
+                '::-webkit-scrollbar-thumb:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                },
+              },
+              '.MuiBox-root::-webkit-scrollbar, .MuiPaper-root::-webkit-scrollbar': {
+                width: '6px',
+                height: '6px',
+              },
+              '.MuiBox-root::-webkit-scrollbar-thumb, .MuiPaper-root::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                borderRadius: '3px',
+              },
+              '.MuiBox-root::-webkit-scrollbar-thumb:hover, .MuiPaper-root::-webkit-scrollbar-thumb:hover':
+                {
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                },
             }}
           />
           {children}

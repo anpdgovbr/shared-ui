@@ -14,7 +14,7 @@ export const MuiCardOverrides: Components['MuiCard'] = {
       borderRadius: 'var(--surface-rounder-md, 8px)', // 8px
       boxShadow: 'var(--shadow-level-1, 0px 2px 4px rgba(0, 0, 0, 0.1))', // Sombra sutil
       color: 'var(--color, #333333)',
-      marginBottom: 'var(--spacing-scale-2x, 2rem)', // 16px
+      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px
       transition: 'all 0.2s ease-in-out',
 
       // Hover effect
@@ -50,9 +50,9 @@ export const MuiCardOverrides: Components['MuiCard'] = {
 export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
   styleOverrides: {
     root: {
-      padding: 'var(--spacing-scale-3x, 3rem) var(--spacing-scale-3x, 3rem) 0', // 24px 24px 0
+      padding: 'var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-3quarter, 0.75rem) 0', // 12px 12px 0
       borderBottom: '1px solid var(--gray-20, #cccccc)',
-      marginBottom: 'var(--spacing-scale-2x, 2rem)', // 16px
+      marginBottom: 'var(--spacing-scale-half, 0.5rem)', // 8px
     },
 
     title: {
@@ -85,10 +85,10 @@ export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
 export const MuiCardContentOverrides: Components['MuiCardContent'] = {
   styleOverrides: {
     root: {
-      padding: 'var(--spacing-scale-3x, 3rem)', // 24px
+      padding: 'var(--spacing-scale-3quarter, 0.75rem)', // 12px
 
       '&:last-child': {
-        paddingBottom: 'var(--spacing-scale-3x, 3rem)', // Mantém padding no último elemento
+        paddingBottom: 'var(--spacing-scale-3quarter, 0.75rem)', // Mantém padding reduzido
       },
 
       // Primeiro parágrafo sem margin-top
@@ -107,10 +107,10 @@ export const MuiCardContentOverrides: Components['MuiCardContent'] = {
 export const MuiCardActionsOverrides: Components['MuiCardActions'] = {
   styleOverrides: {
     root: {
-      padding: '0 var(--spacing-scale-3x, 3rem) var(--spacing-scale-3x, 3rem)', // 0 24px 24px
+      padding: '0 var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-3quarter, 0.75rem)', // 0 12px 12px
       borderTop: '1px solid var(--gray-20, #cccccc)',
-      marginTop: 'var(--spacing-scale-2x, 2rem)', // 16px
-      gap: 'var(--spacing-scale-base, 1rem)', // 8px entre ações
+      marginTop: 'var(--spacing-scale-base, 1rem)', // 16px
+      gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre ações
 
       // Botões nas ações
       '& .MuiButton-root': {
@@ -121,7 +121,7 @@ export const MuiCardActionsOverrides: Components['MuiCardActions'] = {
     // Ações alinhadas à direita
     spacing: {
       '& > :not(:first-of-type)': {
-        marginLeft: 'var(--spacing-scale-base, 1rem)', // 8px
+        marginLeft: 'var(--spacing-scale-half, 0.5rem)', // 8px
       },
     },
   },

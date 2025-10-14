@@ -8,7 +8,9 @@
  */
 
 // Componentes básicos
+export { MuiAutocompleteOverrides } from './Autocomplete'
 export { MuiButtonOverrides } from './Button'
+export { MuiListItemOverrides } from './ListItem'
 export { MuiTextFieldOverrides } from './TextField'
 
 // Componentes de input e formulário
