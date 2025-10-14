@@ -58,13 +58,14 @@ const baseItems: SideMenuItem[] = [
 ]
 
 const meta: Meta<typeof SideMenu> = {
-  title: 'Components/SideMenu',
+  title: 'Components/Custom/SideMenu',
   component: SideMenu,
   tags: ['autodocs'],
   args: {
     items: baseItems,
     currentPath: '/dashboard/management/team',
     title: 'Dashboard',
+    linkComponent: 'button',
   },
   decorators: [
     (Story) => (
@@ -94,7 +95,7 @@ const meta: Meta<typeof SideMenu> = {
         >
           <Typography variant="h6">Conteúdo</Typography>
           <Typography variant="body2" color="text.secondary">
-            Use o menu ao lado para navegar entre seções.
+            Clique nos itens do menu para visualizar interações
           </Typography>
         </Box>
       </Box>
@@ -103,8 +104,21 @@ const meta: Meta<typeof SideMenu> = {
   parameters: {
     docs: {
       description: {
-        component:
-          'Componente de menu lateral reutilizável com suporte a submenus, modo colapsado e integração com o tema GovBR.',
+        component: `
+## SideMenu - Menu Lateral Reutilizável
+
+Componente personalizado da ANPD para navegação lateral com suporte a hierarquia e estados.
+
+### Características:
+- 🎯 **Hierarquia de Menus**: Suporte a submenus aninhados com expansão/colapso
+- 🔄 **Modo Colapsado**: Menu compacto exibindo apenas ícones com tooltips
+- 🎨 **Tema Integrado**: Totalmente compatível com GovBR-DS e Material-UI
+- 📍 **Rota Ativa**: Destaque automático do item ativo baseado na rota atual
+- 💾 **Persistência**: Opção de salvar estado do menu no localStorage
+- 🎛️ **Controlado/Não-controlado**: Suporte a ambos os modos de operação
+- ⚡ **Renderização Customizada**: Headers e footers personalizáveis via render props
+- ♿ **Acessibilidade**: Suporte completo a navegação por teclado e screen readers
+        `,
       },
     },
   },
@@ -134,23 +148,126 @@ const meta: Meta<typeof SideMenu> = {
       description:
         'Chave usada no localStorage para persistir o estado do menu em modo não-controlado.',
     },
+    linkComponent: {
+      control: false,
+      description: 'Componente usado para renderizar links (ex: Next.js Link, React Router Link).',
+    },
+    variant: {
+      control: 'select',
+      options: ['permanent', 'persistent', 'temporary'],
+      description: 'Variante do Drawer do Material-UI.',
+    },
+    dense: {
+      control: 'boolean',
+      description: 'Reduz o espaçamento entre itens para layouts mais compactos.',
+    },
   },
 }
 
 export default meta
 type Story = StoryObj<typeof SideMenu>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    linkComponent: 'button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Configuração padrão do menu lateral com itens e submenus.',
+      },
+    },
+  },
+}
 
 export const Collapsed: Story = {
   args: {
     open: false,
+    linkComponent: 'button',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Exemplo com o menu controlado em modo colapsado, exibindo apenas ícones e tooltips.',
+          'Menu em modo colapsado, exibindo apenas ícones com tooltips. Ideal para maximizar espaço de conteúdo.',
+      },
+    },
+  },
+}
+
+export const DenseMode: Story = {
+  args: {
+    dense: true,
+    linkComponent: 'button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Menu com espaçamento reduzido entre itens para interfaces mais compactas.',
+      },
+    },
+  },
+}
+
+export const InteractiveNavigation: Story = {
+  render: function InteractiveDemo(args) {
+    const [currentPath, setCurrentPath] = useState('/dashboard/management/team')
+
+    const interactiveItems: SideMenuItem[] = baseItems.map((item) => ({
+      ...item,
+      onClick: (e, clickedItem) => {
+        e.preventDefault()
+        if (clickedItem.href) {
+          setCurrentPath(clickedItem.href)
+        }
+      },
+      children: item.children?.map((child) => ({
+        ...child,
+        onClick: (e, clickedChild) => {
+          e.preventDefault()
+          if (clickedChild.href) {
+            setCurrentPath(clickedChild.href)
+          }
+        },
+      })),
+    }))
+
+    return (
+      <Stack direction="row" spacing={2} sx={{ width: '100%' }}>
+        <SideMenu
+          {...args}
+          items={interactiveItems}
+          currentPath={currentPath}
+          linkComponent="button"
+        />
+        <Box
+          sx={{
+            flex: 1,
+            border: '1px dashed',
+            borderColor: 'divider',
+            borderRadius: 2,
+            p: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Typography variant="h6">Área de Conteúdo</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Rota atual: <strong>{currentPath}</strong>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Clique nos itens do menu para simular navegação
+          </Typography>
+        </Box>
+      </Stack>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstração interativa com simulação de navegação. Clique nos itens para ver a rota ativa mudar.',
       },
     },
   },
@@ -160,6 +277,7 @@ export const WithCustomFooter: Story = {
   render: (args) => (
     <SideMenu
       {...args}
+      linkComponent="button"
       renderFooter={({ open }) => (
         <Stack spacing={1}>
           {open ? (
@@ -189,32 +307,40 @@ export const WithCustomFooter: Story = {
     docs: {
       description: {
         story:
-          'Demonstra como customizar o rodapé do menu usando a render prop `renderFooter`, adaptando o conteúdo conforme o estado aberto/fechado.',
+          'Customização do rodapé usando `renderFooter`. O conteúdo se adapta automaticamente ao estado aberto/fechado do menu.',
       },
     },
   },
 }
 
 export const ControlledExample: Story = {
-  render: (args) => {
+  render: function ControlledDemo(args) {
     const [open, setOpen] = useState(true)
     return (
-      <Stack direction="row" spacing={2} alignItems="flex-start">
+      <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ width: '100%' }}>
         <SideMenu
           {...args}
           open={open}
           onOpenChange={(next) => setOpen(next)}
+          linkComponent="button"
           renderFooter={() => null}
         />
-        <Box>
+        <Box
+          sx={{
+            border: '1px dashed',
+            borderColor: 'divider',
+            borderRadius: 2,
+            p: 2,
+          }}
+        >
           <Typography variant="body2" gutterBottom>
-            Estado controlado: {open ? 'aberto' : 'fechado'}
+            Estado controlado: <strong>{open ? 'Aberto' : 'Fechado'}</strong>
           </Typography>
-          <Stack direction="row" spacing={1}>
-            <Button variant="outlined" onClick={() => setOpen(true)}>
+          <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+            <Button variant="outlined" size="small" onClick={() => setOpen(true)}>
               Abrir
             </Button>
-            <Button variant="outlined" onClick={() => setOpen(false)}>
+            <Button variant="outlined" size="small" onClick={() => setOpen(false)}>
               Fechar
             </Button>
           </Stack>
@@ -226,7 +352,77 @@ export const ControlledExample: Story = {
     docs: {
       description: {
         story:
-          'Exemplo completo de controle externo do componente via props `open` e `onOpenChange`, útil para layouts responsivos.',
+          'Exemplo de controle externo via `open` e `onOpenChange`. Útil para sincronizar com outros componentes ou layouts responsivos.',
+      },
+    },
+  },
+}
+
+export const WithPersistence: Story = {
+  args: {
+    persistKey: 'storybook-sidemenu-state',
+    linkComponent: 'button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Menu com persistência no localStorage. O estado aberto/fechado é mantido entre recarregamentos da página usando a prop `persistKey`.',
+      },
+    },
+  },
+}
+
+export const AllVariants: Story = {
+  render: function AllVariantsDemo() {
+    return (
+      <Stack spacing={3}>
+        <Box>
+          <Typography variant="subtitle2" gutterBottom>
+            Permanent (padrão)
+          </Typography>
+          <Box sx={{ display: 'flex', minHeight: 300 }}>
+            <SideMenu
+              items={baseItems}
+              currentPath="/dashboard"
+              title="Permanent"
+              variant="permanent"
+              linkComponent="button"
+            />
+            <Box sx={{ flex: 1, p: 2, bgcolor: 'background.paper' }}>
+              <Typography variant="body2" color="text.secondary">
+                Menu sempre visível
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        <Box>
+          <Typography variant="subtitle2" gutterBottom>
+            Dense Mode
+          </Typography>
+          <Box sx={{ display: 'flex', minHeight: 300 }}>
+            <SideMenu
+              items={baseItems}
+              currentPath="/dashboard/profile"
+              title="Dense"
+              dense
+              linkComponent="button"
+            />
+            <Box sx={{ flex: 1, p: 2, bgcolor: 'background.paper' }}>
+              <Typography variant="body2" color="text.secondary">
+                Espaçamento compacto
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Stack>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparação visual entre diferentes variantes e modos do menu.',
       },
     },
   },
