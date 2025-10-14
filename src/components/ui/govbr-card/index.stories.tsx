@@ -241,6 +241,138 @@ export const WithMaxWidth: Story = {
 }
 
 /**
+ * Card com drag and drop
+ */
+export const Draggable: Story = {
+  args: {
+    strictgovbr: true,
+  },
+  render: () => {
+    const [draggedCard, setDraggedCard] = React.useState<string | null>(null)
+    const [dropZone, setDropZone] = React.useState<string>('')
+
+    const handleDragOver = (e: React.DragEvent) => {
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'move'
+    }
+
+    const handleDrop = (e: React.DragEvent, zone: string) => {
+      e.preventDefault()
+      const cardId = e.dataTransfer.getData('text/plain')
+      setDraggedCard(cardId)
+      setDropZone(zone)
+    }
+
+    return (
+      <div>
+        <div className="row mb-4">
+          <div className="col">
+            <h4>Cards Arrastáveis (Modo Estrito)</h4>
+            <p>Arraste os cards abaixo para as zonas de drop:</p>
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-md-6">
+            <GovBRCard
+              strictgovbr
+              draggable
+              id="card-1"
+              header={
+                <div className="d-flex align-items-center">
+                  <i className="fas fa-grip-vertical mr-2" aria-hidden="true"></i>
+                  <strong>Card Arrastável 1</strong>
+                </div>
+              }
+              cardContent={<p>Arraste este card para a zona de drop →</p>}
+            />
+          </div>
+          <div className="col-md-6">
+            <GovBRCard
+              strictgovbr
+              draggable
+              id="card-2"
+              header={
+                <div className="d-flex align-items-center">
+                  <i className="fas fa-grip-vertical mr-2" aria-hidden="true"></i>
+                  <strong>Card Arrastável 2</strong>
+                </div>
+              }
+              cardContent={<p>Arraste este card para a zona de drop →</p>}
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, 'zona-1')}
+              style={{
+                border: '2px dashed var(--interactive, #1351B4)',
+                borderRadius: '8px',
+                padding: '2rem',
+                minHeight: '150px',
+                backgroundColor:
+                  dropZone === 'zona-1' ? 'var(--interactive-light, #e6f0ff)' : 'transparent',
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              <h5>Zona de Drop 1</h5>
+              {dropZone === 'zona-1' && draggedCard && (
+                <p className="text-success">✓ Card &quot;{draggedCard}&quot; solto aqui!</p>
+              )}
+              {!dropZone && <p className="text-muted">Solte um card aqui</p>}
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, 'zona-2')}
+              style={{
+                border: '2px dashed var(--interactive, #1351B4)',
+                borderRadius: '8px',
+                padding: '2rem',
+                minHeight: '150px',
+                backgroundColor:
+                  dropZone === 'zona-2' ? 'var(--interactive-light, #e6f0ff)' : 'transparent',
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              <h5>Zona de Drop 2</h5>
+              {dropZone === 'zona-2' && draggedCard && (
+                <p className="text-success">✓ Card &quot;{draggedCard}&quot; solto aqui!</p>
+              )}
+              {!dropZone && <p className="text-muted">Solte um card aqui</p>}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `
+**Card com Drag and Drop (apenas modo estrito)**
+
+Demonstra a funcionalidade de arrastar e soltar cards usando a prop \`draggable\`.
+
+**Funcionalidades:**
+- Cards podem ser arrastados (note o cursor de "move")
+- Zonas de drop aceitam os cards
+- Feedback visual ao soltar
+- Implementação usando eventos HTML5 Drag and Drop API
+
+**Nota:** Esta funcionalidade está disponível apenas no modo estrito (\`strictgovbr={true}\`).
+        `,
+      },
+    },
+  },
+}
+
+/**
  * Card desabilitado
  */
 export const Disabled: Story = {

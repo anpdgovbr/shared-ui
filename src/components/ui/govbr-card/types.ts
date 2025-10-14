@@ -20,28 +20,33 @@ export interface GovBRCardProps
 
   /**
    * Título do card (usado no CardHeader)
+   * @note Apenas modo padrão (MUI). No modo estrito, use a prop `header`
    */
   title?: React.ReactNode
 
   /**
    * Subtítulo do card (usado no CardHeader)
+   * @note Apenas modo padrão (MUI). No modo estrito, use a prop `header`
    */
   subheader?: React.ReactNode
 
   /**
    * Avatar do card (usado no CardHeader)
    * @example <Avatar>R</Avatar>
+   * @note Apenas modo padrão (MUI). No modo estrito, inclua no `header`
    */
   avatar?: React.ReactNode
 
   /**
    * Ação do header (botão de menu, etc)
    * @example <IconButton><MoreVertIcon /></IconButton>
+   * @note Apenas modo padrão (MUI). No modo estrito, inclua no `header`
    */
   action?: React.ReactNode
 
   /**
    * Props adicionais para o CardHeader do MUI
+   * @note Apenas modo padrão (MUI)
    */
   headerProps?: Omit<CardHeaderProps, 'title' | 'subheader' | 'avatar' | 'action'>
 
@@ -57,17 +62,20 @@ export interface GovBRCardProps
 
   /**
    * Props adicionais para o CardActions do MUI
+   * @note Apenas modo padrão (MUI)
    */
   footerProps?: CardActionsProps
 
   /**
    * Conteúdo expansível (collapse)
+   * @note Apenas modo padrão (MUI)
    */
   expandableContent?: React.ReactNode
 
   /**
    * Controla se o conteúdo expansível está expandido
    * @default false
+   * @note Apenas modo padrão (MUI)
    */
   expanded?: boolean
 
@@ -84,6 +92,7 @@ export interface GovBRCardProps
   /**
    * Altura da imagem em pixels
    * @default 194
+   * @note Apenas modo padrão (MUI). No modo estrito, controle via CSS
    */
   imageHeight?: number | string
 

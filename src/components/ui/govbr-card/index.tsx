@@ -94,7 +94,6 @@ import type { GovBRCardProps } from './types'
  *   }
  *   expandableContent={<p>Conteúdo oculto por padrão</p>}
  *   expanded={isExpanded}
- *   onExpandChange={setIsExpanded}
  *   fixedHeight
  *   customHeight="350px"
  *   maxWidth="500px"
@@ -115,17 +114,17 @@ import type { GovBRCardProps } from './types'
  * @param {GovBRCardProps} props - Propriedades do componente
  * @param {boolean} [props.strictgovbr=false] - Ativa modo estrito com HTML puro e classes Gov.br DS
  * @param {ReactNode} [props.header] - Conteúdo do cabeçalho (texto ou componente React)
- * @param {string} [props.title] - Título do card (apenas modo padrão com CardHeader)
- * @param {string} [props.subheader] - Subtítulo do card (apenas modo padrão)
- * @param {ReactNode} [props.avatar] - Avatar no header (apenas modo padrão)
- * @param {ReactNode} [props.action] - Ação no header (apenas modo padrão)
+ * @param {string} [props.title] - Título do card (apenas modo padrão MUI)
+ * @param {string} [props.subheader] - Subtítulo do card (apenas modo padrão MUI)
+ * @param {ReactNode} [props.avatar] - Avatar no header (apenas modo padrão MUI)
+ * @param {ReactNode} [props.action] - Ação no header (apenas modo padrão MUI)
  * @param {ReactNode} [props.cardContent] - Conteúdo principal do card
  * @param {ReactNode} [props.footer] - Conteúdo do rodapé
- * @param {ReactNode} [props.expandableContent] - Conteúdo que pode ser expandido/colapsado
- * @param {boolean} [props.expanded] - Controle externo do estado de expansão
+ * @param {ReactNode} [props.expandableContent] - Conteúdo que pode ser expandido/colapsado (apenas modo padrão MUI)
+ * @param {boolean} [props.expanded] - Controle externo do estado de expansão (apenas modo padrão MUI)
  * @param {string} [props.image] - URL da imagem
  * @param {string} [props.imageAlt='Imagem do card'] - Texto alternativo da imagem
- * @param {number} [props.imageHeight=194] - Altura da imagem em pixels
+ * @param {number} [props.imageHeight=194] - Altura da imagem em pixels (apenas modo padrão MUI)
  * @param {boolean} [props.fixedHeight=false] - Ativa altura fixa com scroll
  * @param {string} [props.customHeight='250px'] - Altura customizada quando fixedHeight=true
  * @param {boolean} [props.draggable=false] - Permite arrastar o card (apenas modo estrito)
@@ -167,8 +166,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null)
-  const isControlled = controlledExpanded !== undefined
-  const isExpanded = isControlled ? controlledExpanded : false
+  const isExpanded = controlledExpanded ?? false
 
   // Hook: Drag-and-drop (apenas modo estrito)
   useEffect(() => {
@@ -255,9 +253,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
 
         {header && <div className="card-header">{header}</div>}
 
-        {(cardContent || (!header && !footer && !image && children)) && (
-          <div className="card-content">{cardContent || children}</div>
-        )}
+        {(cardContent || children) && <div className="card-content">{cardContent || children}</div>}
 
         {footer && <div className="card-footer">{footer}</div>}
       </div>
@@ -306,9 +302,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
         />
       )}
 
-      {(cardContent || (!shouldRenderCardHeader && !footer && !image && children)) && (
-        <MuiCardContent>{cardContent || children}</MuiCardContent>
-      )}
+      {(cardContent || children) && <MuiCardContent>{cardContent || children}</MuiCardContent>}
 
       {footer && <MuiCardActions {...footerProps}>{footer}</MuiCardActions>}
 
