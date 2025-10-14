@@ -10,9 +10,11 @@ import { alpha, type Components, type Theme } from '@mui/material/styles'
 
 type PaletteColorKey = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'
 
+type OverrideCallbackProps = { theme: unknown } & Record<string, unknown>
+
 const createColorOverride =
   (colorKey: PaletteColorKey) =>
-  ({ theme }: { theme: Theme }) => {
+  ({ theme }: OverrideCallbackProps) => {
     const muiTheme = theme as Theme
     const paletteColor = muiTheme.palette[colorKey]
     const hoverColor = paletteColor.dark ?? paletteColor.main
@@ -40,7 +42,7 @@ const createColorOverride =
 
 export const MuiChipOverrides: Components['MuiChip'] = {
   styleOverrides: {
-    root: ({ theme }) => {
+    root: ({ theme }: OverrideCallbackProps) => {
       const muiTheme = theme as Theme
       const focusOutlineColor = alpha(muiTheme.palette.primary.main, 0.4)
 
