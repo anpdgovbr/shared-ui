@@ -10,8 +10,12 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
     root: ({ theme }) => ({
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       color: 'var(--color, #333333)',
+      // NOTA: Diferenciação intencional do GovBR-DS
+      // Mantemos margin: 0 para evitar espaçamentos inesperados, mas preservamos
+      // o padding padrão do MUI para compatibilidade com componentes existentes.
+      // Use a prop `gutterBottom` ou classes CSS para espaçamento quando necessário.
       margin: 0,
-      padding: 0,
+      // padding removido para usar o padrão do MUI (undefined = sem override)
 
       // Links dentro de typography
       '& a': {

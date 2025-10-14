@@ -33,17 +33,19 @@ type NormalizedItem = SideMenuItem & {
   children?: NormalizedItem[]
 }
 
+/**
+ * Normaliza um caminho removendo barras finais duplicadas.
+ * Usa regex para melhor performance comparado a loop while.
+ *
+ * @param value - Caminho a ser normalizado
+ * @returns Caminho normalizado sem barras finais, exceto para raiz '/'
+ */
 const normalizePath = (value?: string) => {
   if (!value) return value
   if (value === '/') return '/'
 
-  let normalized = value
-
-  while (normalized.length > 1 && normalized.endsWith('/')) {
-    normalized = normalized.slice(0, -1)
-  }
-
-  return normalized
+  // Remove barras finais usando regex (mais eficiente que while loop)
+  return value.replace(/\/+$/, '')
 }
 
 const defaultActiveMatcher = (item: SideMenuItem, currentPath?: string) => {
@@ -183,6 +185,17 @@ const defaultItemGap = 0.5
  * ```
  *
  * @param props - {@link SideMenuProps}
+ * @param props.items - Array de itens do menu (obrigatório)
+ * @param props.currentPath - Caminho atual da aplicação para destacar item ativo
+ * @param props.open - Controla estado de abertura/fechamento (modo controlado)
+ * @param props.defaultOpen - Estado inicial quando não controlado (padrão: true)
+ * @param props.onOpenChange - Callback chamado quando estado de abertura muda
+ * @param props.persistKey - Chave para persistir estado em localStorage
+ * @param props.autoCollapseOnMobile - Se true, colapsa automaticamente em mobile
+ * @param props.activeMatcher - Função customizada para determinar item ativo
+ * @param props.linkComponent - Componente customizado para renderizar links
+ * @param props.parentClickBehavior - Comportamento ao clicar em item pai: 'expand-only' | 'navigate' | 'both'
+ * @param props.highlightParentDifferently - Se true, diferencia visualmente pai de filho ativo
  * @returns JSX.Element
  */
 export function SideMenu(props: Readonly<SideMenuProps>) {

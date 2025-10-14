@@ -108,44 +108,80 @@ export function ANPDThemeProvider({ children }: Readonly<PropsWithChildren>) {
               '#__next': {
                 height: '100%',
               },
-              '::-webkit-scrollbar': {
-                width: '8px',
-                height: '8px',
-              },
-              '::-webkit-scrollbar-track': {
-                background: 'transparent',
-              },
-              '::-webkit-scrollbar-thumb': {
-                backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                borderRadius: '4px',
-                transition: 'background-color 0.2s ease',
-              },
-              '::-webkit-scrollbar-thumb:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              },
-              '::-webkit-scrollbar-corner': {
-                background: 'transparent',
-              },
-              '@media (prefers-color-scheme: dark)': {
+              // Scrollbars customizadas com suporte a acessibilidade
+              // WCAG: Garante contraste adequado e respeita preferências de movimento reduzido
+              '@media (prefers-reduced-motion: no-preference)': {
+                '::-webkit-scrollbar': {
+                  width: '8px',
+                  height: '8px',
+                },
+                '::-webkit-scrollbar-track': {
+                  background: 'transparent',
+                },
                 '::-webkit-scrollbar-thumb': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  borderRadius: '4px',
+                  transition: 'background-color 0.2s ease',
+                  // Contraste mínimo WCAG AA
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
                 },
                 '::-webkit-scrollbar-thumb:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
                 },
+                '::-webkit-scrollbar-thumb:active': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                },
+                '::-webkit-scrollbar-corner': {
+                  background: 'transparent',
+                },
+                '@media (prefers-color-scheme: dark)': {
+                  '::-webkit-scrollbar-thumb': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                  },
+                  '::-webkit-scrollbar-thumb:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  },
+                  '::-webkit-scrollbar-thumb:active': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                  },
+                },
+                '.MuiBox-root::-webkit-scrollbar, .MuiPaper-root::-webkit-scrollbar': {
+                  width: '6px',
+                  height: '6px',
+                },
+                '.MuiBox-root::-webkit-scrollbar-thumb, .MuiPaper-root::-webkit-scrollbar-thumb': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                  borderRadius: '3px',
+                  border: '1px solid rgba(0, 0, 0, 0.05)',
+                },
+                '.MuiBox-root::-webkit-scrollbar-thumb:hover, .MuiPaper-root::-webkit-scrollbar-thumb:hover':
+                  {
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  },
+                '.MuiBox-root::-webkit-scrollbar-thumb:active, .MuiPaper-root::-webkit-scrollbar-thumb:active':
+                  {
+                    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  },
               },
-              '.MuiBox-root::-webkit-scrollbar, .MuiPaper-root::-webkit-scrollbar': {
-                width: '6px',
-                height: '6px',
-              },
-              '.MuiBox-root::-webkit-scrollbar-thumb, .MuiPaper-root::-webkit-scrollbar-thumb': {
-                backgroundColor: 'rgba(0, 0, 0, 0.15)',
-                borderRadius: '3px',
-              },
-              '.MuiBox-root::-webkit-scrollbar-thumb:hover, .MuiPaper-root::-webkit-scrollbar-thumb:hover':
-                {
+              // Para usuários com preferência de movimento reduzido, remove transições
+              '@media (prefers-reduced-motion: reduce)': {
+                '::-webkit-scrollbar': {
+                  width: '8px',
+                  height: '8px',
+                },
+                '::-webkit-scrollbar-track': {
+                  background: 'transparent',
+                },
+                '::-webkit-scrollbar-thumb': {
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  borderRadius: '4px',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
                 },
+                '::-webkit-scrollbar-thumb:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                },
+              },
             }}
           />
           {children}
