@@ -1,7 +1,7 @@
 'use client'
 import '@testing-library/jest-dom'
 
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { SideMenu } from './index'
@@ -62,7 +62,7 @@ describe('SideMenu', () => {
     expect(handleToggle).toHaveBeenCalledWith(false)
   })
 
-  it('expande e colapsa submenus quando o menu está aberto', () => {
+  it('expande e colapsa submenus quando o menu está aberto', async () => {
     render(<SideMenu items={mockItems} currentPath="/dashboard" defaultOpen title="Dashboard" />)
 
     const parentButton = screen.getByText('Administração').closest('.MuiListItemButton-root')
@@ -78,6 +78,9 @@ describe('SideMenu', () => {
 
     fireEvent.click(parentButton!)
 
-    expect(screen.queryByText('Logs')).not.toBeInTheDocument()
+    // Aguarda a animação do Collapse completar e o elemento ser desmontado
+    await waitFor(() => {
+      expect(screen.queryByText('Logs')).not.toBeInTheDocument()
+    })
   })
 })
