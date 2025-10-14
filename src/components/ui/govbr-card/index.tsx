@@ -126,7 +126,6 @@ import type { GovBRCardProps } from './types'
  * @param {ReactNode} [props.footer] - Conteúdo do rodapé
  * @param {ReactNode} [props.expandableContent] - Conteúdo que pode ser expandido/colapsado
  * @param {boolean} [props.expanded] - Controle externo do estado de expansão
- * @param {Function} [props.onExpandChange] - Callback quando o estado de expansão muda
  * @param {string} [props.image] - URL da imagem
  * @param {string} [props.imageAlt='Imagem do card'] - Texto alternativo da imagem
  * @param {number} [props.imageHeight=194] - Altura da imagem em pixels
@@ -161,8 +160,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   footerProps,
   expandableContent,
   expanded: controlledExpanded,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onExpandChange,
   image,
   imageAlt = 'Imagem do card',
   imageHeight = 194,

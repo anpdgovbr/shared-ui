@@ -777,7 +777,6 @@ export const MUIAdvanced: Story = {
           </div>
         }
         expanded={expanded}
-        onExpandChange={setExpanded}
       />
     )
   },

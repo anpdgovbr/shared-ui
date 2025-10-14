@@ -72,11 +72,6 @@ export interface GovBRCardProps
   expanded?: boolean
 
   /**
-   * Callback quando o estado de expansão muda
-   */
-  onExpandChange?: (expanded: boolean) => void
-
-  /**
    * URL da imagem do card
    */
   image?: string
