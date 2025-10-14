@@ -15,7 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { type Theme, useTheme } from '@mui/material/styles'
+import { type SxProps, type Theme, useTheme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { type ElementType, type MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
@@ -285,23 +285,25 @@ export function SideMenu(props: Readonly<SideMenuProps>) {
       variant={variant}
       open
       {...drawerProps}
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        ...drawerProps?.sx,
-        '& .MuiDrawer-paper': {
+      sx={
+        {
           width: drawerWidth,
-          boxSizing: 'border-box',
-          position: 'relative',
-          height: '100%',
-          overflowX: 'hidden',
-          transition: theme.transitions.create('width', {
-            duration: theme.transitions.duration.standard,
-          }),
-          borderRight: `1px solid ${theme.palette.divider}`,
-          ...drawerProps?.PaperProps?.sx,
-        },
-      }}
+          flexShrink: 0,
+          ...drawerProps?.sx,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            position: 'relative',
+            height: '100%',
+            overflowX: 'hidden',
+            transition: theme.transitions.create('width', {
+              duration: theme.transitions.duration.standard,
+            }),
+            borderRight: `1px solid ${theme.palette.divider}`,
+            ...drawerProps?.PaperProps?.sx,
+          },
+        } as SxProps<Theme>
+      }
     >
       <Box
         sx={{
@@ -607,7 +609,7 @@ const RecursiveItem = ({
       {hasChildren && menuOpen ? (
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {item.children!.map((child) => (
+            {(item.children as NormalizedItem[])!.map((child) => (
               <RecursiveItem
                 key={child.__key}
                 item={child}
@@ -643,7 +645,7 @@ const RecursiveItem = ({
           }}
           {...collapsedMenuProps}
         >
-          {item.children!.map((child) => {
+          {(item.children as NormalizedItem[])!.map((child) => {
             const childState = activeMap.get(child.__key) ?? {
               selfActive: false,
               descendantActive: false,
