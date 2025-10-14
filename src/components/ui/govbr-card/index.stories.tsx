@@ -38,74 +38,6 @@ const meta: Meta<typeof GovBRCard> = {
         defaultValue: { summary: 'false' },
       },
     },
-    header: {
-      control: 'text',
-      description: 'Conteúdo do cabeçalho do card',
-      table: {
-        category: 'Conteúdo',
-      },
-    },
-    cardContent: {
-      control: 'text',
-      description: 'Conteúdo principal do card',
-      table: {
-        category: 'Conteúdo',
-      },
-    },
-    footer: {
-      control: 'text',
-      description: 'Conteúdo do rodapé do card',
-      table: {
-        category: 'Conteúdo',
-      },
-    },
-    image: {
-      control: 'text',
-      description: 'URL da imagem do card',
-      table: {
-        category: 'Mídia',
-      },
-    },
-    imageAlt: {
-      control: 'text',
-      description: 'Texto alternativo da imagem',
-      table: {
-        category: 'Mídia',
-        defaultValue: { summary: 'Imagem do card' },
-      },
-    },
-    fixedHeight: {
-      control: 'boolean',
-      description: 'Define altura fixa com scroll no conteúdo',
-      table: {
-        category: 'Aparência',
-        defaultValue: { summary: 'false' },
-      },
-    },
-    hover: {
-      control: 'boolean',
-      description: 'Habilita efeito hover',
-      table: {
-        category: 'Interação',
-        defaultValue: { summary: 'false' },
-      },
-    },
-    draggable: {
-      control: 'boolean',
-      description: 'Habilita drag and drop',
-      table: {
-        category: 'Interação',
-        defaultValue: { summary: 'false' },
-      },
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Desabilita o card',
-      table: {
-        category: 'Estado',
-        defaultValue: { summary: 'false' },
-      },
-    },
   },
   parameters: {
     docs: {
@@ -143,13 +75,6 @@ Renderiza HTML puro com classes do Gov.br DS (.br-card)
 
 #### Altura Fixa
 Quando \`fixedHeight=true\`, o conteúdo tem altura máxima com scroll
-
-#### Drag and Drop
-Quando \`draggable=true\`, o card pode ser arrastado
-
-#### Estados
-- \`hover\`: Efeito visual ao passar o mouse
-- \`disabled\`: Desabilita interações
         `,
       },
     },
@@ -159,13 +84,6 @@ Quando \`draggable=true\`, o card pode ser arrastado
 export default meta
 type Story = StoryObj<typeof GovBRCard>
 
-/**
- * 🎮 Playground - Teste ambos os modos
- *
- * Use o controle `strictgovbr` para alternar entre:
- * - `false`: Modo Padrão (MUI) - Componentes Material-UI estilizados
- * - `true`: Modo Estrito (Gov.br DS) - HTML puro com classes CSS oficiais
- */
 export const Playground: Story = {
   args: {
     strictgovbr: false,
@@ -186,27 +104,6 @@ export const Playground: Story = {
       </>
     ),
   },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-### 🎮 Playground Interativo
-
-Use os controles abaixo para testar o componente:
-
-**Modo Padrão (\`strictgovbr={false}\`):**
-- Componentes MUI (CardHeader, CardContent, CardActions)
-- Estilização automática via govbrTheme.ts
-- Props: \`title\`, \`subheader\`, \`avatar\`, \`action\`
-
-**Modo Estrito (\`strictgovbr={true}\`):**
-- HTML puro com classes CSS do Gov.br DS
-- Máxima fidelidade ao design system
-- Props: \`header\`, \`cardContent\`, \`footer\`
-        `,
-      },
-    },
-  },
 }
 
 /**
@@ -214,50 +111,6 @@ Use os controles abaixo para testar o componente:
  * MODO ESTRITO (strictgovbr=true)
  * ========================================
  */
-
-/**
- * Card básico apenas com conteúdo
- */
-export const Default: Story = {
-  args: {
-    strictgovbr: true,
-    children: (
-      <div className="card-content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua.
-        </p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Card básico com conteúdo simples. Demonstra o uso mínimo do componente sem header ou footer.',
-      },
-    },
-  },
-}
-
-/**
- * Card apenas com imagem
- */
-export const ImageOnly: Story = {
-  args: {
-    strictgovbr: true,
-    image: 'https://picsum.photos/id/0/500',
-    imageAlt: 'Imagem de exemplo',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Card contendo apenas uma imagem. Útil para galerias de fotos ou displays visuais minimalistas.',
-      },
-    },
-  },
-}
 
 /**
  * Card completo com header, avatar, conteúdo e footer
@@ -388,30 +241,6 @@ export const WithMaxWidth: Story = {
 }
 
 /**
- * Card com efeito hover
- */
-export const WithHover: Story = {
-  args: {
-    strictgovbr: true,
-    hover: true,
-    cardContent: (
-      <div>
-        <h4>Card Interativo</h4>
-        <p>Passe o mouse sobre este card para ver o efeito hover.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Card com efeito visual ao passar o mouse. Útil para indicar que o card é clicável ou interativo.',
-      },
-    },
-  },
-}
-
-/**
  * Card desabilitado
  */
 export const Disabled: Story = {
@@ -431,31 +260,6 @@ export const Disabled: Story = {
       description: {
         story:
           'Card no estado desabilitado. Bloqueia todas as interações e aplica opacidade reduzida. Elementos interativos recebem atributo `disabled` automaticamente.',
-      },
-    },
-  },
-}
-
-/**
- * Card com drag and drop
- */
-export const Draggable: Story = {
-  args: {
-    strictgovbr: true,
-    draggable: true,
-    id: 'draggable-card-1',
-    cardContent: (
-      <div>
-        <h4>Card Arrastável</h4>
-        <p>Você pode arrastar este card. Útil para interfaces de reorganização.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Card com funcionalidade de drag and drop habilitada. Permite arrastar e reorganizar cards em interfaces dinâmicas.',
       },
     },
   },
@@ -714,48 +518,6 @@ export const WithCollapse: Story = {
  */
 
 /**
- * Card MUI básico
- */
-export const MUIDefault: Story = {
-  args: {
-    strictgovbr: false,
-    children: (
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua.
-      </p>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Modo Padrão (MUI)**: Card básico usando componentes Material-UI estilizados com o govbrTheme. A estilização é controlada automaticamente pelo tema.',
-      },
-    },
-  },
-}
-
-/**
- * Card MUI com imagem
- */
-export const MUIImageOnly: Story = {
-  args: {
-    strictgovbr: false,
-    image: 'https://picsum.photos/id/0/500',
-    imageAlt: 'Imagem de exemplo',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Modo Padrão (MUI)**: Card contendo apenas uma imagem usando MuiCardMedia. A imagem é responsiva e ocupa toda a largura do card.',
-      },
-    },
-  },
-}
-
-/**
  * Card MUI completo
  */
 export const MUIComplete: Story = {
@@ -776,9 +538,7 @@ export const MUIComplete: Story = {
         <GovBRButton variant="contained" color="primary">
           Ação Principal
         </GovBRButton>
-        <GovBRButton variant="outlined" color="secondary">
-          Ação Secundária
-        </GovBRButton>
+        <GovBRButton variant="outlined">Ação Secundária</GovBRButton>
       </>
     ),
   },
@@ -849,30 +609,6 @@ export const MUIWithMaxWidth: Story = {
       description: {
         story:
           '**Modo Padrão (MUI)**: Card com largura máxima definida. A prop `maxWidth` é aplicada diretamente no MuiCard via sx.',
-      },
-    },
-  },
-}
-
-/**
- * Card MUI com hover
- */
-export const MUIWithHover: Story = {
-  args: {
-    strictgovbr: false,
-    hover: true,
-    cardContent: (
-      <div>
-        <h3>Card Interativo</h3>
-        <p>Passe o mouse sobre este card para ver o efeito de elevação.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Modo Padrão (MUI)**: Card com efeito hover. Adiciona transform e box-shadow no hover para feedback visual.',
       },
     },
   },

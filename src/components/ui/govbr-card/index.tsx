@@ -209,7 +209,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
     }
   }, [strictgovbr, draggable])
 
-  // Hook: Desabilita interatividade (apenas modo estrito)
+  // Hook: Estado desabilitado com acessibilidade (apenas modo estrito)
   useEffect(() => {
     if (!strictgovbr || !disabled || !cardRef.current) return
 
