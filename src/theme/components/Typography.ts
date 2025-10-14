@@ -10,6 +10,12 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
     root: ({ theme }) => ({
       fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
       color: 'var(--color, #333333)',
+      // NOTA: Diferenciação intencional do GovBR-DS
+      // Mantemos margin: 0 para evitar espaçamentos inesperados, mas preservamos
+      // o padding padrão do MUI para compatibilidade com componentes existentes.
+      // Use a prop `gutterBottom` ou classes CSS para espaçamento quando necessário.
+      margin: 0,
+      // padding removido para usar o padrão do MUI (undefined = sem override)
 
       // Links dentro de typography
       '& a': {
@@ -20,6 +26,10 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
           color: (theme as Theme).palette.primary.dark,
         },
       },
+
+      '&.MuiTypography-gutterBottom': {
+        marginBottom: 0,
+      },
     }),
 
     // Display (títulos muito grandes)
@@ -28,7 +38,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-bold, 700)', // 700
       lineHeight: 'var(--font-line-height-low, 1.15)', // 1.15
       letterSpacing: 'var(--font-letter-spacing-tight, -0.02em)', // -0.02em
-      marginBottom: 'var(--spacing-scale-3xh, 2.571rem)', // 32px
 
       // Responsividade
       '@media (max-width: 768px)': {
@@ -42,7 +51,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-bold, 700)', // 700
       lineHeight: 'var(--font-line-height-medium, 1.25)', // 1.25
       letterSpacing: 'var(--font-letter-spacing-tight, -0.02em)', // -0.02em
-      marginBottom: 'var(--spacing-scale-2xh, 1.714rem)', // 24px
 
       '@media (max-width: 768px)': {
         fontSize: 'var(--font-size-scale-up-03, 1.44rem)', // 1.44rem em mobile
@@ -55,7 +63,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
       lineHeight: 'var(--font-line-height-medium, 1.25)', // 1.25
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-2x, 1.429rem)', // 20px
 
       '@media (max-width: 768px)': {
         fontSize: 'var(--font-size-scale-up-02, 1.2rem)', // 1.2rem em mobile
@@ -68,7 +75,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
       lineHeight: 'var(--font-line-height-medium, 1.25)', // 1.25
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px
 
       '@media (max-width: 768px)': {
         fontSize: 'var(--font-size-scale-up-01, 1rem)', // 1rem em mobile
@@ -81,7 +87,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-semi-bold, 600)', // 600
       lineHeight: 'var(--font-line-height-medium, 1.25)', // 1.25
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-1xh, 0.857rem)', // 12px
     },
 
     // Títulos pequenos
@@ -90,7 +95,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-medium, 500)', // 500
       lineHeight: 'var(--font-line-height-medium, 1.25)', // 1.25
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-1x, 0.714rem)', // 10px
       textTransform: 'uppercase',
     },
 
@@ -100,7 +104,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-regular, 400)', // 400
       lineHeight: 'var(--font-line-height-high, 1.6)', // 1.6
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px
     },
 
     subtitle2: {
@@ -108,7 +111,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-medium, 500)', // 500
       lineHeight: 'var(--font-line-height-medium, 1.45)', // 1.45
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-1xh, 0.857rem)', // 12px
     },
 
     // Corpo de texto principal
@@ -117,7 +119,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-regular, 400)', // 400
       lineHeight: 'var(--font-line-height-high, 1.6)', // 1.6
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-base, 1rem)', // 16px
     },
 
     // Texto secundário
@@ -126,7 +127,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
       fontWeight: 'var(--font-weight-regular, 400)', // 400
       lineHeight: 'var(--font-line-height-high, 1.6)', // 1.6
       letterSpacing: 'var(--font-letter-spacing-normal, 0)', // 0
-      marginBottom: 'var(--spacing-scale-1xh, 0.857rem)', // 12px
     },
 
     // Texto de botões
@@ -177,7 +177,6 @@ export const MuiTypographyOverrides: Components['MuiTypography'] = {
           fontWeight: 'var(--font-weight-regular, 400)', // 400
           lineHeight: 'var(--font-line-height-high, 1.6)', // 1.6
           color: 'var(--gray-80, #333333)',
-          marginBottom: 'var(--spacing-scale-2x, 1.429rem)', // 20px
         },
       },
     },

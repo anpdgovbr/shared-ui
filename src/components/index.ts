@@ -150,3 +150,17 @@ export type { GovBRDividerProps } from './ui/govbr-divider/types'
  */
 export * from './ui/govbr-tabs'
 export type { GovBRTabsProps } from './ui/govbr-tabs/types'
+
+/**
+ * SideMenu
+ *
+ * Menu lateral colapsável personalizado para aplicações da ANPD.
+ */
+export * from './ui/side-menu'
+export type {
+  SideMenuItem,
+  SideMenuProps,
+  SideMenuRenderContext,
+  SideMenuToggleIcons,
+  SideMenuToggleLabels,
+} from './ui/side-menu/types'
