@@ -51,7 +51,7 @@ Card seguindo os padrões do **Gov.br Design System**.
 
 - ✅ **Modo Estrito**: Renderização HTML pura com classes CSS oficiais do Gov.br DS
 - 🎨 **Variantes**: Suporta header, content, footer e imagem
-- 🔄 **Interativo**: Suporte para hover, drag and drop
+- 🔄 **Interativo**: Suporte para drag and drop (modo estrito)
 - 📏 **Altura Fixa**: Scroll automático quando necessário
 - ♿ **Acessível**: Estados disabled com aria-hidden
 

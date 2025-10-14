@@ -100,13 +100,7 @@ export interface GovBRCardProps
   customHeight?: string
 
   /**
-   * Habilita efeito hover
-   * @default false
-   */
-  hover?: boolean
-
-  /**
-   * Habilita drag and drop
+   * Habilita drag and drop (apenas modo estrito)
    * @default false
    */
   draggable?: boolean
@@ -122,9 +116,4 @@ export interface GovBRCardProps
    * @example '400px', '100%', '30rem'
    */
   maxWidth?: string | number
-
-  /**
-   * ID do card para drag and drop
-   */
-  id?: string
 }

@@ -36,7 +36,6 @@ import type { GovBRCardProps } from './types'
  * - ✅ Footer para ações
  * - ✅ Conteúdo expansível/colapsável
  * - ✅ Altura fixa com scroll automático
- * - ✅ Efeito hover customizável
  * - ✅ Suporte a drag and drop (apenas modo estrito)
  * - ✅ Estado desabilitado
  * - ✅ Largura máxima configurável
@@ -98,7 +97,6 @@ import type { GovBRCardProps } from './types'
  *   onExpandChange={setIsExpanded}
  *   fixedHeight
  *   customHeight="350px"
- *   hover
  *   maxWidth="500px"
  * />
  * ```
@@ -109,7 +107,6 @@ import type { GovBRCardProps } from './types'
  * <GovBRCard
  *   strictgovbr
  *   draggable
- *   id="card-1"
  *   header="Card Arrastável"
  *   cardContent={<p>Você pode arrastar este card</p>}
  * />
@@ -131,11 +128,9 @@ import type { GovBRCardProps } from './types'
  * @param {number} [props.imageHeight=194] - Altura da imagem em pixels
  * @param {boolean} [props.fixedHeight=false] - Ativa altura fixa com scroll
  * @param {string} [props.customHeight='250px'] - Altura customizada quando fixedHeight=true
- * @param {boolean} [props.hover=false] - Ativa efeito hover
  * @param {boolean} [props.draggable=false] - Permite arrastar o card (apenas modo estrito)
  * @param {boolean} [props.disabled=false] - Desabilita interatividade
  * @param {string} [props.maxWidth] - Largura máxima do card
- * @param {string} [props.id] - ID único do card
  * @param {CSSProperties} [props.style] - Estilos inline customizados
  *
  * @returns {JSX.Element} Componente GovBRCard renderizado
@@ -165,11 +160,9 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   imageHeight = 194,
   fixedHeight = false,
   customHeight = '250px',
-  hover = false,
   draggable = false,
   disabled = false,
   maxWidth,
-  id,
   style,
   ...props
 }) => {
@@ -233,7 +226,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   if (strictgovbr) {
     const cardClasses = classnames('br-card', className, {
       'h-fixed': fixedHeight,
-      hover: hover,
       disabled: disabled,
     })
 
@@ -252,7 +244,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
         ref={cardRef}
         className={cardClasses}
         style={cardStyle}
-        id={id}
         draggable={draggable}
         {...(props as React.HTMLAttributes<HTMLDivElement>)}
       >
@@ -283,12 +274,6 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
         overflowY: 'auto',
       },
     }),
-    ...(hover && {
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-      },
-    }),
     ...(disabled && {
       opacity: 0.6,
       pointerEvents: 'none',
@@ -298,7 +283,7 @@ export const GovBRCard: React.FC<Readonly<GovBRCardProps>> = ({
   const shouldRenderCardHeader = title || subheader || avatar || action || header
 
   return (
-    <MuiCard className={className} sx={cardStyle} id={id} {...props}>
+    <MuiCard className={className} sx={cardStyle} {...props}>
       {image && (
         <MuiCardMedia
           component="img"
