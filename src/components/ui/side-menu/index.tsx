@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { type SxProps, type Theme, useTheme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { type ElementType, type MouseEvent, useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { SideMenuItem, SideMenuProps, SideMenuRenderContext } from './types'
@@ -125,7 +126,57 @@ const defaultExpandedWidth = 240
 const defaultItemGap = 0.5
 
 /**
- * Menu lateral reutilizável com suporte a submenus, colapso e integração com temas MUI.
+ * SideMenu - Menu Lateral Reutilizável
+ *
+ * Componente customizado da ANPD para navegação lateral com suporte a hierarquia,
+ * colapso, persistência de estado e integração completa com Material-UI.
+ *
+ * @remarks
+ * Embora não seja um componente oficial do GovBR Design System, segue as mesmas
+ * convenções da biblioteca shared-ui e pode ser totalmente personalizado via props
+ * e render props.
+ *
+ * **Características principais:**
+ * - 🎯 Suporte a hierarquia de menus com submenus aninhados
+ * - 🔄 Modo colapsado com ícones e tooltips
+ * - 📍 Destaque automático de item ativo baseado em rota
+ * - 💾 Persistência de estado em localStorage
+ * - 🎛️ Modos controlado e não-controlado
+ * - 📱 Auto collapse em mobile (opcional)
+ * - 🎨 Diferenciação visual entre pai e filho ativo
+ * - ⚡ Headers e footers customizáveis
+ * - ♿ Acessibilidade completa
+ *
+ * @example Uso básico
+ * ```tsx
+ * <SideMenu
+ *   items={menuItems}
+ *   currentPath="/dashboard/team"
+ *   title="Navegação"
+ * />
+ * ```
+ *
+ * @example Com controle externo
+ * ```tsx
+ * const [open, setOpen] = useState(true)
+ * <SideMenu
+ *   items={menuItems}
+ *   open={open}
+ *   onOpenChange={setOpen}
+ * />
+ * ```
+ *
+ * @example Com persistência
+ * ```tsx
+ * <SideMenu
+ *   items={menuItems}
+ *   persistKey="app-menu-state"
+ *   autoCollapseOnMobile
+ * />
+ * ```
+ *
+ * @param props - {@link SideMenuProps}
+ * @returns JSX.Element
  */
 export function SideMenu(props: Readonly<SideMenuProps>) {
   const {
@@ -152,13 +203,24 @@ export function SideMenu(props: Readonly<SideMenuProps>) {
     dense = false,
     collapsedMenuProps,
     itemGap = defaultItemGap,
+    parentClickBehavior = 'expand-only',
+    autoCollapseOnMobile = false,
+    highlightParentDifferently = true,
   } = props
 
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen)
   const isControlled = typeof open === 'boolean'
   const resolvedOpen = isControlled ? (open as boolean) : internalOpen
+
+  // Auto collapse em mobile se ativado
+  useEffect(() => {
+    if (autoCollapseOnMobile && isMobile && !isControlled) {
+      setInternalOpen(false)
+    }
+  }, [autoCollapseOnMobile, isMobile, isControlled])
 
   // Persistência em localStorage
   useEffect(() => {
@@ -346,6 +408,8 @@ export function SideMenu(props: Readonly<SideMenuProps>) {
               linkComponent={effectiveLinkComponent}
               collapsedMenuProps={collapsedMenuProps}
               itemGap={itemGap}
+              parentClickBehavior={parentClickBehavior}
+              highlightParentDifferently={highlightParentDifferently}
             />
           ))}
         </List>
@@ -455,6 +519,8 @@ type RecursiveItemProps = {
   linkComponent: ElementType
   collapsedMenuProps?: SideMenuProps['collapsedMenuProps']
   itemGap: number
+  parentClickBehavior: NonNullable<SideMenuProps['parentClickBehavior']>
+  highlightParentDifferently: boolean
 }
 
 const RecursiveItem = ({
@@ -468,6 +534,8 @@ const RecursiveItem = ({
   linkComponent,
   collapsedMenuProps,
   itemGap,
+  parentClickBehavior,
+  highlightParentDifferently,
 }: RecursiveItemProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const hasChildren = Boolean(item.children && item.children.length > 0)
@@ -475,6 +543,10 @@ const RecursiveItem = ({
   const state = activeMap.get(item.__key) ?? { selfActive: false, descendantActive: false }
   const showAsActive = state.selfActive || state.descendantActive
   const isExpanded = expandedKeys.has(item.__key)
+
+  // Diferencia visualmente o pai do filho ativo
+  const isParentOfActive = highlightParentDifferently && state.descendantActive && !state.selfActive
+  const isSelfActive = state.selfActive
 
   const paddingLeft = menuOpen ? 1.5 + depth * 2 : 1
   const minHeight = dense ? 36 : 40
@@ -498,7 +570,20 @@ const RecursiveItem = ({
       return
     }
 
-    if (treatAsExpander) {
+    // Comportamento baseado na prop parentClickBehavior
+    if (hasChildren && !item.onlyExpand) {
+      if (parentClickBehavior === 'expand-only') {
+        // Comportamento padrão: apenas expande
+        handleExpandClick(event)
+      } else if (parentClickBehavior === 'navigate') {
+        // Navega e expande automaticamente
+        if (!isExpanded) {
+          toggleItem(item.__key)
+        }
+        // Deixa o onClick customizado do item executar para navegação
+      }
+      // 'both' é tratado na renderização com ícone separado
+    } else if (treatAsExpander) {
       handleExpandClick(event)
     }
 
@@ -528,6 +613,32 @@ const RecursiveItem = ({
   const componentProps =
     Component === 'button' || !item.href ? { type: 'button' } : { href: item.href, tabIndex: 0 }
 
+  // Define cores baseadas no estado
+  const getItemColor = () => {
+    if (isSelfActive) return 'primary.main'
+    if (isParentOfActive) return 'text.secondary'
+    return 'text.primary'
+  }
+
+  const getBackgroundColor = () => {
+    if (isSelfActive) return 'action.selected'
+    if (isParentOfActive) return 'action.hover'
+    return 'transparent'
+  }
+
+  const getFontWeight = () => {
+    if (isSelfActive) return 600
+    if (isParentOfActive) return 500
+    if (depth > 0) return 400
+    return 500
+  }
+
+  const getBorderColor = () => {
+    if (isSelfActive) return 'primary.main'
+    if (isParentOfActive) return 'primary.light'
+    return 'divider'
+  }
+
   return (
     <>
       <ListItem
@@ -549,8 +660,8 @@ const RecursiveItem = ({
             pr: menuOpen ? 1.5 : 1,
             py: dense ? 0.5 : 0.75,
             borderRadius: 1,
-            backgroundColor: selected ? 'action.selected' : 'transparent',
-            color: selected ? 'primary.main' : 'text.primary',
+            backgroundColor: getBackgroundColor(),
+            color: getItemColor(),
             transition: 'all 0.2s ease',
             '&:hover': {
               backgroundColor: 'action.hover',
@@ -558,7 +669,7 @@ const RecursiveItem = ({
             ...(depth > 0 &&
               menuOpen && {
                 borderLeft: '2px solid',
-                borderColor: selected ? 'primary.main' : 'divider',
+                borderColor: getBorderColor(),
                 ml: 0.5,
               }),
             ...item.sx,
@@ -583,7 +694,7 @@ const RecursiveItem = ({
               primary={item.label}
               primaryTypographyProps={{
                 fontSize: depth > 0 ? '0.875rem' : '0.9rem',
-                fontWeight: selected ? 600 : depth > 0 ? 400 : 500,
+                fontWeight: getFontWeight(),
               }}
             />
           ) : null}
@@ -622,6 +733,8 @@ const RecursiveItem = ({
                 linkComponent={linkComponent}
                 collapsedMenuProps={collapsedMenuProps}
                 itemGap={itemGap}
+                parentClickBehavior={parentClickBehavior}
+                highlightParentDifferently={highlightParentDifferently}
               />
             ))}
           </List>

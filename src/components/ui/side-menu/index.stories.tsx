@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-import { SideMenu } from './index'
-import type { SideMenuItem } from './types'
+import { SideMenu } from '.'
+import type { SideMenuItem, SideMenuProps, SideMenuRenderContext } from './types'
 
 const baseItems: SideMenuItem[] = [
   {
@@ -210,7 +210,7 @@ export const DenseMode: Story = {
 }
 
 export const InteractiveNavigation: Story = {
-  render: function InteractiveDemo(args) {
+  render: function InteractiveDemo(args: SideMenuProps) {
     const [currentPath, setCurrentPath] = useState('/dashboard/management/team')
 
     const interactiveItems: SideMenuItem[] = baseItems.map((item) => ({
@@ -274,11 +274,11 @@ export const InteractiveNavigation: Story = {
 }
 
 export const WithCustomFooter: Story = {
-  render: (args) => (
+  render: (args: SideMenuProps) => (
     <SideMenu
       {...args}
       linkComponent="button"
-      renderFooter={({ open }) => (
+      renderFooter={({ open }: SideMenuRenderContext) => (
         <Stack spacing={1}>
           {open ? (
             <>
@@ -314,14 +314,14 @@ export const WithCustomFooter: Story = {
 }
 
 export const ControlledExample: Story = {
-  render: function ControlledDemo(args) {
+  render: function ControlledDemo(args: SideMenuProps) {
     const [open, setOpen] = useState(true)
     return (
       <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ width: '100%' }}>
         <SideMenu
           {...args}
           open={open}
-          onOpenChange={(next) => setOpen(next)}
+          onOpenChange={(next: boolean) => setOpen(next)}
           linkComponent="button"
           renderFooter={() => null}
         />
@@ -423,6 +423,128 @@ export const AllVariants: Story = {
     docs: {
       description: {
         story: 'Comparação visual entre diferentes variantes e modos do menu.',
+      },
+    },
+  },
+}
+
+export const ParentChildHighlight: Story = {
+  args: {
+    currentPath: '/dashboard/management/team',
+    highlightParentDifferently: true,
+    linkComponent: 'button',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstra a diferenciação visual entre o item pai (Gestão) que contém um filho ativo (Equipe). O pai recebe destaque mais sutil enquanto o filho ativo tem destaque completo.',
+      },
+    },
+  },
+}
+
+export const ParentNavigationBehavior: Story = {
+  render: function ParentNavDemo() {
+    const [currentPath, setCurrentPath] = useState('/dashboard/management')
+
+    const navItems: SideMenuItem[] = [
+      {
+        label: 'Visão Geral',
+        href: '/dashboard',
+        icon: <DashboardIcon />,
+        onClick: (e, item) => {
+          e.preventDefault()
+          if (item.href) setCurrentPath(item.href)
+        },
+      },
+      {
+        label: 'Gestão',
+        href: '/dashboard/management',
+        icon: <PeopleAltIcon />,
+        onClick: (e, item) => {
+          e.preventDefault()
+          if (item.href) setCurrentPath(item.href)
+        },
+        children: [
+          {
+            label: 'Equipe',
+            href: '/dashboard/management/team',
+            icon: <PeopleAltIcon fontSize="small" />,
+            onClick: (e, item) => {
+              e.preventDefault()
+              if (item.href) setCurrentPath(item.href)
+            },
+          },
+          {
+            label: 'Configurações',
+            href: '/dashboard/management/settings',
+            icon: <SettingsIcon fontSize="small" />,
+            onClick: (e, item) => {
+              e.preventDefault()
+              if (item.href) setCurrentPath(item.href)
+            },
+          },
+        ],
+      },
+    ]
+
+    return (
+      <Stack direction="row" spacing={2} sx={{ width: '100%' }}>
+        <SideMenu
+          items={navItems}
+          currentPath={currentPath}
+          parentClickBehavior="navigate"
+          linkComponent="button"
+          title="Navegação Pai"
+        />
+        <Box
+          sx={{
+            flex: 1,
+            border: '1px dashed',
+            borderColor: 'divider',
+            borderRadius: 2,
+            p: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Typography variant="h6">Área de Conteúdo</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Rota atual: <strong>{currentPath}</strong>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Clique em &ldquo;Gestão&rdquo; - ele navega E expande o submenu automaticamente
+          </Typography>
+        </Box>
+      </Stack>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Com `parentClickBehavior="navigate"`, clicar no item pai navega para sua rota e expande o submenu automaticamente. Ideal para páginas de overview.',
+      },
+    },
+  },
+}
+
+export const MobileAutoCollapse: Story = {
+  args: {
+    autoCollapseOnMobile: true,
+    defaultOpen: true,
+    linkComponent: 'button',
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+    docs: {
+      description: {
+        story:
+          'Com `autoCollapseOnMobile={true}`, o menu colapsa automaticamente em telas menores que 600px. Mude o viewport do Storybook para testar.',
       },
     },
   },
