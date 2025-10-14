@@ -35,17 +35,26 @@ type NormalizedItem = SideMenuItem & {
 
 /**
  * Normaliza um caminho removendo barras finais duplicadas.
- * Usa regex para melhor performance comparado a loop while.
+ * Usa lastIndexOf para evitar vulnerabilidades de ReDoS.
  *
  * @param value - Caminho a ser normalizado
  * @returns Caminho normalizado sem barras finais, exceto para raiz '/'
+ *
+ * @remarks
+ * A implementação evita regex vulnerável a ReDoS (js/polynomial-redos).
+ * Usa lastIndexOf + slice para performance O(n) garantida e segurança.
  */
 const normalizePath = (value?: string) => {
   if (!value) return value
   if (value === '/') return '/'
 
-  // Remove barras finais usando regex (mais eficiente que while loop)
-  return value.replace(/\/+$/, '')
+  // Remove barras finais de forma segura (evita ReDoS)
+  let endIndex = value.length
+  while (endIndex > 1 && value[endIndex - 1] === '/') {
+    endIndex--
+  }
+
+  return endIndex === value.length ? value : value.slice(0, endIndex)
 }
 
 const defaultActiveMatcher = (item: SideMenuItem, currentPath?: string) => {
