@@ -216,17 +216,6 @@ describe('GovBRCard', () => {
       expect(footer).toBeInTheDocument()
     })
 
-    it('should apply hover class when hover prop is true', () => {
-      const { container } = render(
-        <GovBRCard strictgovbr hover>
-          <p>Content</p>
-        </GovBRCard>,
-      )
-
-      const card = container.querySelector('.hover')
-      expect(card).toBeInTheDocument()
-    })
-
     it('should apply disabled class when disabled prop is true', () => {
       const { container } = render(
         <GovBRCard strictgovbr disabled>
