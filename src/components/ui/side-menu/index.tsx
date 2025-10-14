@@ -36,7 +36,14 @@ type NormalizedItem = SideMenuItem & {
 const normalizePath = (value?: string) => {
   if (!value) return value
   if (value === '/') return '/'
-  return value.replace(/\/+$/, '')
+
+  let normalized = value
+
+  while (normalized.length > 1 && normalized.endsWith('/')) {
+    normalized = normalized.slice(0, -1)
+  }
+
+  return normalized
 }
 
 const defaultActiveMatcher = (item: SideMenuItem, currentPath?: string) => {
