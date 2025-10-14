@@ -17,6 +17,7 @@ Este documento descreve as melhorias de segurança, performance e acessibilidade
 #### ⚠️ Vulnerabilidade Identificada: `js/polynomial-redos`
 
 **Código Vulnerável (inicial):**
+
 ```typescript
 const normalizePath = (value?: string) => {
   if (!value) return value
@@ -28,11 +29,13 @@ const normalizePath = (value?: string) => {
 ```
 
 **Problema:**
+
 - O regex `/\/+$/` possui ambiguidade que pode levar a complexidade temporal polinomial
 - Strings com muitas barras repetidas podem causar DoS (Denial of Service)
 - Exemplo: Uma string com milhões de `/` poderia travar a aplicação
 
 **Correção Implementada:**
+
 ```typescript
 /**
  * Normaliza um caminho removendo barras finais duplicadas.
@@ -60,6 +63,7 @@ const normalizePath = (value?: string) => {
 ```
 
 **Benefícios:**
+
 - ✅ **Segurança**: Elimina vulnerabilidade de ReDoS (CWE-1333, CWE-730, CWE-400)
 - ✅ **Performance**: Complexidade temporal garantida O(n) - linear
 - ✅ **Previsibilidade**: Comportamento consistente independente do input
@@ -67,24 +71,24 @@ const normalizePath = (value?: string) => {
 
 #### Análise de Complexidade
 
-| Abordagem | Complexidade | Segurança | Input Malicioso |
-|-----------|--------------|-----------|-----------------|
-| **Regex `/\/+$/`** | O(n²) pior caso | ❌ Vulnerável | Milhões de `/` causam DoS |
-| **While loop + slice** | O(n) garantido | ✅ Seguro | Performance linear sempre |
+| Abordagem              | Complexidade    | Segurança     | Input Malicioso           |
+| ---------------------- | --------------- | ------------- | ------------------------- |
+| **Regex `/\/+$/`**     | O(n²) pior caso | ❌ Vulnerável | Milhões de `/` causam DoS |
+| **While loop + slice** | O(n) garantido  | ✅ Seguro     | Performance linear sempre |
 
 #### Casos de Teste
 
 ```typescript
 // Casos normais
-normalizePath('/path/to/file')      // → '/path/to/file'
-normalizePath('/path/to/file/')     // → '/path/to/file'
-normalizePath('/path/to/file///')   // → '/path/to/file'
-normalizePath('/')                  // → '/'
-normalizePath('')                   // → ''
-normalizePath(undefined)            // → undefined
+normalizePath('/path/to/file') // → '/path/to/file'
+normalizePath('/path/to/file/') // → '/path/to/file'
+normalizePath('/path/to/file///') // → '/path/to/file'
+normalizePath('/') // → '/'
+normalizePath('') // → ''
+normalizePath(undefined) // → undefined
 
 // Casos extremos (agora seguros)
-normalizePath('/' + '/'.repeat(1000000))  // ✅ Rápido e seguro
+normalizePath('/' + '/'.repeat(1000000)) // ✅ Rápido e seguro
 ```
 
 ---
@@ -94,11 +98,13 @@ normalizePath('/' + '/'.repeat(1000000))  // ✅ Rápido e seguro
 ### 2.1 Parâmetros Documentados
 
 **Melhorias:**
+
 - ✅ Adicionadas tags `@param` detalhadas para todas as propriedades principais
 - ✅ Exemplos de uso expandidos
 - ✅ Documentação de comportamentos complexos
 
 **Propriedades documentadas:**
+
 - `props.items` - Array de itens do menu (obrigatório)
 - `props.currentPath` - Caminho atual da aplicação
 - `props.open` - Controle de estado (modo controlado)
@@ -120,6 +126,7 @@ normalizePath('/' + '/'.repeat(1000000))  // ✅ Rápido e seguro
 ### 3.1 Remoção de reset global de padding
 
 **Antes:**
+
 ```typescript
 root: ({ theme }) => ({
   fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
@@ -131,6 +138,7 @@ root: ({ theme }) => ({
 ```
 
 **Depois:**
+
 ```typescript
 root: ({ theme }) => ({
   fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
@@ -146,6 +154,7 @@ root: ({ theme }) => ({
 ```
 
 **Benefícios:**
+
 - ✅ Preserva o comportamento padrão do MUI
 - ✅ Evita efeitos colaterais em componentes existentes
 - ✅ Diferenciação documentada do GovBR-DS
@@ -160,6 +169,7 @@ root: ({ theme }) => ({
 ### 4.1 Suporte a `prefers-reduced-motion` e WCAG
 
 #### a) Scrollbars com transição suave (movimento normal)
+
 ```typescript
 '@media (prefers-reduced-motion: no-preference)': {
   '::-webkit-scrollbar-thumb': {
@@ -172,6 +182,7 @@ root: ({ theme }) => ({
 ```
 
 #### b) Scrollbars sem transição (movimento reduzido)
+
 ```typescript
 '@media (prefers-reduced-motion: reduce)': {
   '::-webkit-scrollbar-thumb': {
@@ -184,6 +195,7 @@ root: ({ theme }) => ({
 ```
 
 #### c) Estados interativos bem definidos
+
 ```typescript
 '::-webkit-scrollbar-thumb:hover': {
   backgroundColor: 'rgba(0, 0, 0, 0.4)',
@@ -194,6 +206,7 @@ root: ({ theme }) => ({
 ```
 
 **Benefícios:**
+
 - ✅ **Acessibilidade WCAG AA**: Contraste adequado com bordas
 - ✅ **prefers-reduced-motion**: Respeita preferências do usuário
 - ✅ **Dark mode**: Suporte completo com contraste apropriado
@@ -206,19 +219,19 @@ root: ({ theme }) => ({
 
 ### Segurança
 
-| Vulnerabilidade | CWE | Status | Mitigação |
-|-----------------|-----|--------|-----------|
-| **ReDoS** | CWE-1333 | ✅ Corrigido | Substituído regex por while loop |
-| **Polynomial RegEx** | CWE-730 | ✅ Corrigido | Complexidade O(n) garantida |
-| **DoS** | CWE-400 | ✅ Corrigido | Removida ambiguidade no regex |
+| Vulnerabilidade      | CWE      | Status       | Mitigação                        |
+| -------------------- | -------- | ------------ | -------------------------------- |
+| **ReDoS**            | CWE-1333 | ✅ Corrigido | Substituído regex por while loop |
+| **Polynomial RegEx** | CWE-730  | ✅ Corrigido | Complexidade O(n) garantida      |
+| **DoS**              | CWE-400  | ✅ Corrigido | Removida ambiguidade no regex    |
 
 ### Acessibilidade WCAG 2.1
 
-| Critério | Nível | Status |
-|----------|-------|--------|
-| **1.4.3 Contraste (Mínimo)** | AA | ✅ Implementado |
-| **2.3.3 Animação de Interações** | AAA | ✅ Implementado |
-| **1.4.12 Espaçamento de Texto** | AA | ✅ Preservado |
+| Critério                         | Nível | Status          |
+| -------------------------------- | ----- | --------------- |
+| **1.4.3 Contraste (Mínimo)**     | AA    | ✅ Implementado |
+| **2.3.3 Animação de Interações** | AAA   | ✅ Implementado |
+| **1.4.12 Espaçamento de Texto**  | AA    | ✅ Preservado   |
 
 ---
 
@@ -273,12 +286,14 @@ console.timeEnd('normalizePath')
 ## Referências
 
 ### Segurança
+
 - [OWASP: Regular expression Denial of Service - ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)
 - [CWE-1333: Inefficient Regular Expression Complexity](https://cwe.mitre.org/data/definitions/1333.html)
 - [CWE-730: OWASP Top Ten 2004 Category A9](https://cwe.mitre.org/data/definitions/730.html)
 - [CodeQL: js/polynomial-redos](https://codeql.github.com/codeql-query-help/javascript/js-polynomial-redos/)
 
 ### Acessibilidade
+
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [prefers-reduced-motion MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
 
@@ -287,18 +302,21 @@ console.timeEnd('normalizePath')
 ## Próximos Passos
 
 ### Segurança
+
 - [x] Corrigir vulnerabilidade ReDoS em `normalizePath`
 - [ ] Executar análise CodeQL em todo o repositório
 - [ ] Adicionar testes de segurança automatizados
 - [ ] Documentar políticas de segurança
 
 ### Acessibilidade
+
 - [x] Implementar suporte a `prefers-reduced-motion`
 - [x] Garantir contraste WCAG AA nas scrollbars
 - [ ] Testar com leitores de tela
 - [ ] Adicionar testes automatizados de a11y
 
 ### Testes
+
 - [ ] Adicionar testes unitários para `normalizePath`
 - [ ] Testes de performance com inputs grandes
 - [ ] Testes de acessibilidade automatizados

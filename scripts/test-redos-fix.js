@@ -18,12 +18,12 @@ const normalizePath = (value) => {
 
 // Testes básicos
 console.log('=== Testes Básicos ===')
-console.log(normalizePath('/path/to/file'))      // '/path/to/file'
-console.log(normalizePath('/path/to/file/'))     // '/path/to/file'
-console.log(normalizePath('/path/to/file///'))   // '/path/to/file'
-console.log(normalizePath('/'))                  // '/'
-console.log(normalizePath(''))                   // ''
-console.log(normalizePath(undefined))            // undefined
+console.log(normalizePath('/path/to/file')) // '/path/to/file'
+console.log(normalizePath('/path/to/file/')) // '/path/to/file'
+console.log(normalizePath('/path/to/file///')) // '/path/to/file'
+console.log(normalizePath('/')) // '/'
+console.log(normalizePath('')) // ''
+console.log(normalizePath(undefined)) // undefined
 
 // Teste de segurança - ReDoS Prevention
 console.log('\n=== Teste de Segurança (ReDoS Prevention) ===')
@@ -33,13 +33,13 @@ console.log('\n=== Teste de Segurança (ReDoS Prevention) ===')
 
 const sizes = [100, 1000, 10000, 100000]
 
-sizes.forEach(size => {
+sizes.forEach((size) => {
   const maliciousInput = '/' + '/'.repeat(size)
-  
+
   console.time(`normalizePath (${size} barras)`)
   const result = normalizePath(maliciousInput)
   console.timeEnd(`normalizePath (${size} barras)`)
-  
+
   console.log(`  Resultado: ${result === '/' ? 'OK (/)' : 'ERRO'}`)
 })
 
