@@ -7,6 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import React from 'react'
 
+import { GovBRAvatar } from '../govbr-avatar'
 import { GovBRButton } from '../govbr-button'
 import { GovBRCard } from './index'
 
@@ -799,24 +800,7 @@ export const MUIAdvanced: Story = {
         image="https://picsum.photos/id/292/500/200"
         imageAlt="Paella dish"
         imageHeight={200}
-        avatar={
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: '50%',
-              backgroundColor: 'var(--red-vivid-50, #e52207)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: '1.25rem',
-            }}
-          >
-            R
-          </div>
-        }
+        avatar={<GovBRAvatar alt="R">R</GovBRAvatar>}
         action={
           <GovBRButton variant="text" size="small" aria-label="Mais opções">
             <MoreVertIcon fontSize="small" />

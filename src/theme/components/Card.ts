@@ -48,7 +48,6 @@ export const MuiCardHeaderOverrides: Components['MuiCardHeader'] = {
   styleOverrides: {
     root: {
       padding: 'var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-3quarter, 0.75rem) 0', // 12px 12px 0
-      borderBottom: '1px solid var(--gray-20, #cccccc)',
       marginBottom: 'var(--spacing-scale-half, 0.5rem)', // 8px
     },
 
@@ -105,7 +104,6 @@ export const MuiCardActionsOverrides: Components['MuiCardActions'] = {
   styleOverrides: {
     root: {
       padding: '0 var(--spacing-scale-3quarter, 0.75rem) var(--spacing-scale-3quarter, 0.75rem)', // 0 12px 12px
-      borderTop: '1px solid var(--gray-20, #cccccc)',
       marginTop: 'var(--spacing-scale-base, 1rem)', // 16px
       gap: 'var(--spacing-scale-half, 0.5rem)', // 8px entre ações
 
