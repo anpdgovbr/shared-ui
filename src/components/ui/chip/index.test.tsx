@@ -26,8 +26,8 @@ describe('Chip', () => {
     const longText = 'Este é um texto muito longo que deveria ser truncado automaticamente'
     render(<Chip label={longText} maxLength={20} autoTruncate={true} />)
 
-    // Verifica se o texto foi truncado
-    expect(screen.getByText(/Este é um texto muito/)).toBeInTheDocument()
+    // Verifica se o texto foi truncado (maxLength=20 resulta em "Este é um texto muit...")
+    expect(screen.getByText('Este é um texto muit...')).toBeInTheDocument()
   })
 
   it('não trunca quando autoTruncate é false', () => {
