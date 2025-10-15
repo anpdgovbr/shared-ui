@@ -84,28 +84,6 @@ Quando \`fixedHeight=true\`, o conteúdo tem altura máxima com scroll
 export default meta
 type Story = StoryObj<typeof GovBRCard>
 
-export const Playground: Story = {
-  args: {
-    strictgovbr: false,
-    title: 'Título do Card',
-    subheader: 'Subtítulo ou descrição',
-    cardContent: (
-      <p>
-        Este é o playground do GovBRCard. Alterne o controle `strictgovbr` para ver a diferença
-        entre o modo padrão (MUI) e o modo estrito (Gov.br DS).
-      </p>
-    ),
-    footer: (
-      <>
-        <GovBRButton variant="contained" color="primary">
-          Ação Principal
-        </GovBRButton>
-        <GovBRButton variant="outlined">Ação Secundária</GovBRButton>
-      </>
-    ),
-  },
-}
-
 /**
  * ========================================
  * MODO ESTRITO (strictgovbr=true)
