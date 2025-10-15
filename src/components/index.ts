@@ -64,6 +64,15 @@ export * from './ui/govbr-checkbox'
 export type { GovBRCheckboxProps } from './ui/govbr-checkbox/types'
 
 /**
+ * Chip
+ *
+ * Componente customizado da ANPD para exibir tags, badges e status de forma compacta.
+ * Baseado no MUI Chip com recursos adicionais de truncamento e tooltip inteligente.
+ */
+export { Chip, ChipsList } from './ui/chip'
+export type { ChipItemData, ChipProps, ChipsListProps } from './ui/chip/types'
+
+/**
  * GovBRFormCheckbox
  *
  * Checkbox para uso em formulários, integrado com as convenções de validação.
