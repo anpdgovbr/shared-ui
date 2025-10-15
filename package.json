@@ -1,6 +1,6 @@
 {
   "name": "@anpdgovbr/shared-ui",
-  "version": "0.3.7-beta.1",
+  "version": "0.3.8-beta.1",
   "description": "Biblioteca de componentes React com MUI v7 e padrão GovBR-ds para ANPD",
   "keywords": [
     "react",
@@ -98,7 +98,7 @@
     "type": "government",
     "url": "https://gov.br/anpd"
   },
-  "packageManager": "pnpm@10.18.2",
+  "packageManager": "pnpm@10.18.3",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
@@ -165,7 +165,7 @@
     "rollup-plugin-visualizer": "^6.0.4",
     "storybook": "^9.1.10",
     "typescript": "^5.9.3",
-    "vite": "^7.1.9",
+    "vite": "^7.1.10",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
     "zod": "^4.1.12"
