@@ -58,6 +58,9 @@ const createColorOverride =
   }
 
 export const MuiChipOverrides: Components['MuiChip'] = {
+  defaultProps: {
+    variant: 'outlined', // Outlined como padrão no Gov.br
+  },
   styleOverrides: {
     root: ({ theme }: OverrideCallbackProps) => {
       const muiTheme = theme as Theme
@@ -66,11 +69,11 @@ export const MuiChipOverrides: Components['MuiChip'] = {
         // Formato de pílula Gov.br
         borderRadius: '100em',
 
-        // Tipografia usando tema dinâmico
-        fontSize: muiTheme.typography.body2.fontSize,
-        fontWeight: muiTheme.typography.fontWeightMedium,
-        fontFamily: muiTheme.typography.fontFamily,
-        lineHeight: 1.5,
+        // Tipografia Gov.br - padrão do projeto
+        fontSize: 'var(--font-size-scale-base, 14px)',
+        fontWeight: 'var(--font-weight-medium, 500)',
+        fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
+        lineHeight: 'var(--font-line-height-medium, 1.5)',
 
         // Espaçamento usando tema
         height: 'auto',
@@ -79,50 +82,54 @@ export const MuiChipOverrides: Components['MuiChip'] = {
         border: '1px solid transparent',
 
         // Transições
-        transition: muiTheme.transitions.create(
-          ['background-color', 'box-shadow', 'border-color'],
-          {
-            duration: muiTheme.transitions.duration.short,
-          },
-        ),
+        transition: 'all 0.2s ease-in-out',
 
-        '&.MuiChip-filled': {
-          backgroundColor: muiTheme.palette.action.selected,
-          color: muiTheme.palette.text.primary,
-          border: `1px solid ${muiTheme.palette.divider}`,
+        // Estilos apenas para chips DEFAULT (sem cor específica)
+        '&.MuiChip-colorDefault': {
+          '&.MuiChip-filled': {
+            backgroundColor: 'transparent',
+            color: 'var(--color-primary, #333333)',
+            border: '1px solid var(--gray-40, #c4c4c4)',
 
-          '&:hover': {
-            backgroundColor: muiTheme.palette.action.hover,
-            boxShadow: muiTheme.shadows[1],
-          },
+            '&:hover': {
+              backgroundColor: alpha(muiTheme.palette.primary.main, 0.08),
+              borderColor: muiTheme.palette.primary.main,
+              boxShadow: 'var(--surface-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.1))',
+            },
 
-          '&:focus-visible': {
-            outline: `2px solid ${muiTheme.palette.primary.main}`,
-            outlineOffset: '2px',
-          },
-        },
-
-        '&.MuiChip-outlined': {
-          backgroundColor: 'transparent',
-          color: muiTheme.palette.text.primary,
-          border: `1px solid ${muiTheme.palette.divider}`,
-
-          '&:hover': {
-            backgroundColor: muiTheme.palette.action.hover,
-            borderColor: muiTheme.palette.text.secondary,
+            '&:focus-visible': {
+              outlineStyle: 'dashed',
+              outlineWidth: 'var(--border-width-lg, 4px)',
+              outlineColor: 'var(--focus, #b38c00)',
+              outlineOffset: 'var(--spacing-scale-quarter, 4px)',
+            },
           },
 
-          '&:focus-visible': {
-            outline: `2px solid ${muiTheme.palette.primary.main}`,
-            outlineOffset: '2px',
+          '&.MuiChip-outlined': {
+            backgroundColor: 'transparent',
+            color: 'var(--color-primary, #333333)',
+            border: '1px solid var(--gray-40, #c4c4c4)',
+
+            '&:hover': {
+              backgroundColor: alpha(muiTheme.palette.primary.main, 0.08),
+              borderColor: muiTheme.palette.primary.main,
+            },
+
+            '&:focus-visible': {
+              outlineStyle: 'dashed',
+              outlineWidth: 'var(--border-width-lg, 4px)',
+              outlineColor: 'var(--focus, #b38c00)',
+              outlineOffset: 'var(--spacing-scale-quarter, 4px)',
+            },
           },
         },
 
         '&.Mui-disabled': {
-          backgroundColor: muiTheme.palette.action.disabledBackground,
-          color: muiTheme.palette.action.disabled,
-          borderColor: muiTheme.palette.action.disabledBackground,
-          opacity: 1,
+          backgroundColor: 'var(--gray-20, #e0e0e0)',
+          color: 'var(--gray-60, #757575)',
+          borderColor: 'var(--gray-20, #e0e0e0)',
+          opacity: 0.6,
+          cursor: 'not-allowed',
         },
       }
     },
@@ -209,14 +216,11 @@ export const MuiChipOverrides: Components['MuiChip'] = {
     // Tamanho pequeno
     {
       props: { size: 'small' },
-      style: ({ theme }: OverrideCallbackProps) => {
-        const muiTheme = theme as Theme
-        return {
-          minHeight: muiTheme.spacing(3), // 24px
-          fontSize: muiTheme.typography.caption.fontSize, // ~12px
-          padding: `${muiTheme.spacing(0.25)} ${muiTheme.spacing(1)}`, // 2px 8px
-          borderRadius: '100em',
-        }
+      style: {
+        minHeight: 'var(--spacing-scale-2xh, 24px)', // 24px
+        fontSize: 'var(--font-size-scale-down-01, 12.6px)', // ~12px
+        padding: 'var(--spacing-scale-quarter, 2px) var(--spacing-scale-base, 8px)', // 2px 8px
+        borderRadius: '100em',
       },
     },
 

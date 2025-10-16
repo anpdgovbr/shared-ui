@@ -37,11 +37,6 @@ export interface ChipProps extends Omit<MuiChipProps, 'label'>, SharedUIComponen
   maxLength?: number
 
   /**
-   * Cor de fundo customizada (sobrescreve tema MUI).
-   */
-  backgroundColor?: string
-
-  /**
    * Se true, trunca o texto automaticamente baseado em maxLength.
    * @default true
    */
@@ -73,27 +68,21 @@ export interface ChipsListProps {
   items: ChipItemData[]
 
   /**
-   * Comprimento máximo combinado dos labels antes de mostrar "+N" chip.
+   * Comprimento máximo total antes de mostrar "+N mais".
    * @default 27
    */
   maxLength?: number
 
   /**
-   * Altura inicial do container antes de expandir.
+   * Altura inicial do container.
    * @default 300
    */
   initialHeight?: number
 
   /**
-   * Callback quando o estado "mostrar todos" muda.
+   * Callback executado quando expand/collapse acontece.
    */
-  onShowAll?: (newHeight: number, reset: boolean) => void
-
-  /**
-   * Cor de fundo padrão para todos os chips.
-   * @default 'rgba(170, 230, 238, 0.28)'
-   */
-  backgroundColor?: string
+  onShowAll?: (height: number, reset: boolean) => void
 
   /**
    * Tamanho padrão dos chips.

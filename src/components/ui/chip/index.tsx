@@ -74,13 +74,13 @@ export function Chip({
   label,
   onClick,
   clickable,
-  backgroundColor,
   size = 'medium',
   icon,
   tooltip,
   maxLength = 33,
   autoTruncate = true,
   sx,
+  color,
   ...rest
 }: Readonly<ChipProps>) {
   // Determina se o label é string para aplicar truncamento
@@ -99,9 +99,8 @@ export function Chip({
   // Processa o label para exibição
   const displayLabel = isStringLabel && autoTruncate ? truncateText(label, maxLength) : label
 
-  // Mescla estilos customizados com backgroundColor se fornecido
+  // Mescla estilos customizados
   const mergedSx = {
-    ...(backgroundColor && { backgroundColor }),
     ...(clickable && { cursor: 'pointer' }),
     ...(sx || {}),
   }
@@ -109,6 +108,7 @@ export function Chip({
   const chipElement = (
     <MuiChip
       size={size}
+      color={color}
       sx={mergedSx}
       icon={icon && React.isValidElement(icon) ? icon : undefined}
       label={
@@ -182,7 +182,6 @@ export function Chip({
  */
 export function ChipsList({
   items,
-  backgroundColor = 'rgba(170, 230, 238, 0.28)',
   size = 'medium',
   maxLength = 27,
   initialHeight = 300,
@@ -245,7 +244,6 @@ export function ChipsList({
           <Chip
             key={item.value ?? `${item.label}-${index}`}
             label={item.label}
-            backgroundColor={backgroundColor}
             size={size}
             icon={item.icon && React.isValidElement(item.icon) ? item.icon : undefined}
             tooltip={item.tooltip}
@@ -259,7 +257,6 @@ export function ChipsList({
           }
           onClick={handleShowAllClick}
           clickable={true}
-          backgroundColor={backgroundColor}
           size={size}
         />
       )}

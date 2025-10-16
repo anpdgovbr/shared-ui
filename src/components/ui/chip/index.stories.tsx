@@ -64,10 +64,6 @@ const meta: Meta<typeof Chip> = {
       control: 'boolean',
       description: 'Se true, trunca automaticamente textos longos.',
     },
-    backgroundColor: {
-      control: 'color',
-      description: 'Cor de fundo customizada (sobrescreve tema).',
-    },
   },
   parameters: {
     docs: {
@@ -382,17 +378,39 @@ export const WithTooltip: Story = {
 
 export const CustomBackgroundColor: Story = {
   render: () => (
-    <Stack direction="row" spacing={1}>
-      <Chip label="Azul Gov.br" backgroundColor="rgba(19, 81, 180, 0.12)" />
-      <Chip label="Verde Sucesso" backgroundColor="rgba(22, 136, 33, 0.12)" />
-      <Chip label="Amarelo Alerta" backgroundColor="rgba(255, 193, 7, 0.12)" />
-      <Chip label="Vermelho Erro" backgroundColor="rgba(208, 79, 79, 0.12)" />
+    <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+      <Chip label="Azul Gov.br" color="primary" variant="filled" />
+      <Chip label="Verde Sucesso" color="success" variant="filled" />
+      <Chip label="Amarelo Alerta" color="warning" variant="filled" />
+      <Chip label="Vermelho Erro" color="error" variant="filled" />
+      <Chip label="Info" color="info" variant="filled" />
     </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Chips com cores de fundo baseadas na paleta Gov.br Design System.',
+        story:
+          'Chips usando cores semânticas do tema (primary, success, warning, error, info) em variante filled.',
+      },
+    },
+  },
+}
+
+export const AllColorsOutlined: Story = {
+  render: () => (
+    <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+      <Chip label="Primary Outlined" color="primary" variant="outlined" />
+      <Chip label="Success Outlined" color="success" variant="outlined" />
+      <Chip label="Warning Outlined" color="warning" variant="outlined" />
+      <Chip label="Error Outlined" color="error" variant="outlined" />
+      <Chip label="Info Outlined" color="info" variant="outlined" />
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chips usando cores semânticas do tema em variante outlined com borda de 2px mais destacada.',
       },
     },
   },
@@ -409,7 +427,7 @@ export const ListBasic: Story = {
       { label: 'Storybook' },
     ]
 
-    return <ChipsList items={items} backgroundColor="rgba(19, 81, 180, 0.08)" />
+    return <ChipsList items={items} />
   },
   parameters: {
     docs: {
@@ -438,12 +456,7 @@ export const ListWithOverflow: Story = {
 
     return (
       <Box sx={{ maxWidth: 500 }}>
-        <ChipsList
-          items={items}
-          maxLength={30}
-          size="small"
-          backgroundColor="rgba(22, 136, 33, 0.08)"
-        />
+        <ChipsList items={items} maxLength={30} size="small" />
       </Box>
     )
   },
@@ -466,12 +479,7 @@ export const ListWithScroll: Story = {
 
     return (
       <Box sx={{ maxWidth: 500 }}>
-        <ChipsList
-          items={items}
-          displayAllChips
-          maxHeight={200}
-          backgroundColor="rgba(255, 193, 7, 0.08)"
-        />
+        <ChipsList items={items} displayAllChips maxHeight={200} />
       </Box>
     )
   },
@@ -496,7 +504,6 @@ export const ListCustomStyling: Story = {
     return (
       <ChipsList
         items={items}
-        backgroundColor="rgba(208, 79, 79, 0.08)"
         size="medium"
         sx={{
           p: 2,
@@ -512,26 +519,6 @@ export const ListCustomStyling: Story = {
     docs: {
       description: {
         story: 'Lista Gov.br com estilização customizada aplicada ao container.',
-      },
-    },
-  },
-}
-
-export const Playground: Story = {
-  args: {
-    label: 'Chip Customizável',
-    size: 'medium',
-    color: 'primary',
-    variant: 'filled',
-    clickable: false,
-    tooltip: '',
-    maxLength: 33,
-    autoTruncate: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Playground interativo para testar todas as props do componente Chip Gov.br.',
       },
     },
   },
