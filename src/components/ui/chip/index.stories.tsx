@@ -376,7 +376,7 @@ export const WithTooltip: Story = {
   },
 }
 
-export const CustomBackgroundColor: Story = {
+export const SemanticColorsFilled: Story = {
   render: () => (
     <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
       <Chip label="Azul Gov.br" color="primary" variant="filled" />
@@ -390,13 +390,13 @@ export const CustomBackgroundColor: Story = {
     docs: {
       description: {
         story:
-          'Chips usando cores semânticas do tema (primary, success, warning, error, info) em variante filled.',
+          'Chips usando cores semânticas do tema (primary, success, warning, error, info) em variante filled. As cores são controladas automaticamente pelo govbrTheme.',
       },
     },
   },
 }
 
-export const AllColorsOutlined: Story = {
+export const SemanticColorsOutlined: Story = {
   render: () => (
     <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
       <Chip label="Primary Outlined" color="primary" variant="outlined" />
@@ -410,7 +410,7 @@ export const AllColorsOutlined: Story = {
     docs: {
       description: {
         story:
-          'Chips usando cores semânticas do tema em variante outlined com borda de 2px mais destacada.',
+          'Chips usando cores semânticas do tema em variante outlined (padrão) com borda de 2px mais destacada. Cada cor mantém seu próprio hover.',
       },
     },
   },
