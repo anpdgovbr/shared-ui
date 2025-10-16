@@ -26,15 +26,32 @@ const createColorOverride =
       backgroundColor: paletteColor.main,
       color: paletteColor.contrastText,
       border: `1px solid ${paletteColor.main}`,
+      fontWeight: muiTheme.typography.fontWeightBold,
+
       '&:hover': {
         backgroundColor: hoverColor,
+        boxShadow: muiTheme.shadows[2],
       },
+
+      '&:focus-visible': {
+        outline: `2px solid ${paletteColor.main}`,
+        outlineOffset: '2px',
+      },
+
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
         color: paletteColor.main,
-        border: `1px solid ${paletteColor.main}`,
+        border: `2px solid ${paletteColor.main}`,
+        fontWeight: muiTheme.typography.fontWeightBold,
+
         '&:hover': {
           backgroundColor: outlinedHoverColor,
+          borderWidth: '2px',
+        },
+
+        '&:focus-visible': {
+          outline: `2px solid ${paletteColor.main}`,
+          outlineOffset: '2px',
         },
       },
     }
@@ -44,43 +61,60 @@ export const MuiChipOverrides: Components['MuiChip'] = {
   styleOverrides: {
     root: ({ theme }: OverrideCallbackProps) => {
       const muiTheme = theme as Theme
-      const focusOutlineColor = alpha(muiTheme.palette.primary.main, 0.4)
 
       return {
-        borderRadius: muiTheme.shape.borderRadius,
+        // Formato de pílula Gov.br
+        borderRadius: '100em',
+
+        // Tipografia usando tema dinâmico
         fontSize: muiTheme.typography.body2.fontSize,
         fontWeight: muiTheme.typography.fontWeightMedium,
-        lineHeight: muiTheme.typography.body2.lineHeight ?? 1.4,
+        fontFamily: muiTheme.typography.fontFamily,
+        lineHeight: 1.5,
+
+        // Espaçamento usando tema
         height: 'auto',
-        minHeight: muiTheme.spacing(4),
-        padding: muiTheme.spacing(0.5, 1.5),
+        minHeight: muiTheme.spacing(4), // 32px
+        padding: `${muiTheme.spacing(0.5)} ${muiTheme.spacing(2)}`, // 4px 16px
         border: '1px solid transparent',
+
+        // Transições
+        transition: muiTheme.transitions.create(
+          ['background-color', 'box-shadow', 'border-color'],
+          {
+            duration: muiTheme.transitions.duration.short,
+          },
+        ),
 
         '&.MuiChip-filled': {
           backgroundColor: muiTheme.palette.action.selected,
           color: muiTheme.palette.text.primary,
+          border: `1px solid ${muiTheme.palette.divider}`,
+
           '&:hover': {
-            backgroundColor:
-              muiTheme.palette.mode === 'light'
-                ? muiTheme.palette.grey[200]
-                : muiTheme.palette.grey[700],
+            backgroundColor: muiTheme.palette.action.hover,
+            boxShadow: muiTheme.shadows[1],
           },
+
           '&:focus-visible': {
-            outline: `2px solid ${focusOutlineColor}`,
-            outlineOffset: 2,
+            outline: `2px solid ${muiTheme.palette.primary.main}`,
+            outlineOffset: '2px',
           },
         },
 
         '&.MuiChip-outlined': {
           backgroundColor: 'transparent',
           color: muiTheme.palette.text.primary,
-          borderColor: muiTheme.palette.divider,
+          border: `1px solid ${muiTheme.palette.divider}`,
+
           '&:hover': {
             backgroundColor: muiTheme.palette.action.hover,
+            borderColor: muiTheme.palette.text.secondary,
           },
+
           '&:focus-visible': {
-            outline: `2px solid ${focusOutlineColor}`,
-            outlineOffset: 2,
+            outline: `2px solid ${muiTheme.palette.primary.main}`,
+            outlineOffset: '2px',
           },
         },
 
@@ -101,21 +135,39 @@ export const MuiChipOverrides: Components['MuiChip'] = {
     colorInfo: createColorOverride('info'),
 
     // Ícone
-    icon: {
-      fontSize: '1rem',
-      margin: '0 0.25rem 0 0',
+    icon: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        fontSize: '1.25rem', // 20px
+        marginLeft: muiTheme.spacing(-0.5),
+        marginRight: muiTheme.spacing(0.5),
+        color: 'currentColor',
 
-      '&.MuiChip-iconSmall': {
-        fontSize: '0.875rem',
-      },
+        '&.MuiChip-iconSmall': {
+          fontSize: '1rem', // 16px
+          marginLeft: muiTheme.spacing(-0.25),
+          marginRight: muiTheme.spacing(0.25),
+        },
+      }
     },
 
     // Avatar
-    avatar: {
-      margin: '0 0.25rem 0 0',
-      width: '24px',
-      height: '24px',
-      fontSize: '0.75rem',
+    avatar: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        marginLeft: muiTheme.spacing(-0.5),
+        marginRight: muiTheme.spacing(0.5),
+        width: 24,
+        height: 24,
+        fontSize: '0.75rem',
+
+        '&.MuiChip-avatarSmall': {
+          width: 18,
+          height: 18,
+          marginLeft: muiTheme.spacing(-0.25),
+          marginRight: muiTheme.spacing(0.25),
+        },
+      }
     },
 
     // Label
@@ -123,23 +175,33 @@ export const MuiChipOverrides: Components['MuiChip'] = {
       padding: 0,
       fontSize: 'inherit',
       lineHeight: 'inherit',
+      fontWeight: 'inherit',
     },
 
     // Botão de delete
-    deleteIcon: {
-      fontSize: '1rem',
-      margin: '0 0 0 0.25rem',
-      color: 'currentColor',
-      opacity: 0.7,
-
-      '&:hover': {
-        opacity: 1,
+    deleteIcon: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        fontSize: '1.25rem', // 20px
+        marginLeft: muiTheme.spacing(0.5),
+        marginRight: muiTheme.spacing(-0.5),
         color: 'currentColor',
-      },
+        opacity: 0.7,
+        transition: muiTheme.transitions.create('opacity', {
+          duration: muiTheme.transitions.duration.short,
+        }),
 
-      '&.MuiChip-deleteIconSmall': {
-        fontSize: '0.875rem',
-      },
+        '&:hover': {
+          opacity: 1,
+          color: 'currentColor',
+        },
+
+        '&.MuiChip-deleteIconSmall': {
+          fontSize: '1rem', // 16px
+          marginLeft: muiTheme.spacing(0.25),
+          marginRight: muiTheme.spacing(-0.25),
+        },
+      }
     },
   },
 
@@ -147,10 +209,14 @@ export const MuiChipOverrides: Components['MuiChip'] = {
     // Tamanho pequeno
     {
       props: { size: 'small' },
-      style: {
-        minHeight: '24px',
-        fontSize: '0.75rem',
-        padding: '0.125rem 0.5rem',
+      style: ({ theme }: OverrideCallbackProps) => {
+        const muiTheme = theme as Theme
+        return {
+          minHeight: muiTheme.spacing(3), // 24px
+          fontSize: muiTheme.typography.caption.fontSize, // ~12px
+          padding: `${muiTheme.spacing(0.25)} ${muiTheme.spacing(1)}`, // 2px 8px
+          borderRadius: '100em',
+        }
       },
     },
 

@@ -111,7 +111,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chip básico com configuração padrão.',
+        story: 'Chip básico com configuração padrão e formato arredondado (pílula) do Gov.br DS.',
       },
     },
   },
@@ -127,7 +127,8 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstração dos tamanhos disponíveis: small e medium.',
+        story:
+          'Demonstração dos tamanhos disponíveis com formato de pílula Gov.br: small e medium.',
       },
     },
   },
@@ -138,7 +139,6 @@ export const AllColors: Story = {
     <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
       <Chip label="Default" />
       <Chip label="Primary" color="primary" />
-      <Chip label="Secondary" color="secondary" />
       <Chip label="Success" color="success" />
       <Chip label="Error" color="error" />
       <Chip label="Warning" color="warning" />
@@ -148,7 +148,8 @@ export const AllColors: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Cores semânticas disponíveis, controladas pelo tema GovBR.',
+        story:
+          'Cores semânticas Gov.br: Primary (Azul #1351B4), Success (Verde), Error (Vermelho), Warning (Amarelo), Info (Azul claro).',
       },
     },
   },
@@ -174,7 +175,8 @@ export const WithVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comparação entre variantes filled (preenchido) e outlined (contorno).',
+        story:
+          'Comparação entre variantes filled (preenchido) e outlined (contorno) com formato de pílula Gov.br.',
       },
     },
   },
@@ -193,7 +195,7 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chips com ícones à esquerda do label.',
+        story: 'Chips Gov.br com ícones à esquerda do label em formato de pílula.',
       },
     },
   },
@@ -221,7 +223,7 @@ export const WithAvatar: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chips com avatars para representar usuários ou entidades.',
+        story: 'Chips Gov.br com avatars para representar usuários ou entidades.',
       },
     },
   },
@@ -249,7 +251,15 @@ export const Clickable: Story = {
           />
         </Stack>
         {clicked && (
-          <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
+          <Box
+            sx={{
+              p: 2,
+              bgcolor: 'rgba(19, 81, 180, 0.08)',
+              borderRadius: '8px',
+              border: '1px solid',
+              borderColor: 'primary.main',
+            }}
+          >
             Último chip clicado: {clicked}
           </Box>
         )}
@@ -259,7 +269,7 @@ export const Clickable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chips clicáveis com feedback visual e handler de click.',
+        story: 'Chips clicáveis Gov.br com feedback visual e handler de click.',
       },
     },
   },
@@ -287,7 +297,16 @@ export const Deletable: Story = {
           ))}
         </Stack>
         {chips.length === 0 && (
-          <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+          <Box
+            sx={{
+              p: 2,
+              bgcolor: 'rgba(22, 136, 33, 0.08)',
+              borderRadius: '8px',
+              border: '1px solid',
+              borderColor: 'success.main',
+              textAlign: 'center',
+            }}
+          >
             Todos os chips foram removidos
           </Box>
         )}
@@ -297,7 +316,7 @@ export const Deletable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chips removíveis com ícone de delete e handler customizado.',
+        story: 'Chips Gov.br removíveis com ícone de delete e handler customizado.',
       },
     },
   },
@@ -326,7 +345,7 @@ export const CustomDeleteIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chips com ícones de delete customizados.',
+        story: 'Chips Gov.br com ícones de delete customizados em formato de pílula.',
       },
     },
   },
@@ -355,7 +374,7 @@ export const WithTooltip: Story = {
     docs: {
       description: {
         story:
-          'Demonstração de tooltips: automático para texto truncado, sempre visível, ou customizado.',
+          'Demonstração de tooltips Gov.br: automático para texto truncado, sempre visível, ou customizado.',
       },
     },
   },
@@ -364,16 +383,16 @@ export const WithTooltip: Story = {
 export const CustomBackgroundColor: Story = {
   render: () => (
     <Stack direction="row" spacing={1}>
-      <Chip label="Azul Claro" backgroundColor="rgba(170, 230, 238, 0.28)" />
-      <Chip label="Rosa" backgroundColor="rgba(255, 192, 203, 0.4)" />
-      <Chip label="Verde Claro" backgroundColor="rgba(144, 238, 144, 0.3)" />
-      <Chip label="Amarelo" backgroundColor="rgba(255, 255, 0, 0.2)" />
+      <Chip label="Azul Gov.br" backgroundColor="rgba(19, 81, 180, 0.12)" />
+      <Chip label="Verde Sucesso" backgroundColor="rgba(22, 136, 33, 0.12)" />
+      <Chip label="Amarelo Alerta" backgroundColor="rgba(255, 193, 7, 0.12)" />
+      <Chip label="Vermelho Erro" backgroundColor="rgba(208, 79, 79, 0.12)" />
     </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Chips com cores de fundo customizadas que sobrescrevem o tema.',
+        story: 'Chips com cores de fundo baseadas na paleta Gov.br Design System.',
       },
     },
   },
@@ -390,12 +409,12 @@ export const ListBasic: Story = {
       { label: 'Storybook' },
     ]
 
-    return <ChipsList items={items} />
+    return <ChipsList items={items} backgroundColor="rgba(19, 81, 180, 0.08)" />
   },
   parameters: {
     docs: {
       description: {
-        story: 'Lista básica de chips com controle automático de overflow.',
+        story: 'Lista básica de chips Gov.br com controle automático de overflow.',
       },
     },
   },
@@ -419,7 +438,12 @@ export const ListWithOverflow: Story = {
 
     return (
       <Box sx={{ maxWidth: 500 }}>
-        <ChipsList items={items} maxLength={30} size="small" />
+        <ChipsList
+          items={items}
+          maxLength={30}
+          size="small"
+          backgroundColor="rgba(22, 136, 33, 0.08)"
+        />
       </Box>
     )
   },
@@ -427,7 +451,7 @@ export const ListWithOverflow: Story = {
     docs: {
       description: {
         story:
-          'Lista com muitos itens exibindo botão "+N" para mostrar chips ocultos. Clique para expandir.',
+          'Lista Gov.br com muitos itens exibindo botão "+N" para mostrar chips ocultos. Clique para expandir.',
       },
     },
   },
@@ -446,7 +470,7 @@ export const ListWithScroll: Story = {
           items={items}
           displayAllChips
           maxHeight={200}
-          backgroundColor="rgba(255,230,200,0.4)"
+          backgroundColor="rgba(255, 193, 7, 0.08)"
         />
       </Box>
     )
@@ -454,7 +478,7 @@ export const ListWithScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Lista com scroll automático quando ultrapassa a altura máxima.',
+        story: 'Lista Gov.br com scroll automático quando ultrapassa a altura máxima.',
       },
     },
   },
@@ -472,7 +496,7 @@ export const ListCustomStyling: Story = {
     return (
       <ChipsList
         items={items}
-        backgroundColor="rgba(200, 100, 255, 0.15)"
+        backgroundColor="rgba(208, 79, 79, 0.08)"
         size="medium"
         sx={{
           p: 2,
@@ -487,7 +511,7 @@ export const ListCustomStyling: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Lista com estilização customizada aplicada ao container.',
+        story: 'Lista Gov.br com estilização customizada aplicada ao container.',
       },
     },
   },
@@ -507,7 +531,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Playground interativo para testar todas as props do componente Chip.',
+        story: 'Playground interativo para testar todas as props do componente Chip Gov.br.',
       },
     },
   },
