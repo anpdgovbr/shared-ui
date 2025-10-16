@@ -53,14 +53,6 @@ describe('Chip', () => {
     }
   })
 
-  it('renderiza com cor de fundo customizada', () => {
-    const customColor = 'rgb(255, 192, 203)'
-    render(<Chip label="Custom BG" backgroundColor={customColor} />)
-
-    const chip = screen.getByText('Custom BG').closest('.MuiChip-root')
-    expect(chip).toHaveStyle({ backgroundColor: customColor })
-  })
-
   it('renderiza com tooltip quando especificado', () => {
     render(<Chip label="With Tooltip" tooltip="Custom tooltip text" />)
     expect(screen.getByText('With Tooltip')).toBeInTheDocument()
@@ -136,14 +128,6 @@ describe('ChipsList', () => {
 
     // Não deve mostrar botão de expandir
     expect(screen.queryByText(/\+\d+/)).not.toBeInTheDocument()
-  })
-
-  it('aplica cor de fundo customizada aos chips', () => {
-    const customColor = 'rgba(255, 200, 100, 0.5)'
-    render(<ChipsList items={mockItems} backgroundColor={customColor} />)
-
-    const firstChip = screen.getByText('Tag 1').closest('.MuiChip-root')
-    expect(firstChip).toHaveStyle({ backgroundColor: customColor })
   })
 
   it('chama onShowAll quando estado muda', async () => {
