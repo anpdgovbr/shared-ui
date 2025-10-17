@@ -56,6 +56,15 @@ export * from './ui/govbr-button'
 export type { GovBRButtonProps } from './ui/govbr-button/types'
 
 /**
+ * GovBRCard
+ *
+ * Card híbrido (modo MUI ou modo estrito Gov.br via `strictgovbr`).
+ * Suporta header, content, footer, actions e composições avançadas com MUI.
+ */
+export * from './ui/govbr-card'
+export type { GovBRCardProps } from './ui/govbr-card/types'
+
+/**
  * GovBRCheckbox
  *
  * Checkbox compatível com Gov.br DS, com suporte ao tema MUI e modo estrito.
