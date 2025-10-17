@@ -26,69 +26,110 @@ const createColorOverride =
       backgroundColor: paletteColor.main,
       color: paletteColor.contrastText,
       border: `1px solid ${paletteColor.main}`,
+      fontWeight: muiTheme.typography.fontWeightBold,
+
       '&:hover': {
         backgroundColor: hoverColor,
+        boxShadow: muiTheme.shadows[2],
       },
+
+      '&:focus-visible': {
+        outline: `2px solid ${paletteColor.main}`,
+        outlineOffset: '2px',
+      },
+
       '&.MuiChip-outlined': {
         backgroundColor: 'transparent',
         color: paletteColor.main,
-        border: `1px solid ${paletteColor.main}`,
+        border: `2px solid ${paletteColor.main}`,
+        fontWeight: muiTheme.typography.fontWeightBold,
+
         '&:hover': {
           backgroundColor: outlinedHoverColor,
+          borderWidth: '2px',
+        },
+
+        '&:focus-visible': {
+          outline: `2px solid ${paletteColor.main}`,
+          outlineOffset: '2px',
         },
       },
     }
   }
 
 export const MuiChipOverrides: Components['MuiChip'] = {
+  defaultProps: {
+    variant: 'outlined', // Outlined como padrão no Gov.br
+  },
   styleOverrides: {
     root: ({ theme }: OverrideCallbackProps) => {
       const muiTheme = theme as Theme
-      const focusOutlineColor = alpha(muiTheme.palette.primary.main, 0.4)
 
       return {
-        borderRadius: muiTheme.shape.borderRadius,
-        fontSize: muiTheme.typography.body2.fontSize,
-        fontWeight: muiTheme.typography.fontWeightMedium,
-        lineHeight: muiTheme.typography.body2.lineHeight ?? 1.4,
+        // Formato de pílula GOVBR.DS
+        borderRadius: '100em',
+
+        // Tipografia Gov.br - padrão do projeto
+        fontSize: 'var(--font-size-scale-base, 14px)',
+        fontWeight: 'var(--font-weight-medium, 500)',
+        fontFamily: 'var(--font-family-base, "Rawline", "Raleway", sans-serif)',
+        lineHeight: 'var(--font-line-height-medium, 1.5)',
+
+        // Espaçamento usando tema
         height: 'auto',
-        minHeight: muiTheme.spacing(4),
-        padding: muiTheme.spacing(0.5, 1.5),
+        minHeight: muiTheme.spacing(4), // 32px
+        padding: `${muiTheme.spacing(0.5)} ${muiTheme.spacing(2)}`, // 4px 16px
         border: '1px solid transparent',
 
-        '&.MuiChip-filled': {
-          backgroundColor: muiTheme.palette.action.selected,
-          color: muiTheme.palette.text.primary,
-          '&:hover': {
-            backgroundColor:
-              muiTheme.palette.mode === 'light'
-                ? muiTheme.palette.grey[200]
-                : muiTheme.palette.grey[700],
-          },
-          '&:focus-visible': {
-            outline: `2px solid ${focusOutlineColor}`,
-            outlineOffset: 2,
-          },
-        },
+        // Transições
+        transition: 'all 0.2s ease-in-out',
 
-        '&.MuiChip-outlined': {
-          backgroundColor: 'transparent',
-          color: muiTheme.palette.text.primary,
-          borderColor: muiTheme.palette.divider,
-          '&:hover': {
-            backgroundColor: muiTheme.palette.action.hover,
+        // Estilos apenas para chips DEFAULT (sem cor específica)
+        '&.MuiChip-colorDefault': {
+          '&.MuiChip-filled': {
+            backgroundColor: 'transparent',
+            color: 'var(--color-primary, #333333)',
+            border: '1px solid var(--gray-40, #c4c4c4)',
+
+            '&:hover': {
+              backgroundColor: alpha(muiTheme.palette.primary.main, 0.08),
+              borderColor: muiTheme.palette.primary.main,
+              boxShadow: 'var(--surface-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.1))',
+            },
+
+            '&:focus-visible': {
+              outlineStyle: 'dashed',
+              outlineWidth: 'var(--border-width-lg, 4px)',
+              outlineColor: 'var(--focus, #b38c00)',
+              outlineOffset: 'var(--spacing-scale-quarter, 4px)',
+            },
           },
-          '&:focus-visible': {
-            outline: `2px solid ${focusOutlineColor}`,
-            outlineOffset: 2,
+
+          '&.MuiChip-outlined': {
+            backgroundColor: 'transparent',
+            color: 'var(--color-primary, #333333)',
+            border: '1px solid var(--gray-40, #c4c4c4)',
+
+            '&:hover': {
+              backgroundColor: alpha(muiTheme.palette.primary.main, 0.08),
+              borderColor: muiTheme.palette.primary.main,
+            },
+
+            '&:focus-visible': {
+              outlineStyle: 'dashed',
+              outlineWidth: 'var(--border-width-lg, 4px)',
+              outlineColor: 'var(--focus, #b38c00)',
+              outlineOffset: 'var(--spacing-scale-quarter, 4px)',
+            },
           },
         },
 
         '&.Mui-disabled': {
-          backgroundColor: muiTheme.palette.action.disabledBackground,
-          color: muiTheme.palette.action.disabled,
-          borderColor: muiTheme.palette.action.disabledBackground,
-          opacity: 1,
+          backgroundColor: 'var(--gray-20, #e0e0e0)',
+          color: 'var(--gray-60, #757575)',
+          borderColor: 'var(--gray-20, #e0e0e0)',
+          opacity: 0.6,
+          cursor: 'not-allowed',
         },
       }
     },
@@ -101,21 +142,39 @@ export const MuiChipOverrides: Components['MuiChip'] = {
     colorInfo: createColorOverride('info'),
 
     // Ícone
-    icon: {
-      fontSize: '1rem',
-      margin: '0 0.25rem 0 0',
+    icon: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        fontSize: '1.25rem', // 20px
+        marginLeft: muiTheme.spacing(-0.5),
+        marginRight: muiTheme.spacing(0.5),
+        color: 'currentColor',
 
-      '&.MuiChip-iconSmall': {
-        fontSize: '0.875rem',
-      },
+        '&.MuiChip-iconSmall': {
+          fontSize: '1rem', // 16px
+          marginLeft: muiTheme.spacing(-0.25),
+          marginRight: muiTheme.spacing(0.25),
+        },
+      }
     },
 
     // Avatar
-    avatar: {
-      margin: '0 0.25rem 0 0',
-      width: '24px',
-      height: '24px',
-      fontSize: '0.75rem',
+    avatar: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        marginLeft: muiTheme.spacing(-0.5),
+        marginRight: muiTheme.spacing(0.5),
+        width: 24,
+        height: 24,
+        fontSize: '0.75rem',
+
+        '&.MuiChip-avatarSmall': {
+          width: 18,
+          height: 18,
+          marginLeft: muiTheme.spacing(-0.25),
+          marginRight: muiTheme.spacing(0.25),
+        },
+      }
     },
 
     // Label
@@ -123,23 +182,33 @@ export const MuiChipOverrides: Components['MuiChip'] = {
       padding: 0,
       fontSize: 'inherit',
       lineHeight: 'inherit',
+      fontWeight: 'inherit',
     },
 
     // Botão de delete
-    deleteIcon: {
-      fontSize: '1rem',
-      margin: '0 0 0 0.25rem',
-      color: 'currentColor',
-      opacity: 0.7,
-
-      '&:hover': {
-        opacity: 1,
+    deleteIcon: ({ theme }: OverrideCallbackProps) => {
+      const muiTheme = theme as Theme
+      return {
+        fontSize: '1.25rem', // 20px
+        marginLeft: muiTheme.spacing(0.5),
+        marginRight: muiTheme.spacing(-0.5),
         color: 'currentColor',
-      },
+        opacity: 0.7,
+        transition: muiTheme.transitions.create('opacity', {
+          duration: muiTheme.transitions.duration.short,
+        }),
 
-      '&.MuiChip-deleteIconSmall': {
-        fontSize: '0.875rem',
-      },
+        '&:hover': {
+          opacity: 1,
+          color: 'currentColor',
+        },
+
+        '&.MuiChip-deleteIconSmall': {
+          fontSize: '1rem', // 16px
+          marginLeft: muiTheme.spacing(0.25),
+          marginRight: muiTheme.spacing(-0.25),
+        },
+      }
     },
   },
 
@@ -148,9 +217,10 @@ export const MuiChipOverrides: Components['MuiChip'] = {
     {
       props: { size: 'small' },
       style: {
-        minHeight: '24px',
-        fontSize: '0.75rem',
-        padding: '0.125rem 0.5rem',
+        minHeight: 'var(--spacing-scale-2xh, 24px)', // 24px
+        fontSize: 'var(--font-size-scale-down-01, 12.6px)', // ~12px
+        padding: 'var(--spacing-scale-quarter, 2px) var(--spacing-scale-base, 8px)', // 2px 8px
+        borderRadius: '100em',
       },
     },
 
