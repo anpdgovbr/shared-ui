@@ -66,7 +66,7 @@ export const MuiChipOverrides: Components['MuiChip'] = {
       const muiTheme = theme as Theme
 
       return {
-        // Formato de pílula Gov.br
+        // Formato de pílula GOVBR.DS
         borderRadius: '100em',
 
         // Tipografia Gov.br - padrão do projeto
