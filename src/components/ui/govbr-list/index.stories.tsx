@@ -52,6 +52,20 @@ export const strictGov: Story = {
   },
 }
 
+export const strictGovHorizontal: Story = {
+  args: {
+    strictgovbr: true,
+    horizontal: true,
+    label: 'List com strictgov',
+    labelDivider: true,
+    itens: [
+      { icon: <Inbox />, children: 'Item govbr 1', divider: true },
+      { icon: <Mail />, children: 'Item govbr 2', divider: true },
+      { children: 'Item 3' },
+    ],
+  },
+}
+
 export const strictGovExpansible: Story = {
   args: {
     strictgovbr: true,

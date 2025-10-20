@@ -8,6 +8,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
+import classNames from 'classnames'
 import React from 'react'
 import { GovBRDivider } from 'src/components/ui/govbr-divider'
 import { GovBRItem } from 'src/components/ui/govbr-item'
@@ -57,7 +58,7 @@ export function GovBRList(props: Readonly<GovBRListProps>) {
   if (props.strictgovbr) {
     if (props.expansible) {
       return (
-        <div className="br-list">
+        <div className={classNames('br-list', { horizontal: props.horizontal })}>
           {props.label && (
             <div className="header">
               <div onClick={handleClick} className="title">
@@ -92,7 +93,7 @@ export function GovBRList(props: Readonly<GovBRListProps>) {
       )
     }
     return (
-      <div className="br-list">
+      <div className={classNames('br-list', { horizontal: props.horizontal })}>
         {props.label && (
           <div className="header">
             <div className="title">{props.label}</div>
