@@ -11,13 +11,17 @@ import { GovBRItemProps } from './types'
  *     `@govbr-ds/core` diretamente. Garante fidelidade visual máxima ao GovBR-DS.
  */
 export function GovBRItem(props: Readonly<GovBRItemProps>) {
-  const { estado, divider, children } = props
+  const { icon, estado, divider, children } = props
 
   // --- MODO ESTRITO ---
   if (props.strictgovbr) {
     return (
       <>
-        <div className={`br-item ${estado}`}>{children}</div>
+        <div className={`br-item ${estado}`}>
+          {' '}
+          {icon}
+          {children}
+        </div>
         {divider && <hr />}
       </>
     )

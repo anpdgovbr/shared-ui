@@ -5,6 +5,8 @@ interface GovBRItemBaseProps {
   /**Estado do componente*/
   estado?: 'active' | 'disabled' | 'selected'
 
+  icon?: React.ReactNode
+
   /**Linha divisória do componente
    * @default false
    */
@@ -23,6 +25,8 @@ interface GovBRItemBaseProps {
 
   /**Prop para estilização adicional para o componente Mui */
   sx?: SxProps
+
+  onClick?: () => void
 }
 
 export type GovBRItemProps = GovBRItemBaseProps
