@@ -60,6 +60,7 @@ export type GovBRInputStrictProps = Omit<
 export type GovBRInputMuiProps = TextFieldProps &
   GovBRInputBaseProps & {
     strictgovbr?: false
+    govbrSize?: 'small' | 'medium' | 'large' // Prop de tamanho também disponível no modo MUI
   }
 
 // O tipo final é uma união dos dois modos.
