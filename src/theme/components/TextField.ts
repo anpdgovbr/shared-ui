@@ -109,7 +109,7 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
 
         // Input interno
         '& .MuiOutlinedInput-input': {
-          padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2x, 2rem)', // 12px 16px
+          padding: 'var(--spacing-scale-1xh, 0.75rem) var(--spacing-scale-2x, 1rem)', // 12px 16px
           color: 'var(--color, #333333)',
 
           // Placeholder
@@ -152,12 +152,12 @@ export const MuiTextFieldOverrides: Components['MuiTextField'] = {
   },
 
   variants: [
-    // Tamanho pequeno
+    // Tamanho pequeno (32px altura aproximada)
     {
       props: { size: 'small' },
       style: {
-        '& .MuiOutlinedInput-input': {
-          padding: 'var(--spacing-scale-base, 1rem) var(--spacing-scale-1xh, 0.75rem)', // 8px 12px
+        '& .MuiInputBase-root.MuiOutlinedInput-root .MuiOutlinedInput-input': {
+          padding: 'var(--spacing-scale-half, 0.5rem) var(--spacing-scale-base, 0.5rem)', // 8px 8px - padding uniforme com alta especificidade
         },
         '& .MuiInputLabel-root': {
           fontSize: 'var(--font-size-scale-down-01, 0.875rem)', // 0.833rem

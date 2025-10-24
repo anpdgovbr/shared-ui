@@ -86,7 +86,7 @@ export const MuiInputBaseOverrides: Components['MuiInputBase'] = {
     sizeSmall: {
       height: 'var(--spacing-scale-4x, 2.857rem)', // 32px
       fontSize: 'var(--font-size-scale-base, 1rem)', // 1rem
-      padding: '0 var(--spacing-scale-1xh, 0.75rem)', // 0 12px
+      padding: '0 var(--spacing-scale-base, 0.5rem)', // 0 8px
     },
 
     // Input multiline (textarea)
