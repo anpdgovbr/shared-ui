@@ -3,7 +3,6 @@ import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 import classNames from 'classnames'
-import React from 'react'
 
 import { GovBRButton } from '../govbr-button'
 import type { GovBRInputProps, GovBRInputStrictProps } from './types'
@@ -72,15 +71,28 @@ export function GovBRInput(props: Readonly<GovBRInputProps>) {
   }
 
   // --- MODO PADRÃO (MUI) ---
-  const { label, endButtonIcon, onEndButtonClick, startIcon, variant = 'outlined' } = props
-  // Criamos um objeto rest limpo sem a prop `strictgovbr` para não repassar ao TextField
+  const {
+    label,
+    endButtonIcon,
+    onEndButtonClick,
+    startIcon,
+    variant = 'outlined',
+    govbrSize,
+  } = props
+  // Criamos um objeto rest limpo sem a prop `strictgovbr` e `govbrSize` para não repassar ao TextField
   const rest: Record<string, unknown> = { ...(props as unknown as Record<string, unknown>) }
   delete rest.strictgovbr
+  delete rest.govbrSize
+
+  // Mapeia govbrSize para size do MUI TextField
+  // Nota: MUI TextField só suporta 'small' e 'medium', então 'large' usa 'medium' com padding padrão
+  const muiSize: 'small' | 'medium' = govbrSize === 'small' ? 'small' : 'medium'
 
   return (
     <TextField
       label={label}
       variant={variant}
+      size={muiSize}
       InputProps={{
         startAdornment: startIcon ? (
           <InputAdornment position="start">{startIcon}</InputAdornment>
