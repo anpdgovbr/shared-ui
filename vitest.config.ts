@@ -18,10 +18,6 @@ export default defineConfig({
     // Threads are faster locally; forks are safer for some sandboxes/CI
     // Nota: process.env.CI é avaliado em runtime; não é necessária diretiva @ts-expect-error aqui
     pool: process.env.CI ? 'forks' : 'threads',
-    poolOptions: {
-      forks: { singleFork: true },
-      threads: { singleThread: true },
-    },
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
