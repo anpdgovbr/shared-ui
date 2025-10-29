@@ -29,6 +29,7 @@ import {
   MuiDialogTitleOverrides,
 } from './components/Dialog'
 import { MuiDividerOverrides } from './components/Divider'
+import { MuiDrawerOverrides } from './components/Drawer'
 import { MuiFormControlOverrides } from './components/FormControl'
 import { MuiFormControlLabelOverrides } from './components/FormControlLabel'
 import { MuiFormHelperTextOverrides } from './components/FormHelperText'
@@ -156,6 +157,7 @@ export const govbrTheme: Theme = createTheme({
     MuiDialogContent: MuiDialogContentOverrides,
     MuiDialogActions: MuiDialogActionsOverrides,
     MuiDivider: MuiDividerOverrides,
+    MuiDrawer: MuiDrawerOverrides,
     MuiIconButton: MuiIconButtonOverrides,
     MuiLink: MuiLinkOverrides,
     MuiMenu: MuiMenuOverrides,
