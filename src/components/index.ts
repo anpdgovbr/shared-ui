@@ -182,3 +182,27 @@ export type {
   SideMenuToggleIcons,
   SideMenuToggleLabels,
 } from './ui/side-menu/types'
+
+/**
+ * Loader — Indicador de carregamento padronizado.
+ */
+export type { LoaderProps } from './ui/loader'
+export * from './ui/loader'
+
+/**
+ * Section — Contêiner de seção com título, ações e colapso.
+ */
+export type { SectionProps } from './ui/section'
+export * from './ui/section'
+
+/**
+ * KeyValueList — Lista de pares chave/valor com layout responsivo.
+ */
+export type { KeyValueItem, KeyValueListProps } from './ui/key-value-list'
+export * from './ui/key-value-list'
+
+/**
+ * Toaster — Provider/Hook simples para snackbars.
+ */
+export type { Toast, ToasterCtx } from './ui/toaster'
+export * from './ui/toaster'
