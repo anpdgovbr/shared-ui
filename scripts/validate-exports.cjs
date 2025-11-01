@@ -111,7 +111,7 @@ for (const component of COMPONENTS_TO_CHECK) {
 console.log('\n🔤 Verificando tipos...');
 for (const type of TYPES_TO_CHECK) {
   const typeExportPattern = new RegExp(
-    `export\\s+type\\s+\\{[^}]*${type}[^}]*\\}|export\\s+(?:type\\s+)?{[^}]*${type}[^}]*}`,
+    `export\\s+type\\s+\\{[^}]*\\b${type}\\b[^}]*\\}|export\\s+(?:type\\s+)?{[^}]*\\b${type}\\b[^}]*}`,
     'm'
   );
   
