@@ -95,7 +95,7 @@ console.log('📦 Verificando componentes...');
 for (const component of COMPONENTS_TO_CHECK) {
   // Verificar se o componente está exportado no arquivo de componentes
   const componentExportPattern = new RegExp(
-    `export\\s+(?:\\*\\s+from|\\{[^}]*${component}[^}]*\\}\\s+from)`,
+    `export\\s+(?:\\*\\s+from|\\{[^}]*\\b${component}\\b[^}]*\\}\\s+from)`,
     'm'
   );
   
