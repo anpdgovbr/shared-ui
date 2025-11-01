@@ -1,10 +1,4 @@
 'use client'
-// Componente de sincronização automática com visual adaptado ao GovBR-DS
-// - Usa cores semânticas do tema (success, error, primary, grey)
-// - Aplica padrão de foco do GovBR (outline dashed dourado)
-// - Utiliza sistema de espaçamento e transições do Design System
-// - Inclui hover effects consistentes com o padrão GovBR
-// - Reutiliza o sistema de tamanhos do IconButton do MUI
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
@@ -16,6 +10,85 @@ import Tooltip from '@mui/material/Tooltip'
 import { useCallback, useEffect, useState } from 'react'
 
 import type { AutoSyncProps } from './types'
+
+/**
+ * AutoSync - Botão de sincronização automática com feedback visual
+ *
+ * Componente customizado da ANPD que implementa um botão de sincronização automática
+ * com estados visuais claros e feedback em tempo real. Segue os padrões visuais
+ * do Gov.br Design System através do govbrTheme.ts.
+ *
+ * **Características:**
+ * - 🔄 Sincronização automática em intervalo configurável
+ * - ✅ Feedback visual de sucesso/erro
+ * - 🛡️ Proteção contra múltiplos erros (modo crítico)
+ * - 🎨 Ícones animados e cores semânticas do Gov.br DS
+ * - ♿ Tooltips descritivos para acessibilidade
+ * - ⏸️ Possibilidade de pausar/retomar sincronização
+ *
+ * **Estados Visuais:**
+ * - `idle`: Pronto para sincronizar (ícone padrão)
+ * - `loading`: Sincronizando (ícone rotacionando)
+ * - `success`: Sincronizado com sucesso (ícone verde)
+ * - `error`: Erro temporário (ícone vermelho)
+ * - `critical-error`: Múltiplos erros ou desabilitado (ícone cinza)
+ *
+ * **Nota:** Este é um componente específico da ANPD e não implementa modo estrito
+ * (`strictgovbr`) pois não há equivalente no Gov.br DS.
+ *
+ * @param props - AutoSyncProps<T>
+ *
+ * @example
+ * ```tsx
+ * // Sincronização básica
+ * <AutoSync
+ *   onSync={async () => {
+ *     await fetchData()
+ *   }}
+ *   syncInterval={30000}
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Com configurações customizadas
+ * <AutoSync
+ *   onSync={async () => await saveData()}
+ *   syncInterval={60000}
+ *   maxErrorCount={5}
+ *   successDuration={2000}
+ *   errorDuration={4000}
+ *   size="large"
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Com reset trigger
+ * const [resetKey, setResetKey] = useState(0)
+ *
+ * <AutoSync
+ *   onSync={async () => await syncData()}
+ *   resetTrigger={resetKey}
+ *   tooltipEnabled
+ * />
+ *
+ * // Forçar reset
+ * <Button onClick={() => setResetKey(prev => prev + 1)}>
+ *   Reiniciar Sincronização
+ * </Button>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Desabilitado condicionalmente
+ * <AutoSync
+ *   onSync={async () => await sync()}
+ *   disabled={!hasPermission}
+ *   tooltipEnabled
+ * />
+ * ```
+ */
 
 export function AutoSync<T = unknown>({
   onSync,

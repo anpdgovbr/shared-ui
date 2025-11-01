@@ -4,6 +4,58 @@ import Divider from '@mui/material/Divider'
 import classNames from 'classnames'
 import { GovBRDividerProps } from 'src/components/ui/govbr-divider/types'
 
+/**
+ * GovBRDivider - Separador visual seguindo a arquitetura híbrida
+ *
+ * Componente de divider (linha divisória) que suporta dois modos de renderização
+ * conforme a arquitetura da biblioteca shared-ui da ANPD:
+ *
+ * **Modo Padrão (strictgovbr=false - padrão)**: Renderiza `<Divider>` do MUI
+ * estilizado automaticamente pelo govbrTheme.ts usando tokens CSS do Gov.br DS.
+ *
+ * **Modo Estrito (strictgovbr=true)**: Renderiza `<div>` com classes CSS oficiais
+ * do Gov.br Design System (`.br-divider`) para garantir 100% de fidelidade visual.
+ *
+ * **Funcionalidades:**
+ * - ✅ Orientação horizontal e vertical
+ * - ✅ Três tamanhos: sm (1px), md (2px), lg (4px)
+ * - ✅ Estilo tracejado (dashed) opcional
+ * - ✅ Totalmente estilizado pelo govbrTheme.ts
+ *
+ * **Tokens CSS utilizados (no govbrTheme.ts):**
+ * - `--gray-20`: Cor da linha divisória
+ * - `--border-width-sm`, `--border-width-md`, `--border-width-lg`: Espessuras
+ *
+ * @param props - GovBRDividerProps
+ *
+ * @example
+ * ```tsx
+ * // Divider horizontal padrão
+ * <GovBRDivider />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Divider vertical entre elementos
+ * <Box display="flex">
+ *   <Typography>Item 1</Typography>
+ *   <GovBRDivider orientation="vertical" />
+ *   <Typography>Item 2</Typography>
+ * </Box>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Divider tracejado com tamanho grande
+ * <GovBRDivider dashed size="lg" />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Modo estrito Gov.br DS
+ * <GovBRDivider strictgovbr orientation="horizontal" size="md" />
+ * ```
+ */
 export function GovBRDivider(props: Readonly<GovBRDividerProps>) {
   // --- MODO ESTRITO ---
   if (props.strictgovbr) {
