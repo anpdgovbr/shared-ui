@@ -92,6 +92,8 @@ Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 pnpm add @anpdgovbr/shared-ui
 ```
 
+> ✅ **Versão Recomendada:** >= 0.3.11-beta.0 (contém correção crítica de exports TypeScript)
+
 ### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
 
 **Esta etapa é obrigatória.** A `shared-ui` espera que a sua aplicação forneça as seguintes bibliotecas. Instale-as no seu projeto:

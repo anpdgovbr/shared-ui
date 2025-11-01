@@ -7,6 +7,46 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 
 ---
 
+## [0.3.11-beta.0] - 2025-11-01
+
+### 🐛 Corrigido
+
+- **Problema Crítico de Exports**: Corrigido problema que impedia importação de componentes em projetos TypeScript (#109)
+  - Criado arquivo `types/index.d.ts` que re-exporta todos os tipos de `types/src/index.d.ts`
+  - Componentes agora são corretamente importáveis: `import { GovBRLoading, GovBRCheckbox } from '@anpdgovbr/shared-ui'`
+  - Resolvida incompatibilidade entre campo `types` e `exports['.'].types` do package.json
+
+### 🔧 Modificado
+
+- **Build de tipos**: Script `build:types` agora executa `create-types-index.cjs` automaticamente
+- **Package.json**: Atualizada configuração de build para incluir geração automática de arquivo de re-export de tipos
+
+### 🚀 Adicionado
+
+- **Script de validação**: `validate:exports` para verificar integridade dos exports
+  - Valida 18 componentes principais
+  - Valida 18 interfaces de tipos correspondentes
+  - Valida helpers e temas exportados
+  - Verifica configuração do package.json
+
+- **Testes**: Adicionados testes unitários para componentes que faltavam:
+  - `GovBRDateTimePicker`: Testes de renderização, disabled, required, formatos
+  - `GovBRDivider`: Testes de orientação, tamanhos, modo estrito
+  - `GovBRItem`: Testes de estados, divider, modo estrito
+  - `GovBRTabs`: Testes de variants, ícones, contadores, modo estrito
+
+- **Documentação**:
+  - `CORRECAO_EXPORTS.md`: Documentação completa da correção do problema de exports
+  - `ISSUE-SHARED-UI-EXPORTS.md`: Análise técnica detalhada do problema e solução aplicada
+  - Scripts de automação documentados
+
+### 📦 Scripts Novos
+
+- `scripts/create-types-index.cjs`: Gera automaticamente arquivo `types/index.d.ts`
+- `scripts/validate-exports.cjs`: Valida integridade de todos os exports da biblioteca
+
+---
+
 ## [0.3.7-beta.1] - 2025-10-13
 
 ### 🐛 Corrigido

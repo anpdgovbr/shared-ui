@@ -13,15 +13,83 @@ import type { GovBRDateTimePickerProps } from './types'
 dayjs.locale('pt-br')
 
 /**
- * GovBRDateTimePicker - Componente de seleção de data/hora padronizado GovBR-DS
+ * GovBRDateTimePicker - Componente de seleção de data/hora padronizado Gov.br DS
  *
- * Características:
- * - 📅 Formato brasileiro (dd/MM/yyyy)
- * - 🌐 Locale pt-BR configurado
- * - ⏰ Três modos: date, time, date-time
- * - 🎨 Estilizado conforme GovBR Design System
- * - ♿ Acessível e responsivo
- * - 🔧 LocalizationProvider integrado (funciona standalone)
+ * Seletor de data, hora ou data+hora com localização brasileira integrada,
+ * seguindo os padrões da biblioteca shared-ui da ANPD.
+ *
+ * **Características:**
+ * - 📅 Formato brasileiro (DD/MM/YYYY)
+ * - 🌐 Locale pt-BR configurado automaticamente
+ * - ⏰ Três modos: `date`, `time`, `date-time`
+ * - 🎨 Estilizado conforme Gov.br Design System via govbrTheme.ts
+ * - ♿ Totalmente acessível e responsivo
+ * - 🔧 LocalizationProvider integrado (funciona standalone sem configuração extra)
+ *
+ * **Nota Importante:**
+ * Este componente usa MUI X DatePicker e não implementa modo estrito (`strictgovbr`)
+ * pois é um componente complexo específico da ANPD sem equivalente direto no Gov.br DS.
+ *
+ * **Tokens CSS utilizados (no govbrTheme.ts):**
+ * - `--interactive`: Cor primária do calendário
+ * - `--surface`: Cor de fundo
+ * - `--gray-20`: Bordas
+ * - `--surface-rounder-md`: Border radius
+ *
+ * @param props - GovBRDateTimePickerProps
+ *
+ * @example
+ * ```tsx
+ * // Seletor de data simples
+ * <GovBRDateTimePicker
+ *   label="Data de Nascimento"
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Seletor de hora
+ * <GovBRDateTimePicker
+ *   pickerType="time"
+ *   label="Horário"
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Seletor de data e hora
+ * <GovBRDateTimePicker
+ *   pickerType="date-time"
+ *   label="Data e Hora do Evento"
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Com valor inicial e formato customizado
+ * <GovBRDateTimePicker
+ *   label="Data Customizada"
+ *   value={dayjs('2025-01-15')}
+ *   format="DD/MM/YY"
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Campo desabilitado ou obrigatório
+ * <GovBRDateTimePicker
+ *   label="Data Desabilitada"
+ *   disabled
+ * />
+ * <GovBRDateTimePicker
+ *   label="Data Obrigatória"
+ *   required
+ * />
+ * ```
  */
 export function GovBRDateTimePicker({
   pickerType = 'date',
