@@ -1,6 +1,11 @@
 // .storybook/main.ts
 import type { StorybookConfig } from '@storybook/react-vite'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+// ESM equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // opcional: só gera o relatório se build local (não em CI)
 const isCi = process.env.CI === 'true'
