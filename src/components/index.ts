@@ -185,6 +185,23 @@ export * from './ui/govbr-tabs'
 export type { GovBRTabsProps } from './ui/govbr-tabs/types'
 
 /**
+ * Homepage — Layout de página inicial com hero, métricas e destaques.
+ */
+export type {
+  HomepageAction,
+  HomepageFeature,
+  HomepageFeatureGridProps,
+  HomepageFooterProps,
+  HomepageHeroProps,
+  HomepageHighlightCardProps,
+  HomepageMetric,
+  HomepageMetricsGridProps,
+  HomepageProps,
+  HomepageRootProps,
+} from './ui/homepage'
+export * from './ui/homepage'
+
+/**
  * KeyValueList — Lista de pares chave/valor com layout responsivo.
  */
 export type { KeyValueItem, KeyValueListProps } from './ui/key-value-list'
