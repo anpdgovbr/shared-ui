@@ -82,6 +82,21 @@ export { Chip, ChipsList } from './ui/chip'
 export type { ChipItemData, ChipProps, ChipsListProps } from './ui/chip/types'
 
 /**
+ * GovBRCookieBanner — Banner bloqueante de consentimento LGPD.
+ */
+export type { CookieBannerTexts, GovBRCookieBannerProps } from './ui/consent-banner'
+export * from './ui/consent-banner'
+
+/**
+ * GovBRCookiePreferencesModal — Modal configurável de preferências de cookies.
+ */
+export type {
+  CookieCategoryMetadata,
+  GovBRCookiePreferencesModalProps,
+} from './ui/consent-preferences-modal'
+export * from './ui/consent-preferences-modal'
+
+/**
  * GovBRFormCheckbox
  *
  * Checkbox para uso em formulários, integrado com as convenções de validação.
@@ -170,18 +185,10 @@ export * from './ui/govbr-tabs'
 export type { GovBRTabsProps } from './ui/govbr-tabs/types'
 
 /**
- * SideMenu
- *
- * Menu lateral colapsável personalizado para aplicações da ANPD.
+ * KeyValueList — Lista de pares chave/valor com layout responsivo.
  */
-export * from './ui/side-menu'
-export type {
-  SideMenuItem,
-  SideMenuProps,
-  SideMenuRenderContext,
-  SideMenuToggleIcons,
-  SideMenuToggleLabels,
-} from './ui/side-menu/types'
+export type { KeyValueItem, KeyValueListProps } from './ui/key-value-list'
+export * from './ui/key-value-list'
 
 /**
  * Loader — Indicador de carregamento padronizado.
@@ -196,10 +203,18 @@ export type { SectionProps } from './ui/section'
 export * from './ui/section'
 
 /**
- * KeyValueList — Lista de pares chave/valor com layout responsivo.
+ * SideMenu
+ *
+ * Menu lateral colapsável personalizado para aplicações da ANPD.
  */
-export type { KeyValueItem, KeyValueListProps } from './ui/key-value-list'
-export * from './ui/key-value-list'
+export * from './ui/side-menu'
+export type {
+  SideMenuItem,
+  SideMenuProps,
+  SideMenuRenderContext,
+  SideMenuToggleIcons,
+  SideMenuToggleLabels,
+} from './ui/side-menu/types'
 
 /**
  * Toaster — Provider/Hook simples para snackbars.
