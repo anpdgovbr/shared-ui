@@ -121,11 +121,35 @@ export interface HomepageProps {
 }
 
 function mergeSx(base: SxProps<Theme>, custom?: SxProps<Theme>): SxProps<Theme> {
-  if (!custom) return base
-  if (Array.isArray(custom)) {
-    return [base, ...custom]
+  if (!custom) {
+    return base
   }
-  return [base, custom]
+  if (Array.isArray(custom)) {
+    return [base, ...custom] as SxProps<Theme>
+  }
+  return [base, custom] as SxProps<Theme>
+}
+
+function resolveBorderRadius(theme: Theme, factor = 1): string | number {
+  const { borderRadius } = theme.shape
+  if (typeof borderRadius === 'number') {
+    return borderRadius * factor
+  }
+  const match = borderRadius
+    .toString()
+    .trim()
+    .match(/^([0-9.]+)(.*)$/)
+  if (!match) {
+    return borderRadius
+  }
+  const [, numeric, unit] = match
+  const value = Number.parseFloat(numeric)
+  if (Number.isNaN(value)) {
+    return borderRadius
+  }
+  const computed = value * factor
+  const normalized = Number.isInteger(computed) ? computed : Number.parseFloat(computed.toFixed(2))
+  return `${normalized}${unit}`
 }
 
 function renderActions(actions?: readonly HomepageAction[], align: 'left' | 'center' = 'left') {
@@ -187,7 +211,7 @@ export function HomepageHero(props: HomepageHeroProps) {
       textAlign: { xs: 'left', md: align },
       py: { xs: theme.spacing(5), md: theme.spacing(8) },
       px: { xs: theme.spacing(2), md: theme.spacing(4) },
-      borderRadius: theme.shape.borderRadius * 2,
+      borderRadius: resolveBorderRadius(theme, 2),
       background: backgroundGradient || defaultGradient,
       display: 'flex',
       flexDirection: 'column',
@@ -291,7 +315,7 @@ export function HomepageMetricsGrid(props: HomepageMetricsGridProps) {
             sx={(theme) => ({
               p: dense ? theme.spacing(2) : theme.spacing(3),
               textAlign: 'center',
-              borderRadius: theme.shape.borderRadius * 1.5,
+              borderRadius: resolveBorderRadius(theme, 1.5),
             })}
           >
             <Typography
@@ -368,7 +392,7 @@ export function HomepageFeatureGrid(props: HomepageFeatureGridProps) {
             sx={(theme) => ({
               height: '100%',
               textAlign: 'center',
-              borderRadius: theme.shape.borderRadius * 1.5,
+              borderRadius: resolveBorderRadius(theme, 1.5),
             })}
           >
             <CardContent sx={{ p: dense ? 2 : 3 }}>
@@ -404,7 +428,7 @@ export function HomepageHighlightCard(props: HomepageHighlightCardProps) {
         variant === 'emphasis'
           ? `4px solid ${theme.palette.primary.main}`
           : `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius * 1.5,
+      borderRadius: resolveBorderRadius(theme, 1.5),
     }),
     sx,
   )
