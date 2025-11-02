@@ -120,7 +120,7 @@ Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 pnpm add @anpdgovbr/shared-ui
 ```
 
-> ✅ **Versão Recomendada:** >= 0.3.11-beta.1 (componentes e tipagens de consentimento atualizados)
+> ✅ **Versão Recomendada:** >= 0.3.12-beta.0 (inclui layout `Homepage` e ajustes de tipagem)
 
 ### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
 
