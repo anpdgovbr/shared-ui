@@ -150,7 +150,7 @@ export function GovBRCookiePreferencesModal({
 
       <DialogActions>
         <GovBRButton variant="text" onClick={handleCancel}>
-          {mergedTexts.cancel ?? 'Cancelar'}
+          {mergedTexts.close ?? 'Cancelar'}
         </GovBRButton>
         <GovBRButton variant="contained" onClick={handleSave}>
           {mergedTexts.save ?? 'Salvar preferências'}
