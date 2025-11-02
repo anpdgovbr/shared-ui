@@ -84,25 +84,25 @@ A biblioteca oferece os seguintes componentes prontos para uso:
 - **Homepage** - Layout completo de landing page (hero, métricas, destaques e rodapé)
 
 ```tsx
-import { Homepage } from "@anpdgovbr/shared-ui"
-import LoginIcon from "@mui/icons-material/Login"
+import { Homepage } from '@anpdgovbr/shared-ui'
+import LoginIcon from '@mui/icons-material/Login'
 
 export function Landing() {
   return (
     <Homepage
       hero={{
-        title: "Backlog DIM",
-        description: "Sistema de Gestão de Processos Administrativos da DIM/ANPD.",
+        title: 'Backlog DIM',
+        description: 'Sistema de Gestão de Processos Administrativos da DIM/ANPD.',
         actions: [
-          { label: "Acessar Sistema", startIcon: <LoginIcon />, href: "/auth/login" },
-          { label: "Dashboard Público", variant: "outlined", href: "/publico" },
+          { label: 'Acessar Sistema', startIcon: <LoginIcon />, href: '/auth/login' },
+          { label: 'Dashboard Público', variant: 'outlined', href: '/publico' },
         ],
       }}
       features={{
-        title: "O que oferecemos",
+        title: 'O que oferecemos',
         features: [
-          { title: "Gestão de Processos", description: "Controle completo do ciclo de vida." },
-          { title: "Transparência", description: "Dashboards com indicadores abertos." },
+          { title: 'Gestão de Processos', description: 'Controle completo do ciclo de vida.' },
+          { title: 'Transparência', description: 'Dashboards com indicadores abertos.' },
         ],
       }}
     />
