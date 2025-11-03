@@ -27,6 +27,7 @@ export * from './components'
  * de cor). São pequenos helpers que auxiliam na integração com Gov.br DS e MUI.
  */
 export * from './helpers/iconMap'
+export * from './helpers/mergeSx'
 export * from './helpers/muiColorToGovbrClass'
 
 /**

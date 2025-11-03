@@ -1,11 +1,12 @@
 'use client'
+import { mergeSx } from '@helpers/mergeSx'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Container from '@mui/material/Container'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import type { SxProps, Theme } from '@mui/material/styles'
+import type { Theme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
 import { GovBRButton } from '../govbr-button'
@@ -19,16 +20,6 @@ import type {
   HomepageProps,
   HomepageRootProps,
 } from './types'
-
-function mergeSx(base: SxProps<Theme>, custom?: SxProps<Theme>): SxProps<Theme> {
-  if (!custom) {
-    return base
-  }
-  if (Array.isArray(custom)) {
-    return [base, ...custom] as SxProps<Theme>
-  }
-  return [base, custom] as SxProps<Theme>
-}
 
 /**
  * HomepageRoot - Container raiz da homepage
