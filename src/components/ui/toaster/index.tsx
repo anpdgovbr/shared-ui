@@ -53,7 +53,7 @@ export function ToasterProvider({
   const [state, setState] = useState<Toast>({ message: '' })
 
   const show = useCallback((t: Toast) => {
-    setState({ severity: t.severity ?? 'info', message: t.message })
+    setState({ ...t, severity: t.severity ?? 'info' })
     setOpen(true)
   }, [])
 
