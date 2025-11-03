@@ -55,7 +55,7 @@
   ],
   "scripts": {
     "dev": "pnpm run storybook",
-    "build": "npm run build:types && vite build",
+    "build": "pnpm run build:types && vite build",
     "build:types": "tsc --emitDeclarationOnly --outDir types && node scripts/create-types-index.cjs",
     "validate:exports": "node scripts/validate-exports.cjs",
     "storybook": "storybook dev -p 6006",
@@ -68,7 +68,7 @@
     "type-check": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
-    "check": "npm run lint && npm run type-check",
+    "check": "pnpm run lint && pnpm run type-check",
     "clean": "node ./scripts/clean.js",
     "clean:full": "node ./scripts/clean.js --full",
     "reset": "node ./scripts/reset.js",
