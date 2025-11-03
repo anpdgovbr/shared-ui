@@ -85,7 +85,13 @@ export function GovBRCookiePreferencesModal({
       </DialogTitle>
 
       <DialogContent dividers>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <Typography
+          variant="body2"
+          sx={(theme) => ({
+            mb: 2,
+            color: theme.palette.text.secondary,
+          })}
+        >
           {mergedTexts.modalIntro ??
             'Personalize quais categorias de cookies deseja permitir. Cookies necessários permanecem ativos por padrão.'}
         </Typography>
@@ -97,15 +103,15 @@ export function GovBRCookiePreferencesModal({
             return (
               <Box
                 key={category}
-                sx={{
+                sx={(theme) => ({
                   border: '1px solid',
                   borderColor: 'divider',
-                  borderRadius: 2,
+                  borderRadius: theme.shape.borderRadius,
                   p: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 1,
-                }}
+                })}
               >
                 <Stack
                   direction="row"
@@ -118,7 +124,12 @@ export function GovBRCookiePreferencesModal({
                       {metadata?.label ?? category}
                     </Typography>
                     {metadata?.description ? (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography
+                        variant="body2"
+                        sx={(theme) => ({
+                          color: theme.palette.text.secondary,
+                        })}
+                      >
                         {metadata.description}
                       </Typography>
                     ) : null}
@@ -137,7 +148,12 @@ export function GovBRCookiePreferencesModal({
                 </Stack>
 
                 {required ? (
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography
+                    variant="caption"
+                    sx={(theme) => ({
+                      color: theme.palette.text.secondary,
+                    })}
+                  >
                     {mergedTexts.necessaryAlwaysOn ??
                       'Esta categoria é obrigatória e permanece ativa.'}
                   </Typography>

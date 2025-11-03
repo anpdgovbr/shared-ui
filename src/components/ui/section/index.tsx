@@ -4,23 +4,11 @@ import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
-import type { SxProps, Theme } from '@mui/material/styles'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { type PropsWithChildren, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
-export interface SectionProps extends PropsWithChildren {
-  title?: string
-  subtitle?: string
-  actions?: React.ReactNode
-  elevation?: number
-  collapsible?: boolean
-  defaultExpanded?: boolean
-  sx?: SxProps<Theme>
-  id?: string
-  divider?: boolean
-  tooltip?: string
-}
+import type { SectionProps } from './types'
 
 const SectionHeader = ({
   title,
@@ -99,8 +87,10 @@ const SectionHeader = ({
       {subtitle && (
         <Typography
           variant="body2"
-          color="text.secondary"
-          sx={{ textAlign: { xs: 'left', sm: 'right' } }}
+          sx={(theme) => ({
+            color: theme.palette.text.secondary,
+            textAlign: { xs: 'left', sm: 'right' },
+          })}
         >
           {subtitle}
         </Typography>
@@ -110,6 +100,45 @@ const SectionHeader = ({
   </Box>
 )
 
+/**
+ * Section - Componente de seção flexível com título, ações e conteúdo
+ *
+ * Componente customizado da ANPD para organizar conteúdo em seções bem definidas.
+ *
+ * **Características:**
+ * - 🎨 Cores do tema selecionado automaticamente
+ * - 📱 Responsivo com breakpoints otimizados
+ * - 🔄 Modo colapsável opcional
+ * - ♿ Acessível com ARIA labels adequados
+ * - 🎯 Header com título, subtitle e actions
+ *
+ * **Nota:** Este é um componente específico da ANPD e não implementa modo estrito
+ * (`strictgovbr`) pois é uma utilidade de layout.
+ *
+ * @param props - SectionProps
+ *
+ * @example
+ * ```tsx
+ * // Seção básica com título
+ * <Section title="Dados Pessoais">
+ *   <Typography>Conteúdo da seção</Typography>
+ * </Section>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Seção com actions e collapsible
+ * <Section
+ *   title="Configurações"
+ *   subtitle="Última atualização: hoje"
+ *   actions={<Button>Editar</Button>}
+ *   collapsible
+ *   divider
+ * >
+ *   <Typography>Configurações aqui</Typography>
+ * </Section>
+ * ```
+ */
 export function Section({
   title,
   subtitle,
@@ -127,7 +156,7 @@ export function Section({
   const handleToggle = useCallback(() => setIsExpanded((p) => !p), [])
   const hasHeader = title || subtitle || actions || collapsible
   const sectionId =
-    id || (title ? `section-${title.toLowerCase().replace(/\s+/g, '-')}` : undefined)
+    id || (title ? `section-${title.toLowerCase().replaceAll(/\s+/g, '-')}` : undefined)
 
   const ContentBox = (
     <Box
@@ -157,3 +186,6 @@ export function Section({
     </Paper>
   )
 }
+
+// Exports de tipos para consumidores externos
+export type { SectionProps } from './types'

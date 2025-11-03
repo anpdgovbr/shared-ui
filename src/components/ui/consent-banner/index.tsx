@@ -84,7 +84,12 @@ export function GovBRCookieBanner({
               severity="info"
               sx={{ bgcolor: 'transparent', p: 0, '& .MuiAlert-message': { width: '100%' } }}
             >
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={(theme) => ({
+                  color: theme.palette.text.secondary,
+                })}
+              >
                 {texts.bannerMessage}{' '}
                 <strong>
                   Ao aceitar, você terá acesso a todas as funcionalidades do site. Se clicar em

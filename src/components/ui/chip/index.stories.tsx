@@ -8,7 +8,6 @@ import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import { useState } from 'react'
 
 import { Chip, ChipsList } from './index'
@@ -20,11 +19,9 @@ const meta: Meta<typeof Chip> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <Box sx={{ padding: 3 }}>
-          <Story />
-        </Box>
-      </GovBRThemeProvider>
+      <Box sx={{ padding: 3 }}>
+        <Story />
+      </Box>
     ),
   ],
   argTypes: {

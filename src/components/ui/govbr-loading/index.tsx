@@ -80,8 +80,11 @@ function SkeletonLoading({
             <Typography
               variant="caption"
               component="div"
-              color="text.primary"
-              sx={{ fontWeight: 'bold', fontSize: '0.7rem' }}
+              sx={(theme) => ({
+                fontWeight: 'bold',
+                fontSize: '0.7rem',
+                color: theme.palette.text.primary,
+              })}
             >
               {clampedProgress}%
             </Typography>
@@ -184,7 +187,14 @@ function RetrySection({
 
   return (
     <>
-      <Typography variant="caption" color="error" sx={{ mt: 1, textAlign: 'center' }}>
+      <Typography
+        variant="caption"
+        sx={(theme) => ({
+          mt: 1,
+          textAlign: 'center',
+          color: theme.palette.error.main,
+        })}
+      >
         Tentativa {attempts} de {MAX_RELOAD_ATTEMPTS}
       </Typography>
       {!autoRetry && attempts >= MAX_RELOAD_ATTEMPTS && (
@@ -192,12 +202,12 @@ function RetrySection({
           variant="outlined"
           size="small"
           onClick={onManualRetry}
-          sx={{
+          sx={(theme) => ({
             mt: 2,
-            borderRadius: 2,
+            borderRadius: theme.shape.borderRadius,
             textTransform: 'none',
             fontSize: '0.875rem',
-          }}
+          })}
         >
           Tentar novamente
         </Button>
@@ -271,8 +281,11 @@ function LoadingContent({
             <Typography
               variant="caption"
               component="div"
-              color="text.secondary"
-              sx={{ fontWeight: 'bold', fontSize: '0.75rem' }}
+              sx={(theme) => ({
+                fontWeight: 'bold',
+                fontSize: '0.75rem',
+                color: theme.palette.text.secondary,
+              })}
             >
               {clampedProgress}%
             </Typography>
@@ -443,12 +456,12 @@ export function GovBRLoading({
             },
           },
           paper: {
-            sx: {
+            sx: (theme) => ({
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               p: 3,
-              borderRadius: 2,
+              borderRadius: theme.shape.borderRadius,
               boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
               minWidth: 200,
               maxWidth: '300px',
@@ -457,7 +470,7 @@ export function GovBRLoading({
                 from: { opacity: 0, transform: 'translateY(10px)' },
                 to: { opacity: 1, transform: 'translateY(0)' },
               },
-            },
+            }),
           },
         }}
       >
