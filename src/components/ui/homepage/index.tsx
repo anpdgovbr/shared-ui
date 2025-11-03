@@ -80,8 +80,8 @@ export function HomepageHero(props: Readonly<HomepageHeroProps>) {
       textAlign: { xs: 'left', md: align },
       py: { xs: theme.spacing(5), md: theme.spacing(8) },
       px: { xs: theme.spacing(2), md: theme.spacing(4) },
-      // Usar borderRadius do tema (6px por padrão)
-      borderRadius: 1, // 1 = theme.shape.borderRadius (6px)
+      // Usar borderRadius do tema (multiplicador, 1 = theme.shape.borderRadius, 6px por padrão)
+      borderRadius: 1, // 1 = 1 × theme.shape.borderRadius (multiplicador, 6px por padrão)
       background: backgroundGradient || defaultGradient,
       display: 'flex',
       flexDirection: 'column',
