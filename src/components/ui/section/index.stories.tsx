@@ -60,7 +60,7 @@ Este componente usa automaticamente:
 - **Use \`Section\`** quando: organizar conteúdo em páginas, formulários longos, painéis colapsáveis simples
 - **Use \`GovBRCard\`** quando: exibir conteúdo rico com imagem, avatar, ou precisar de features avançadas
 
-## �📝 Props Principais
+## 📝 Props Principais
 
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
