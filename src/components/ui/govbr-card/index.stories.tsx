@@ -3,8 +3,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ShareIcon from '@mui/icons-material/Share'
+import Box from '@mui/material/Box'
 import type { Meta, StoryObj } from '@storybook/react'
-import { GovBRThemeProvider } from '@theme/GovBRThemeProvider'
 import React from 'react'
 
 import { GovBRAvatar } from '../govbr-avatar'
@@ -12,21 +12,14 @@ import { GovBRButton } from '../govbr-button'
 import { GovBRCard } from './index'
 
 const meta: Meta<typeof GovBRCard> = {
-  title: 'Components/GovBRCard',
+  title: 'Components/GovBR/Card',
   component: GovBRCard,
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <GovBRThemeProvider>
-        <div
-          style={{
-            padding: '2rem',
-            backgroundColor: '#f6f6f6',
-          }}
-        >
-          <Story />
-        </div>
-      </GovBRThemeProvider>
+      <Box sx={{ p: 4, bgcolor: 'background.default' }}>
+        <Story />
+      </Box>
     ),
   ],
   argTypes: {

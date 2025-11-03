@@ -9,7 +9,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { GovBRButton } from './index'
 
 const meta: Meta<typeof GovBRButton> = {
-  title: 'Components/GovBRButton',
+  title: 'Components/GovBR/Button',
   component: GovBRButton,
   tags: ['autodocs'],
   decorators: [

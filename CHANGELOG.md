@@ -5,6 +5,29 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.12-beta.0] - 2025-11-02
+
+### 🚀 Adicionado
+
+- Publicação oficial do componente `Homepage` na linha beta.
+
+### 🔧 Ajustado
+
+- `Homepage`: ajustes de tipagem (`mergeSx`, `resolveBorderRadius`) garantindo compatibilidade com temas dinâmicos.
+- README atualizado com versão mínima recomendada (`>=0.3.12-beta.0`).
+
+## [0.3.11-beta.1] - 2025-11-02
+
+### 🚀 Adicionado
+
+- **Homepage**: layout completo de landing page com hero, métricas, destaque e rodapé componíveis.
+  - Subcomponentes exportados para uso isolado (`HomepageHero`, `HomepageMetricsGrid`, etc).
+  - Cobertura de testes garantindo renderização e ações básicas.
+
+### 🔧 Modificado
+
+- Documentação atualizada apontando uso do componente e ações com `GovBRButton`.
+
 ---
 
 ## [0.3.11-beta.0] - 2025-11-01

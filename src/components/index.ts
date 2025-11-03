@@ -82,6 +82,21 @@ export { Chip, ChipsList } from './ui/chip'
 export type { ChipItemData, ChipProps, ChipsListProps } from './ui/chip/types'
 
 /**
+ * GovBRCookieBanner — Banner bloqueante de consentimento LGPD.
+ */
+export type { CookieBannerTexts, GovBRCookieBannerProps } from './ui/consent-banner'
+export * from './ui/consent-banner'
+
+/**
+ * GovBRCookiePreferencesModal — Modal configurável de preferências de cookies.
+ */
+export type {
+  CookieCategoryMetadata,
+  GovBRCookiePreferencesModalProps,
+} from './ui/consent-preferences-modal'
+export * from './ui/consent-preferences-modal'
+
+/**
  * GovBRFormCheckbox
  *
  * Checkbox para uso em formulários, integrado com as convenções de validação.
@@ -170,6 +185,41 @@ export * from './ui/govbr-tabs'
 export type { GovBRTabsProps } from './ui/govbr-tabs/types'
 
 /**
+ * Homepage — Layout de página inicial com hero, métricas e destaques.
+ */
+export type {
+  HomepageAction,
+  HomepageFeature,
+  HomepageFeatureGridProps,
+  HomepageFooterProps,
+  HomepageHeroProps,
+  HomepageHighlightCardProps,
+  HomepageMetric,
+  HomepageMetricsGridProps,
+  HomepageProps,
+  HomepageRootProps,
+} from './ui/homepage'
+export * from './ui/homepage'
+
+/**
+ * KeyValueList — Lista de pares chave/valor com layout responsivo.
+ */
+export type { KeyValueItem, KeyValueListProps } from './ui/key-value-list'
+export * from './ui/key-value-list'
+
+/**
+ * Loader — Indicador de carregamento padronizado.
+ */
+export type { LoaderProps } from './ui/loader'
+export * from './ui/loader'
+
+/**
+ * Section — Contêiner de seção com título, ações e colapso.
+ */
+export type { SectionProps } from './ui/section'
+export * from './ui/section'
+
+/**
  * SideMenu
  *
  * Menu lateral colapsável personalizado para aplicações da ANPD.
@@ -182,3 +232,9 @@ export type {
   SideMenuToggleIcons,
   SideMenuToggleLabels,
 } from './ui/side-menu/types'
+
+/**
+ * Toaster — Provider/Hook simples para snackbars.
+ */
+export type { Toast, ToasterCtx } from './ui/toaster'
+export * from './ui/toaster'

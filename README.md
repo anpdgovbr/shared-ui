@@ -81,6 +81,34 @@ A biblioteca oferece os seguintes componentes prontos para uso:
 
 - **GovBRAvatar** - Avatar de usuário com menu dropdown
 - **AutoSync** - Botão de sincronização automática
+- **Homepage** - Layout completo de landing page (hero, métricas, destaques e rodapé)
+
+```tsx
+import { Homepage } from '@anpdgovbr/shared-ui'
+import LoginIcon from '@mui/icons-material/Login'
+
+export function Landing() {
+  return (
+    <Homepage
+      hero={{
+        title: 'Backlog DIM',
+        description: 'Sistema de Gestão de Processos Administrativos da DIM/ANPD.',
+        actions: [
+          { label: 'Acessar Sistema', startIcon: <LoginIcon />, href: '/auth/login' },
+          { label: 'Dashboard Público', variant: 'outlined', href: '/publico' },
+        ],
+      }}
+      features={{
+        title: 'O que oferecemos',
+        features: [
+          { title: 'Gestão de Processos', description: 'Controle completo do ciclo de vida.' },
+          { title: 'Transparência', description: 'Dashboards com indicadores abertos.' },
+        ],
+      }}
+    />
+  )
+}
+```
 
 ## Instalação e Uso
 
@@ -92,7 +120,7 @@ Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 pnpm add @anpdgovbr/shared-ui
 ```
 
-> ✅ **Versão Recomendada:** >= 0.3.11-beta.0 (contém correção crítica de exports TypeScript)
+> ✅ **Versão Recomendada:** >= 0.3.12-beta.0 (inclui layout `Homepage` e ajustes de tipagem)
 
 ### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
 
