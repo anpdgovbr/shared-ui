@@ -1,4 +1,5 @@
 'use client'
+import { slugify } from '@helpers/slugify'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
@@ -155,8 +156,7 @@ export function Section({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded)
   const handleToggle = useCallback(() => setIsExpanded((p) => !p), [])
   const hasHeader = title || subtitle || actions || collapsible
-  const sectionId =
-    id || (title ? `section-${title.toLowerCase().replaceAll(/\s+/g, '-')}` : undefined)
+  const sectionId = id || (title ? slugify(title, 'section') : undefined)
 
   const ContentBox = (
     <Box
