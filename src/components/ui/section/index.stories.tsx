@@ -46,7 +46,7 @@ Este componente usa automaticamente:
 - \`theme.spacing()\` para espaçamentos consistentes
 - \`theme.breakpoints\` para responsividade
 
-## � Section vs GovBRCard - Quando usar cada um?
+## ⚖️ Section vs GovBRCard - Quando usar cada um?
 
 | Característica | Section | GovBRCard |
 |---------------|---------|-----------|
