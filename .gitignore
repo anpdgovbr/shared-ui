@@ -14,6 +14,9 @@ storybook-static/
 storybook-stats.html
 deploy-storybook.sh
 
+# Turbo
+.turbo/
+
 # Vite
 .vite/
 .vite-temp/
