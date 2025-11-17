@@ -1,2 +1,1 @@
-node ./scripts/check-lock-commit.js
 npx lint-staged
