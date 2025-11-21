@@ -1,6 +1,6 @@
 {
   "target": "latest",
-  "upgrade": true,
+  "upgrade": false,
   "registry": "https://npm.anpd.gov.br",
   "reject": ["@anpdgovbr/shared-ui"]
 }

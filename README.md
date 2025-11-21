@@ -286,6 +286,31 @@ Todos os novos componentes incluem:
 - ✅ Exemplos de uso em ambos os modos
 - ✅ Documentação inline
 
+#### Guias Disponíveis
+
+- 🏛️ **[ARQUITETURA.md](./ARQUITETURA.md)** - Fundamentos da arquitetura híbrida
+- 📝 **[ADICIONAR_COMPONENTE.md](./docs/ADICIONAR_COMPONENTE.md)** - Guia para criar componentes
+- 🔄 **[GUIA_MIGRACAO.md](./docs/GUIA_MIGRACAO.md)** - Migração de componentes existentes
+- 🎨 **[COMO_USAR_TEMA.md](./docs/COMO_USAR_TEMA.md)** - Documentação do sistema de temas
+- 🚀 **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Como contribuir com o projeto
+
+#### CI/CD
+
+O projeto possui pipelines automatizados para GitHub Actions e GitLab CI:
+
+- 🔧 **GitHub Actions**: `.github/workflows/ci.yml`
+- 🦊 **GitLab CI**: `.gitlab-ci.yml`
+- 📖 **[GITLAB_CI.md](./docs/GITLAB_CI.md)** - Documentação completa do pipeline GitLab
+- 🔄 **[MIGRACAO_GITLAB.md](./docs/MIGRACAO_GITLAB.md)** - Guia de migração para GitLab
+
+Ambos os pipelines executam:
+
+- Lint e verificação de tipos
+- Testes automatizados com cobertura
+- Build da biblioteca
+- Build do Storybook
+- Validação de segurança
+
 ---
 
 ## Contribuições

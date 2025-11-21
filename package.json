@@ -1,6 +1,6 @@
 {
   "name": "@anpdgovbr/shared-ui",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "description": "Biblioteca de componentes React com MUI v7 e padrão GovBR-ds para ANPD",
   "keywords": [
     "react",
@@ -58,6 +58,7 @@
     "build": "pnpm run build:types && vite build",
     "build:types": "tsc --emitDeclarationOnly --outDir types && node scripts/create-types-index.cjs",
     "validate:exports": "node scripts/validate-exports.cjs",
+    "validate:gitlab-ci": "bash scripts/validate-gitlab-ci.sh",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "deploy-storybook": "NGINX_RELOAD=true ./deploy-storybook.sh",
@@ -100,7 +101,7 @@
     "type": "government",
     "url": "https://gov.br/anpd"
   },
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.23.0",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
@@ -117,7 +118,7 @@
   },
   "dependencies": {
     "@mui/utils": "^7.3.5",
-    "@mui/x-date-pickers": "^8.18.0",
+    "@mui/x-date-pickers": "^8.19.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.19"
   },
@@ -126,7 +127,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@eslint/js": "^9.39.1",
-    "@govbr-ds/core": "^3.6.2",
+    "@govbr-ds/core": "^3.7.0",
     "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
@@ -140,13 +141,13 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
     "@vitejs/plugin-react": "^5.1.1",
-    "@vitest/browser": "^4.0.10",
-    "@vitest/coverage-v8": "^4.0.10",
+    "@vitest/browser": "^4.0.13",
+    "@vitest/coverage-v8": "^4.0.13",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-header": "^3.1.1",
@@ -157,19 +158,19 @@
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
-    "lint-staged": "^16.2.6",
+    "lint-staged": "^16.2.7",
     "playwright": "^1.56.1",
     "prettier": "^3.6.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-hook-form": "^7.66.0",
+    "react-hook-form": "^7.66.1",
     "react-lgpd-consent": "^0.6.1",
     "rollup-plugin-visualizer": "^6.0.5",
     "storybook": "^10.0.8",
     "typescript": "^5.9.3",
-    "vite": "^7.2.2",
+    "vite": "^7.2.4",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.10",
+    "vitest": "^4.0.13",
     "zod": "^4.1.12"
   }
 }

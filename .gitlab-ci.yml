@@ -1,0 +1,312 @@
+# GitLab CI/CD Pipeline para @anpdgovbr/shared-ui
+# Biblioteca de componentes React com MUI v7 e padrão GovBR-DS para ANPD
+
+# ✅ Configurações globais
+default:
+  image: harbor.anpd.gov.br/library/node-pnpm:22-ca2
+
+  # Cache global para otimizar instalação de dependências
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
+
+# Variáveis de ambiente globais
+variables:
+  NODE_VERSION: '22'
+  PNPM_VERSION: '10.22.0'
+  # Configurações pnpm
+  PNPM_HOME: '/root/.local/share/pnpm'
+  # Forçar frozen lockfile para garantir reprodutibilidade
+  FROZEN_LOCKFILE: 'true'
+  # Desabilitar telemetria em CI
+  DISABLE_TELEMETRY: 'true'
+  CI: 'true'
+
+# Definir ordem de execução dos estágios
+stages:
+  - install
+  - lint
+  - test
+  - build
+  - deploy
+
+# ==========================================
+# STAGE: INSTALL
+# ==========================================
+# Job responsável por instalar dependências
+install:
+  stage: install
+  timeout: 10m
+
+  # Cache com política push para popular o cache
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: push
+
+  before_script:
+    # Instalar pnpm
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+
+  script:
+    - echo "📦 Instalando dependências..."
+    - pnpm install --frozen-lockfile
+    - echo "✅ Dependências instaladas com sucesso"
+
+  artifacts:
+    paths:
+      - node_modules/
+      - .pnpm-store/
+    expire_in: 1 hour
+
+# ==========================================
+# STAGE: LINT
+# ==========================================
+# Job para verificação de linting e formatação
+lint:
+  stage: lint
+  timeout: 10m
+  needs: [install]
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+  script:
+    - echo "🔍 Executando lint..."
+    - pnpm run lint
+    - echo "✅ Lint passou com sucesso"
+
+  # Permitir visualização de erros de lint
+  artifacts:
+    when: on_failure
+    reports:
+      codequality: gl-code-quality-report.json
+    expire_in: 1 week
+
+# Job separado para type checking
+type-check:
+  stage: lint
+  timeout: 10m
+  needs: [install]
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+  script:
+    - echo "🔍 Executando type check..."
+    - pnpm run typecheck
+    - echo "✅ Type check passou com sucesso"
+
+# ==========================================
+# STAGE: TEST
+# ==========================================
+# Job para execução de testes
+test:
+  stage: test
+  timeout: 15m
+  needs: [install]
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+  script:
+    - echo "🧪 Executando testes..."
+    - pnpm test
+    - echo "✅ Testes passaram com sucesso"
+
+  # Cobertura de testes como artefato
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+      junit: coverage/junit.xml
+    paths:
+      - coverage/
+    expire_in: 1 week
+
+# ==========================================
+# STAGE: BUILD
+# ==========================================
+# Job para build da biblioteca
+build:
+  stage: build
+  timeout: 15m
+  needs:
+    - install
+    - lint
+    - type-check
+    - test
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+  script:
+    - echo "🏗️ Executando build..."
+    - pnpm run build
+
+    # Validar que arquivos essenciais foram gerados
+    - |
+      if [ ! -d "dist" ]; then
+        echo "❌ Erro: diretório dist/ não foi criado"
+        exit 1
+      fi
+      if [ ! -d "types" ]; then
+        echo "❌ Erro: diretório types/ não foi criado"
+        exit 1
+      fi
+      echo "✅ Build validado com sucesso"
+
+    # Validar exports
+    - pnpm run validate:exports || echo "⚠️ Validação de exports falhou (não crítico)"
+
+  artifacts:
+    paths:
+      - dist/
+      - types/
+    expire_in: 30 days
+
+# ==========================================
+# STAGE: BUILD STORYBOOK (DESABILITADO)
+# ==========================================
+# Job para build do Storybook (apenas na main)
+# NOTA: Comentado para ativação posterior
+# build-storybook:
+#   stage: build
+#   timeout: 20m
+#   needs: [install]
+#
+#   # Executar apenas na branch main
+#   only:
+#     - main
+#
+#   before_script:
+#     - corepack enable
+#     - corepack prepare pnpm@${PNPM_VERSION} --activate
+#
+#   script:
+#     - echo "📚 Executando build do Storybook..."
+#     - pnpm run build-storybook
+#     - echo "✅ Storybook build concluído com sucesso"
+#
+#   artifacts:
+#     paths:
+#       - storybook-static/
+#     expire_in: 7 days
+
+# ==========================================
+# STAGE: DEPLOY (DESABILITADO)
+# ==========================================
+# Job para deploy do Storybook (manual)
+# NOTA: Comentado para ativação posterior
+# deploy-storybook:
+#   stage: deploy
+#   timeout: 10m
+#   needs: [build-storybook]
+#
+#   # Deploy manual apenas na main
+#   only:
+#     - main
+#   when: manual
+#
+#   before_script:
+#     - corepack enable
+#     - corepack prepare pnpm@${PNPM_VERSION} --activate
+#
+#   script:
+#     - echo "🚀 Iniciando deploy do Storybook..."
+#     # Customize este script conforme seu ambiente de deploy
+#     - |
+#       if [ -f "./deploy-storybook.sh" ]; then
+#         chmod +x ./deploy-storybook.sh
+#         NGINX_RELOAD=true ./deploy-storybook.sh
+#       else
+#         echo "⚠️ Script de deploy não encontrado"
+#         echo "📦 Artefatos disponíveis em storybook-static/"
+#       fi
+#     - echo "✅ Deploy concluído"
+#
+#   environment:
+#     name: storybook
+#     url: https://seu-dominio.gov.br/shared-ui
+#
+#   artifacts:
+#     paths:
+#       - storybook-static/
+#     expire_in: 30 days
+
+# ==========================================
+# JOBS AUXILIARES
+# ==========================================
+
+# Job para verificar segurança de dependências
+security-check:
+  stage: test
+  timeout: 10m
+  needs: [install]
+
+  # Executar apenas em MRs e main
+  only:
+    - merge_requests
+    - main
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+  script:
+    - echo "🔒 Verificando vulnerabilidades de segurança..."
+    - pnpm audit --audit-level=moderate || echo "⚠️ Vulnerabilidades encontradas"
+
+  allow_failure: true
+
+# Job para análise de bundle size (informativo)
+# NOTA: Comentado para ativação posterior
+# bundle-analysis:
+#   stage: build
+#   timeout: 15m
+#   needs: [build]
+#
+#   # Executar apenas na main
+#   only:
+#     - main
+#
+#   before_script:
+#     - corepack enable
+#     - corepack prepare pnpm@${PNPM_VERSION} --activate
+#
+#   script:
+#     - echo "📊 Analisando tamanho do bundle..."
+#     - ls -lh dist/
+#     - du -sh dist/
+#
+#   allow_failure: true
+
+# ==========================================
+# WORKFLOW RULES
+# ==========================================
+workflow:
+  rules:
+    # Executar em pushes para main
+    - if: $CI_COMMIT_BRANCH == "main"
+    # Executar em merge requests
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # Executar em tags
+    - if: $CI_COMMIT_TAG

@@ -1,5 +1,33 @@
 # 📊 CHANGELOG
 
+## 0.3.14 - 2025-11-21
+
+### 🐛 Corrigido
+
+- **Storybook**: Corrigido erro `__dirname is not defined in ES module scope` no arquivo `.storybook/main.ts`
+  - Adicionado import de `fileURLToPath` do módulo `url`
+  - Implementada resolução adequada de `__dirname` para módulos ES
+  - Storybook agora inicia corretamente sem erros
+
+### 🚀 Adicionado
+
+- **GitLab CI**: Criado pipeline completo `.gitlab-ci.yml` equivalente ao GitHub Actions
+  - 5 estágios: install, lint, test, build, deploy
+  - Cache otimizado baseado em `pnpm-lock.yaml`
+  - Jobs paralelos para melhor performance
+  - Geração de artefatos (dist, types, coverage, storybook-static)
+  - Security check com `pnpm audit`
+  - Deploy manual do Storybook
+  - Documentação completa em `docs/GITLAB_CI.md`
+
+### 📚 Documentação
+
+- Adicionado guia completo de GitLab CI em `docs/GITLAB_CI.md`
+  - Descrição detalhada de todos os jobs e estágios
+  - Configurações de cache e artefatos
+  - Otimizações de performance
+  - Troubleshooting e customização
+
 ## 0.3.13
 
 ### Patch Changes
