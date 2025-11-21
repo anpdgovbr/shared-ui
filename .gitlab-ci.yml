@@ -64,11 +64,12 @@ install:
     - pnpm install --frozen-lockfile
     - echo "✅ Dependências instaladas com sucesso"
 
-  artifacts:
-    paths:
-      - node_modules/
-      - .pnpm-store/
-    expire_in: 1 hour
+  # Não criar artefatos - usar apenas cache
+  # artifacts:
+  #   paths:
+  #     - node_modules/
+  #     - .pnpm-store/
+  #   expire_in: 1 hour
 
 # ==========================================
 # STAGE: LINT
@@ -77,11 +78,28 @@ install:
 lint:
   stage: lint
   timeout: 10m
-  needs: [install]
+  needs: []
+
+  # Usar cache ao invés de artifacts
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
 
   before_script:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+    # Reinstalar se cache não estiver disponível
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ Cache não encontrado, instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
 
   script:
     - echo "🔍 Executando lint..."
@@ -99,11 +117,28 @@ lint:
 type-check:
   stage: lint
   timeout: 10m
-  needs: [install]
+  needs: []
+
+  # Usar cache ao invés de artifacts
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
 
   before_script:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+    # Reinstalar se cache não estiver disponível
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ Cache não encontrado, instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
 
   script:
     - echo "🔍 Executando type check..."
@@ -117,11 +152,28 @@ type-check:
 test:
   stage: test
   timeout: 15m
-  needs: [install]
+  needs: []
+
+  # Usar cache ao invés de artifacts
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
 
   before_script:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+    # Reinstalar se cache não estiver disponível
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ Cache não encontrado, instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
 
   script:
     - echo "🧪 Executando testes..."
@@ -149,14 +201,30 @@ build:
   stage: build
   timeout: 15m
   needs:
-    - install
     - lint
     - type-check
     - test
 
+  # Usar cache ao invés de artifacts
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
+
   before_script:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+    # Reinstalar se cache não estiver disponível
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ Cache não encontrado, instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
 
   script:
     - echo "🏗️ Executando build..."
@@ -260,7 +328,17 @@ build:
 security-check:
   stage: test
   timeout: 10m
-  needs: [install]
+  needs: []
+
+  # Usar cache ao invés de artifacts
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules/
+    policy: pull
 
   # Executar apenas em MRs e main
   only:
@@ -270,6 +348,13 @@ security-check:
   before_script:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - pnpm config set store-dir .pnpm-store
+    # Reinstalar se cache não estiver disponível
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ Cache não encontrado, instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
 
   script:
     - echo "🔒 Verificando vulnerabilidades de segurança..."
