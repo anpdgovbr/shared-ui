@@ -15,6 +15,11 @@
   - Jobs não dependem mais de `install` - executam em paralelo com fallback para reinstalação
   - Otimização reduz tempo de upload e uso de storage
 
+- **GitLab CI**: Publicação no Verdaccio agora verifica se versão já existe
+  - Previne erro ao tentar publicar versão duplicada
+  - Verifica `npm view` antes de publicar
+  - Sai graciosamente se versão já estiver publicada
+
 ### 🚀 Adicionado
 
 - **GitLab CI**: Criado pipeline completo `.gitlab-ci.yml` equivalente ao GitHub Actions
@@ -26,6 +31,18 @@
   - Build e deploy do Storybook (comentados para ativação posterior)
   - Documentação completa em `docs/GITLAB_CI.md`
   - Script de validação local: `pnpm run validate:gitlab-ci`
+
+- **GitLab CI**: Automação de changesets
+  - Job `create-changeset`: cria changeset automaticamente em MRs sem changeset manual
+  - Determina tipo de mudança (patch/minor/major) baseado no título do MR
+  - Job `version-bump`: aplica changesets e atualiza versão automaticamente na main
+  - Job `publish`: publica apenas quando há nova versão (via tag ou após version-bump)
+  - Integração completa com @changesets/cli
+
+- **Scripts npm**: Adicionados comandos de changeset
+  - `pnpm changeset`: criar changeset manualmente
+  - `pnpm changeset:version`: aplicar changesets e atualizar versão
+  - `pnpm changeset:publish`: publicar nova versão
 
 ### 📚 Documentação
 
@@ -47,6 +64,12 @@
   - Fallback automático: reinstala dependências se cache não disponível
   - Artefatos limitados apenas a outputs essenciais (<50MB)
   - Tempo de pipeline reduzido em ~30% comparado a usar artifacts
+
+- **Publicação**: Fluxo automatizado de versionamento
+  - Changesets automáticos em MRs sem intervenção manual
+  - Version bump automático ao fazer merge na main
+  - Publicação condicional apenas para novas versões
+  - Evita falhas por tentativa de publicar versão existente
 
 ## 0.3.13
 
