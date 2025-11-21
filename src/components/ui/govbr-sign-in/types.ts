@@ -10,6 +10,12 @@ export interface GovBRSignInProps extends Omit<ButtonProps, 'onClick'> {
   strictgovbr?: boolean
 
   /**
+   * Texto a ser exibido no botão de login.
+   * @default 'Entrar com gov.br'
+   */
+  label?: string
+
+  /**
    * Função a ser executada quando o botão de login é clicado.
    * Recebe o provedor de login como argumento.
    */

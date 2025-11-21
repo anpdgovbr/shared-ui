@@ -8,7 +8,7 @@ import type { GovBRSignInProps } from './types'
  * Encapsula o GovBRButton com a lógica e estilo específicos para o login.
  */
 export function GovBRSignIn(props: Readonly<GovBRSignInProps>) {
-  const { onClick, strictgovbr, loading, ...rest } = props
+  const { onClick, strictgovbr, loading, label = 'Entrar com gov.br', sx, ...rest } = props
 
   const handleClick = () => {
     onClick('govbr')
@@ -21,9 +21,21 @@ export function GovBRSignIn(props: Readonly<GovBRSignInProps>) {
       strictgovbr={strictgovbr}
       loading={!!loading} // Garante que loading seja boolean ou undefined
       onClick={handleClick}
+      sx={{
+        transition: 'all 0.3s ease-in-out',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        },
+        '&:active': {
+          transform: 'translateY(0)',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        },
+        ...sx,
+      }}
       {...rest}
     >
-      Entrar com gov.br
+      {label}
     </GovBRButton>
   )
 }

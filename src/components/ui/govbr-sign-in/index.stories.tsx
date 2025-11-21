@@ -14,6 +14,13 @@ const meta: Meta<typeof GovBRSignIn> = {
     ),
   ],
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Texto a ser exibido no botão de login.',
+      table: {
+        defaultValue: { summary: 'Entrar com gov.br' },
+      },
+    },
     strictgovbr: {
       control: 'boolean',
       description: 'Ativa o modo de renderização estrito para o botão interno.',
@@ -43,5 +50,13 @@ export const StrictDefault: Story = {
   name: 'Estrito (GovBR)',
   args: {
     strictgovbr: true,
+  },
+}
+
+export const CustomLabel: Story = {
+  name: 'Texto Customizado',
+  args: {
+    strictgovbr: false,
+    label: 'Acessar com conta gov.br',
   },
 }
