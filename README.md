@@ -2,7 +2,6 @@
 
 > Biblioteca de componentes React com MUI e padrão Gov.BR para a ANPD.
 
-![CI](https://github.com/anpdgovbr/shared-ui/actions/workflows/ci.yml/badge.svg)
 ![npm](https://img.shields.io/npm/v/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
 ![downloads (week)](https://img.shields.io/npm/dw/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-%3E%3D5.9-blue.svg?logo=typescript&logoColor=white)
@@ -56,6 +55,8 @@ A biblioteca oferece os seguintes componentes prontos para uso:
 - **GovBRRadio** - Botões de opção
 - **GovBRSwitch** - Interruptores on/off
 - **GovBRDivider** - Divisores visuais
+- **GovBRCard** - Cards com header, content, footer e actions
+- **Chip** - Tags, badges e status compactos com tooltip inteligente
 
 #### Componentes de Formulário
 
@@ -66,22 +67,36 @@ A biblioteca oferece os seguintes componentes prontos para uso:
 
 - **GovBRBreadcrumb** - Breadcrumb/trilha de navegação
 - **GovBRTabs** - Sistema de abas/tabs
+- **SideMenu** - Menu lateral colapsável personalizado
+- **GovBRMenu** - Menu dropdown padronizado
 
 #### Componentes de Dados
 
 - **GovBRDateTimePicker** - Seletor de data e hora
 - **GovBRItem** - Item genérico para listas e cards
+- **KeyValueList** - Lista de pares chave/valor com layout responsivo
 
 #### Componentes de Feedback
 
 - **GovBRLoading** - Indicadores de carregamento
+- **Loader** - Indicador de carregamento padronizado
+- **Toaster** - Provider e hook para snackbars/notificações
+
+#### Componentes de Autenticação e Privacidade
+
 - **GovBRSignIn** - Componente de autenticação
+- **GovBRCookieBanner** - Banner bloqueante de consentimento LGPD
+- **GovBRCookiePreferencesModal** - Modal configurável de preferências de cookies
+
+#### Componentes de Layout
+
+- **GovBRAvatar** - Avatar de usuário com menu dropdown
+- **Homepage** - Layout completo de landing page (hero, métricas, destaques e rodapé)
+- **Section** - Contêiner de seção com título, ações e colapso
 
 #### Componentes Utilitários
 
-- **GovBRAvatar** - Avatar de usuário com menu dropdown
 - **AutoSync** - Botão de sincronização automática
-- **Homepage** - Layout completo de landing page (hero, métricas, destaques e rodapé)
 
 ```tsx
 import { Homepage } from '@anpdgovbr/shared-ui'
@@ -120,16 +135,16 @@ Siga estes passos para usar a biblioteca em uma aplicação (ex: `backlog-dim`).
 pnpm add @anpdgovbr/shared-ui
 ```
 
-> ✅ **Versão Recomendada:** >= 0.3.12-beta.0 (inclui layout `Homepage` e ajustes de tipagem)
+> ✅ **Versão Recomendada:** >= 0.3.14 (versão estável com correções do Storybook e GitLab CI)
 
 ### Passo 2: Instalar Dependências Parceiras (`peerDependencies`)
 
 **Esta etapa é obrigatória.** A `shared-ui` espera que a sua aplicação forneça as seguintes bibliotecas. Instale-as no seu projeto:
 
 ```bash
-pnpm add @emotion/react@^11.0.0 @emotion/styled@^11.0.0 @govbr-ds/core@^3.6.2 \
-  @mui/icons-material@^7.0.0 @mui/material@^7.0.0 \
-  react@^19.0.0 react-dom@^19.0.0 react-hook-form@^7.0.0
+pnpm add @emotion/react@^11.14.0 @emotion/styled@^11.14.1 @govbr-ds/core@^3.6.2 \
+  @mui/icons-material@^7.3.5 @mui/material@^7.3.5 \
+  react@^19.2.0 react-dom@^19.2.0 react-hook-form@^7.66.0
 ```
 
 > 💡 **Nota:** Certifique-se de que as versões instaladas são compatíveis com os ranges especificados.
@@ -256,35 +271,39 @@ Para contribuir com o desenvolvimento da `shared-ui`:
 
 ---
 
-## 🎉 Novidades na v0.3.7-beta.1
+## 🎉 Novidades na v0.3.14
 
 ### 🐛 Correções Importantes
 
-- **Instalação corrigida**: Removido script `preinstall` que causava erro em projetos consumidores
-- **Pacote otimizado**: Adicionado `.npmignore` para publicar apenas arquivos necessários
+- **Storybook corrigido**: Resolvido erro `__dirname is not defined in ES module scope`
+  - Implementada resolução adequada de `__dirname` para módulos ES
+  - Storybook agora inicia corretamente sem erros
 
-### 🆕 Novos Componentes (desde v0.3.7-beta.0)
+### 🚀 Novos Recursos
 
-- **GovBRDateTimePicker** - Seletor de data e hora com suporte completo ao padrão brasileiro
-- **GovBRDivider** - Divisores visuais para organizar conteúdo
-- **GovBRTabs** - Sistema de abas com modo duplo (padrão e estrito)
-- **GovBRItem** - Componente genérico para construção de listas e cards
-- **GovBRLoading** - Indicadores de carregamento com animações Gov.br DS
+- **GitLab CI**: Pipeline completo equivalente ao GitHub Actions
+  - 5 estágios: install, lint, test, build, deploy
+  - Cache otimizado baseado em `pnpm-lock.yaml`
+  - Jobs paralelos para melhor performance
+  - Geração de artefatos (dist, types, coverage, storybook-static)
+  - Security check com `pnpm audit`
+  - Deploy manual do Storybook
 
 ### 📦 Dependências Atualizadas
 
-- `@mui/x-date-pickers@^8.14.0` - Suporte avançado para componentes de data/hora
-- `dayjs@^1.11.18` - Manipulação de datas leve e eficiente
-- `@mui/utils@^7.3.3` - Utilitários MUI mais recentes
+- `@mui/x-date-pickers@^8.19.0` - Suporte avançado para componentes de data/hora
+- `dayjs@^1.11.19` - Manipulação de datas leve e eficiente
+- `@mui/material@^7.3.5` e `@mui/icons-material@^7.3.5` - Versões mais recentes do MUI
+- `react@^19.2.0` e `react-dom@^19.2.0` - Suporte ao React 19
 
-### 📚 Documentação
+### 📚 Documentação Atualizada
 
-Todos os novos componentes incluem:
-
-- ✅ Stories completas no Storybook
-- ✅ Tipos TypeScript detalhados
-- ✅ Exemplos de uso em ambos os modos
-- ✅ Documentação inline
+- Guia completo de GitLab CI em `docs/GITLAB_CI.md`
+- Todos os componentes incluem:
+  - ✅ Stories completas no Storybook com tag `autodocs`
+  - ✅ Tipos TypeScript detalhados
+  - ✅ Exemplos de uso em ambos os modos (padrão e estrito)
+  - ✅ Documentação inline com JSDoc
 
 #### Guias Disponíveis
 
@@ -293,23 +312,6 @@ Todos os novos componentes incluem:
 - 🔄 **[GUIA_MIGRACAO.md](./docs/GUIA_MIGRACAO.md)** - Migração de componentes existentes
 - 🎨 **[COMO_USAR_TEMA.md](./docs/COMO_USAR_TEMA.md)** - Documentação do sistema de temas
 - 🚀 **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Como contribuir com o projeto
-
-#### CI/CD
-
-O projeto possui pipelines automatizados para GitHub Actions e GitLab CI:
-
-- 🔧 **GitHub Actions**: `.github/workflows/ci.yml`
-- 🦊 **GitLab CI**: `.gitlab-ci.yml`
-- 📖 **[GITLAB_CI.md](./docs/GITLAB_CI.md)** - Documentação completa do pipeline GitLab
-- 🔄 **[MIGRACAO_GITLAB.md](./docs/MIGRACAO_GITLAB.md)** - Guia de migração para GitLab
-
-Ambos os pipelines executam:
-
-- Lint e verificação de tipos
-- Testes automatizados com cobertura
-- Build da biblioteca
-- Build do Storybook
-- Validação de segurança
 
 ---
 

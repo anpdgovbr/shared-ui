@@ -59,7 +59,7 @@
     "build:types": "tsc --emitDeclarationOnly --outDir types && node scripts/create-types-index.cjs",
     "validate:exports": "node scripts/validate-exports.cjs",
     "validate:gitlab-ci": "bash scripts/validate-gitlab-ci.sh",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "deploy-storybook": "NGINX_RELOAD=true ./deploy-storybook.sh",
     "test": "vitest run",
