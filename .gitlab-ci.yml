@@ -64,13 +64,6 @@ install:
     - pnpm install --frozen-lockfile
     - echo "✅ Dependências instaladas com sucesso"
 
-  # Não criar artefatos - usar apenas cache
-  # artifacts:
-  #   paths:
-  #     - node_modules/
-  #     - .pnpm-store/
-  #   expire_in: 1 hour
-
 # ==========================================
 # STAGE: LINT
 # ==========================================
@@ -250,6 +243,49 @@ build:
       - dist/
       - types/
     expire_in: 30 days
+
+# ==========================================
+# STAGE: DEPLOY - PUBLICAÇÃO NO VERDACCIO
+# ==========================================
+
+publish:
+  stage: deploy
+  timeout: 10m
+  needs:
+    - build
+
+  # Só publica na main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - when: never # evita rodar para outras branches e MRs
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@${PNPM_VERSION} --activate
+
+    # Configura repositório interno ANPD Verdaccio
+    - echo "//npm.anpd.gov.br/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+    - pnpm config set registry https://npm.anpd.gov.br
+    - npm config set registry https://npm.anpd.gov.br
+    - echo "🔐 Token configurado e registry apontado para npm.anpd.gov.br"
+
+    # Reinstalar dependências (garantia)
+    - pnpm config set store-dir .pnpm-store
+    - |
+      if [ ! -d "node_modules" ]; then
+        echo "⚠️ node_modules não encontrado. Instalando dependências..."
+        pnpm install --frozen-lockfile
+      fi
+
+  script:
+    - echo "🚀 Publicando pacote para o Verdaccio interno..."
+    - pnpm publish --access public
+    - echo "🎉 Publicação concluída com sucesso! (tag: latest)"
+
+  artifacts:
+    when: on_failure
+    expire_in: 1 week
 
 # ==========================================
 # STAGE: BUILD STORYBOOK (DESABILITADO)
