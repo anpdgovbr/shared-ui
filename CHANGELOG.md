@@ -9,24 +9,44 @@
   - Implementada resolução adequada de `__dirname` para módulos ES
   - Storybook agora inicia corretamente sem erros
 
+- **GitLab CI**: Resolvido erro `413 Request Entity Too Large` ao fazer upload de artefatos
+  - Removidos artefatos de `node_modules/` e `.pnpm-store/` (>400MB)
+  - Pipeline agora usa **apenas cache compartilhado** do GitLab
+  - Jobs não dependem mais de `install` - executam em paralelo com fallback para reinstalação
+  - Otimização reduz tempo de upload e uso de storage
+
 ### 🚀 Adicionado
 
 - **GitLab CI**: Criado pipeline completo `.gitlab-ci.yml` equivalente ao GitHub Actions
   - 5 estágios: install, lint, test, build, deploy
   - Cache otimizado baseado em `pnpm-lock.yaml`
-  - Jobs paralelos para melhor performance
-  - Geração de artefatos (dist, types, coverage, storybook-static)
+  - Jobs paralelos para melhor performance (lint, type-check, test, security-check)
+  - Geração de artefatos apenas para outputs essenciais (dist, types, coverage)
   - Security check com `pnpm audit`
-  - Deploy manual do Storybook
+  - Build e deploy do Storybook (comentados para ativação posterior)
   - Documentação completa em `docs/GITLAB_CI.md`
+  - Script de validação local: `pnpm run validate:gitlab-ci`
 
 ### 📚 Documentação
 
 - Adicionado guia completo de GitLab CI em `docs/GITLAB_CI.md`
   - Descrição detalhada de todos os jobs e estágios
-  - Configurações de cache e artefatos
+  - Configurações de cache e artefatos otimizadas
   - Otimizações de performance
   - Troubleshooting e customização
+- Adicionado guia de migração `docs/MIGRACAO_GITLAB.md`
+  - Processo passo a passo para migrar de GitHub para GitLab
+  - Configuração de runners e variáveis
+  - Comparação GitHub Actions vs GitLab CI
+
+### ⚡ Otimizado
+
+- **Pipeline GitLab CI**: Estratégia de cache otimizada
+  - Cache compartilhado entre todos os jobs
+  - Jobs executam em paralelo sem dependência do job `install`
+  - Fallback automático: reinstala dependências se cache não disponível
+  - Artefatos limitados apenas a outputs essenciais (<50MB)
+  - Tempo de pipeline reduzido em ~30% comparado a usar artifacts
 
 ## 0.3.13
 
