@@ -342,48 +342,44 @@ version-bump:
 
   script:
     - echo "🔍 Verificando changesets pendentes..."
-
-    # Verificar se há changesets para processar
     - |
+      # Verificar se há changesets para processar
       CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v 'README.md' | grep -v 'config.json' || true)
       if [ -z "$CHANGESETS" ]; then
         echo "ℹ️ Nenhum changeset pendente. Pulando bump de versão."
         echo "⚠️ IMPORTANTE: Sem changeset não haverá publicação!"
         exit 0
       fi
-
     - echo "📦 Changesets encontrados:"
     - ls -la .changeset/*.md | grep -v 'README.md' | grep -v 'config.json'
     - echo ""
     - echo "Aplicando bump de versão..."
-
-    # Configurar git
-    - git config user.name "GitLab CI"
-    - git config user.email "ci@anpd.gov.br"
-
-    # Aplicar changesets
-    - pnpm changeset version
-
-    # Verificar se houve mudanças (segurança extra)
     - |
+      # Configurar git
+      git config user.name "GitLab CI"
+      git config user.email "ci@anpd.gov.br"
+    - |
+      # Aplicar changesets
+      pnpm changeset version
+    - |
+      # Verificar se houve mudanças (segurança extra)
       if git diff --quiet package.json CHANGELOG.md; then
         echo "ℹ️ Nenhuma mudança de versão necessária (changesets vazios?)"
         exit 0
       fi
-
-    # Commit das mudanças
-    - git add package.json CHANGELOG.md .changeset/
-    - git commit -m "chore: version bump via changesets [skip ci]"
-    - git push origin main
-
+    - |
+      # Commit das mudanças
+      git add package.json CHANGELOG.md .changeset/
+      git commit -m "chore: version bump via changesets [skip ci]"
+      git push origin main
     - echo "✅ Versão atualizada e commitada"
-
-    # Criar tag
-    - NEW_VERSION=$(node -p "require('./package.json').version")
-    - git tag "v${NEW_VERSION}"
-    - git push origin "v${NEW_VERSION}"
-    - echo "🏷️ Tag v${NEW_VERSION} criada e publicada"
-    - echo "🚀 Próximo passo: Job 'publish' será executado automaticamente"
+    - |
+      # Criar tag
+      NEW_VERSION=$(node -p "require('./package.json').version")
+      git tag "v${NEW_VERSION}"
+      git push origin "v${NEW_VERSION}"
+      echo "🏷️ Tag v${NEW_VERSION} criada e publicada"
+      echo "🚀 Próximo passo: Job 'publish' será executado automaticamente"
 
   artifacts:
     paths:
