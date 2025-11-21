@@ -6,9 +6,32 @@ import type { GovBRSignInProps } from './types'
 /**
  * Componente de botão para login com a conta gov.br.
  * Encapsula o GovBRButton com a lógica e estilo específicos para o login.
+ *
+ * @example
+ * // Uso básico
+ * <GovBRSignIn onClick={(provider) => login(provider)} />
+ *
+ * @example
+ * // Com ícone e tamanho customizado
+ * import LoginIcon from '@mui/icons-material/Login'
+ * <GovBRSignIn
+ *   startIcon={<LoginIcon />}
+ *   size="large"
+ *   onClick={(provider) => login(provider)}
+ * />
  */
 export function GovBRSignIn(props: Readonly<GovBRSignInProps>) {
-  const { onClick, strictgovbr, loading, label = 'Entrar com gov.br', sx, ...rest } = props
+  const {
+    onClick,
+    strictgovbr,
+    loading,
+    label = 'Entrar com gov.br',
+    size = 'medium',
+    startIcon,
+    endIcon,
+    sx,
+    ...rest
+  } = props
 
   const handleClick = () => {
     onClick('govbr')
@@ -18,9 +41,12 @@ export function GovBRSignIn(props: Readonly<GovBRSignInProps>) {
     <GovBRButton
       color="primary"
       variant="contained"
+      size={size}
       strictgovbr={strictgovbr}
       loading={!!loading} // Garante que loading seja boolean ou undefined
       onClick={handleClick}
+      startIcon={startIcon}
+      endIcon={endIcon}
       sx={{
         transition: 'all 0.3s ease-in-out',
         '&:hover': {
