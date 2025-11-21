@@ -267,8 +267,6 @@ create-changeset:
 
   script:
     - echo "🔍 Verificando se há changeset no MR..."
-    
-    # Verificar se existe algum changeset
     - |
       if [ -z "$(ls -A .changeset/*.md 2>/dev/null | grep -v 'README.md' | grep -v 'config.json')" ]; then
         echo "⚠️ Nenhum changeset encontrado. Criando automaticamente..."
@@ -288,14 +286,14 @@ create-changeset:
         # Criar changeset
         CHANGESET_ID=$(date +%s)
         cat > .changeset/auto-${CHANGESET_ID}.md <<EOF
-    ---
-    "@anpdgovbr/shared-ui": ${CHANGE_TYPE}
-    ---
+      ---
+      "@anpdgovbr/shared-ui": ${CHANGE_TYPE}
+      ---
 
-    ${MR_TITLE}
+      ${MR_TITLE}
 
-    ${MR_DESCRIPTION}
-    EOF
+      ${MR_DESCRIPTION}
+      EOF
         
         echo "✅ Changeset criado automaticamente: .changeset/auto-${CHANGESET_ID}.md"
         echo "   Tipo: ${CHANGE_TYPE}"
@@ -334,7 +332,7 @@ version-bump:
     - corepack enable
     - corepack prepare pnpm@${PNPM_VERSION} --activate
     - pnpm config set store-dir .pnpm-store
-    
+
     # Reinstalar dependências
     - |
       if [ ! -d "node_modules" ]; then
@@ -344,7 +342,7 @@ version-bump:
 
   script:
     - echo "🔍 Verificando changesets pendentes..."
-    
+
     # Verificar se há changesets para processar
     - |
       CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v 'README.md' | grep -v 'config.json' || true)
@@ -353,33 +351,33 @@ version-bump:
         echo "⚠️ IMPORTANTE: Sem changeset não haverá publicação!"
         exit 0
       fi
-    
+
     - echo "📦 Changesets encontrados:"
     - ls -la .changeset/*.md | grep -v 'README.md' | grep -v 'config.json'
     - echo ""
     - echo "Aplicando bump de versão..."
-    
+
     # Configurar git
     - git config user.name "GitLab CI"
     - git config user.email "ci@anpd.gov.br"
-    
+
     # Aplicar changesets
     - pnpm changeset version
-    
+
     # Verificar se houve mudanças (segurança extra)
     - |
       if git diff --quiet package.json CHANGELOG.md; then
         echo "ℹ️ Nenhuma mudança de versão necessária (changesets vazios?)"
         exit 0
       fi
-    
+
     # Commit das mudanças
     - git add package.json CHANGELOG.md .changeset/
     - git commit -m "chore: version bump via changesets [skip ci]"
     - git push origin main
-    
+
     - echo "✅ Versão atualizada e commitada"
-    
+
     # Criar tag
     - NEW_VERSION=$(node -p "require('./package.json').version")
     - git tag "v${NEW_VERSION}"
@@ -429,7 +427,7 @@ publish:
     - PACKAGE_VERSION=$(node -p "require('./package.json').version")
     - echo "   Versão do package.json: ${PACKAGE_VERSION}"
     - echo "   Tag que disparou: ${CI_COMMIT_TAG}"
-    
+
     # Validar que a versão da tag corresponde ao package.json
     - |
       TAG_VERSION=${CI_COMMIT_TAG#v}
@@ -438,26 +436,26 @@ publish:
         exit 1
       fi
       echo "✅ Versão validada: ${PACKAGE_VERSION}"
-    
+
     # Verificar se a versão já existe no registro
     - |
       echo "🔍 Verificando se versão ${PACKAGE_VERSION} já foi publicada..."
-      
+
       # Tentar obter informações da versão publicada
       PUBLISHED_VERSION=$(npm view @anpdgovbr/shared-ui@${PACKAGE_VERSION} version 2>/dev/null || echo "not-found")
-      
+
       if [ "$PUBLISHED_VERSION" = "$PACKAGE_VERSION" ]; then
         echo "⚠️ Versão ${PACKAGE_VERSION} já está publicada no Verdaccio"
         echo "ℹ️ Pulando publicação para evitar erro"
         exit 0
       fi
-      
+
       echo "✅ Versão ${PACKAGE_VERSION} ainda não publicada, prosseguindo..."
-    
+
     - echo "🚀 Publicando pacote para o Verdaccio interno..."
     - pnpm publish --access public --no-git-checks
     - echo "🎉 Publicação da versão ${PACKAGE_VERSION} concluída com sucesso!"
-    - echo "📦 Pacote disponível: @anpdgovbr/shared-ui@${PACKAGE_VERSION}"
+    - echo "📦 Pacote disponível:" "@anpdgovbr/shared-ui@${PACKAGE_VERSION}"
 
   artifacts:
     when: on_failure
