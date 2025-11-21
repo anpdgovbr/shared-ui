@@ -2,8 +2,6 @@
 
 > Biblioteca de componentes React com MUI e padrão Gov.BR para a ANPD.
 
-![npm](https://img.shields.io/npm/v/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
-![downloads (week)](https://img.shields.io/npm/dw/@anpdgovbr/shared-ui.svg?logo=npm&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-%3E%3D5.9-blue.svg?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-^19.2-61DAFB.svg?logo=react&logoColor=white)
 ![MUI](https://img.shields.io/badge/MUI-^7.3-007FFF.svg?logo=mui&logoColor=white)
